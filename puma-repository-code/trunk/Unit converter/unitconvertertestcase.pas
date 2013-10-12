@@ -4,7 +4,7 @@ unit UnitConverterTestCase;
 
 { Pascal Units for Medical Applications }
 
-{ Version 1.0.1 }
+{ Version 1.0.2 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -75,6 +75,7 @@ implementation
 { -- Base functionality test -- }
 
 procedure TControlTestCases.PositiveCheck;
+{ Positive check, should always succeed }
 begin
   AssertNull('This test is bound to succeed', nil);
 end;
@@ -82,6 +83,7 @@ end;
 { -- Unit parser tests -- }
 
 procedure TUnitParserTestCases.TestCase1;
+{ NA string }
 var
   theUnitElements: tUnitElements;
 begin
@@ -93,6 +95,7 @@ begin
 end;
 
 procedure TUnitParserTestCases.TestCase2;
+{ empty string }
 var
   theUnitElements: tUnitElements;
 begin
@@ -104,6 +107,7 @@ begin
 end;
 
 procedure TUnitParserTestCases.TestCase3;
+{ Typical example }
 var
   theUnitElements: tUnitElements;
 begin
@@ -115,6 +119,7 @@ begin
 end;
 
 procedure TUnitParserTestCases.TestCase4;
+{ Typical example }
 var
   theUnitElements: tUnitElements;
 begin
@@ -126,6 +131,7 @@ begin
 end;
 
 procedure TUnitParserTestCases.TestCase5;
+{ Typical example }
 var
   theUnitElements: tUnitElements;
 begin
@@ -137,6 +143,7 @@ begin
 end;
 
 procedure TUnitParserTestCases.TestCase11;
+{ Typical example }
 var
   theUnitElements: tUnitElements;
 begin
@@ -150,6 +157,7 @@ end;
 { -- Measurement parser tests -- }
 
 procedure TMeasurementParserTestCases.TestCase1;
+{ Empty string }
 var
   theMeasurement: tMeasurement;
 begin
@@ -159,6 +167,7 @@ begin
 end;
 
 procedure TMeasurementParserTestCases.TestCase2;
+{ Zero value }
 var
   theMeasurement: tMeasurement;
 begin
@@ -168,6 +177,7 @@ begin
 end;
 
 procedure TMeasurementParserTestCases.TestCase3;
+{ Typical measurement result }
 var
   theMeasurement: tMeasurement;
 begin
@@ -177,6 +187,7 @@ begin
 end;
 
 procedure TMeasurementParserTestCases.TestCase4;
+{ Typical measurement result }
 var
   theMeasurement: tMeasurement;
 begin
@@ -186,6 +197,7 @@ begin
 end;
 
 procedure TMeasurementParserTestCases.TestCase5;
+{ Typical measurement result }
 var
   theMeasurement: tMeasurement;
 begin
@@ -195,6 +207,7 @@ begin
 end;
 
 procedure TMeasurementParserTestCases.TestCase6;
+{ Typical measurement result }
 var
   theMeasurement: tMeasurement;
 begin
@@ -204,6 +217,7 @@ begin
 end;
 
 procedure TMeasurementParserTestCases.TestCase7;
+{ Typical measurement result }
 var
   theMeasurement: tMeasurement;
 begin
