@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="3">
+      <Unit0>
+        <Filename Value="UnitConverterTests.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UnitConverterTests"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UnitConverterTestCase"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="273"/>
+        <CursorPos X="1" Y="305"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="unitconverter.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UnitConverter"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="67" Y="30"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit2>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="4" HistoryIndex="3">
+      <Position1>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="18" Column="31" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="24" Column="26" TopLine="7"/>
+      </Position2>
+      <Position3>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="293" Column="5" TopLine="252"/>
+      </Position3>
+      <Position4>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="13" Column="1" TopLine="1"/>
+      </Position4>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>
