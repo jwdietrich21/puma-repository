@@ -4,7 +4,7 @@ unit UnitConverterTestCase;
 
 { Pascal Units for Medical Applications }
 
-{ Version 1.0.2 }
+{ Version 1.0.3 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -67,6 +67,12 @@ type
     procedure TestCase8;
     procedure TestCase9;
     procedure TestCase10;
+    procedure TestCase11;
+    procedure TestCase12;
+    procedure TestCase13;
+    procedure TestCase14;
+    procedure TestCase15;
+    procedure TestCase16;
   end;
 
 
@@ -324,6 +330,67 @@ var
 begin
   theResult := ValueFromUnit('18 ng/l', T4_MOLAR_MASS, 'mol/l');
   AssertEquals(true, (theResult > 23.0e-12) and (theResult < 23.2e-12));
+end;
+
+procedure TconverterTestCases.TestCase11;
+{T4: pmol/l to ng/l}
+var
+  theResultString: String;
+begin
+  theResultString := UnitFromValue(20, T4_MOLAR_MASS, 'pmol/l', 'ng/l');
+  AssertEquals('15.5', LeftStr(theResultString, 4));
+  AssertEquals('ng/l', RightStr(theResultString, 4));
+end;
+
+procedure TconverterTestCases.TestCase12;
+{T4: ng/l to pmol/l}
+var
+  theResultString: String;
+begin
+  theResultString := UnitFromValue(18, T4_MOLAR_MASS, 'ng/l', 'pmol/l');
+  AssertEquals('23.1', LeftStr(theResultString, 4));
+  AssertEquals('pmol/l', RightStr(theResultString, 6));
+end;
+
+procedure TconverterTestCases.TestCase13;
+{T4: pmol/l to ng/l}
+var
+  theResultString: String;
+begin
+  theResultString := UnitFromValueF(20, T4_MOLAR_MASS, 'pmol/l', 'ng/l', ffNumber, 2, 2);
+  AssertEquals('15.5', LeftStr(theResultString, 4));
+  AssertEquals('ng/l', RightStr(theResultString, 4));
+end;
+
+procedure TconverterTestCases.TestCase14;
+{T4: ng/l to pmol/l}
+var
+  theResultString: String;
+begin
+  theResultString := UnitFromValue(18, T4_MOLAR_MASS, 'ng/l', 'pmol/l');
+  theResultString := UnitFromValueF(18, T4_MOLAR_MASS, 'ng/l', 'pmol/l', ffNumber, 2, 2);
+  AssertEquals('23.1', LeftStr(theResultString, 4));
+  AssertEquals('pmol/l', RightStr(theResultString, 6));
+end;
+
+procedure TconverterTestCases.TestCase15;
+{T3: ng/l to pmol/l}
+var
+  theResultString: String;
+begin
+  theResultString := ConvertedUnitF('3.2 ng/l', T3_MOLAR_MASS, 'pmol/l', ffNumber, 2, 2);
+  AssertEquals('4.9', LeftStr(theResultString, 3));
+  AssertEquals('pmol/l', RightStr(theResultString, 6));
+end;
+
+procedure TconverterTestCases.TestCase16;
+{T3: pmol/l to ng/l}
+var
+  theResultString: String;
+begin
+  theResultString := ConvertedUnitF('5 pmol/l', T3_MOLAR_MASS, 'ng/l', ffNumber, 2, 2);
+  AssertEquals('3.2', LeftStr(theResultString, 3));
+  AssertEquals('ng/l', RightStr(theResultString, 4));
 end;
 
 initialization

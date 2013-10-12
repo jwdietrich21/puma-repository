@@ -4,7 +4,7 @@ unit UnitConverter;
 
 { Pascal Units for Medical Applications }
 
-{ Version 1.0.2 }
+{ Version 1.0.3 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -47,7 +47,10 @@ function ParsedUnitString(theString: String): TUnitElements;
 function ParsedMeasurement(measurement: string): tMeasurement;
 function ConvertedValue(value, molarMass: real; fromUnit, toUnit: string): real;
 function ValueFromUnit(fromValue: string; molarMass: real; toUnit: string): real;
+function UnitFromValue(value, molarMass: real; fromUnit, toUnit: string): string;
+function UnitFromValueF(value, molarMass: real; fromUnit, toUnit: string; format: TFloatFormat; precision, digits: integer): string;
 function ConvertedUnit(fromValue: string; molarMass: real; toUnit: string): string;
+function ConvertedUnitF(fromValue: string; molarMass: real; toUnit: string; format: TFloatFormat; precision, digits: integer): string;
 
 implementation
 
@@ -381,6 +384,32 @@ begin
     end;
 end;
 
+function UnitFromValue(value, molarMass: real; fromUnit, toUnit: string): string;
+var
+  target: real;
+begin
+  if value = NaN then
+  UnitFromValue := 'NaN'
+  else
+    begin
+      target := ConvertedValue(value, molarMass, fromUnit, toUnit);
+      UnitFromValue := FloatToStr(target) + ' ' + toUnit;
+    end;
+end;
+
+function UnitFromValueF(value, molarMass: real; fromUnit, toUnit: string; format: TFloatFormat; precision, digits: integer): string;
+var
+  target: real;
+begin
+  if value = NaN then
+  UnitFromValueF := 'NaN'
+  else
+    begin
+      target := ConvertedValue(value, molarMass, fromUnit, toUnit);
+      UnitFromValueF := FloatToStrF(target, format, precision, digits) + ' ' + toUnit;
+    end;
+end;
+
 function ConvertedUnit(fromValue: string; molarMass: real; toUnit: string): string;
 { converts value from one measurement unit to another one and delivers string with result }
 var
@@ -396,7 +425,25 @@ begin
       value := theMeasurement.Value;
       fromUnit := theMeasurement.uom;
       target := ConvertedValue(value, molarMass, fromUnit, toUnit);
-      ConvertedUnit := FloatToStr(ConvertedValue(value, molarMass, fromUnit, toUnit)) + ' ' + toUnit;
+      ConvertedUnit := FloatToStr(target) + ' ' + toUnit;
+    end;
+end;
+
+function ConvertedUnitF(fromValue: string; molarMass: real; toUnit: string; format: TFloatFormat; precision, digits: integer): string;
+var
+  value, target: real;
+  fromUnit: string;
+  theMeasurement: tMeasurement;
+begin
+  if fromValue = '' then
+  ConvertedUnitF := ''
+  else
+    begin
+      theMeasurement := ParsedMeasurement(fromValue);
+      value := theMeasurement.Value;
+      fromUnit := theMeasurement.uom;
+      target := ConvertedValue(value, molarMass, fromUnit, toUnit);
+      ConvertedUnitF := FloatToStrF(target, format, precision, digits) + ' ' + toUnit;
     end;
 end;
 

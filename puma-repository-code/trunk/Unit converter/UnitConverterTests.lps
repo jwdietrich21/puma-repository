@@ -3,28 +3,28 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="UnitConverterTests.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverterTests"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="2" Y="2"/>
-        <UsageCount Value="20"/>
+        <CursorPos X="16" Y="7"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="unitconvertertestcase.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverterTestCase"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
-        <UsageCount Value="20"/>
+        <CursorPos X="16" Y="7"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -34,15 +34,23 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
-        <UsageCount Value="20"/>
+        <CursorPos X="16" Y="7"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="/Developer/lazarus/components/fpcunit/guitestrunner.pas"/>
+        <UnitName Value="GuiTestRunner"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="72"/>
+        <CursorPos X="1" Y="72"/>
+        <UsageCount Value="10"/>
+      </Unit3>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="unitconverter.pas"/>
         <Caret Line="18" Column="31" TopLine="1"/>
@@ -67,6 +75,90 @@
         <Filename Value="UnitConverterTests.lpr"/>
         <Caret Line="1" Column="1" TopLine="1"/>
       </Position6>
+      <Position7>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="406" Column="5" TopLine="376"/>
+      </Position7>
+      <Position8>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="51" Column="76" TopLine="33"/>
+      </Position8>
+      <Position9>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="389" Column="1" TopLine="377"/>
+      </Position9>
+      <Position10>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="401" Column="57" TopLine="398"/>
+      </Position10>
+      <Position11>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="397" Column="1" TopLine="368"/>
+      </Position11>
+      <Position12>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="389" Column="16" TopLine="372"/>
+      </Position12>
+      <Position13>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="392" Column="25" TopLine="374"/>
+      </Position13>
+      <Position14>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="396" Column="20" TopLine="378"/>
+      </Position14>
+      <Position15>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="71" Column="26" TopLine="47"/>
+      </Position15>
+      <Position16>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="409" Column="69" TopLine="386"/>
+      </Position16>
+      <Position17>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="356" Column="86" TopLine="337"/>
+      </Position17>
+      <Position18>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="346" Column="73" TopLine="333"/>
+      </Position18>
+      <Position19>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="75" Column="26" TopLine="344"/>
+      </Position19>
+      <Position20>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="351" Column="1" TopLine="344"/>
+      </Position20>
+      <Position21>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="352" Column="1" TopLine="344"/>
+      </Position21>
+      <Position22>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="353" Column="1" TopLine="344"/>
+      </Position22>
+      <Position23>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="361" Column="1" TopLine="344"/>
+      </Position23>
+      <Position24>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="391" Column="86" TopLine="362"/>
+      </Position24>
+      <Position25>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="382" Column="1" TopLine="362"/>
+      </Position25>
+      <Position26>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="392" Column="1" TopLine="363"/>
+      </Position26>
+      <Position27>
+        <Filename Value="unitconverter.pas"/>
+        <Caret Line="450" Column="45" TopLine="416"/>
+      </Position27>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
