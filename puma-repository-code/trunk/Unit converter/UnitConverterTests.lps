@@ -11,7 +11,7 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <CursorPos X="1" Y="2"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -21,8 +21,8 @@
         <UnitName Value="UnitConverterTestCase"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="273"/>
-        <CursorPos X="1" Y="305"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="2"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -34,7 +34,7 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="67" Y="30"/>
+        <CursorPos X="25" Y="4"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -42,7 +42,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="6" HistoryIndex="5">
       <Position1>
         <Filename Value="unitconverter.pas"/>
         <Caret Line="18" Column="31" TopLine="1"/>
@@ -59,6 +59,14 @@
         <Filename Value="unitconvertertestcase.pas"/>
         <Caret Line="13" Column="1" TopLine="1"/>
       </Position4>
+      <Position5>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="305" Column="1" TopLine="211"/>
+      </Position5>
+      <Position6>
+        <Filename Value="UnitConverterTests.lpr"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position6>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

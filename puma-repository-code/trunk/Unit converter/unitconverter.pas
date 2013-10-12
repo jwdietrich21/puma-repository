@@ -4,7 +4,7 @@ unit UnitConverter;
 
 { Pascal Units for Medical Applications }
 
-{ Version 1.0.0 }
+{ Version 1.0.1 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -324,7 +324,7 @@ begin
 end;
 
 function ConvertedValue(value, molarMass: real; fromUnit, toUnit: string): real;
-{ converts value from one measuement unit to another one }
+{ converts value from one measurement unit to another one }
 var
   fromUnitElements, toUnitElements: TUnitElements;
   i, fromMpIndex, fromMuIndex, fromVpIndex, toMpIndex, toMuIndex, toVpIndex: integer;
@@ -363,7 +363,7 @@ begin
 end;
 
 function ValueFromUnit(fromValue: string; molarMass: real; toUnit: string): real;
-{ converts value from one measuement unit to another one and delivers numeric result}
+{ converts value from one measurement unit to another one and delivers numeric result }
 var
   value, target: real;
   fromUnit: string;
@@ -382,7 +382,7 @@ begin
 end;
 
 function ConvertedUnit(fromValue: string; molarMass: real; toUnit: string): string;
-{ converts value from one measuement unit to another one and delivers string with result}
+{ converts value from one measurement unit to another one and delivers string with result }
 var
   value, target: real;
   fromUnit: string;
