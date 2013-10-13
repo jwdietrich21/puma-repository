@@ -4,7 +4,7 @@ unit UnitConverterTestCase;
 
 { Pascal Units for Medical Applications }
 
-{ Version 1.0.3 }
+{ Version 1.1.0 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -168,7 +168,7 @@ var
   theMeasurement: tMeasurement;
 begin
   theMeasurement := ParsedMeasurement('');
-  AssertEquals(true, isNaN(theMeasurement.Value));
+  AssertTrue(isNaN(theMeasurement.Value));
   AssertEquals('', theMeasurement.uom);
 end;
 
@@ -329,7 +329,7 @@ var
   theResult: real;
 begin
   theResult := ValueFromUnit('18 ng/l', T4_MOLAR_MASS, 'mol/l');
-  AssertEquals(true, (theResult > 23.0e-12) and (theResult < 23.2e-12));
+  AssertTrue((theResult > 23.0e-12) and (theResult < 23.2e-12));
 end;
 
 procedure TconverterTestCases.TestCase11;
