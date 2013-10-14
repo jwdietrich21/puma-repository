@@ -4,7 +4,7 @@ unit UnitConverter;
 
 { Pascal Units for Medical Applications }
 
-{ Version 1.1.0 }
+{ Version 1.1.1 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -333,7 +333,7 @@ var
   i, fromMpIndex, fromMuIndex, fromVpIndex, toMpIndex, toMuIndex, toVpIndex: integer;
   conversionFactor: real;
 begin
-  if value = NaN then
+  if isNaN(value) then
   ConvertedValue := NaN
   else
     begin
@@ -388,7 +388,7 @@ function UnitFromValue(value, molarMass: real; fromUnit, toUnit: string): string
 var
   target: real;
 begin
-  if value = NaN then
+  if isNaN(value) then
   UnitFromValue := 'NaN'
   else
     begin
@@ -401,7 +401,7 @@ function UnitFromValueF(value, molarMass: real; fromUnit, toUnit: string; format
 var
   target: real;
 begin
-  if value = NaN then
+  if isNaN(value) then
   UnitFromValueF := 'NaN'
   else
     begin
