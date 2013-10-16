@@ -18,7 +18,6 @@ unit HL7;
 { Source code released under the BSD License }
 { See http://puma-repository.sf.net for details }
 
-
 {$mode objfpc}
 
 interface
@@ -27,25 +26,87 @@ uses
   Classes, SysUtils;
 
 type
-  THL7Document = class
+
+  THL7Message = class;
+
+  THL7Segment = class
+  protected
+    FPreviousSibling, FNextSibling: THL7Segment;
+    FOwner: THL7Message;
+  end;
+
+  THL7Field = class
+  protected
+    FPreviousSibling, FNextSibling: THL7Field;
+    FOwner: THL7Segment;
+  end;
+
+  { THL7Document }
+
+  { THL7Message }
+
+  THL7Message = class
+  private
+    HL7_version: string;
   protected
     HL7Text: string;
+    procedure SetHL7Version(const aValue: string);
   public
-    constructor Create;
+    constructor Create(version: string);
     destructor Destroy; override;
+    property HL7Version: string read HL7_version write SetHL7Version;
+    function FoundSegment(const aSegmentName: string): THL7Segment;
   end;
+
+procedure ReadHL7File(out ADoc: THL7Message; const aFileName: string); overload;
+procedure ReadHL7File(out ADoc: THL7Message; var f: Text); overload;
+procedure ReadHL7File(out ADoc: THL7Message; f: TStream); overload;
+procedure ReadHL7File(out ADoc: THL7Message; f: TStream; const aBaseURI: string);
+  overload;
 
 implementation
 
-constructor THL7Document.Create;
+procedure ReadHL7File(out ADoc: THL7Message; const aFileName: string);
 begin
-  inherited Create;
+
 end;
 
-destructor THL7Document.Destroy;
+procedure ReadHL7File(out ADoc: THL7Message; var f: Text);
+begin
+
+end;
+
+procedure ReadHL7File(out ADoc: THL7Message; f: TStream);
+begin
+
+end;
+
+procedure ReadHL7File(out ADoc: THL7Message; f: TStream; const aBaseURI: string);
+begin
+
+end;
+
+procedure THL7Message.SetHL7Version(const aValue: string);
+begin
+  HL7_version := aValue;
+end;
+
+constructor THL7Message.Create(version: string);
+begin
+  inherited Create;
+  HL7_Version := version;
+end;
+
+destructor THL7Message.Destroy;
 begin
   inherited Destroy;
 end;
 
-end.
+function THL7Message.FoundSegment(const aSegmentName: string): THL7Segment;
+begin
 
+end;
+
+
+end.
+
