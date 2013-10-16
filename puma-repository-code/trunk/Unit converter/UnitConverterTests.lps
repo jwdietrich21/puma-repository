@@ -11,7 +11,7 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="12" Y="4"/>
+        <CursorPos X="1" Y="2"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -22,7 +22,7 @@
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="9" Y="4"/>
+        <CursorPos X="1" Y="2"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -34,7 +34,7 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="17" Y="4"/>
+        <CursorPos X="1" Y="2"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit2>

@@ -4,6 +4,8 @@ unit UnitConverterTestCase;
 
 { Pascal Units for Medical Applications }
 
+{ Unit Converter }
+
 { Version 1.1.1 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
@@ -14,7 +16,7 @@ unit UnitConverterTestCase;
 { Parser and converter for measurement units }
 
 { Source code released under the BSD License }
-{ See http://spina.medical-cybernetics.de for details }
+{ See http://puma-repository.sf.net for details }
 
 {$mode objfpc}{$H+}
 
