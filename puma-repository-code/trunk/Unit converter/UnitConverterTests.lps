@@ -8,7 +8,7 @@
         <Filename Value="UnitConverterTests.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverterTests"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
@@ -19,7 +19,8 @@
         <Filename Value="unitconvertertestcase.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverterTestCase"/>
-        <EditorIndex Value="1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
@@ -30,7 +31,6 @@
         <Filename Value="unitconverter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverter"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
