@@ -25,7 +25,15 @@ interface
 uses
   Classes, SysUtils;
 
+const
+  STANDARD_DELIMITERS = '|^~\&';
+
 type
+
+  THL7Delimiters = record
+    SegmentTerminator, FieldSeparator, ComponentSeparator: Char;
+    SubcomponentSeparator, RepetitionSeparator, EscapeCharacter: Char;
+  end;
 
   THL7Message = class;
 
@@ -48,13 +56,16 @@ type
   THL7Message = class
   private
     HL7_version: string;
+    HL7Delimiters: THL7Delimiters;
   protected
     HL7Text: string;
     procedure SetHL7Version(const aValue: string);
   public
+    procedure SetDelimiters(DelimiterDefinition: string);
     constructor Create(version: string);
     destructor Destroy; override;
     property HL7Version: string read HL7_version write SetHL7Version;
+    property Delimiters: THL7Delimiters read HL7Delimiters write HL7Delimiters;
     function FoundSegment(const aSegmentName: string): THL7Segment;
   end;
 
@@ -91,9 +102,21 @@ begin
   HL7_version := aValue;
 end;
 
+procedure THL7Message.SetDelimiters(DelimiterDefinition: string);
+begin
+  if DelimiterDefinition = '' then DelimiterDefinition := STANDARD_DELIMITERS;
+  HL7Delimiters.SegmentTerminator := char(13);
+  HL7Delimiters.FieldSeparator := DelimiterDefinition[1];
+  HL7Delimiters.ComponentSeparator := DelimiterDefinition[2];
+  HL7Delimiters.SubcomponentSeparator := DelimiterDefinition[5];
+  HL7Delimiters.RepetitionSeparator := DelimiterDefinition[3];
+  HL7Delimiters.EscapeCharacter := DelimiterDefinition[4];
+end;
+
 constructor THL7Message.Create(version: string);
 begin
   inherited Create;
+  SetDelimiters(STANDARD_DELIMITERS);  {Default delimiter definition}
   HL7_Version := version;
 end;
 
@@ -109,4 +132,4 @@ end;
 
 
 end.
-
+
