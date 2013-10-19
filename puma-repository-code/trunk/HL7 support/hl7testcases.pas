@@ -62,6 +62,7 @@ type
   TSegmentsTestCases = class(TTestCase)
   published
     procedure SegmentsTestCase1;
+    procedure SegmentsTestCase2;
   end;
 
 
@@ -135,13 +136,35 @@ procedure TSegmentsTestCases.SegmentsTestCase1;
 var
   testSegment: THL7Segment;
 begin
-  testSegment.Create(nil, 'test');
+  testSegment := THL7Segment.Create(nil, 'test');
   if testSegment = nil then
     fail('Segment could not be created.')
   else
+  begin
     testSegment.contentString := EXAMPLE_SEGMENT1;
+    AssertEquals(EXAMPLE_SEGMENT1, testSegment.contentString);
+  end;
   if testSegment <> nil then
     testSegment.Destroy;
+end;
+
+procedure TSegmentsTestCases.SegmentsTestCase2;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    if TestHL7Message.FirstSegment = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      TestHL7Message.FirstSegment.contentString := EXAMPLE_SEGMENT2;
+      AssertEquals(EXAMPLE_SEGMENT2, TestHL7Message.FirstSegment.contentString);
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 initialization

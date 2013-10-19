@@ -50,12 +50,15 @@ type
     SegmentName: string;
     FPreviousSibling, FNextSibling: THL7Segment;
     FOwner: THL7Message;
-    FFirstField: THL7Field;
+    procedure SetContent(const aString: string);
   public
+    FirstField: THL7Field;
     constructor Create(owner: THL7Message; SegmentText: string);
     destructor Destroy; override;
-    property contentString: string read FText write FText;
+    property contentString: string read FText write SetContent;
   end;
+
+  { THL7Field }
 
   THL7Field = class
   private
@@ -63,8 +66,10 @@ type
   protected
     FPreviousSibling, FNextSibling: THL7Field;
     FOwner: THL7Segment;
-    FFirstComponent: THL7Component;
   public
+    FirstComponent: THL7Component;
+    constructor Create(owner: THL7Segment; FieldText: string);
+    destructor Destroy; override;
     property contentString: string read FText write FText;
   end;
 
@@ -74,7 +79,7 @@ type
   protected
     FPreviousSibling, FNextSibling: THL7Component;
     FOwner: THL7Field;
-    FFirstComponent: THL7SubComponent;
+    FFirstSubComponent: THL7SubComponent;
   public
     property contentString: string read FText write FText;
   end;
@@ -88,10 +93,6 @@ type
   public
     property contentString: string read FText write FText;
   end;
-
-  { THL7Document }
-
-  { THL7Message }
 
   THL7Message = class
   private
@@ -138,7 +139,34 @@ begin
 
 end;
 
+{ THL7Field }
+
+constructor THL7Field.Create(owner: THL7Segment; FieldText: string);
+begin
+  inherited Create;
+  FOwner := owner;
+  FNextSibling := nil;
+  FText := FieldText;
+  //FirstField := THL7Field.Create;
+end;
+
+destructor THL7Field.Destroy;
+var
+  remainingSiblings: THL7Field;
+begin
+  remainingSiblings := FNextSibling;
+  if remainingSiblings <> nil then
+     remainingSiblings.Destroy;
+  inherited Destroy;
+end;
+
 { THL7Segment }
+
+procedure THL7Segment.SetContent(const aString: string);
+begin
+  FText := aString;
+  SegmentName := LeftStr(FText, 3);
+end;
 
 constructor THL7Segment.Create(owner: THL7Message; SegmentText: string);
 begin
@@ -146,17 +174,21 @@ begin
   FOwner := owner;
   FNextSibling := nil;
   contentString := SegmentText;
+  FirstField := THL7Field.Create(self, '');
 end;
 
 destructor THL7Segment.Destroy;
 var
   remainingSiblings: THL7Segment;
 begin
+  FirstField.Destroy;
   remainingSiblings := FNextSibling;
   if remainingSiblings <> nil then
      remainingSiblings.Destroy;
   inherited Destroy;
 end;
+
+{ THL7Message }
 
 procedure THL7Message.SetHL7Version(const aValue: string);
 begin
@@ -183,7 +215,7 @@ begin
   inherited Create;
   SetDelimiters(STANDARD_DELIMITERS);  {Default delimiter definition}
   HL7_Version := version;
-  FirstSegment.Create(self, '');
+  FirstSegment := THL7Segment.Create(self, '');
 end;
 
 destructor THL7Message.Destroy;
