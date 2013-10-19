@@ -11,8 +11,8 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="2" Y="2"/>
-        <UsageCount Value="23"/>
+        <CursorPos X="1" Y="2"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,8 +22,8 @@
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="25" Y="2"/>
-        <UsageCount Value="23"/>
+        <CursorPos X="1" Y="2"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -34,8 +34,8 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="47" Y="24"/>
-        <UsageCount Value="23"/>
+        <CursorPos X="1" Y="2"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit2>
     </Units>
@@ -44,129 +44,129 @@
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="hl7tests.lpr"/>
-        <Caret Line="33" Column="3" TopLine="1"/>
+        <Filename Value="hl7.pas"/>
+        <Caret Line="139" Column="1" TopLine="121"/>
       </Position1>
       <Position2>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="66" Column="43" TopLine="32"/>
+        <Caret Line="115" Column="1" TopLine="91"/>
       </Position2>
       <Position3>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="51" Column="1" TopLine="32"/>
+        <Filename Value="hl7.pas"/>
+        <Caret Line="180" Column="1" TopLine="162"/>
       </Position3>
       <Position4>
-        <Filename Value="hl7.pas"/>
-        <Caret Line="56" Column="67" TopLine="35"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="114" Column="1" TopLine="91"/>
       </Position4>
       <Position5>
         <Filename Value="hl7.pas"/>
-        <Caret Line="97" Column="24" TopLine="67"/>
+        <Caret Line="139" Column="1" TopLine="121"/>
       </Position5>
       <Position6>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="51" Column="40" TopLine="32"/>
+        <Filename Value="hl7.pas"/>
+        <Caret Line="144" Column="1" TopLine="121"/>
       </Position6>
       <Position7>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="54" Column="1" TopLine="32"/>
+        <Caret Line="115" Column="1" TopLine="91"/>
       </Position7>
       <Position8>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="51" Column="1" TopLine="32"/>
+        <Filename Value="hl7.pas"/>
+        <Caret Line="139" Column="1" TopLine="121"/>
       </Position8>
       <Position9>
         <Filename Value="hl7.pas"/>
-        <Caret Line="95" Column="1" TopLine="77"/>
+        <Caret Line="144" Column="1" TopLine="121"/>
       </Position9>
       <Position10>
-        <Filename Value="hl7.pas"/>
-        <Caret Line="56" Column="34" TopLine="31"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="116" Column="1" TopLine="91"/>
       </Position10>
       <Position11>
-        <Filename Value="hl7.pas"/>
-        <Caret Line="30" Column="13" TopLine="23"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="118" Column="1" TopLine="91"/>
       </Position11>
       <Position12>
-        <Filename Value="hl7.pas"/>
-        <Caret Line="64" Column="55" TopLine="46"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="116" Column="1" TopLine="91"/>
       </Position12>
       <Position13>
         <Filename Value="hl7.pas"/>
-        <Caret Line="56" Column="14" TopLine="46"/>
+        <Caret Line="85" Column="12" TopLine="38"/>
       </Position13>
       <Position14>
-        <Filename Value="hl7.pas"/>
-        <Caret Line="104" Column="3" TopLine="73"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="116" Column="1" TopLine="91"/>
       </Position14>
       <Position15>
-        <Filename Value="hl7.pas"/>
-        <Caret Line="68" Column="31" TopLine="47"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="116" Column="1" TopLine="91"/>
       </Position15>
       <Position16>
         <Filename Value="hl7.pas"/>
-        <Caret Line="65" Column="32" TopLine="42"/>
+        <Caret Line="182" Column="1" TopLine="164"/>
       </Position16>
       <Position17>
         <Filename Value="hl7.pas"/>
-        <Caret Line="63" Column="52" TopLine="47"/>
+        <Caret Line="187" Column="1" TopLine="130"/>
       </Position17>
       <Position18>
         <Filename Value="hl7.pas"/>
-        <Caret Line="64" Column="54" TopLine="47"/>
+        <Caret Line="182" Column="1" TopLine="164"/>
       </Position18>
       <Position19>
         <Filename Value="hl7.pas"/>
-        <Caret Line="63" Column="59" TopLine="47"/>
+        <Caret Line="184" Column="1" TopLine="164"/>
       </Position19>
       <Position20>
         <Filename Value="hl7.pas"/>
-        <Caret Line="107" Column="45" TopLine="89"/>
+        <Caret Line="144" Column="1" TopLine="126"/>
       </Position20>
       <Position21>
         <Filename Value="hl7.pas"/>
-        <Caret Line="116" Column="34" TopLine="90"/>
+        <Caret Line="182" Column="1" TopLine="164"/>
       </Position21>
       <Position22>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="46" Column="33" TopLine="28"/>
+        <Filename Value="hl7.pas"/>
+        <Caret Line="184" Column="1" TopLine="164"/>
       </Position22>
       <Position23>
         <Filename Value="hl7.pas"/>
-        <Caret Line="107" Column="79" TopLine="99"/>
+        <Caret Line="144" Column="1" TopLine="126"/>
       </Position23>
       <Position24>
         <Filename Value="hl7.pas"/>
-        <Caret Line="105" Column="37" TopLine="89"/>
+        <Caret Line="182" Column="1" TopLine="164"/>
       </Position24>
       <Position25>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="78" Column="61" TopLine="49"/>
+        <Filename Value="hl7.pas"/>
+        <Caret Line="184" Column="1" TopLine="164"/>
       </Position25>
       <Position26>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="47" Column="33" TopLine="19"/>
+        <Filename Value="hl7.pas"/>
+        <Caret Line="144" Column="1" TopLine="126"/>
       </Position26>
       <Position27>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="90" Column="18" TopLine="60"/>
+        <Caret Line="124" Column="7" TopLine="99"/>
       </Position27>
       <Position28>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="92" Column="63" TopLine="67"/>
+        <Filename Value="hl7.pas"/>
+        <Caret Line="182" Column="1" TopLine="164"/>
       </Position28>
       <Position29>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="94" Column="37" TopLine="67"/>
+        <Filename Value="hl7.pas"/>
+        <Caret Line="184" Column="1" TopLine="164"/>
       </Position29>
       <Position30>
         <Filename Value="hl7.pas"/>
-        <Caret Line="105" Column="53" TopLine="91"/>
+        <Caret Line="144" Column="1" TopLine="126"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <Watches Count="3">
+    <Watches Count="4">
       <Item1>
         <Expression Value="TestHL7Message"/>
       </Item1>
@@ -176,6 +176,9 @@
       <Item3>
         <Expression Value="TestHL7Message.HL7Delimiters"/>
       </Item3>
+      <Item4>
+        <Expression Value="TestHL7Message.FirstSegment"/>
+      </Item4>
     </Watches>
   </Debugging>
 </CONFIG>

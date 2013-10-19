@@ -36,17 +36,57 @@ type
   end;
 
   THL7Message = class;
+  THL7Segment = class;
+  THL7Field = class;
+  THL7Component = class;
+  THL7SubComponent = class;
+
+  { THL7Segment }
 
   THL7Segment = class
+  private
+    FText: string;
   protected
+    SegmentName: string;
     FPreviousSibling, FNextSibling: THL7Segment;
     FOwner: THL7Message;
+    FFirstField: THL7Field;
+  public
+    constructor Create(owner: THL7Message; SegmentText: string);
+    destructor Destroy; override;
+    property contentString: string read FText write FText;
   end;
 
   THL7Field = class
+  private
+    FText: string;
   protected
     FPreviousSibling, FNextSibling: THL7Field;
     FOwner: THL7Segment;
+    FFirstComponent: THL7Component;
+  public
+    property contentString: string read FText write FText;
+  end;
+
+  THL7Component = class
+  private
+    FText: string;
+  protected
+    FPreviousSibling, FNextSibling: THL7Component;
+    FOwner: THL7Field;
+    FFirstComponent: THL7SubComponent;
+  public
+    property contentString: string read FText write FText;
+  end;
+
+  THL7SubComponent = class
+  private
+    FText: string;
+  protected
+    FPreviousSibling, FNextSibling: THL7SubComponent;
+    FOwner: THL7Component;
+  public
+    property contentString: string read FText write FText;
   end;
 
   { THL7Document }
@@ -61,6 +101,7 @@ type
     HL7Text: string;
     procedure SetHL7Version(const aValue: string);
   public
+    FirstSegment: THL7Segment;
     procedure SetDelimiters(DelimiterDefinition: string);
     constructor Create(version: string);
     destructor Destroy; override;
@@ -97,6 +138,26 @@ begin
 
 end;
 
+{ THL7Segment }
+
+constructor THL7Segment.Create(owner: THL7Message; SegmentText: string);
+begin
+  inherited Create;
+  FOwner := owner;
+  FNextSibling := nil;
+  contentString := SegmentText;
+end;
+
+destructor THL7Segment.Destroy;
+var
+  remainingSiblings: THL7Segment;
+begin
+  remainingSiblings := FNextSibling;
+  if remainingSiblings <> nil then
+     remainingSiblings.Destroy;
+  inherited Destroy;
+end;
+
 procedure THL7Message.SetHL7Version(const aValue: string);
 begin
   HL7_version := aValue;
@@ -122,10 +183,13 @@ begin
   inherited Create;
   SetDelimiters(STANDARD_DELIMITERS);  {Default delimiter definition}
   HL7_Version := version;
+  FirstSegment.Create(self, '');
 end;
 
 destructor THL7Message.Destroy;
 begin
+  if FirstSegment <> nil then
+    FirstSegment.Destroy;
   inherited Destroy;
 end;
 

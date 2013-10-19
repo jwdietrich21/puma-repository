@@ -25,6 +25,16 @@ interface
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, HL7;
 
+const
+  EXAMPLE_SEGMENT1 =
+    'MSH|^~\&|EPIC|EPICADT|SMS|SMSADT|199912271408|CHARRIS|ADT^A04|1817457|D|2.5|';
+  EXAMPLE_SEGMENT2 =
+    'PID||0493575^^^2^ID 1|454721||DOE^JOHN^^^^|DOE^JOHN^^^^|19480203|M||B|254 MYSTREET AVE^^MYTOWN^OH^44123^USA||(216)123-4567|||M|NON|400003403~1129086|';
+  EXAMPLE_SEGMENT3 =
+    'NK1||ROE^MARIE^^^^|SPO||(216)123-4567||EC|||||||||||||||||||||||||||';
+  EXAMPLE_SEGMENT4 =
+    'PV1||O|168 ~219~C~PMA^^^^^^^^^||||277^ALLEN MYLASTNAME^BONNIE^^^^|||||||||| ||2688684|||||||||||||||||||||||||199912271408||||||002376853';
+
 type
 
   TControlTestCases = class(TTestCase)
@@ -47,6 +57,13 @@ type
     procedure DelimiterTestCase2;
   end;
 
+  { TSegmentsTestCases }
+
+  TSegmentsTestCases = class(TTestCase)
+  published
+    procedure SegmentsTestCase1;
+  end;
+
 
 var
   TestHL7Message: THL7Message;
@@ -66,7 +83,10 @@ end;
 procedure TBaseStructureTestCases.VersionTestCase1;
 begin
   TestHL7Message := THL7Message.Create('2.5');
-  AssertEquals('2.5', TestHL7Message.HL7Version);
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+    AssertEquals('2.5', TestHL7Message.HL7Version);
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
 end;
@@ -76,12 +96,17 @@ end;
 procedure TStringEncodingTestCases.DelimiterTestCase1;
 begin
   TestHL7Message := THL7Message.Create('2.5');
-  TestHL7Message.SetDelimiters('');
-  AssertEquals('|', TestHL7Message.Delimiters.FieldSeparator);
-  AssertEquals('^', TestHL7Message.Delimiters.ComponentSeparator);
-  AssertEquals('~', TestHL7Message.Delimiters.RepetitionSeparator);
-  AssertEquals('\', TestHL7Message.Delimiters.EscapeCharacter);
-  AssertEquals('&', TestHL7Message.Delimiters.SubcomponentSeparator);
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.SetDelimiters('');
+    AssertEquals('|', TestHL7Message.Delimiters.FieldSeparator);
+    AssertEquals('^', TestHL7Message.Delimiters.ComponentSeparator);
+    AssertEquals('~', TestHL7Message.Delimiters.RepetitionSeparator);
+    AssertEquals('\', TestHL7Message.Delimiters.EscapeCharacter);
+    AssertEquals('&', TestHL7Message.Delimiters.SubcomponentSeparator);
+  end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
 end;
@@ -89,19 +114,39 @@ end;
 procedure TStringEncodingTestCases.DelimiterTestCase2;
 begin
   TestHL7Message := THL7Message.Create('2.5');
-  TestHL7Message.SetDelimiters('#/@+*');
-  AssertEquals('#', TestHL7Message.Delimiters.FieldSeparator);
-  AssertEquals('/', TestHL7Message.Delimiters.ComponentSeparator);
-  AssertEquals('@', TestHL7Message.Delimiters.RepetitionSeparator);
-  AssertEquals('+', TestHL7Message.Delimiters.EscapeCharacter);
-  AssertEquals('*', TestHL7Message.Delimiters.SubcomponentSeparator);
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.SetDelimiters('#/@+*');
+    AssertEquals('#', TestHL7Message.Delimiters.FieldSeparator);
+    AssertEquals('/', TestHL7Message.Delimiters.ComponentSeparator);
+    AssertEquals('@', TestHL7Message.Delimiters.RepetitionSeparator);
+    AssertEquals('+', TestHL7Message.Delimiters.EscapeCharacter);
+    AssertEquals('*', TestHL7Message.Delimiters.SubcomponentSeparator);
+  end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
+end;
+
+{ TSegmentsTestCases }
+
+procedure TSegmentsTestCases.SegmentsTestCase1;
+var
+  testSegment: THL7Segment;
+begin
+  testSegment.Create(nil, 'test');
+  if testSegment = nil then
+    fail('Segment could not be created.')
+  else
+    testSegment.contentString := EXAMPLE_SEGMENT1;
+  if testSegment <> nil then
+    testSegment.Destroy;
 end;
 
 initialization
   RegisterTest(TControlTestCases);
   RegisterTest(TBaseStructureTestCases);
   RegisterTest(TStringEncodingTestCases);
+  RegisterTest(TSegmentsTestCases);
 end.
-
