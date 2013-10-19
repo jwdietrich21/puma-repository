@@ -31,8 +31,8 @@ const
 type
 
   THL7Delimiters = record
-    SegmentTerminator, FieldSeparator, ComponentSeparator: Char;
-    SubcomponentSeparator, RepetitionSeparator, EscapeCharacter: Char;
+    SegmentTerminator, FieldSeparator, ComponentSeparator: char;
+    SubcomponentSeparator, RepetitionSeparator, EscapeCharacter: char;
   end;
 
   THL7Message = class;
@@ -104,13 +104,17 @@ end;
 
 procedure THL7Message.SetDelimiters(DelimiterDefinition: string);
 begin
-  if DelimiterDefinition = '' then DelimiterDefinition := STANDARD_DELIMITERS;
   HL7Delimiters.SegmentTerminator := char(13);
-  HL7Delimiters.FieldSeparator := DelimiterDefinition[1];
-  HL7Delimiters.ComponentSeparator := DelimiterDefinition[2];
-  HL7Delimiters.SubcomponentSeparator := DelimiterDefinition[5];
-  HL7Delimiters.RepetitionSeparator := DelimiterDefinition[3];
-  HL7Delimiters.EscapeCharacter := DelimiterDefinition[4];
+  if DelimiterDefinition = '' then
+    DelimiterDefinition := STANDARD_DELIMITERS
+  else
+  begin
+    HL7Delimiters.FieldSeparator := DelimiterDefinition[1];
+    HL7Delimiters.ComponentSeparator := DelimiterDefinition[2];
+    HL7Delimiters.SubcomponentSeparator := DelimiterDefinition[5];
+    HL7Delimiters.RepetitionSeparator := DelimiterDefinition[3];
+    HL7Delimiters.EscapeCharacter := DelimiterDefinition[4];
+  end;
 end;
 
 constructor THL7Message.Create(version: string);
@@ -132,4 +136,4 @@ end;
 
 
 end.
-
+
