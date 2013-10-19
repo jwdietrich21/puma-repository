@@ -41,15 +41,26 @@ type
   THL7Component = class;
   THL7SubComponent = class;
 
-  { THL7Segment }
+  { THL7MessageSection }
 
-  THL7Segment = class
+  THL7MessageSection = class
   private
     FText: string;
   protected
+    FPreviousSibling, FNextSibling: THL7MessageSection;
+    FOwner: THL7MessageSection;
+    destructor Destroy; override;
+    procedure SetContent(const aString: string); virtual; abstract;
+  public
+    property contentString: string read FText write SetContent;
+  end;
+
+  { THL7Segment }
+
+  THL7Segment = class(THL7MessageSection)
+  protected
     SegmentName: string;
-    FPreviousSibling, FNextSibling: THL7Segment;
-    FOwner: THL7Message;
+    FlOwner: THL7Message;
     procedure SetContent(const aString: string);
   public
     FirstField: THL7Field;
@@ -60,12 +71,7 @@ type
 
   { THL7Field }
 
-  THL7Field = class
-  private
-    FText: string;
-  protected
-    FPreviousSibling, FNextSibling: THL7Field;
-    FOwner: THL7Segment;
+  THL7Field = class(THL7MessageSection)
   public
     FirstComponent: THL7Component;
     constructor Create(owner: THL7Segment; FieldText: string);
@@ -73,23 +79,17 @@ type
     property contentString: string read FText write FText;
   end;
 
-  THL7Component = class
-  private
-    FText: string;
-  protected
-    FPreviousSibling, FNextSibling: THL7Component;
-    FOwner: THL7Field;
-    FFirstSubComponent: THL7SubComponent;
+  { THL7Component }
+
+  THL7Component = class(THL7MessageSection)
   public
+    FirstSubComponent: THL7SubComponent;
+    constructor Create(owner: THL7Field; FieldText: string);
+    destructor Destroy; override;
     property contentString: string read FText write FText;
   end;
 
-  THL7SubComponent = class
-  private
-    FText: string;
-  protected
-    FPreviousSibling, FNextSibling: THL7SubComponent;
-    FOwner: THL7Component;
+  THL7SubComponent = class(THL7MessageSection)
   public
     property contentString: string read FText write FText;
   end;
@@ -139,6 +139,33 @@ begin
 
 end;
 
+{ THL7MessageSection }
+
+destructor THL7MessageSection.Destroy;
+var
+  remainingSiblings: THL7MessageSection;
+begin
+  remainingSiblings := FNextSibling;
+  if remainingSiblings <> nil then
+     remainingSiblings.Destroy;
+  inherited Destroy;
+end;
+
+{ THL7Component }
+
+constructor THL7Component.Create(owner: THL7Field; FieldText: string);
+begin
+  inherited Create;
+  FOwner := owner;
+  FNextSibling := nil;
+  FText := FieldText;
+end;
+
+destructor THL7Component.Destroy;
+begin
+  inherited Destroy;
+end;
+
 { THL7Field }
 
 constructor THL7Field.Create(owner: THL7Segment; FieldText: string);
@@ -147,16 +174,13 @@ begin
   FOwner := owner;
   FNextSibling := nil;
   FText := FieldText;
-  //FirstField := THL7Field.Create;
+  FirstComponent := THL7Component.Create(self, '');
 end;
 
 destructor THL7Field.Destroy;
-var
-  remainingSiblings: THL7Field;
 begin
-  remainingSiblings := FNextSibling;
-  if remainingSiblings <> nil then
-     remainingSiblings.Destroy;
+  if FirstComponent <> nil then
+    FirstComponent.Destroy;
   inherited Destroy;
 end;
 
@@ -171,20 +195,16 @@ end;
 constructor THL7Segment.Create(owner: THL7Message; SegmentText: string);
 begin
   inherited Create;
-  FOwner := owner;
+  FlOwner := owner;
   FNextSibling := nil;
   contentString := SegmentText;
   FirstField := THL7Field.Create(self, '');
 end;
 
 destructor THL7Segment.Destroy;
-var
-  remainingSiblings: THL7Segment;
 begin
-  FirstField.Destroy;
-  remainingSiblings := FNextSibling;
-  if remainingSiblings <> nil then
-     remainingSiblings.Destroy;
+  if FirstField <> nil then
+    FirstField.Destroy;
   inherited Destroy;
 end;
 
