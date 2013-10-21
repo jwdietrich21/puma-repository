@@ -65,6 +65,14 @@ type
     procedure SegmentsTestCase2;
   end;
 
+  { TFieldsTestCases }
+
+  TFieldsTestCases = class(TTestCase)
+  published
+    procedure FieldsTestCase1;
+    procedure FieldsTestCase2;
+  end;
+
 
 var
   TestHL7Message: THL7Message;
@@ -167,9 +175,52 @@ begin
     TestHL7Message.Destroy;
 end;
 
+{ TFieldsTestCases }
+
+procedure TFieldsTestCases.FieldsTestCase1;
+var
+  TestField: THL7Field;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestField.contentString := EXAMPLE_SEGMENT3;
+    AssertEquals(EXAMPLE_SEGMENT3, TestField.contentString);
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TFieldsTestCases.FieldsTestCase2;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    if TestHL7Message.FirstSegment = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.FirstField = nil then
+        fail('Field could not be created.')
+      else
+      begin
+        TestHL7Message.FirstSegment.FirstField.contentString := EXAMPLE_SEGMENT4;
+        AssertEquals(EXAMPLE_SEGMENT4, TestHL7Message.FirstSegment.FirstField.contentString);
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
 initialization
   RegisterTest(TControlTestCases);
   RegisterTest(TBaseStructureTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);
+  RegisterTest(TFieldsTestCases);
 end.

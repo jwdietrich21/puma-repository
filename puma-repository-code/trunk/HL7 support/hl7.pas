@@ -72,11 +72,13 @@ type
   { THL7Field }
 
   THL7Field = class(THL7MessageSection)
+  protected
+    procedure SetContent(const aString: string);
   public
     FirstComponent: THL7Component;
     constructor Create(owner: THL7Segment; FieldText: string);
     destructor Destroy; override;
-    property contentString: string read FText write FText;
+    property contentString: string read FText write SetContent;
   end;
 
   { THL7Component }
@@ -167,6 +169,11 @@ begin
 end;
 
 { THL7Field }
+
+procedure THL7Field.SetContent(const aString: string);
+begin
+  FText := aString;
+end;
 
 constructor THL7Field.Create(owner: THL7Segment; FieldText: string);
 begin
