@@ -27,6 +27,9 @@ uses
 
 const
   STANDARD_DELIMITERS = '|^~\&';
+  ACKNOWLEDGEMENT_OK = 'AA';
+  ACKNOWLEDGEMENT_ERROR = 'AE';
+  ACKNOWLEDGEMENT_REJECT = 'AR';
 
 type
 
@@ -84,11 +87,13 @@ type
   { THL7Component }
 
   THL7Component = class(THL7MessageSection)
+  protected
+    procedure SetContent(const aString: string);
   public
     FirstSubComponent: THL7SubComponent;
     constructor Create(owner: THL7Field; FieldText: string);
     destructor Destroy; override;
-    property contentString: string read FText write FText;
+    property contentString: string read FText write SetContent;
   end;
 
   THL7SubComponent = class(THL7MessageSection)
@@ -154,6 +159,11 @@ begin
 end;
 
 { THL7Component }
+
+procedure THL7Component.SetContent(const aString: string);
+begin
+  FText := aString;
+end;
 
 constructor THL7Component.Create(owner: THL7Field; FieldText: string);
 begin
@@ -259,4 +269,4 @@ end;
 
 
 end.
-
+

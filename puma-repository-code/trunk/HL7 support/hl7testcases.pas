@@ -34,6 +34,12 @@ const
     'NK1||ROE^MARIE^^^^|SPO||(216)123-4567||EC|||||||||||||||||||||||||||';
   EXAMPLE_SEGMENT4 =
     'PV1||O|168 ~219~C~PMA^^^^^^^^^||||277^ALLEN MYLASTNAME^BONNIE^^^^|||||||||| ||2688684|||||||||||||||||||||||||199912271408||||||002376853';
+  EXAMPLE_SEGMENT5 = 'OBR|||||||||';
+  EXAMPLE_SEGMENT6 = 'OBR|||||""||||';
+  EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
+  EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
+  EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
+  EXAMPLE_FIELD4 = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
 
 type
 
@@ -72,6 +78,15 @@ type
     procedure FieldsTestCase1;
     procedure FieldsTestCase2;
   end;
+
+  { TComponentTestCases }
+
+  TComponentTestCases = class(TTestCase)
+  published
+    procedure ComponentTestCase1;
+    procedure ComponentTestCase2;
+  end;
+
 
 
 var
@@ -181,16 +196,15 @@ procedure TFieldsTestCases.FieldsTestCase1;
 var
   TestField: THL7Field;
 begin
-  TestHL7Message := THL7Message.Create('2.5');
-  if TestHL7Message = nil then
-    fail('Message could not be created.')
+  TestField := THL7Field.Create(nil, EXAMPLE_FIELD1);
+  if TestField = nil then
+    fail('Field could not be created.')
   else
   begin
-    TestField.contentString := EXAMPLE_SEGMENT3;
-    AssertEquals(EXAMPLE_SEGMENT3, TestField.contentString);
+    AssertEquals(EXAMPLE_FIELD1, TestField.contentString);
   end;
-  if TestHL7Message <> nil then
-    TestHL7Message.Destroy;
+  if TestField <> nil then
+    TestField.Destroy;
 end;
 
 procedure TFieldsTestCases.FieldsTestCase2;
@@ -208,8 +222,9 @@ begin
         fail('Field could not be created.')
       else
       begin
-        TestHL7Message.FirstSegment.FirstField.contentString := EXAMPLE_SEGMENT4;
-        AssertEquals(EXAMPLE_SEGMENT4, TestHL7Message.FirstSegment.FirstField.contentString);
+        TestHL7Message.FirstSegment.FirstField.contentString := EXAMPLE_FIELD3;
+        AssertEquals(EXAMPLE_FIELD3,
+          TestHL7Message.FirstSegment.FirstField.contentString);
       end;
     end;
   end;
@@ -217,10 +232,60 @@ begin
     TestHL7Message.Destroy;
 end;
 
+
+{ TComponentTestCases }
+
+procedure TComponentTestCases.ComponentTestCase1;
+var
+  TestComponent: THL7Component;
+begin
+  TestComponent := THL7Component.Create(nil, 'test');
+  if TestComponent = nil then
+    fail('Component could not be created.')
+  else
+  begin
+    AssertEquals('test', TestComponent.contentString);
+  end;
+  if TestComponent <> nil then
+    TestComponent.Destroy;
+end;
+
+procedure TComponentTestCases.ComponentTestCase2;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    if TestHL7Message.FirstSegment = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.FirstField = nil then
+        fail('Field could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.FirstField.FirstComponent = nil then
+          fail('Component could not be created')
+        else
+        begin
+          TestHL7Message.FirstSegment.FirstField.FirstComponent.contentString := 'test';
+          AssertEquals('test',
+            TestHL7Message.FirstSegment.FirstField.FirstComponent.contentString);
+        end;
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+
 initialization
   RegisterTest(TControlTestCases);
   RegisterTest(TBaseStructureTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);
   RegisterTest(TFieldsTestCases);
+  RegisterTest(TComponentTestCases);
 end.
