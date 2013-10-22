@@ -91,14 +91,20 @@ type
     procedure SetContent(const aString: string);
   public
     FirstSubComponent: THL7SubComponent;
-    constructor Create(owner: THL7Field; FieldText: string);
+    constructor Create(owner: THL7Field; ComponentText: string);
     destructor Destroy; override;
     property contentString: string read FText write SetContent;
   end;
 
+  { THL7SubComponent }
+
   THL7SubComponent = class(THL7MessageSection)
+  protected
+    procedure SetContent(const aString: string);
   public
-    property contentString: string read FText write FText;
+    constructor Create(owner: THL7Component; SubComponentText: string);
+    destructor Destroy; override;
+    property contentString: string read FText write SetContent;
   end;
 
   THL7Message = class
@@ -158,6 +164,26 @@ begin
   inherited Destroy;
 end;
 
+{ THL7SubComponent }
+
+procedure THL7SubComponent.SetContent(const aString: string);
+begin
+  FText := aString;
+end;
+
+constructor THL7SubComponent.Create(owner: THL7Component; SubComponentText: string);
+begin
+  inherited Create;
+  FOwner := owner;
+  FNextSibling := nil;
+  contentString := SubComponentText;
+end;
+
+destructor THL7SubComponent.Destroy;
+begin
+  inherited Destroy;
+end;
+
 { THL7Component }
 
 procedure THL7Component.SetContent(const aString: string);
@@ -165,16 +191,19 @@ begin
   FText := aString;
 end;
 
-constructor THL7Component.Create(owner: THL7Field; FieldText: string);
+constructor THL7Component.Create(owner: THL7Field; ComponentText: string);
 begin
   inherited Create;
   FOwner := owner;
   FNextSibling := nil;
-  FText := FieldText;
+  FirstSubComponent := THL7SubComponent.Create(self, '');
+  contentString := ComponentText;
 end;
 
 destructor THL7Component.Destroy;
 begin
+  if FirstSubComponent <> nil then
+     FirstSubComponent.Destroy;
   inherited Destroy;
 end;
 
@@ -190,8 +219,8 @@ begin
   inherited Create;
   FOwner := owner;
   FNextSibling := nil;
-  FText := FieldText;
   FirstComponent := THL7Component.Create(self, '');
+  contentString := FieldText;
 end;
 
 destructor THL7Field.Destroy;
@@ -214,8 +243,8 @@ begin
   inherited Create;
   FlOwner := owner;
   FNextSibling := nil;
-  contentString := SegmentText;
   FirstField := THL7Field.Create(self, '');
+  contentString := SegmentText;
 end;
 
 destructor THL7Segment.Destroy;
@@ -269,4 +298,4 @@ end;
 
 
 end.
-
+

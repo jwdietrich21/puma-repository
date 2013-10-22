@@ -40,6 +40,8 @@ const
   EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
   EXAMPLE_FIELD4 = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
+  EXAMPLE_FIELD5 = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
+  EXAMOLE_FIELD6 = '13.5&18^M~12.0 & 16^F';
 
 type
 
@@ -85,6 +87,14 @@ type
   published
     procedure ComponentTestCase1;
     procedure ComponentTestCase2;
+  end;
+
+  { TSubComponentTestCases }
+
+  TSubComponentTestCases = class(TTestCase)
+  published
+    procedure SubComponentTestCase1;
+    procedure SubComponentTestCase2;
   end;
 
 
@@ -280,6 +290,58 @@ begin
     TestHL7Message.Destroy;
 end;
 
+{ TSubComponentTestCases }
+
+procedure TSubComponentTestCases.SubComponentTestCase1;
+var
+  TestSubComponent: THL7SubComponent;
+begin
+  TestSubComponent := THL7SubComponent.Create(nil, 'test');
+  if TestSubComponent = nil then
+    fail('Subcomponent could not be created.')
+  else
+  begin
+    AssertEquals('test', TestSubComponent.contentString);
+  end;
+  if TestSubComponent <> nil then
+    TestSubComponent.Destroy;
+end;
+
+procedure TSubComponentTestCases.SubComponentTestCase2;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    if TestHL7Message.FirstSegment = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.FirstField = nil then
+        fail('Field could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.FirstField.FirstComponent = nil then
+          fail('Component could not be created')
+        else
+        begin
+          if TestHL7Message.FirstSegment.FirstField.FirstComponent.FirstSubComponent
+            = nil then
+            fail('Subcomponent could not be created')
+          else
+          begin
+            TestHL7Message.FirstSegment.FirstField.FirstComponent.contentString := 'test';
+            AssertEquals('test',
+              TestHL7Message.FirstSegment.FirstField.FirstComponent.contentString);
+          end;
+        end;
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
 
 initialization
   RegisterTest(TControlTestCases);
@@ -288,4 +350,5 @@ initialization
   RegisterTest(TSegmentsTestCases);
   RegisterTest(TFieldsTestCases);
   RegisterTest(TComponentTestCases);
+  RegisterTest(TSubComponentTestCases);
 end.
