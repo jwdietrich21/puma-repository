@@ -228,13 +228,19 @@ begin
       fail('Segment could not be created.')
     else
     begin
-      if TestHL7Message.FirstSegment.FirstField = nil then
-        fail('Field could not be created.')
+      if TestHL7Message.FirstSegment.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
       else
       begin
-        TestHL7Message.FirstSegment.FirstField.contentString := EXAMPLE_FIELD3;
-        AssertEquals(EXAMPLE_FIELD3,
-          TestHL7Message.FirstSegment.FirstField.contentString);
+        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
+          fail('Field could not be created.')
+        else
+        begin
+          TestHL7Message.FirstSegment.FirstOccurrence.FirstField.contentString :=
+            EXAMPLE_FIELD3;
+          AssertEquals(EXAMPLE_FIELD3,
+            TestHL7Message.FirstSegment.FirstOccurrence.FirstField.contentString);
+        end;
       end;
     end;
   end;
@@ -271,17 +277,25 @@ begin
       fail('Segment could not be created.')
     else
     begin
-      if TestHL7Message.FirstSegment.FirstField = nil then
-        fail('Field could not be created.')
+      if TestHL7Message.FirstSegment.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
       else
       begin
-        if TestHL7Message.FirstSegment.FirstField.FirstComponent = nil then
-          fail('Component could not be created')
+        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
+          fail('Field could not be created.')
         else
         begin
-          TestHL7Message.FirstSegment.FirstField.FirstComponent.contentString := 'test';
-          AssertEquals('test',
-            TestHL7Message.FirstSegment.FirstField.FirstComponent.contentString);
+          if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.FirstComponent
+            = nil then
+            fail('Component could not be created')
+          else
+          begin
+            TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+              FirstComponent.contentString := 'test';
+            AssertEquals('test',
+              TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+              FirstComponent.contentString);
+          end;
         end;
       end;
     end;
@@ -318,22 +332,30 @@ begin
       fail('Segment could not be created.')
     else
     begin
-      if TestHL7Message.FirstSegment.FirstField = nil then
+      if TestHL7Message.FirstSegment.FirstOccurrence = nil then
+        fail('Occurrence could not be created.');
+    end;
+    begin
+      if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
         fail('Field could not be created.')
       else
       begin
-        if TestHL7Message.FirstSegment.FirstField.FirstComponent = nil then
+        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.FirstComponent
+          = nil then
           fail('Component could not be created')
         else
         begin
-          if TestHL7Message.FirstSegment.FirstField.FirstComponent.FirstSubComponent
-            = nil then
+          if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+            FirstComponent.FirstSubComponent = nil then
             fail('Subcomponent could not be created')
           else
           begin
-            TestHL7Message.FirstSegment.FirstField.FirstComponent.contentString := 'test';
+            TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+              FirstComponent.contentString :=
+              'test';
             AssertEquals('test',
-              TestHL7Message.FirstSegment.FirstField.FirstComponent.contentString);
+              TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+              FirstComponent.contentString);
           end;
         end;
       end;
