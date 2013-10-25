@@ -63,6 +63,8 @@ type
   published
     procedure DelimiterTestCase1;
     procedure DelimiterTestCase2;
+    procedure EncodingTestCase1;
+    procedure EncodingTestCase2;
   end;
 
   { TSegmentsTestCases }
@@ -158,6 +160,36 @@ begin
     AssertEquals('@', TestHL7Message.Delimiters.RepetitionSeparator);
     AssertEquals('+', TestHL7Message.Delimiters.EscapeCharacter);
     AssertEquals('*', TestHL7Message.Delimiters.SubcomponentSeparator);
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TStringEncodingTestCases.EncodingTestCase1;
+const
+  STRING_WITH_SPECIAL_SYMBOLS = 'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
+  ESCAPED_EXAMPLE_STRING = 'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.SetDelimiters('');
+    AssertEquals(ESCAPED_EXAMPLE_STRING, TestHL7Message.Encoded(STRING_WITH_SPECIAL_SYMBOLS));
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TStringEncodingTestCases.EncodingTestCase2;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    AssertEquals('\X139\', TestHL7Message.EncodedHex(313));
   end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;

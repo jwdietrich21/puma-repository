@@ -23,13 +23,20 @@ unit HL7;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, StrUtils;
 
 const
   STANDARD_DELIMITERS = '|^~\&';
   ACKNOWLEDGEMENT_OK = 'AA';
   ACKNOWLEDGEMENT_ERROR = 'AE';
   ACKNOWLEDGEMENT_REJECT = 'AR';
+  ESCAPE_HIGHLIGHTING = '\H\';   {start highlighting}
+  ESCAPE_NORMAL = '\N\';   {end highlighting}
+  ESCAPE_FIELD = '\F\';
+  ESCAPE_COMPONENT = '\S\';
+  ESCAPE_SUBCOMPONENT = '\T\';
+  ESCAPE_REPETITION = '\R\';
+  ESCAPE_ESCAPE = '\E\';
 
 type
 
@@ -130,6 +137,8 @@ type
   public
     FirstSegment: THL7Segment;
     procedure SetDelimiters(DelimiterDefinition: string);
+    function Encoded(const aString: string): string;
+    function EncodedHex(const aNumber: integer): string;
     constructor Create(version: string);
     destructor Destroy; override;
     property HL7Version: string read HL7_version write SetHL7Version;
@@ -308,6 +317,28 @@ begin
   HL7Delimiters.SubcomponentSeparator := DelimiterDefinition[5];
   HL7Delimiters.RepetitionSeparator := DelimiterDefinition[3];
   HL7Delimiters.EscapeCharacter := DelimiterDefinition[4];
+end;
+
+function THL7Message.Encoded(const aString: string): string;
+{ Escapes encoding characters }
+var
+  theString: string;
+begin
+  theString := AnsiReplaceText(aString, '\', ESCAPE_ESCAPE);
+  theString := AnsiReplaceText(theString, Delimiters.FieldSeparator, ESCAPE_FIELD);
+  theString := AnsiReplaceText(theString, Delimiters.RepetitionSeparator, ESCAPE_REPETITION);
+  theString := AnsiReplaceText(theString, Delimiters.ComponentSeparator, ESCAPE_COMPONENT);
+  theString := AnsiReplaceText(theString, Delimiters.SubcomponentSeparator, ESCAPE_SUBCOMPONENT);
+  result := theString;
+end;
+
+function THL7Message.EncodedHex(const aNumber: integer): string;
+var
+  theString: string;
+begin
+  theString := IntToHex(aNumber, 0);
+  theString := '\X' +  theString + '\';
+  result := theString;
 end;
 
 constructor THL7Message.Create(version: string);
