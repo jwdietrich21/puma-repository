@@ -58,21 +58,19 @@ type
   private
     FText: string;
   protected
-    FPreviousSibling, FNextSibling: THL7MessageSection;
     FOwner: THL7MessageSection;
     FMessage: THL7Message;
     destructor Destroy; override;
     procedure SetContent(const aString: string); virtual; abstract;
   public
     property contentString: string read FText write SetContent;
-    property previousSibling: THL7MessageSection read FPreviousSibling;
-    property nextSibling: THL7MessageSection read FNextSibling;
   end;
 
   { THL7Segment }
 
   THL7Segment = class(THL7MessageSection)
   protected
+    FPreviousSibling, FNextSibling: THL7Segment;
     SegmentName: string;
     FlOwner: THL7Message;
     procedure SetContent(const aString: string);
@@ -82,12 +80,15 @@ type
     destructor Destroy; override;
     function NewOccurrence(const OccurrencesText: string): THL7Occurrence;
     property contentString: string read FText write SetContent;
+    property previousSibling: THL7Segment read FPreviousSibling;
+    property nextSibling: THL7Segment read FNextSibling;
   end;
 
   { THL7Occurrence }
 
   THL7Occurrence = class(THL7MessageSection)
   protected
+    FPreviousSibling, FNextSibling: THL7Occurrence;
     procedure SetContent(const aString: string);
   public
     FirstField: THL7Field;
@@ -95,12 +96,15 @@ type
     destructor Destroy; override;
     function NewField(const FieldText: string): THL7Field;
     property contentString: string read FText write SetContent;
+    property previousSibling: THL7Occurrence read FPreviousSibling;
+    property nextSibling: THL7Occurrence read FNextSibling;
   end;
 
   { THL7Field }
 
   THL7Field = class(THL7MessageSection)
   protected
+    FPreviousSibling, FNextSibling: THL7Field;
     procedure SetContent(const aString: string);
   public
     FirstComponent: THL7Component;
@@ -108,12 +112,15 @@ type
     destructor Destroy; override;
     function NewComponent(const ComponentText: string): THL7Component;
     property contentString: string read FText write SetContent;
+    property previousSibling: THL7Field read FPreviousSibling;
+    property nextSibling: THL7Field read FNextSibling;
   end;
 
   { THL7Component }
 
   THL7Component = class(THL7MessageSection)
   protected
+    FPreviousSibling, FNextSibling: THL7Component;
     procedure SetContent(const aString: string);
   public
     FirstSubComponent: THL7SubComponent;
@@ -121,17 +128,22 @@ type
     destructor Destroy; override;
     function NewSubComponent(const SubComponentText: string): THL7SubComponent;
     property contentString: string read FText write SetContent;
+    property previousSibling: THL7Component read FPreviousSibling;
+    property nextSibling: THL7Component read FNextSibling;
   end;
 
   { THL7SubComponent }
 
   THL7SubComponent = class(THL7MessageSection)
   protected
+    FPreviousSibling, FNextSibling: THL7SubComponent;
     procedure SetContent(const aString: string);
   public
     constructor Create(owner: THL7Component; SubComponentText: string);
     destructor Destroy; override;
     property contentString: string read FText write SetContent;
+    property previousSibling: THL7SubComponent read FPreviousSibling;
+    property nextSibling: THL7SubComponent read FNextSibling;
   end;
 
   THL7Message = class
@@ -184,28 +196,30 @@ begin
 
 end;
 
-function NextSection(const aString: string; var Pos: Integer; const delim: char): string;
+function NextSection(const aString: string; var Pos: integer; const delim: char): string;
 var
-  i, j, l: Integer;
+  i, j, l: integer;
   theString: string;
 begin
   theString := aString;
-  if pos > 1 then delete(theString, 1, pos);
+  if pos > 1 then
+    Delete(theString, 1, pos);
   i := system.pos(delim, theString);
-  Result := copy(theString, 1, i - 1);
-  inc(pos, i);
+  if i = 0 then
+  begin
+    Result := theString;
+    pos := length(aString);
+  end
+  else
+    Result := copy(theString, 1, i - 1);
+  Inc(pos, i);
 end;
 
 
 { THL7MessageSection }
 
 destructor THL7MessageSection.Destroy;
-var
-  remainingSiblings: THL7MessageSection;
 begin
-  remainingSiblings := FNextSibling;
-  if remainingSiblings <> nil then
-    remainingSiblings.Destroy;
   inherited Destroy;
 end;
 
@@ -227,7 +241,12 @@ begin
 end;
 
 destructor THL7SubComponent.Destroy;
+var
+  remainingSiblings: THL7SubComponent;
 begin
+  remainingSiblings := FNextSibling;
+  if remainingSiblings <> nil then
+    remainingSiblings.Destroy;
   inherited Destroy;
 end;
 
@@ -253,18 +272,23 @@ begin
 end;
 
 destructor THL7Component.Destroy;
+var
+  remainingSiblings: THL7Component;
 begin
+  remainingSiblings := FNextSibling;
+  if remainingSiblings <> nil then
+    remainingSiblings.Destroy;
   if FirstSubComponent <> nil then
     FirstSubComponent.Destroy;
   inherited Destroy;
 end;
 
-function THL7Component.NewSubComponent(const SubComponentText: string
-  ): THL7SubComponent;
+function THL7Component.NewSubComponent(const SubComponentText: string):
+THL7SubComponent;
 var
   theSubcomponent, currSubcomponent: THL7Subcomponent;
 begin
-  theSubcomponent := THL7Subcomponent.Create(self, SubcomponentText);
+  theSubcomponent := THL7Subcomponent.Create(self, '');
   currSubcomponent := FirstSubcomponent;
   if currSubcomponent = nil then
     FirstSubcomponent := theSubcomponent
@@ -282,6 +306,9 @@ end;
 procedure THL7Field.SetContent(const aString: string);
 begin
   FText := aString;
+  if (FMessage <> nil) and (pos(FMessage.Delimiters.FieldSeparator, aString) = 0) then
+    {true fields only}
+    NewComponent(aString);
 end;
 
 constructor THL7Field.Create(owner: THL7Occurrence; FieldText: string);
@@ -291,15 +318,17 @@ begin
   if owner <> nil then
     FMessage := owner.FMessage;
   FNextSibling := nil;
-  if FieldText = '' then
-    FirstComponent := nil
-  else
-    NewComponent(FieldText);
+  FirstComponent := nil;
   contentString := FieldText;
 end;
 
 destructor THL7Field.Destroy;
+var
+  remainingSiblings: THL7Field;
 begin
+  remainingSiblings := FNextSibling;
+  if remainingSiblings <> nil then
+    remainingSiblings.Destroy;
   if FirstComponent <> nil then
     FirstComponent.Destroy;
   inherited Destroy;
@@ -308,16 +337,36 @@ end;
 function THL7Field.NewComponent(const ComponentText: string): THL7Component;
 var
   theComponent, currComponent: THL7Component;
+  lastPos: integer;
+  singleComponentText: string;
 begin
-  theComponent := THL7Component.Create(self, ComponentText);
+  theComponent := THL7Component.Create(self, '');
   currComponent := FirstComponent;
   if currComponent = nil then
     FirstComponent := theComponent
   else
   begin
     while currComponent.FNextSibling <> nil do
-      currComponent := THL7Component(currComponent.FNextSibling);
+      currComponent := currComponent.FNextSibling;
     currComponent.FNextSibling := theComponent;
+  end;
+  if (FMessage = nil) or (pos(FMessage.Delimiters.ComponentSeparator,
+    ComponentText) = 0) then
+    theComponent.SetContent(ComponentText)
+  else
+  begin
+    lastPos := 0;
+    while lastPos < length(ComponentText) - 1 do
+    begin
+      singleComponentText :=
+        NextSection(ComponentText, lastPos, FMessage.Delimiters.ComponentSeparator);
+      theComponent.SetContent(singleComponentText);
+      if lastPos < length(ComponentText) - 1 then
+      begin
+        theComponent.FNextSibling := THL7Component.Create(self, '');
+        theComponent := theComponent.FNextSibling;
+      end;
+    end;
   end;
   Result := theComponent;
 end;
@@ -347,7 +396,12 @@ begin
 end;
 
 destructor THL7Occurrence.Destroy;
+var
+  remainingSiblings: THL7Occurrence;
 begin
+  remainingSiblings := FNextSibling;
+  if remainingSiblings <> nil then
+    remainingSiblings.Destroy;
   if FirstField <> nil then
     FirstField.Destroy;
   inherited Destroy;
@@ -366,7 +420,7 @@ begin
   else
   begin
     while currField.FNextSibling <> nil do
-      currField := THL7Field(currField.FNextSibling);
+      currField := currField.FNextSibling;
     currField.FNextSibling := theField;
   end;
   if (FMessage = nil) or (pos(FMessage.Delimiters.FieldSeparator, FieldText) = 0) then
@@ -375,15 +429,16 @@ begin
   begin
     lastPos := 0;
     while lastPos < length(FieldText) - 1 do
+    begin
+      singleFieldText := NextSection(FieldText, lastPos,
+        FMessage.Delimiters.FieldSeparator);
+      theField.SetContent(singleFieldText);
+      if lastPos < length(FieldText) - 1 then
       begin
-        singleFieldText := NextSection(FieldText, lastPos, FMessage.Delimiters.FieldSeparator);
-        theField.SetContent(singleFieldText);
-        if lastPos < length(FieldText) - 1 then
-          begin
-          theField.FNextSibling := THL7Field.Create(self, '');
-          theField := THL7Field(theField.FNextSibling);
-          end;
+        theField.FNextSibling := THL7Field.Create(self, '');
+        theField := THL7Field(theField.FNextSibling);
       end;
+    end;
   end;
   Result := theField;
 end;
@@ -410,7 +465,12 @@ begin
 end;
 
 destructor THL7Segment.Destroy;
+var
+  remainingSiblings: THL7Segment;
 begin
+  remainingSiblings := FNextSibling;
+  if remainingSiblings <> nil then
+    remainingSiblings.Destroy;
   if FirstOccurrence <> nil then
     FirstOccurrence.Destroy;
   inherited Destroy;
@@ -427,7 +487,7 @@ begin
   else
   begin
     while currOccurrence.FNextSibling <> nil do
-      currOccurrence := THL7Occurrence(currOccurrence.FNextSibling);
+      currOccurrence := currOccurrence.FNextSibling;
     currOccurrence.FNextSibling := theOccurrence;
   end;
   Result := theOccurrence;
