@@ -184,30 +184,49 @@ type
     property contentString: string read CompiledMessageString write ParseMessageString;
   end;
 
-procedure ReadHL7File(out ADoc: THL7Message; const aFileName: string); overload;
-procedure ReadHL7File(out ADoc: THL7Message; var f: Text); overload;
-procedure ReadHL7File(out ADoc: THL7Message; f: TStream); overload;
-procedure ReadHL7File(out ADoc: THL7Message; f: TStream; const aBaseURI: string);
+procedure ReadHL7File(out HL7Doc: THL7Message; const aFileName: string); overload;
+procedure ReadHL7File(out HL7Doc: THL7Message; var f: Text); overload;
+procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream); overload;
+procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream; const aBaseURI: string);
   overload;
+procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: String); overload;
+procedure WriteHL7File(HL7Doc: THL7Message; var AFile: Text); overload;
+procedure WriteHL7File(HL7Doc: THL7Message; AStream: TStream); overload;
+
 
 implementation
 
-procedure ReadHL7File(out ADoc: THL7Message; const aFileName: string);
+procedure ReadHL7File(out HL7Doc: THL7Message; const aFileName: string);
 begin
 
 end;
 
-procedure ReadHL7File(out ADoc: THL7Message; var f: Text);
+procedure ReadHL7File(out HL7Doc: THL7Message; var f: Text);
 begin
 
 end;
 
-procedure ReadHL7File(out ADoc: THL7Message; f: TStream);
+procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream);
 begin
 
 end;
 
-procedure ReadHL7File(out ADoc: THL7Message; f: TStream; const aBaseURI: string);
+procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream; const aBaseURI: string);
+begin
+
+end;
+
+procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: String);
+begin
+
+end;
+
+procedure WriteHL7File(HL7Doc: THL7Message; var AFile: Text);
+begin
+
+end;
+
+procedure WriteHL7File(HL7Doc: THL7Message; AStream: TStream);
 begin
 
 end;
