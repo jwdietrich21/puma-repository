@@ -34,8 +34,9 @@ const
     'NK1||ROE^MARIE^^^^|SPO||(216)123-4567||EC|||||||||||||||||||||||||||';
   EXAMPLE_SEGMENT4 =
     'PV1||O|168 ~219~C~PMA^^^^^^^^^||||277^ALLEN MYLASTNAME^BONNIE^^^^|||||||||| ||2688684|||||||||||||||||||||||||199912271408||||||002376853';
-  EXAMPLE_SEGMENT5 = 'OBR|||||||||';
-  EXAMPLE_SEGMENT6 = 'OBR|||||""||||';
+  EXAMPLE_SEGMENT5 = 'PID|||||Thomas&Gregory||19481211|M';
+  EXAMPLE_SEGMENT6 = 'OBR|||||||||';
+  EXAMPLE_SEGMENT7 = 'OBR|||||""||||';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
   EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
@@ -102,6 +103,7 @@ type
   published
     procedure SubComponentTestCase1;
     procedure SubComponentTestCase2;
+    procedure SubComponentTestCase3;
   end;
 
 
@@ -470,14 +472,16 @@ begin
             nextSibling.nextSibling.contentString;
           AssertEquals('ROE^MARIE^^^^', fieldContent);
           if (TestHL7Message.FirstSegment.FirstOccurrence.
-            FirstField.nextSibling.nextSibling.FirstComponent = nil) or (TestHL7Message.FirstSegment.FirstOccurrence.
+            FirstField.nextSibling.nextSibling.FirstComponent = nil) or
+            (TestHL7Message.FirstSegment.FirstOccurrence.
             FirstField.nextSibling.nextSibling.FirstComponent.nextSibling = nil) then
             fail('Component could not be found.')
           else
           begin
             componentContent :=
-             TestHL7Message.FirstSegment.FirstOccurrence.
-              FirstField.nextSibling.nextSibling.FirstComponent.nextSibling.contentString;
+              TestHL7Message.FirstSegment.FirstOccurrence.
+              FirstField.nextSibling.nextSibling.FirstComponent.
+              nextSibling.contentString;
             AssertEquals('MARIE', componentContent);
           end;
         end;
@@ -516,12 +520,10 @@ begin
       fail('Segment could not be created.')
     else
     begin
-      TestHL7Message.FirstSegment.NewOccurrence('');
       if TestHL7Message.FirstSegment.FirstOccurrence = nil then
         fail('Occurrence could not be created.');
     end;
     begin
-      TestHL7Message.FirstSegment.FirstOccurrence.NewField('');
       if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
         fail('Field could not be created.')
       else
@@ -545,6 +547,72 @@ begin
             AssertEquals('test',
               TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
               FirstComponent.contentString);
+          end;
+        end;
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TSubComponentTestCases.SubComponentTestCase3;
+var
+  fieldContent, componentContent, subcomponentContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    if TestHL7Message.NewSegment(EXAMPLE_SEGMENT5) = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
+          fail('Field could not be created.')
+        else
+        if (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling.nextSibling
+          = nil) or (TestHL7Message.FirstSegment.FirstOccurrence.
+          FirstField.nextSibling.nextSibling.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+          nextSibling.nextSibling.nextSibling.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+          nextSibling.nextSibling.nextSibling.nextSibling.nextSibling = nil) then
+          fail('Field could not be found.')
+        else
+        begin
+          fieldContent := TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+            nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.contentString;
+          AssertEquals('Thomas&Gregory', fieldContent);
+          if TestHL7Message.FirstSegment.FirstOccurrence.
+            FirstField.nextSibling.nextSibling.nextSibling.nextSibling.
+            nextSibling.FirstComponent = nil then
+            fail('Component could not be found.')
+          else
+          begin
+            componentContent :=
+              TestHL7Message.FirstSegment.FirstOccurrence.
+              FirstField.nextSibling.nextSibling.nextSibling.nextSibling.
+              nextSibling.FirstComponent.contentString;
+            AssertEquals('Thomas&Gregory', componentContent);
+            if TestHL7Message.FirstSegment.FirstOccurrence.
+              FirstField.nextSibling.nextSibling.nextSibling.nextSibling.
+              nextSibling.FirstComponent.FirstSubComponent.nextSibling = nil then
+              fail('Subcomponent could not be found.')
+            else
+            begin
+              subcomponentContent :=
+                TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+                nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.FirstComponent.
+                FirstSubComponent.nextSibling.contentString;
+              AssertEquals('Gregory', subcomponentContent);
+            end;
           end;
         end;
       end;
