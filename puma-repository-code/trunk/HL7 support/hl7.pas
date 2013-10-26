@@ -77,6 +77,7 @@ type
     FirstOccurrence: THL7Occurrence;
     constructor Create(owner: THL7Message; SegmentText: string);
     destructor Destroy; override;
+    function NewOccurrence(const OccurrencesText: string): THL7Occurrence;
     property contentString: string read FText write SetContent;
   end;
 
@@ -87,8 +88,9 @@ type
     procedure SetContent(const aString: string);
   public
     FirstField: THL7Field;
-    constructor Create(owner: THL7Segment; OccurencesText: string);
+    constructor Create(owner: THL7Segment; OccurrencesText: string);
     destructor Destroy; override;
+    function NewField(const FieldText: string): THL7Field;
     property contentString: string read FText write SetContent;
   end;
 
@@ -101,6 +103,7 @@ type
     FirstComponent: THL7Component;
     constructor Create(owner: THL7Occurrence; FieldText: string);
     destructor Destroy; override;
+    function NewComponent(const ComponentText: string): THL7Component;
     property contentString: string read FText write SetContent;
   end;
 
@@ -113,6 +116,7 @@ type
     FirstSubComponent: THL7SubComponent;
     constructor Create(owner: THL7Field; ComponentText: string);
     destructor Destroy; override;
+    function NewSubComponent(const SubComponentText: string): THL7SubComponent;
     property contentString: string read FText write SetContent;
   end;
 
@@ -221,7 +225,7 @@ begin
   inherited Create;
   FOwner := owner;
   FNextSibling := nil;
-  FirstSubComponent := THL7SubComponent.Create(self, ComponentText);
+  FirstSubComponent := nil;
   contentString := ComponentText;
 end;
 
@@ -230,6 +234,24 @@ begin
   if FirstSubComponent <> nil then
     FirstSubComponent.Destroy;
   inherited Destroy;
+end;
+
+function THL7Component.NewSubComponent(const SubComponentText: string
+  ): THL7SubComponent;
+var
+  theSubcomponent, currSubcomponent: THL7Subcomponent;
+begin
+  theSubcomponent := THL7Subcomponent.Create(self, SubcomponentText);
+  currSubcomponent := FirstSubcomponent;
+  if currSubcomponent = nil then
+    FirstSubcomponent := theSubcomponent
+  else
+  begin
+    while currSubcomponent.FNextSibling <> nil do
+      currSubcomponent := THL7Subcomponent(currSubcomponent.FNextSibling);
+    currSubcomponent.FNextSibling := theSubcomponent;
+  end;
+  Result := theSubcomponent;
 end;
 
 { THL7Field }
@@ -244,7 +266,7 @@ begin
   inherited Create;
   FOwner := owner;
   FNextSibling := nil;
-  FirstComponent := THL7Component.Create(self, FieldText);
+  FirstComponent := nil;
   contentString := FieldText;
 end;
 
@@ -255,21 +277,39 @@ begin
   inherited Destroy;
 end;
 
+function THL7Field.NewComponent(const ComponentText: string): THL7Component;
+var
+  theComponent, currComponent: THL7Component;
+begin
+  theComponent := THL7Component.Create(self, ComponentText);
+  currComponent := FirstComponent;
+  if currComponent = nil then
+    FirstComponent := theComponent
+  else
+  begin
+    while currComponent.FNextSibling <> nil do
+      currComponent := THL7Component(currComponent.FNextSibling);
+    currComponent.FNextSibling := theComponent;
+  end;
+  Result := theComponent;
+end;
+
 { THL7Occurrence }
 
 procedure THL7Occurrence.SetContent(const aString: string);
 begin
   FText := aString;
-  FirstField.contentString := FText;
+  if FirstField <> nil then
+    FirstField.contentString := FText;
 end;
 
-constructor THL7Occurrence.Create(owner: THL7Segment; OccurencesText: string);
+constructor THL7Occurrence.Create(owner: THL7Segment; OccurrencesText: string);
 begin
   inherited Create;
   FOwner := owner;
   FNextSibling := nil;
-  FirstField := THL7Field.Create(self, OccurencesText);
-  contentString := OccurencesText;
+  FirstField := nil;
+  contentString := OccurrencesText;
 end;
 
 destructor THL7Occurrence.Destroy;
@@ -277,6 +317,23 @@ begin
   if FirstField <> nil then
     FirstField.Destroy;
   inherited Destroy;
+end;
+
+function THL7Occurrence.NewField(const FieldText: string): THL7Field;
+var
+  theField, currField: THL7Field;
+begin
+  theField := THL7Field.Create(self, FieldText);
+  currField := FirstField;
+  if currField = nil then
+    FirstField := theField
+  else
+  begin
+    while currField.FNextSibling <> nil do
+      currField := THL7Field(currField.FNextSibling);
+    currField.FNextSibling := theField;
+  end;
+  Result := theField;
 end;
 
 { THL7Segment }
@@ -292,7 +349,7 @@ begin
   inherited Create;
   FlOwner := owner;
   FNextSibling := nil;
-  FirstOccurrence := THL7Occurrence.Create(self, SegmentText);
+  FirstOccurrence := nil;
   contentString := SegmentText;
 end;
 
@@ -301,6 +358,23 @@ begin
   if FirstOccurrence <> nil then
     FirstOccurrence.Destroy;
   inherited Destroy;
+end;
+
+function THL7Segment.NewOccurrence(const OccurrencesText: string): THL7Occurrence;
+var
+  theOccurrence, currOccurrence: THL7Occurrence;
+begin
+  theOccurrence := THL7Occurrence.Create(self, OccurrencesText);
+  currOccurrence := FirstOccurrence;
+  if currOccurrence = nil then
+    FirstOccurrence := theOccurrence
+  else
+  begin
+    while currOccurrence.FNextSibling <> nil do
+      currOccurrence := THL7Occurrence(currOccurrence.FNextSibling);
+    currOccurrence.FNextSibling := theOccurrence;
+  end;
+  Result := theOccurrence;
 end;
 
 { THL7Message }

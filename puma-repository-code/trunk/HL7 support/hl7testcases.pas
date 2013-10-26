@@ -313,10 +313,12 @@ begin
       fail('Segment could not be created.')
     else
     begin
+      TestHL7Message.FirstSegment.NewOccurrence('');
       if TestHL7Message.FirstSegment.FirstOccurrence = nil then
         fail('Occurrence could not be created.')
       else
       begin
+        TestHL7Message.FirstSegment.FirstOccurrence.NewField('');
         if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
           fail('Field could not be created.')
         else
@@ -362,14 +364,17 @@ begin
       fail('Segment could not be created.')
     else
     begin
+      TestHL7Message.FirstSegment.NewOccurrence('');
       if TestHL7Message.FirstSegment.FirstOccurrence = nil then
         fail('Occurrence could not be created.')
       else
       begin
+        TestHL7Message.FirstSegment.FirstOccurrence.NewField('');
         if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
           fail('Field could not be created.')
         else
         begin
+          TestHL7Message.FirstSegment.FirstOccurrence.FirstField.NewComponent('');
           if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.FirstComponent
             = nil then
             fail('Component could not be created')
@@ -417,19 +422,23 @@ begin
       fail('Segment could not be created.')
     else
     begin
+      TestHL7Message.FirstSegment.NewOccurrence('');
       if TestHL7Message.FirstSegment.FirstOccurrence = nil then
         fail('Occurrence could not be created.');
     end;
     begin
+      TestHL7Message.FirstSegment.FirstOccurrence.NewField('');
       if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
         fail('Field could not be created.')
       else
       begin
+        TestHL7Message.FirstSegment.FirstOccurrence.FirstField.NewComponent('');
         if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.FirstComponent
           = nil then
           fail('Component could not be created')
         else
         begin
+          TestHL7Message.FirstSegment.FirstOccurrence.FirstField.FirstComponent.NewSubComponent('');
           if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
             FirstComponent.FirstSubComponent = nil then
             fail('Subcomponent could not be created')
