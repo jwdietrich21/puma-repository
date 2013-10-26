@@ -283,8 +283,7 @@ begin
   inherited Destroy;
 end;
 
-function THL7Component.NewSubComponent(const SubComponentText: string):
-THL7SubComponent;
+function THL7Component.NewSubComponent(const SubComponentText: string): THL7SubComponent;
 var
   theSubcomponent, currSubcomponent: THL7Subcomponent;
 begin
@@ -306,7 +305,8 @@ end;
 procedure THL7Field.SetContent(const aString: string);
 begin
   FText := aString;
-  if (FMessage <> nil) and (pos(FMessage.Delimiters.FieldSeparator, aString) = 0) then
+  if (FMessage <> nil) and (pos(FMessage.Delimiters.FieldSeparator, aString) = 0) and
+    (pos(FMessage.Delimiters.ComponentSeparator, aString) > 0) then
     {true fields only}
     NewComponent(aString);
 end;
