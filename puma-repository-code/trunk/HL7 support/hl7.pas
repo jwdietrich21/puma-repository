@@ -139,6 +139,8 @@ type
     procedure SetDelimiters(DelimiterDefinition: string);
     function Encoded(const aString: string): string;
     function EncodedHex(const aNumber: integer): string;
+    function Decoded(const aString: string): string;
+    function DecodedHex(const aString: string): integer;
     constructor Create(version: string);
     destructor Destroy; override;
     property HL7Version: string read HL7_version write SetHL7Version;
@@ -262,7 +264,7 @@ end;
 
 constructor THL7Occurrence.Create(owner: THL7Segment; FieldText: string);
 begin
-  inherited create;
+  inherited Create;
   FOwner := owner;
   FNextSibling := nil;
   FirstField := THL7Field.Create(self, '');
@@ -320,16 +322,19 @@ begin
 end;
 
 function THL7Message.Encoded(const aString: string): string;
-{ Escapes encoding characters }
+  { Escapes encoding characters }
 var
   theString: string;
 begin
   theString := AnsiReplaceText(aString, '\', ESCAPE_ESCAPE);
   theString := AnsiReplaceText(theString, Delimiters.FieldSeparator, ESCAPE_FIELD);
-  theString := AnsiReplaceText(theString, Delimiters.RepetitionSeparator, ESCAPE_REPETITION);
-  theString := AnsiReplaceText(theString, Delimiters.ComponentSeparator, ESCAPE_COMPONENT);
-  theString := AnsiReplaceText(theString, Delimiters.SubcomponentSeparator, ESCAPE_SUBCOMPONENT);
-  result := theString;
+  theString := AnsiReplaceText(theString, Delimiters.RepetitionSeparator,
+    ESCAPE_REPETITION);
+  theString := AnsiReplaceText(theString, Delimiters.ComponentSeparator,
+    ESCAPE_COMPONENT);
+  theString := AnsiReplaceText(theString, Delimiters.SubcomponentSeparator,
+    ESCAPE_SUBCOMPONENT);
+  Result := theString;
 end;
 
 function THL7Message.EncodedHex(const aNumber: integer): string;
@@ -337,8 +342,35 @@ var
   theString: string;
 begin
   theString := IntToHex(aNumber, 0);
-  theString := '\X' +  theString + '\';
-  result := theString;
+  theString := '\X' + theString + '\';
+  Result := theString;
+end;
+
+function THL7Message.Decoded(const aString: string): string;
+var
+  theString: string;
+begin
+  theString := AnsiReplaceText(aString, ESCAPE_ESCAPE, '\');
+  theString := AnsiReplaceText(theString, ESCAPE_FIELD, Delimiters.FieldSeparator);
+  theString := AnsiReplaceText(theString, ESCAPE_REPETITION,
+    Delimiters.RepetitionSeparator);
+  theString := AnsiReplaceText(theString, ESCAPE_COMPONENT,
+    Delimiters.ComponentSeparator);
+  theString := AnsiReplaceText(theString, ESCAPE_SUBCOMPONENT,
+    Delimiters.SubcomponentSeparator);
+  Result := theString;
+end;
+
+function THL7Message.DecodedHex(const aString: string): integer;
+var
+  theString: string;
+  theNumber: integer;
+begin
+  theString := aString;
+  delete(theString, 1, 2);
+  delete(theString, length(theString), 1);
+  theNumber := Hex2Dec(theString);
+  result := theNumber;
 end;
 
 constructor THL7Message.Create(version: string);
@@ -362,5 +394,4 @@ begin
 end;
 
 
-end.
-
+end.
