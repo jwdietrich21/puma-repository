@@ -43,6 +43,8 @@ const
   EXAMPLE_FIELD4 = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
   EXAMPLE_FIELD5 = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
   EXAMOLE_FIELD6 = '13.5&18^M~12.0 & 16^F';
+  EXAMPLE_MESSAGE = EXAMPLE_SEGMENT1 + char(13) + EXAMPLE_SEGMENT2 +
+    char(13) + EXAMPLE_SEGMENT3 + char(13) + EXAMPLE_SEGMENT4;
 
 type
 
@@ -51,11 +53,12 @@ type
     procedure PositiveCheck;
   end;
 
-  { TBaseStructureTestCases }
+  { TMessageTestCases }
 
-  TBaseStructureTestCases = class(TTestCase)
+  TMessageTestCases = class(TTestCase)
   published
     procedure VersionTestCase1;
+    procedure WholeMessageTestCase1;
   end;
 
   { TStringEncodingTestCases }
@@ -121,15 +124,55 @@ begin
   AssertNull('This test is bound to succeed', nil);
 end;
 
-{ TBaseStructureTestCases }
+{ TMessageTestCases }
 
-procedure TBaseStructureTestCases.VersionTestCase1;
+procedure TMessageTestCases.VersionTestCase1;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
     fail('Message could not be created.')
   else
     AssertEquals('2.5', TestHL7Message.HL7Version);
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TMessageTestCases.WholeMessageTestCase1;
+var
+  fieldContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    if (TestHL7Message.FirstSegment = nil) or
+      (TestHL7Message.FirstSegment.nextSibling = nil) or
+      (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField = nil then
+          fail('Field could not be created.')
+        else
+        if (TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField.nextSibling.nextSibling
+          = nil) then
+          fail('Field could not be found.')
+        else
+        begin
+          fieldContent := TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField.
+            nextSibling.nextSibling.contentString;
+          AssertEquals('ROE^MARIE^^^^', fieldContent);
+        end;
+      end;
+    end;
+  end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
 end;
@@ -263,7 +306,8 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.NewSegment(EXAMPLE_SEGMENT2) = nil then
+    TestHL7Message.AllocSegments(EXAMPLE_SEGMENT2);
+    if TestHL7Message.FirstSegment = nil then
       fail('Segment could not be created.')
     else
     begin
@@ -283,11 +327,12 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.NewSegment('') = nil then
+    TestHL7Message.AllocSegments(EXAMPLE_SEGMENT3);
+    if TestHL7Message.FirstSegment = nil then
       fail('Segment could not be created.')
     else
     begin
-      theSegment := TestHL7Message.NewSegment(EXAMPLE_SEGMENT3);
+      theSegment := TestHL7Message.FirstSegment;
       AssertEquals(EXAMPLE_SEGMENT3, theSegment.contentString);
     end;
   end;
@@ -319,7 +364,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.NewSegment('') = nil then
+    if TestHL7Message.NewSegment = nil then
       fail('Segment could not be created.')
     else
     begin
@@ -328,7 +373,7 @@ begin
         fail('Occurrence could not be created.')
       else
       begin
-        TestHL7Message.FirstSegment.FirstOccurrence.NewField('');
+        TestHL7Message.FirstSegment.FirstOccurrence.NewField;
         if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
           fail('Field could not be created.')
         else
@@ -354,7 +399,8 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.NewSegment(EXAMPLE_SEGMENT2) = nil then
+    TestHL7Message.AllocSegments(EXAMPLE_SEGMENT2);
+    if TestHL7Message.FirstSegment = nil then
       fail('Segment could not be created.')
     else
     begin
@@ -408,7 +454,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.NewSegment('') = nil then
+    if TestHL7Message.NewSegment = nil then
       fail('Segment could not be created.')
     else
     begin
@@ -417,12 +463,12 @@ begin
         fail('Occurrence could not be created.')
       else
       begin
-        TestHL7Message.FirstSegment.FirstOccurrence.NewField('');
+        TestHL7Message.FirstSegment.FirstOccurrence.NewField;
         if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
           fail('Field could not be created.')
         else
         begin
-          TestHL7Message.FirstSegment.FirstOccurrence.FirstField.NewComponent('');
+          TestHL7Message.FirstSegment.FirstOccurrence.FirstField.NewComponent;
           if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.FirstComponent
             = nil then
             fail('Component could not be created')
@@ -451,7 +497,8 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.NewSegment(EXAMPLE_SEGMENT3) = nil then
+    TestHL7Message.AllocSegments(EXAMPLE_SEGMENT3);
+    if TestHL7Message.FirstSegment = nil then
       fail('Segment could not be created.')
     else
     begin
@@ -516,7 +563,8 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.NewSegment('') = nil then
+    TestHL7Message.AllocSegments('empty');
+    if TestHL7Message.FirstSegment = nil then
       fail('Segment could not be created.')
     else
     begin
@@ -528,14 +576,14 @@ begin
         fail('Field could not be created.')
       else
       begin
-        TestHL7Message.FirstSegment.FirstOccurrence.FirstField.NewComponent('');
+        TestHL7Message.FirstSegment.FirstOccurrence.FirstField.AllocComponents('');
         if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.FirstComponent
           = nil then
           fail('Component could not be created')
         else
         begin
           TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
-            FirstComponent.NewSubComponent('');
+            FirstComponent.NewSubComponent;
           if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
             FirstComponent.FirstSubComponent = nil then
             fail('Subcomponent could not be created')
@@ -565,7 +613,8 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.NewSegment(EXAMPLE_SEGMENT5) = nil then
+    TestHL7Message.AllocSegments(EXAMPLE_SEGMENT5);
+    if TestHL7Message.FirstSegment = nil then
       fail('Segment could not be created.')
     else
     begin
@@ -609,8 +658,8 @@ begin
             begin
               subcomponentContent :=
                 TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
-                nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.FirstComponent.
-                FirstSubComponent.nextSibling.contentString;
+                nextSibling.nextSibling.nextSibling.nextSibling.
+                nextSibling.FirstComponent.FirstSubComponent.nextSibling.contentString;
               AssertEquals('Gregory', subcomponentContent);
             end;
           end;
@@ -624,7 +673,7 @@ end;
 
 initialization
   RegisterTest(TControlTestCases);
-  RegisterTest(TBaseStructureTestCases);
+  RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);
   RegisterTest(TFieldsTestCases);
