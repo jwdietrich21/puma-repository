@@ -84,6 +84,7 @@ type
   published
     procedure FieldsTestCase1;
     procedure FieldsTestCase2;
+    procedure FieldsTestCase3;
   end;
 
   { TComponentTestCases }
@@ -170,8 +171,10 @@ end;
 
 procedure TStringEncodingTestCases.EncodingTestCase1;
 const
-  STRING_WITH_SPECIAL_SYMBOLS = 'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
-  ESCAPED_EXAMPLE_STRING = 'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
+  STRING_WITH_SPECIAL_SYMBOLS =
+    'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
+  ESCAPED_EXAMPLE_STRING =
+    'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -179,7 +182,8 @@ begin
   else
   begin
     TestHL7Message.SetDelimiters('');
-    AssertEquals(ESCAPED_EXAMPLE_STRING, TestHL7Message.Encoded(STRING_WITH_SPECIAL_SYMBOLS));
+    AssertEquals(ESCAPED_EXAMPLE_STRING, TestHL7Message.Encoded(
+      STRING_WITH_SPECIAL_SYMBOLS));
   end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
@@ -200,8 +204,10 @@ end;
 
 procedure TStringEncodingTestCases.DecodingTestCase1;
 const
-  STRING_WITH_SPECIAL_SYMBOLS = 'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
-  ESCAPED_EXAMPLE_STRING = 'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
+  STRING_WITH_SPECIAL_SYMBOLS =
+    'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
+  ESCAPED_EXAMPLE_STRING =
+    'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -209,7 +215,8 @@ begin
   else
   begin
     TestHL7Message.SetDelimiters('');
-    AssertEquals(STRING_WITH_SPECIAL_SYMBOLS, TestHL7Message.Decoded(ESCAPED_EXAMPLE_STRING));
+    AssertEquals(STRING_WITH_SPECIAL_SYMBOLS,
+      TestHL7Message.Decoded(ESCAPED_EXAMPLE_STRING));
   end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
@@ -335,6 +342,45 @@ begin
     TestHL7Message.Destroy;
 end;
 
+procedure TFieldsTestCases.FieldsTestCase3;
+var
+  fieldContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    if TestHL7Message.NewSegment(EXAMPLE_SEGMENT2) = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      TestHL7Message.FirstSegment.NewOccurrence(EXAMPLE_SEGMENT2);
+      if TestHL7Message.FirstSegment.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
+          fail('Field could not be created.')
+        else
+        if (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling.nextSibling =
+          nil) or (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+          nextSibling.nextSibling.nextSibling = nil) then
+          fail('Field could not be found.')
+        else
+        begin
+          fieldContent := TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+          nextSibling.nextSibling.nextSibling.contentString;
+          AssertEquals('454721', fieldContent);
+        end;
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
 
 { TComponentTestCases }
 
@@ -438,7 +484,8 @@ begin
           fail('Component could not be created')
         else
         begin
-          TestHL7Message.FirstSegment.FirstOccurrence.FirstField.FirstComponent.NewSubComponent('');
+          TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+            FirstComponent.NewSubComponent('');
           if TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
             FirstComponent.FirstSubComponent = nil then
             fail('Subcomponent could not be created')

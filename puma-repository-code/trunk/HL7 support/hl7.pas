@@ -60,10 +60,13 @@ type
   protected
     FPreviousSibling, FNextSibling: THL7MessageSection;
     FOwner: THL7MessageSection;
+    FMessage: THL7Message;
     destructor Destroy; override;
     procedure SetContent(const aString: string); virtual; abstract;
   public
     property contentString: string read FText write SetContent;
+    property previousSibling: THL7MessageSection read FPreviousSibling;
+    property nextSibling: THL7MessageSection read FNextSibling;
   end;
 
   { THL7Segment }
@@ -181,6 +184,19 @@ begin
 
 end;
 
+function NextSection(const aString: string; var Pos: Integer; const delim: char): string;
+var
+  i, j, l: Integer;
+  theString: string;
+begin
+  theString := aString;
+  if pos > 1 then delete(theString, 1, pos);
+  i := system.pos(delim, theString);
+  Result := copy(theString, 1, i - 1);
+  inc(pos, i);
+end;
+
+
 { THL7MessageSection }
 
 destructor THL7MessageSection.Destroy;
@@ -204,6 +220,8 @@ constructor THL7SubComponent.Create(owner: THL7Component; SubComponentText: stri
 begin
   inherited Create;
   FOwner := owner;
+  if owner <> nil then
+    FMessage := owner.FMessage;
   FNextSibling := nil;
   contentString := SubComponentText;
 end;
@@ -224,8 +242,13 @@ constructor THL7Component.Create(owner: THL7Field; ComponentText: string);
 begin
   inherited Create;
   FOwner := owner;
+  if owner <> nil then
+    FMessage := owner.FMessage;
   FNextSibling := nil;
-  FirstSubComponent := nil;
+  if ComponentText = '' then
+    FirstSubComponent := nil
+  else
+    NewSubComponent(ComponentText);
   contentString := ComponentText;
 end;
 
@@ -265,8 +288,13 @@ constructor THL7Field.Create(owner: THL7Occurrence; FieldText: string);
 begin
   inherited Create;
   FOwner := owner;
+  if owner <> nil then
+    FMessage := owner.FMessage;
   FNextSibling := nil;
-  FirstComponent := nil;
+  if FieldText = '' then
+    FirstComponent := nil
+  else
+    NewComponent(FieldText);
   contentString := FieldText;
 end;
 
@@ -299,16 +327,22 @@ end;
 procedure THL7Occurrence.SetContent(const aString: string);
 begin
   FText := aString;
-  if FirstField <> nil then
-    FirstField.contentString := FText;
+  if FirstField = nil then
+    NewField(aString);
+  FirstField.contentString := FText;
 end;
 
 constructor THL7Occurrence.Create(owner: THL7Segment; OccurrencesText: string);
 begin
   inherited Create;
   FOwner := owner;
+  if owner <> nil then
+    FMessage := owner.FMessage;
   FNextSibling := nil;
-  FirstField := nil;
+  if OccurrencesText = '' then
+    FirstField := nil
+  else
+    NewField(OccurrencesText);
   contentString := OccurrencesText;
 end;
 
@@ -322,8 +356,10 @@ end;
 function THL7Occurrence.NewField(const FieldText: string): THL7Field;
 var
   theField, currField: THL7Field;
+  lastPos: integer;
+  singleFieldText: string;
 begin
-  theField := THL7Field.Create(self, FieldText);
+  theField := THL7Field.Create(self, '');
   currField := FirstField;
   if currField = nil then
     FirstField := theField
@@ -332,6 +368,22 @@ begin
     while currField.FNextSibling <> nil do
       currField := THL7Field(currField.FNextSibling);
     currField.FNextSibling := theField;
+  end;
+  if (FMessage = nil) or (pos(FMessage.Delimiters.FieldSeparator, FieldText) = 0) then
+    theField.SetContent(FieldText)
+  else
+  begin
+    lastPos := 0;
+    while lastPos < length(FieldText) - 1 do
+      begin
+        singleFieldText := NextSection(FieldText, lastPos, FMessage.Delimiters.FieldSeparator);
+        theField.SetContent(singleFieldText);
+        if lastPos < length(FieldText) - 1 then
+          begin
+          theField.FNextSibling := THL7Field.Create(self, '');
+          theField := THL7Field(theField.FNextSibling);
+          end;
+      end;
   end;
   Result := theField;
 end;
@@ -348,8 +400,12 @@ constructor THL7Segment.Create(owner: THL7Message; SegmentText: string);
 begin
   inherited Create;
   FlOwner := owner;
+  FMessage := FlOwner;
   FNextSibling := nil;
-  FirstOccurrence := nil;
+  if SegmentText = '' then
+    FirstOccurrence := nil
+  else
+    NewOccurrence(SegmentText);
   contentString := SegmentText;
 end;
 
