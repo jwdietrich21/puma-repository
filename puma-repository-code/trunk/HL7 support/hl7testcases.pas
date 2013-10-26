@@ -75,6 +75,7 @@ type
   published
     procedure SegmentsTestCase1;
     procedure SegmentsTestCase2;
+    procedure SegmentsTestCase3;
   end;
 
   { TFieldsTestCases }
@@ -252,12 +253,32 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.FirstSegment = nil then
+    if TestHL7Message.NewSegment(EXAMPLE_SEGMENT2) = nil then
       fail('Segment could not be created.')
     else
     begin
-      TestHL7Message.FirstSegment.contentString := EXAMPLE_SEGMENT2;
       AssertEquals(EXAMPLE_SEGMENT2, TestHL7Message.FirstSegment.contentString);
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TSegmentsTestCases.SegmentsTestCase3;
+var
+  theSegment: THL7Segment;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    if TestHL7Message.NewSegment('') = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      theSegment := TestHL7Message.NewSegment(EXAMPLE_SEGMENT3);
+      AssertEquals(EXAMPLE_SEGMENT3, theSegment.contentString);
     end;
   end;
   if TestHL7Message <> nil then
@@ -288,7 +309,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.FirstSegment = nil then
+    if TestHL7Message.NewSegment('') = nil then
       fail('Segment could not be created.')
     else
     begin
@@ -337,7 +358,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.FirstSegment = nil then
+    if TestHL7Message.NewSegment('') = nil then
       fail('Segment could not be created.')
     else
     begin
@@ -392,7 +413,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    if TestHL7Message.FirstSegment = nil then
+    if TestHL7Message.NewSegment('') = nil then
       fail('Segment could not be created.')
     else
     begin

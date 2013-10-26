@@ -87,7 +87,7 @@ type
     procedure SetContent(const aString: string);
   public
     FirstField: THL7Field;
-    constructor Create(owner: THL7Segment; FieldText: string);
+    constructor Create(owner: THL7Segment; OccurencesText: string);
     destructor Destroy; override;
     property contentString: string read FText write SetContent;
   end;
@@ -146,6 +146,7 @@ type
     property HL7Version: string read HL7_version write SetHL7Version;
     property Delimiters: THL7Delimiters read HL7Delimiters write HL7Delimiters;
     function FoundSegment(const aSegmentName: string): THL7Segment;
+    function NewSegment(const SegmentText: string): THL7Segment;
   end;
 
 procedure ReadHL7File(out ADoc: THL7Message; const aFileName: string); overload;
@@ -220,7 +221,7 @@ begin
   inherited Create;
   FOwner := owner;
   FNextSibling := nil;
-  FirstSubComponent := THL7SubComponent.Create(self, '');
+  FirstSubComponent := THL7SubComponent.Create(self, ComponentText);
   contentString := ComponentText;
 end;
 
@@ -243,7 +244,7 @@ begin
   inherited Create;
   FOwner := owner;
   FNextSibling := nil;
-  FirstComponent := THL7Component.Create(self, '');
+  FirstComponent := THL7Component.Create(self, FieldText);
   contentString := FieldText;
 end;
 
@@ -262,13 +263,13 @@ begin
   FirstField.contentString := FText;
 end;
 
-constructor THL7Occurrence.Create(owner: THL7Segment; FieldText: string);
+constructor THL7Occurrence.Create(owner: THL7Segment; OccurencesText: string);
 begin
   inherited Create;
   FOwner := owner;
   FNextSibling := nil;
-  FirstField := THL7Field.Create(self, '');
-  contentString := FieldText;
+  FirstField := THL7Field.Create(self, OccurencesText);
+  contentString := OccurencesText;
 end;
 
 destructor THL7Occurrence.Destroy;
@@ -291,7 +292,7 @@ begin
   inherited Create;
   FlOwner := owner;
   FNextSibling := nil;
-  FirstOccurrence := THL7Occurrence.Create(self, '');
+  FirstOccurrence := THL7Occurrence.Create(self, SegmentText);
   contentString := SegmentText;
 end;
 
@@ -367,10 +368,10 @@ var
   theNumber: integer;
 begin
   theString := aString;
-  delete(theString, 1, 2);
-  delete(theString, length(theString), 1);
+  Delete(theString, 1, 2);
+  Delete(theString, length(theString), 1);
   theNumber := Hex2Dec(theString);
-  result := theNumber;
+  Result := theNumber;
 end;
 
 constructor THL7Message.Create(version: string);
@@ -378,7 +379,7 @@ begin
   inherited Create;
   SetDelimiters(STANDARD_DELIMITERS);  {Default delimiter definition}
   HL7_Version := version;
-  FirstSegment := THL7Segment.Create(self, '');
+  FirstSegment := nil;
 end;
 
 destructor THL7Message.Destroy;
@@ -391,6 +392,23 @@ end;
 function THL7Message.FoundSegment(const aSegmentName: string): THL7Segment;
 begin
 
+end;
+
+function THL7Message.NewSegment(const SegmentText: string): THL7Segment;
+var
+  theSegment, currSegment: THL7Segment;
+begin
+  theSegment := THL7Segment.Create(self, SegmentText);
+  currSegment := FirstSegment;
+  if currSegment = nil then
+    FirstSegment := theSegment
+  else
+  begin
+    while currSegment.FNextSibling <> nil do
+      currSegment := THL7Segment(currSegment.FNextSibling);
+    currSegment.FNextSibling := theSegment;
+  end;
+  Result := theSegment;
 end;
 
 
