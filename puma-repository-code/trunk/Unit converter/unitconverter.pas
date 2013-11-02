@@ -6,7 +6,7 @@ unit UnitConverter;
 
 { Unit Converter }
 
-{ Version 1.1.2 }
+{ Version 1.2.0 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -171,7 +171,12 @@ begin
             MassPrefix := '';
             MassUnit := 'g';
           end
-        else if (copy(theString, 1, 3) = 'mol') then {e.g. 'mol/l'}
+        else if copy(theString, 1, 1) = '/' then
+          begin
+            MassPrefix := 'NA';
+            MassUnit := 'NA';
+          end
+        else if copy(theString, 1, 3) = 'mol' then {e.g. 'mol/l'}
           begin
             MassPrefix := '';
             MassUnit := 'mol';
@@ -198,7 +203,15 @@ begin
               MassUnit := copy(theString, 2, pos('/', theString) - 2);
             end;
           end;
-        VolumePrefix := copy(theString, pos('/', theString) + 1, 1);
+        if copy(theString, pos('/', theString) + 1, 1) = 'm' then
+          begin
+            if copy(theString, pos('/', theString) + 2, 1) = 'c' then
+              VolumePrefix := PrefixLabel[4] {mc -> µ}
+            else
+              VolumePrefix := 'm';
+          end
+          else
+            VolumePrefix := copy(theString, pos('/', theString) + 1, 1);
         VolumeUnit := 'l';
         if VolumePrefix = VolumeUnit then
           VolumePrefix := '';  {no prefix set}

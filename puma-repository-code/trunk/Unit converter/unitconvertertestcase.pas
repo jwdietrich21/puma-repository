@@ -6,7 +6,7 @@ unit UnitConverterTestCase;
 
 { Unit Converter }
 
-{ Version 1.1.2 }
+{ Version 1.2.0 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -44,6 +44,7 @@ type
     procedure TestCase4;
     procedure TestCase5;
     procedure TestCase11;
+    procedure TestCase101;
   end;
 
   TMeasurementParserTestCases = class(TTestCase)
@@ -75,6 +76,7 @@ type
     procedure TestCase14;
     procedure TestCase15;
     procedure TestCase16;
+    procedure TestCase101;
   end;
 
 
@@ -159,6 +161,18 @@ begin
   AssertEquals('p', theUnitElements.MassPrefix);
   AssertEquals('mol', theUnitElements.MassUnit);
   AssertEquals('', theUnitElements.VolumePrefix);
+  AssertEquals('l', theUnitElements.VolumeUnit);
+end;
+
+procedure TUnitParserTestCases.TestCase101;
+{ Typical example }
+var
+  theUnitElements: tUnitElements;
+begin
+  theUnitElements := ParsedUnitString('/nl');
+  AssertEquals('NA', theUnitElements.MassPrefix);
+  AssertEquals('NA', theUnitElements.MassUnit);
+  AssertEquals('n', theUnitElements.VolumePrefix);
   AssertEquals('l', theUnitElements.VolumeUnit);
 end;
 
@@ -393,6 +407,15 @@ begin
   theResultString := ConvertedUnitF('5 pmol/l', T3_MOLAR_MASS, 'ng/l', ffNumber, 2, 2);
   AssertEquals('3.2', LeftStr(theResultString, 3));
   AssertEquals('ng/l', RightStr(theResultString, 4));
+end;
+
+procedure TconverterTestCases.TestCase101;
+{Cell count: /nl to /µl}
+var
+  theResultString: String;
+begin
+  theResultString := ConvertedUnitF('5 /nl', 1, '/µl', ffNumber, 2, 2);
+  AssertEquals('5,000.00', LeftStr(theResultString, 8));
 end;
 
 initialization
