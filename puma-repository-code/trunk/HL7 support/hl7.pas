@@ -8,15 +8,15 @@ unit HL7;
 
 { Version 0.9 }
 
-{ (c) J. W. Dietrich, 1994 - 2013 }
-{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
-{ (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2013 }
+ { (c) J. W. Dietrich, 1994 - 2013 }
+ { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+ { (c) University of Ulm Hospitals 2002-2004 }
+ { (c) Ruhr University of Bochum 2005 - 2013 }
 
 { Parser and converter for measurement units }
 
-{ Source code released under the BSD License }
-{ See http://puma-repository.sf.net for details }
+ { Source code released under the BSD License }
+ { See http://puma-repository.sf.net for details }
 
 {$mode objfpc}
 
@@ -31,12 +31,12 @@ const
   ACKNOWLEDGEMENT_ERROR = 'AE';
   ACKNOWLEDGEMENT_REJECT = 'AR';
   ESCAPE_HIGHLIGHTING = '\H\';   {start highlighting}
-  ESCAPE_NORMAL = '\N\';   {end highlighting}
-  ESCAPE_FIELD = '\F\';
-  ESCAPE_COMPONENT = '\S\';
+  ESCAPE_NORMAL     = '\N\';     {end highlighting}
+  ESCAPE_FIELD      = '\F\';
+  ESCAPE_COMPONENT  = '\S\';
   ESCAPE_SUBCOMPONENT = '\T\';
   ESCAPE_REPETITION = '\R\';
-  ESCAPE_ESCAPE = '\E\';
+  ESCAPE_ESCAPE     = '\E\';
 
 type
 
@@ -45,11 +45,11 @@ type
     SubcomponentSeparator, RepetitionSeparator, EscapeCharacter: char;
   end;
 
-  THL7Message = class;
-  THL7Segment = class;
+  THL7Message    = class;
+  THL7Segment    = class;
   THL7Occurrence = class;
-  THL7Field = class;
-  THL7Component = class;
+  THL7Field      = class;
+  THL7Component  = class;
   THL7SubComponent = class;
 
   { THL7MessageSection }
@@ -58,13 +58,13 @@ type
   private
     FText: string;
   protected
-    FOwner: THL7MessageSection;
+    FOwner:   THL7MessageSection;
     FMessage: THL7Message;
     destructor Destroy; override;
     procedure ParseMessageString(const aString: string); virtual; abstract;
     function CompiledMessageString: string; virtual; abstract;
   public
-    property contentString: string read CompiledMessageString write ParseMessageString;
+    property contentString: string Read CompiledMessageString Write ParseMessageString;
   end;
 
   { THL7Segment }
@@ -73,7 +73,7 @@ type
   protected
     FPreviousSibling, FNextSibling: THL7Segment;
     SegmentName: string;
-    FlOwner: THL7Message;
+    FlOwner:     THL7Message;
     procedure ParseMessageString(const aString: string);
     function CompiledMessageString: string;
   public
@@ -82,9 +82,9 @@ type
     destructor Destroy; override;
     function NewOccurrence(const OccurrencesText: string): THL7Occurrence;
     procedure AllocOccurrences(const OccurrencesText: string);
-    property contentString: string read CompiledMessageString write ParseMessageString;
-    property previousSibling: THL7Segment read FPreviousSibling;
-    property nextSibling: THL7Segment read FNextSibling;
+    property contentString: string Read CompiledMessageString Write ParseMessageString;
+    property previousSibling: THL7Segment Read FPreviousSibling;
+    property nextSibling: THL7Segment Read FNextSibling;
   end;
 
   { THL7Occurrence }
@@ -100,9 +100,9 @@ type
     destructor Destroy; override;
     function NewField: THL7Field;
     procedure AllocFields(const FieldText: string);
-    property contentString: string read CompiledMessageString write ParseMessageString;
-    property previousSibling: THL7Occurrence read FPreviousSibling;
-    property nextSibling: THL7Occurrence read FNextSibling;
+    property contentString: string Read CompiledMessageString Write ParseMessageString;
+    property previousSibling: THL7Occurrence Read FPreviousSibling;
+    property nextSibling: THL7Occurrence Read FNextSibling;
   end;
 
   { THL7Field }
@@ -118,9 +118,9 @@ type
     destructor Destroy; override;
     function NewComponent: THL7Component;
     procedure AllocComponents(const ComponentText: string);
-    property contentString: string read CompiledMessageString write ParseMessageString;
-    property previousSibling: THL7Field read FPreviousSibling;
-    property nextSibling: THL7Field read FNextSibling;
+    property contentString: string Read CompiledMessageString Write ParseMessageString;
+    property previousSibling: THL7Field Read FPreviousSibling;
+    property nextSibling: THL7Field Read FNextSibling;
   end;
 
   { THL7Component }
@@ -136,9 +136,9 @@ type
     destructor Destroy; override;
     function NewSubComponent: THL7SubComponent;
     procedure AllocSubComponents(const SubComponentText: string);
-    property contentString: string read CompiledMessageString write ParseMessageString;
-    property previousSibling: THL7Component read FPreviousSibling;
-    property nextSibling: THL7Component read FNextSibling;
+    property contentString: string Read CompiledMessageString Write ParseMessageString;
+    property previousSibling: THL7Component Read FPreviousSibling;
+    property nextSibling: THL7Component Read FNextSibling;
   end;
 
   { THL7SubComponent }
@@ -151,16 +151,16 @@ type
   public
     constructor Create(owner: THL7Component; SubComponentText: string);
     destructor Destroy; override;
-    property contentString: string read CompiledMessageString write ParseMessageString;
-    property previousSibling: THL7SubComponent read FPreviousSibling;
-    property nextSibling: THL7SubComponent read FNextSibling;
+    property contentString: string Read CompiledMessageString Write ParseMessageString;
+    property previousSibling: THL7SubComponent Read FPreviousSibling;
+    property nextSibling: THL7SubComponent Read FNextSibling;
   end;
 
   { THL7Message }
 
   THL7Message = class
   private
-    HL7_version: string;
+    HL7_version:   string;
     HL7Delimiters: THL7Delimiters;
   protected
     HL7Text: string;
@@ -176,12 +176,12 @@ type
     function DecodedHex(const aString: string): integer;
     constructor Create(version: string);
     destructor Destroy; override;
-    property HL7Version: string read HL7_version write SetHL7Version;
-    property Delimiters: THL7Delimiters read HL7Delimiters write HL7Delimiters;
+    property HL7Version: string Read HL7_version Write SetHL7Version;
+    property Delimiters: THL7Delimiters Read HL7Delimiters Write HL7Delimiters;
     function FoundSegment(const aSegmentName: string): THL7Segment;
     function NewSegment: THL7Segment;
     procedure AllocSegments(const SegmentText: string);
-    property contentString: string read CompiledMessageString write ParseMessageString;
+    property contentString: string Read CompiledMessageString Write ParseMessageString;
   end;
 
 procedure ReadHL7File(out HL7Doc: THL7Message; const aFileName: string); overload;
@@ -189,7 +189,7 @@ procedure ReadHL7File(out HL7Doc: THL7Message; var f: Text); overload;
 procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream); overload;
 procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream; const aBaseURI: string);
   overload;
-procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: String); overload;
+procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: string); overload;
 procedure WriteHL7File(HL7Doc: THL7Message; var AFile: Text); overload;
 procedure WriteHL7File(HL7Doc: THL7Message; AStream: TStream); overload;
 
@@ -216,7 +216,7 @@ begin
 
 end;
 
-procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: String);
+procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: string);
 begin
 
 end;
@@ -233,7 +233,7 @@ end;
 
 function NextSection(const aString: string; var Pos: integer; const delim: char): string;
 var
-  i, j, l: integer;
+  i, j, l:   integer;
   theString: string;
 begin
   theString := aString;
@@ -243,7 +243,7 @@ begin
   if i = 0 then
   begin
     Result := theString;
-    pos := length(aString);
+    pos    := length(aString);
   end
   else
     Result := copy(theString, 1, i - 1);
@@ -275,8 +275,8 @@ begin
   inherited Create;
   FOwner := owner;
   if owner <> nil then
-    FMessage := owner.FMessage;
-  FNextSibling := nil;
+    FMessage    := owner.FMessage;
+  FNextSibling  := nil;
   contentString := SubComponentText;
 end;
 
@@ -296,14 +296,33 @@ procedure THL7Component.ParseMessageString(const aString: string);
 begin
   FText := aString;
   if (aString <> '') and (FMessage <> nil) and
-    (pos(FMessage.Delimiters.ComponentSeparator, aString) = 0) then
-    {true components only}
-    AllocSubcomponents(aString);
+    (pos(FMessage.Delimiters.ComponentSeparator, aString) = 0) and
+    (pos(FMessage.Delimiters.SubComponentSeparator, aString) <> 0) then
+    {true components with subcomponents only}
+    AllocSubcomponents(aString)
+  else
+    FirstSubComponent := nil;
 end;
 
 function THL7Component.CompiledMessageString: string;
+var
+  currSubComponent: THL7SubComponent;
 begin
-  Result := FText;
+  currSubComponent := FirstSubComponent;
+  if currSubComponent = nil then
+    Result := FText
+  else
+  begin
+    FText := '';
+    while currSubComponent <> nil do
+    begin
+      FText := FText + currSubComponent.contentString;
+      currSubComponent := currSubComponent.nextSibling;
+      if currSubComponent <> nil then
+        FText := FText + FMessage.Delimiters.SubcomponentSeparator;
+    end;
+    Result := FText;
+  end;
 end;
 
 constructor THL7Component.Create(owner: THL7Field; ComponentText: string);
@@ -311,8 +330,8 @@ begin
   inherited Create;
   FOwner := owner;
   if owner <> nil then
-    FMessage := owner.FMessage;
-  FNextSibling := nil;
+    FMessage    := owner.FMessage;
+  FNextSibling  := nil;
   contentString := ComponentText;
 end;
 
@@ -332,7 +351,7 @@ function THL7Component.NewSubComponent: THL7SubComponent;
 var
   theSubcomponent, currSubcomponent: THL7Subcomponent;
 begin
-  theSubcomponent := THL7Subcomponent.Create(self, '');
+  theSubcomponent  := THL7Subcomponent.Create(self, '');
   currSubcomponent := FirstSubcomponent;
   if currSubcomponent = nil then
     FirstSubcomponent := theSubcomponent
@@ -396,8 +415,8 @@ begin
   inherited Create;
   FOwner := owner;
   if owner <> nil then
-    FMessage := owner.FMessage;
-  FNextSibling := nil;
+    FMessage    := owner.FMessage;
+  FNextSibling  := nil;
   contentString := FieldText;
 end;
 
@@ -417,7 +436,7 @@ function THL7Field.NewComponent: THL7Component;
 var
   theComponent, currComponent: THL7Component;
 begin
-  theComponent := THL7Component.Create(self, '');
+  theComponent  := THL7Component.Create(self, '');
   currComponent := FirstComponent;
   if currComponent = nil then
     FirstComponent := theComponent
@@ -433,7 +452,7 @@ end;
 procedure THL7Field.AllocComponents(const ComponentText: string);
 var
   theComponent: THL7Component;
-  lastPos: integer;
+  lastPos:      integer;
   singleComponentText: string;
 begin
   theComponent := NewComponent;
@@ -475,8 +494,8 @@ begin
   inherited Create;
   FOwner := owner;
   if owner <> nil then
-    FMessage := owner.FMessage;
-  FNextSibling := nil;
+    FMessage    := owner.FMessage;
+  FNextSibling  := nil;
   contentString := OccurrencesText;
 end;
 
@@ -496,7 +515,7 @@ function THL7Occurrence.NewField: THL7Field;
 var
   theField, currField: THL7Field;
 begin
-  theField := THL7Field.Create(self, '');
+  theField  := THL7Field.Create(self, '');
   currField := FirstField;
   if currField = nil then
     FirstField := theField
@@ -512,7 +531,7 @@ end;
 procedure THL7Occurrence.AllocFields(const FieldText: string);
 var
   theField: THL7Field;
-  lastPos: integer;
+  lastPos:  integer;
   singleFieldText: string;
 begin
   theField := NewField;
@@ -541,7 +560,8 @@ procedure THL7Segment.ParseMessageString(const aString: string);
 begin
   FText := aString;
   SegmentName := LeftStr(FText, 3);
-  if (aString <> '') and (FMessage <> nil) and (pos(FMessage.Delimiters.SegmentTerminator, aString) = 0) then
+  if (aString <> '') and (FMessage <> nil) and
+    (pos(FMessage.Delimiters.SegmentTerminator, aString) = 0) then
     {true segments only}
     NewOccurrence(aString);
 end;
@@ -554,8 +574,8 @@ end;
 constructor THL7Segment.Create(owner: THL7Message; SegmentText: string);
 begin
   inherited Create;
-  FlOwner := owner;
-  FMessage := FlOwner;
+  FlOwner      := owner;
+  FMessage     := FlOwner;
   FNextSibling := nil;
   contentString := SegmentText;
 end;
@@ -576,7 +596,7 @@ function THL7Segment.NewOccurrence(const OccurrencesText: string): THL7Occurrenc
 var
   theOccurrence, currOccurrence: THL7Occurrence;
 begin
-  theOccurrence := THL7Occurrence.Create(self, OccurrencesText);
+  theOccurrence  := THL7Occurrence.Create(self, OccurrencesText);
   currOccurrence := FirstOccurrence;
   if currOccurrence = nil then
     FirstOccurrence := theOccurrence
@@ -639,7 +659,7 @@ begin
     ESCAPE_COMPONENT);
   theString := AnsiReplaceText(theString, Delimiters.SubcomponentSeparator,
     ESCAPE_SUBCOMPONENT);
-  Result := theString;
+  Result    := theString;
 end;
 
 function THL7Message.EncodedHex(const aNumber: integer): string;
@@ -648,7 +668,7 @@ var
 begin
   theString := IntToHex(aNumber, 0);
   theString := '\X' + theString + '\';
-  Result := theString;
+  Result    := theString;
 end;
 
 function THL7Message.Decoded(const aString: string): string;
@@ -663,7 +683,7 @@ begin
     Delimiters.ComponentSeparator);
   theString := AnsiReplaceText(theString, ESCAPE_SUBCOMPONENT,
     Delimiters.SubcomponentSeparator);
-  Result := theString;
+  Result    := theString;
 end;
 
 function THL7Message.DecodedHex(const aString: string): integer;
@@ -675,14 +695,14 @@ begin
   Delete(theString, 1, 2);
   Delete(theString, length(theString), 1);
   theNumber := Hex2Dec(theString);
-  Result := theNumber;
+  Result    := theNumber;
 end;
 
 constructor THL7Message.Create(version: string);
 begin
   inherited Create;
   SetDelimiters(STANDARD_DELIMITERS);  {Default delimiter definition}
-  HL7_Version := version;
+  HL7_Version  := version;
   FirstSegment := nil;
 end;
 
@@ -702,7 +722,7 @@ function THL7Message.NewSegment: THL7Segment;
 var
   theSegment, currSegment: THL7Segment;
 begin
-  theSegment := THL7Segment.Create(self, '');
+  theSegment  := THL7Segment.Create(self, '');
   currSegment := FirstSegment;
   if currSegment = nil then
     FirstSegment := theSegment
@@ -718,13 +738,12 @@ end;
 procedure THL7Message.AllocSegments(const SegmentText: string);
 var
   theSegment: THL7Segment;
-  lastPos: integer;
+  lastPos:    integer;
   singleSegmentText: string;
 begin
   theSegment := NewSegment;
   theSegment.contentString := SegmentText;
-  if (pos(Delimiters.SegmentTerminator,
-    SegmentText) = 0) then
+  if (pos(Delimiters.SegmentTerminator, SegmentText) = 0) then
     theSegment.ParseMessageString(SegmentText)
   else
   begin
@@ -744,4 +763,4 @@ begin
 end;
 
 
-end.
+end.

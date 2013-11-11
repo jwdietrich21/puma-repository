@@ -8,15 +8,15 @@ unit HL7TestCases;
 
 { Version 0.9 }
 
-{ (c) J. W. Dietrich, 1994 - 2013 }
-{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
-{ (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2013 }
+ { (c) J. W. Dietrich, 1994 - 2013 }
+ { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+ { (c) University of Ulm Hospitals 2002-2004 }
+ { (c) Ruhr University of Bochum 2005 - 2013 }
 
 { Parser and converter for measurement units }
 
-{ Source code released under the BSD License }
-{ See http://puma-repository.sf.net for details }
+ { Source code released under the BSD License }
+ { See http://puma-repository.sf.net for details }
 
 {$mode objfpc}{$H+}
 
@@ -37,13 +37,13 @@ const
   EXAMPLE_SEGMENT5 = 'PID|||||Thomas&Gregory||19481211|M';
   EXAMPLE_SEGMENT6 = 'OBR|||||||||';
   EXAMPLE_SEGMENT7 = 'OBR|||||""||||';
-  EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
-  EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
-  EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
-  EXAMPLE_FIELD4 = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
-  EXAMPLE_FIELD5 = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
-  EXAMOLE_FIELD6 = '13.5&18^M~12.0 & 16^F';
-  EXAMPLE_MESSAGE = EXAMPLE_SEGMENT1 + char(13) + EXAMPLE_SEGMENT2 +
+  EXAMPLE_FIELD1   = '0493575^^^2^ID 1';
+  EXAMPLE_FIELD2   = '168 ~219~C~PMA^^^^^^^^^';
+  EXAMPLE_FIELD3   = 'DOE^JOHN^^^^';
+  EXAMPLE_FIELD4   = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
+  EXAMPLE_FIELD5   = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
+  EXAMOLE_FIELD6   = '13.5&18^M~12.0 & 16^F';
+  EXAMPLE_MESSAGE  = EXAMPLE_SEGMENT1 + char(13) + EXAMPLE_SEGMENT2 +
     char(13) + EXAMPLE_SEGMENT3 + char(13) + EXAMPLE_SEGMENT4;
 
 type
@@ -95,18 +95,21 @@ type
 
   TComponentTestCases = class(TTestCase)
   published
-    procedure ComponentTestCase1;
-    procedure ComponentTestCase2;
-    procedure ComponentTestCase3;
+    procedure ComponentParseTestCase1;
+    procedure ComponentParseTestCase2;
+    procedure ComponentParseTestCase3;
+    procedure ComponentCompileTestCase1;
   end;
+
+  { TSubComponentParseTestCases }
 
   { TSubComponentTestCases }
 
   TSubComponentTestCases = class(TTestCase)
   published
-    procedure SubComponentTestCase1;
-    procedure SubComponentTestCase2;
-    procedure SubComponentTestCase3;
+    procedure SubComponentParseTestCase1;
+    procedure SubComponentParseTestCase2;
+    procedure SubComponentParseTestCase3;
   end;
 
 
@@ -157,17 +160,19 @@ begin
         fail('Occurrence could not be created.')
       else
       begin
-        if TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField = nil then
+        if TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField
+          = nil then
           fail('Field could not be created.')
         else
-        if (TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField.nextSibling = nil) or
-          (TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField.nextSibling.nextSibling
-          = nil) then
+        if (TestHL7Message.FirstSegment.nextSibling.nextSibling.
+          FirstOccurrence.FirstField.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.nextSibling.nextSibling.
+          FirstOccurrence.FirstField.nextSibling.nextSibling = nil) then
           fail('Field could not be found.')
         else
         begin
-          fieldContent := TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField.
-            nextSibling.nextSibling.contentString;
+          fieldContent := TestHL7Message.FirstSegment.nextSibling.
+            nextSibling.FirstOccurrence.FirstField.nextSibling.nextSibling.contentString;
           AssertEquals('ROE^MARIE^^^^', fieldContent);
         end;
       end;
@@ -219,7 +224,7 @@ procedure TStringEncodingTestCases.EncodingTestCase1;
 const
   STRING_WITH_SPECIAL_SYMBOLS =
     'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
-  ESCAPED_EXAMPLE_STRING =
+  ESCAPED_EXAMPLE_STRING      =
     'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
 begin
   TestHL7Message := THL7Message.Create('2.5');
@@ -252,7 +257,7 @@ procedure TStringEncodingTestCases.DecodingTestCase1;
 const
   STRING_WITH_SPECIAL_SYMBOLS =
     'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
-  ESCAPED_EXAMPLE_STRING =
+  ESCAPED_EXAMPLE_STRING      =
     'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
 begin
   TestHL7Message := THL7Message.Create('2.5');
@@ -432,7 +437,7 @@ end;
 
 { TComponentTestCases }
 
-procedure TComponentTestCases.ComponentTestCase1;
+procedure TComponentTestCases.ComponentParseTestCase1;
 var
   TestComponent: THL7Component;
 begin
@@ -447,7 +452,7 @@ begin
     TestComponent.Destroy;
 end;
 
-procedure TComponentTestCases.ComponentTestCase2;
+procedure TComponentTestCases.ComponentParseTestCase2;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -488,7 +493,7 @@ begin
     TestHL7Message.Destroy;
 end;
 
-procedure TComponentTestCases.ComponentTestCase3;
+procedure TComponentTestCases.ComponentParseTestCase3;
 var
   fieldContent, componentContent: string;
 begin
@@ -539,9 +544,63 @@ begin
     TestHL7Message.Destroy;
 end;
 
+procedure TComponentTestCases.ComponentCompileTestCase1;
+var
+  fieldContent, componentContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.AllocSegments(EXAMPLE_SEGMENT5);
+    if TestHL7Message.FirstSegment = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
+          fail('Field could not be created.')
+        else
+        if (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling.nextSibling
+          = nil) or (TestHL7Message.FirstSegment.FirstOccurrence.
+          FirstField.nextSibling.nextSibling.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+          nextSibling.nextSibling.nextSibling.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+          nextSibling.nextSibling.nextSibling.nextSibling.nextSibling = nil) then
+          fail('Field could not be found.')
+        else
+        begin
+          fieldContent := TestHL7Message.FirstSegment.FirstOccurrence.
+            FirstField.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.contentString;
+          AssertEquals('Thomas&Gregory', fieldContent);
+          if (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+            nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.FirstComponent = nil) then
+            fail('Component could not be found.')
+          else
+          begin
+            componentContent :=
+              TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+              nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.FirstComponent.
+              contentString;
+            AssertEquals('Thomas&Gregory', componentContent);
+          end;
+        end;
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
 { TSubComponentTestCases }
 
-procedure TSubComponentTestCases.SubComponentTestCase1;
+procedure TSubComponentTestCases.SubComponentParseTestCase1;
 var
   TestSubComponent: THL7SubComponent;
 begin
@@ -556,7 +615,7 @@ begin
     TestSubComponent.Destroy;
 end;
 
-procedure TSubComponentTestCases.SubComponentTestCase2;
+procedure TSubComponentTestCases.SubComponentParseTestCase2;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -604,7 +663,7 @@ begin
     TestHL7Message.Destroy;
 end;
 
-procedure TSubComponentTestCases.SubComponentTestCase3;
+procedure TSubComponentTestCases.SubComponentParseTestCase3;
 var
   fieldContent, componentContent, subcomponentContent: string;
 begin
