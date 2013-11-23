@@ -19,10 +19,11 @@
         <Filename Value="unitconvertertestcase.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverterTestCase"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <CursorPos X="25" Y="29"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -30,16 +31,11 @@
         <Filename Value="unitconverter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverter"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
         <ExtraEditorCount Value="1"/>
-        <ExtraEditor1>
-          <IsVisibleTab Value="True"/>
-          <WindowIndex Value="1"/>
-        </ExtraEditor1>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit2>

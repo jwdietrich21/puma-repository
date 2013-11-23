@@ -406,8 +406,24 @@ begin
 end;
 
 function THL7Field.CompiledMessageString: string;
+var
+  currComponent: THL7Component;
 begin
-  Result := FText;
+  {currComponent := FirstComponent;
+  if currComponent = nil then}
+    Result := FText
+  {else
+  begin
+    FText := '';
+    while currComponent <> nil do
+    begin
+      FText := FText + currComponent.contentString;
+      currComponent := currComponent.nextSibling;
+      if currComponent <> nil then
+        FText := FText + FMessage.Delimiters.ComponentSeparator;
+    end;
+    Result := FText;
+  end;}
 end;
 
 constructor THL7Field.Create(owner: THL7Occurrence; FieldText: string);
@@ -763,4 +779,4 @@ begin
 end;
 
 
-end.
+end.

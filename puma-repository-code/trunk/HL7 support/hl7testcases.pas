@@ -86,9 +86,10 @@ type
 
   TFieldsTestCases = class(TTestCase)
   published
-    procedure FieldsTestCase1;
-    procedure FieldsTestCase2;
-    procedure FieldsTestCase3;
+    procedure FieldsParseTestCase1;
+    procedure FieldsParseTestCase2;
+    procedure FieldsParseTestCase3;
+    procedure FieldsCompileTestCase1;
   end;
 
   { TComponentTestCases }
@@ -347,7 +348,7 @@ end;
 
 { TFieldsTestCases }
 
-procedure TFieldsTestCases.FieldsTestCase1;
+procedure TFieldsTestCases.FieldsParseTestCase1;
 var
   TestField: THL7Field;
 begin
@@ -362,7 +363,7 @@ begin
     TestField.Destroy;
 end;
 
-procedure TFieldsTestCases.FieldsTestCase2;
+procedure TFieldsTestCases.FieldsParseTestCase2;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -395,7 +396,7 @@ begin
     TestHL7Message.Destroy;
 end;
 
-procedure TFieldsTestCases.FieldsTestCase3;
+procedure TFieldsTestCases.FieldsParseTestCase3;
 var
   fieldContent: string;
 begin
@@ -426,6 +427,49 @@ begin
           fieldContent := TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
             nextSibling.nextSibling.nextSibling.contentString;
           AssertEquals('454721', fieldContent);
+        end;
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TFieldsTestCases.FieldsCompileTestCase1;
+var
+  fieldContent, componentContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.AllocSegments(EXAMPLE_SEGMENT5);
+    if TestHL7Message.FirstSegment = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
+          fail('Field could not be created.')
+        else
+        if (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling.nextSibling
+          = nil) or (TestHL7Message.FirstSegment.FirstOccurrence.
+          FirstField.nextSibling.nextSibling.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+          nextSibling.nextSibling.nextSibling.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+          nextSibling.nextSibling.nextSibling.nextSibling.nextSibling = nil) then
+          fail('Field could not be found.')
+        else
+        begin
+          fieldContent := TestHL7Message.FirstSegment.FirstOccurrence.
+            FirstField.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.contentString;
+          AssertEquals('Thomas&Gregory', fieldContent);
         end;
       end;
     end;
