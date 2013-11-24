@@ -557,12 +557,12 @@ begin
   else
   begin
     lastPos := 0;
-    while lastPos < length(FieldText) - 1 do
+    while lastPos < length(FieldText) do
     begin
       singleFieldText := NextSection(FieldText, lastPos,
         FMessage.Delimiters.FieldSeparator);
       theField.ParseMessageString(singleFieldText);
-      if lastPos < length(FieldText) - 1 then
+      if lastPos <= length(FieldText) then
       begin
         theField.FNextSibling := THL7Field.Create(self, '');
         theField := theField.FNextSibling;
