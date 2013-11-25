@@ -77,9 +77,10 @@ type
 
   TSegmentsTestCases = class(TTestCase)
   published
-    procedure SegmentsTestCase1;
-    procedure SegmentsTestCase2;
-    procedure SegmentsTestCase3;
+    procedure SegmentsParseTestCase1;
+    procedure SegmentsParseTestCase2;
+    procedure SegmentsParseTestCase3;
+    procedure SegmentsCompileTestCase1;
   end;
 
   { TFieldsTestCases }
@@ -289,7 +290,7 @@ end;
 
 { TSegmentsTestCases }
 
-procedure TSegmentsTestCases.SegmentsTestCase1;
+procedure TSegmentsTestCases.SegmentsParseTestCase1;
 var
   testSegment: THL7Segment;
 begin
@@ -305,7 +306,7 @@ begin
     testSegment.Destroy;
 end;
 
-procedure TSegmentsTestCases.SegmentsTestCase2;
+procedure TSegmentsTestCases.SegmentsParseTestCase2;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -324,7 +325,7 @@ begin
     TestHL7Message.Destroy;
 end;
 
-procedure TSegmentsTestCases.SegmentsTestCase3;
+procedure TSegmentsTestCases.SegmentsParseTestCase3;
 var
   theSegment: THL7Segment;
 begin
@@ -340,6 +341,30 @@ begin
     begin
       theSegment := TestHL7Message.FirstSegment;
       AssertEquals(EXAMPLE_SEGMENT3, theSegment.contentString);
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TSegmentsTestCases.SegmentsCompileTestCase1;
+var
+  segmentContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    if (TestHL7Message.FirstSegment = nil) or
+      (TestHL7Message.FirstSegment.nextSibling = nil) or
+      (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
+      fail('Segment could not be created.')
+    else
+    begin
+      segmentContent := TestHL7Message.FirstSegment.nextSibling.nextSibling.contentString;
+      AssertEquals(EXAMPLE_SEGMENT3, segmentContent);
     end;
   end;
   if TestHL7Message <> nil then
@@ -468,7 +493,8 @@ begin
         else
         begin
           fieldContent := TestHL7Message.FirstSegment.FirstOccurrence.
-            FirstField.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.contentString;
+            FirstField.nextSibling.nextSibling.nextSibling.nextSibling.
+            nextSibling.contentString;
           AssertEquals('Thomas&Gregory', fieldContent);
         end;
       end;
@@ -621,10 +647,12 @@ begin
         else
         begin
           fieldContent := TestHL7Message.FirstSegment.FirstOccurrence.
-            FirstField.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.contentString;
+            FirstField.nextSibling.nextSibling.nextSibling.nextSibling.
+            nextSibling.contentString;
           AssertEquals('Thomas&Gregory', fieldContent);
           if (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
-            nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.FirstComponent = nil) then
+            nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.FirstComponent =
+            nil) then
             fail('Component could not be found.')
           else
           begin
