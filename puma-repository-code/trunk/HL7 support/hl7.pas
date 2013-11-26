@@ -30,17 +30,32 @@ const
   STANDARD_DELIMITERS = '|^~\&';
   SEGMENT_DELIMITER = char(13);
 
-  ACKNOWLEDGEMENT_OK     = 'AA';
-  ACKNOWLEDGEMENT_ERROR  = 'AE';
+  ACKNOWLEDGEMENT_OK = 'AA';
+  ACKNOWLEDGEMENT_ERROR = 'AE';
   ACKNOWLEDGEMENT_REJECT = 'AR';
 
   ESCAPE_HIGHLIGHTING = '\H\';   {start highlighting}
-  ESCAPE_NORMAL     = '\N\';     {end highlighting}
-  ESCAPE_FIELD      = '\F\';
-  ESCAPE_COMPONENT  = '\S\';
+  ESCAPE_NORMAL = '\N\';     {end highlighting}
+  ESCAPE_FIELD = '\F\';
+  ESCAPE_COMPONENT = '\S\';
   ESCAPE_SUBCOMPONENT = '\T\';
   ESCAPE_REPETITION = '\R\';
-  ESCAPE_ESCAPE     = '\E\';
+  ESCAPE_ESCAPE = '\E\';
+
+  ESCAPE_ISO_IR6_G0 = '\C2842\';  {ISO 646 : ASCII}
+  ESCAPE_ISO_IR100 = '\C2D41\';   {ISO 8859 : Latin Alphabet 1}
+  ESCAPE_ISO_IR101 = '\C2D42\';   {ISO 8859 : Latin Alphabet 2}
+  ESCAPE_ISO_IR109 = '\C2D43\';   {ISO 8859 : Latin Alphabet 3}
+  ESCAPE_ISO_IR110 = '\C2D44\';   {ISO 8859 : Latin Alphabet 4}
+  ESCAPE_ISO_IR144 = '\C2D4C\';   {ISO 8859 : Cyrillic}
+  ESCAPE_ISO_IR127 = '\C2D47\';   {ISO 8859 : Arabic}
+  ESCAPE_ISO_IR126 = '\C2D46\';   {ISO 8859 : Greek}
+  ESCAPE_ISO_IR138 = '\C2D48\';   {ISO 8859 : Hebrew}
+  ESCAPE_ISO_IR148 = '\C2D4D\';   {ISO 8859 : Latin Alphabet 5}
+  ESCAPE_ISO_IR14 = '\C284A\';    {JIS X 0201 -1976: Romaji}
+  ESCAPE_ISO_IR13 = '\C2949\';    {JIS X 0201 : Katakana}
+  ESCAPE_ISO_IR87 = '\M2442\';    {JIS X 0208 : Kanji, hiragana and katakana}
+  ESCAPE_ISO_IR159 = '\M242844\'; {JIS X 0212 : Supplementary Kanji}
 
 type
 
@@ -49,11 +64,11 @@ type
     SubcomponentSeparator, RepetitionSeparator, EscapeCharacter: char;
   end;
 
-  THL7Message    = class;
-  THL7Segment    = class;
+  THL7Message = class;
+  THL7Segment = class;
   THL7Occurrence = class;
-  THL7Field      = class;
-  THL7Component  = class;
+  THL7Field = class;
+  THL7Component = class;
   THL7SubComponent = class;
 
   { THL7MessageSection }
@@ -62,14 +77,14 @@ type
   private
     FText: ansistring;
   protected
-    FOwner:   THL7MessageSection;
+    FOwner: THL7MessageSection;
     FMessage: THL7Message;
     destructor Destroy; override;
     procedure ParseMessageString(const aString: ansistring); virtual; abstract;
     function CompiledMessageString: ansistring; virtual; abstract;
   public
-    property contentString: ansistring Read CompiledMessageString
-      Write ParseMessageString;
+    property contentString: ansistring read CompiledMessageString
+      write ParseMessageString;
   end;
 
   { THL7Segment }
@@ -78,7 +93,7 @@ type
   protected
     FPreviousSibling, FNextSibling: THL7Segment;
     SegmentName: ansistring;
-    FlOwner:     THL7Message;
+    FlOwner: THL7Message;
     procedure ParseMessageString(const aString: ansistring);
     function CompiledMessageString: ansistring;
   public
@@ -87,10 +102,10 @@ type
     destructor Destroy; override;
     function NewOccurrence(const OccurrencesText: ansistring): THL7Occurrence;
     procedure AllocOccurrences(const OccurrencesText: ansistring);
-    property contentString: ansistring Read CompiledMessageString
-      Write ParseMessageString;
-    property previousSibling: THL7Segment Read FPreviousSibling;
-    property nextSibling: THL7Segment Read FNextSibling;
+    property contentString: ansistring read CompiledMessageString
+      write ParseMessageString;
+    property previousSibling: THL7Segment read FPreviousSibling;
+    property nextSibling: THL7Segment read FNextSibling;
   end;
 
   { THL7Occurrence }
@@ -106,10 +121,10 @@ type
     destructor Destroy; override;
     function NewField: THL7Field;
     procedure AllocFields(const FieldText: ansistring);
-    property contentString: ansistring Read CompiledMessageString
-      Write ParseMessageString;
-    property previousSibling: THL7Occurrence Read FPreviousSibling;
-    property nextSibling: THL7Occurrence Read FNextSibling;
+    property contentString: ansistring read CompiledMessageString
+      write ParseMessageString;
+    property previousSibling: THL7Occurrence read FPreviousSibling;
+    property nextSibling: THL7Occurrence read FNextSibling;
   end;
 
   { THL7Field }
@@ -125,10 +140,10 @@ type
     destructor Destroy; override;
     function NewComponent: THL7Component;
     procedure AllocComponents(const ComponentText: ansistring);
-    property contentString: ansistring Read CompiledMessageString
-      Write ParseMessageString;
-    property previousSibling: THL7Field Read FPreviousSibling;
-    property nextSibling: THL7Field Read FNextSibling;
+    property contentString: ansistring read CompiledMessageString
+      write ParseMessageString;
+    property previousSibling: THL7Field read FPreviousSibling;
+    property nextSibling: THL7Field read FNextSibling;
   end;
 
   { THL7Component }
@@ -144,10 +159,10 @@ type
     destructor Destroy; override;
     function NewSubComponent: THL7SubComponent;
     procedure AllocSubComponents(const SubComponentText: ansistring);
-    property contentString: ansistring Read CompiledMessageString
-      Write ParseMessageString;
-    property previousSibling: THL7Component Read FPreviousSibling;
-    property nextSibling: THL7Component Read FNextSibling;
+    property contentString: ansistring read CompiledMessageString
+      write ParseMessageString;
+    property previousSibling: THL7Component read FPreviousSibling;
+    property nextSibling: THL7Component read FNextSibling;
   end;
 
   { THL7SubComponent }
@@ -160,17 +175,17 @@ type
   public
     constructor Create(owner: THL7Component; SubComponentText: ansistring);
     destructor Destroy; override;
-    property contentString: ansistring Read CompiledMessageString
-      Write ParseMessageString;
-    property previousSibling: THL7SubComponent Read FPreviousSibling;
-    property nextSibling: THL7SubComponent Read FNextSibling;
+    property contentString: ansistring read CompiledMessageString
+      write ParseMessageString;
+    property previousSibling: THL7SubComponent read FPreviousSibling;
+    property nextSibling: THL7SubComponent read FNextSibling;
   end;
 
   { THL7Message }
 
   THL7Message = class
   private
-    HL7_version:   string;
+    HL7_version: string;
     HL7Delimiters: THL7Delimiters;
   protected
     HL7Text: ansistring;
@@ -186,13 +201,13 @@ type
     function DecodedHex(const aString: string): integer;
     constructor Create(version: string);
     destructor Destroy; override;
-    property HL7Version: string Read HL7_version Write SetHL7Version;
-    property Delimiters: THL7Delimiters Read HL7Delimiters Write HL7Delimiters;
+    property HL7Version: string read HL7_version write SetHL7Version;
+    property Delimiters: THL7Delimiters read HL7Delimiters write HL7Delimiters;
     function FoundSegment(const aSegmentName: ansistring): THL7Segment;
     function NewSegment: THL7Segment;
     procedure AllocSegments(const SegmentText: ansistring);
-    property contentString: ansistring Read CompiledMessageString
-      Write ParseMessageString;
+    property contentString: ansistring read CompiledMessageString
+      write ParseMessageString;
   end;
 
 procedure ReadHL7File(out HL7Doc: THL7Message; const aFileName: ansistring); overload;
@@ -246,7 +261,7 @@ function NextSection(const aString: ansistring; var Pos: integer;
   const delim: char): ansistring;
   {extracts a substring from a AnsiString, beginning with Pos and ending with delim}
 var
-  i, j, l:   integer;
+  i, j, l: integer;
   theString: ansistring;
 begin
   theString := aString;
@@ -256,7 +271,7 @@ begin
   if i = 0 then
   begin
     Result := theString;
-    pos    := length(aString);
+    pos := length(aString);
   end
   else
     Result := copy(theString, 1, i - 1);
@@ -288,8 +303,8 @@ begin
   inherited Create;
   FOwner := owner;
   if owner <> nil then
-    FMessage    := owner.FMessage;
-  FNextSibling  := nil;
+    FMessage := owner.FMessage;
+  FNextSibling := nil;
   contentString := SubComponentText;
 end;
 
@@ -343,8 +358,8 @@ begin
   inherited Create;
   FOwner := owner;
   if owner <> nil then
-    FMessage    := owner.FMessage;
-  FNextSibling  := nil;
+    FMessage := owner.FMessage;
+  FNextSibling := nil;
   contentString := ComponentText;
 end;
 
@@ -364,7 +379,7 @@ function THL7Component.NewSubComponent: THL7SubComponent;
 var
   theSubcomponent, currSubcomponent: THL7Subcomponent;
 begin
-  theSubcomponent  := THL7Subcomponent.Create(self, '');
+  theSubcomponent := THL7Subcomponent.Create(self, '');
   currSubcomponent := FirstSubcomponent;
   if currSubcomponent = nil then
     FirstSubcomponent := theSubcomponent
@@ -444,8 +459,8 @@ begin
   inherited Create;
   FOwner := owner;
   if owner <> nil then
-    FMessage    := owner.FMessage;
-  FNextSibling  := nil;
+    FMessage := owner.FMessage;
+  FNextSibling := nil;
   contentString := FieldText;
 end;
 
@@ -465,7 +480,7 @@ function THL7Field.NewComponent: THL7Component;
 var
   theComponent, currComponent: THL7Component;
 begin
-  theComponent  := THL7Component.Create(self, '');
+  theComponent := THL7Component.Create(self, '');
   currComponent := FirstComponent;
   if currComponent = nil then
     FirstComponent := theComponent
@@ -481,7 +496,7 @@ end;
 procedure THL7Field.AllocComponents(const ComponentText: ansistring);
 var
   theComponent: THL7Component;
-  lastPos:      integer;
+  lastPos: integer;
   singleComponentText: ansistring;
 begin
   theComponent := NewComponent;
@@ -523,8 +538,8 @@ begin
   inherited Create;
   FOwner := owner;
   if owner <> nil then
-    FMessage    := owner.FMessage;
-  FNextSibling  := nil;
+    FMessage := owner.FMessage;
+  FNextSibling := nil;
   contentString := OccurrencesText;
 end;
 
@@ -544,7 +559,7 @@ function THL7Occurrence.NewField: THL7Field;
 var
   theField, currField: THL7Field;
 begin
-  theField  := THL7Field.Create(self, '');
+  theField := THL7Field.Create(self, '');
   currField := FirstField;
   if currField = nil then
     FirstField := theField
@@ -560,7 +575,7 @@ end;
 procedure THL7Occurrence.AllocFields(const FieldText: ansistring);
 var
   theField: THL7Field;
-  lastPos:  integer;
+  lastPos: integer;
   singleFieldText: ansistring;
 begin
   theField := NewField;
@@ -611,7 +626,7 @@ begin
       FText := '';
       while curField <> nil do
       begin
-        FText    := FText + curField.contentString;
+        FText := FText + curField.contentString;
         curField := curField.nextSibling;
         if curField <> nil then
           FText := FText + FMessage.Delimiters.FieldSeparator;
@@ -627,8 +642,8 @@ end;
 constructor THL7Segment.Create(owner: THL7Message; SegmentText: ansistring);
 begin
   inherited Create;
-  FlOwner      := owner;
-  FMessage     := FlOwner;
+  FlOwner := owner;
+  FMessage := FlOwner;
   FNextSibling := nil;
   contentString := SegmentText;
 end;
@@ -649,7 +664,7 @@ function THL7Segment.NewOccurrence(const OccurrencesText: ansistring): THL7Occur
 var
   theOccurrence, currOccurrence: THL7Occurrence;
 begin
-  theOccurrence  := THL7Occurrence.Create(self, OccurrencesText);
+  theOccurrence := THL7Occurrence.Create(self, OccurrencesText);
   currOccurrence := FirstOccurrence;
   if currOccurrence = nil then
     FirstOccurrence := theOccurrence
@@ -712,7 +727,7 @@ begin
     ESCAPE_COMPONENT);
   theString := AnsiReplaceText(theString, Delimiters.SubcomponentSeparator,
     ESCAPE_SUBCOMPONENT);
-  Result    := theString;
+  Result := theString;
 end;
 
 function THL7Message.EncodedHex(const aNumber: integer): string;
@@ -721,7 +736,7 @@ var
 begin
   theString := IntToHex(aNumber, 0);
   theString := '\X' + theString + '\';
-  Result    := theString;
+  Result := theString;
 end;
 
 function THL7Message.Decoded(const aString: ansistring): ansistring;
@@ -736,7 +751,7 @@ begin
     Delimiters.ComponentSeparator);
   theString := AnsiReplaceText(theString, ESCAPE_SUBCOMPONENT,
     Delimiters.SubcomponentSeparator);
-  Result    := theString;
+  Result := theString;
 end;
 
 function THL7Message.DecodedHex(const aString: string): integer;
@@ -748,14 +763,14 @@ begin
   Delete(theString, 1, 2);
   Delete(theString, length(theString), 1);
   theNumber := Hex2Dec(theString);
-  Result    := theNumber;
+  Result := theNumber;
 end;
 
 constructor THL7Message.Create(version: string);
 begin
   inherited Create;
   SetDelimiters(STANDARD_DELIMITERS);  {Default delimiter definition}
-  HL7_Version  := version;
+  HL7_Version := version;
   FirstSegment := nil;
 end;
 
@@ -775,7 +790,7 @@ function THL7Message.NewSegment: THL7Segment;
 var
   theSegment, currSegment: THL7Segment;
 begin
-  theSegment  := THL7Segment.Create(self, '');
+  theSegment := THL7Segment.Create(self, '');
   currSegment := FirstSegment;
   if currSegment = nil then
     FirstSegment := theSegment
@@ -791,7 +806,7 @@ end;
 procedure THL7Message.AllocSegments(const SegmentText: ansistring);
 var
   theSegment: THL7Segment;
-  lastPos:    integer;
+  lastPos: integer;
   singleSegmentText: ansistring;
 begin
   theSegment := NewSegment;
@@ -816,4 +831,4 @@ begin
 end;
 
 
-end.
+end.
