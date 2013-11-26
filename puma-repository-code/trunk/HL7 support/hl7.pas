@@ -396,7 +396,7 @@ begin
         NextSection(SubComponentText, lastPos,
         FMessage.Delimiters.SubComponentSeparator);
       theSubComponent.ParseMessageString(singleSubComponentText);
-      if lastPos < length(SubComponentText) then
+      if (lastPos < length(SubComponentText)) or (singleSubComponentText = '') then
       begin
         theSubComponent.FNextSibling := THL7SubComponent.Create(self, '');
         theSubComponent := theSubComponent.FNextSibling;
@@ -496,7 +496,7 @@ begin
       singleComponentText :=
         NextSection(ComponentText, lastPos, FMessage.Delimiters.ComponentSeparator);
       theComponent.ParseMessageString(singleComponentText);
-      if lastPos <= length(ComponentText) then
+      if (lastPos < length(ComponentText)) or (singleComponentText = '') then
       begin
         theComponent.FNextSibling := THL7Component.Create(self, '');
         theComponent := theComponent.FNextSibling;
@@ -574,7 +574,7 @@ begin
       singleFieldText := NextSection(FieldText, lastPos,
         FMessage.Delimiters.FieldSeparator);
       theField.ParseMessageString(singleFieldText);
-      if lastPos <= length(FieldText) then
+      if (lastPos < length(FieldText)) or (singleFieldText = '') then
       begin
         theField.FNextSibling := THL7Field.Create(self, '');
         theField := theField.FNextSibling;
@@ -616,6 +616,9 @@ begin
         if curField <> nil then
           FText := FText + FMessage.Delimiters.FieldSeparator;
       end;
+      {ensures that each field, also the last one, is properly terminated:}
+      if RightStr(FText, 1) <> FMessage.Delimiters.FieldSeparator then
+        FText := FText + FMessage.Delimiters.FieldSeparator;
       Result := FText;
     end;
   end;
@@ -798,12 +801,12 @@ begin
   else
   begin
     lastPos := 0;
-    while lastPos < length(SegmentText) - 1 do
+    while lastPos < length(SegmentText) do
     begin
       singleSegmentText :=
         NextSection(SegmentText, lastPos, Delimiters.SegmentTerminator);
       theSegment.ParseMessageString(singleSegmentText);
-      if lastPos < length(SegmentText) - 1 then
+      if (lastPos < length(SegmentText)) or (singleSegmentText = '') then
       begin
         theSegment.FNextSibling := THL7Segment.Create(self, '');
         theSegment := theSegment.FNextSibling;
