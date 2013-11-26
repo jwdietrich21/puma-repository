@@ -8,15 +8,15 @@ unit HL7TestCases;
 
 { Version 0.9 }
 
- { (c) J. W. Dietrich, 1994 - 2013 }
- { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
- { (c) University of Ulm Hospitals 2002-2004 }
- { (c) Ruhr University of Bochum 2005 - 2013 }
+{ (c) J. W. Dietrich, 1994 - 2013 }
+{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+{ (c) University of Ulm Hospitals 2002-2004 }
+{ (c) Ruhr University of Bochum 2005 - 2013 }
 
-{ Parser and converter for measurement units }
+{ Parser and compiler for HL7 messages }
 
- { Source code released under the BSD License }
- { See http://puma-repository.sf.net for details }
+{ Source code released under the BSD License }
+{ See http://puma-repository.sf.net for details }
 
 {$mode objfpc}{$H+}
 
@@ -43,8 +43,8 @@ const
   EXAMPLE_FIELD4   = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
   EXAMPLE_FIELD5   = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
   EXAMOLE_FIELD6   = '13.5&18^M~12.0 & 16^F';
-  EXAMPLE_MESSAGE  = EXAMPLE_SEGMENT1 + char(13) + EXAMPLE_SEGMENT2 +
-    char(13) + EXAMPLE_SEGMENT3 + char(13) + EXAMPLE_SEGMENT4;
+  EXAMPLE_MESSAGE  = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
+    SEGMENT_DELIMITER + EXAMPLE_SEGMENT3 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT4;
 
 type
 

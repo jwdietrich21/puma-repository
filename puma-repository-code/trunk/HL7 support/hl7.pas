@@ -8,15 +8,15 @@ unit HL7;
 
 { Version 0.9 }
 
- { (c) J. W. Dietrich, 1994 - 2013 }
- { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
- { (c) University of Ulm Hospitals 2002-2004 }
- { (c) Ruhr University of Bochum 2005 - 2013 }
+{ (c) J. W. Dietrich, 1994 - 2013 }
+{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+{ (c) University of Ulm Hospitals 2002-2004 }
+{ (c) Ruhr University of Bochum 2005 - 2013 }
 
-{ Parser and converter for measurement units }
+{ Parser and compiler for HL7 messages }
 
- { Source code released under the BSD License }
- { See http://puma-repository.sf.net for details }
+{ Source code released under the BSD License }
+{ See http://puma-repository.sf.net for details }
 
 {$mode objfpc}
 
@@ -28,6 +28,7 @@ uses
 const
 
   STANDARD_DELIMITERS = '|^~\&';
+  SEGMENT_DELIMITER = char(13);
 
   ACKNOWLEDGEMENT_OK     = 'AA';
   ACKNOWLEDGEMENT_ERROR  = 'AE';
@@ -685,7 +686,7 @@ end;
 
 procedure THL7Message.SetDelimiters(DelimiterDefinition: ansistring);
 begin
-  HL7Delimiters.SegmentTerminator := char(13);
+  HL7Delimiters.SegmentTerminator := SEGMENT_DELIMITER;
   if DelimiterDefinition = '' then
     DelimiterDefinition := STANDARD_DELIMITERS;
   HL7Delimiters.FieldSeparator := DelimiterDefinition[1];
