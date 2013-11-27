@@ -66,8 +66,10 @@ type
 
   TStringEncodingTestCases = class(TTestCase)
   published
-    procedure DelimiterTestCase1;
-    procedure DelimiterTestCase2;
+    procedure DelimiterParseTestCase1;
+    procedure DelimiterParseTestCase2;
+    procedure DelimiterCompileTestCase1;
+    procedure DelimiterCompileTestCase2;
     procedure EncodingTestCase1;
     procedure EncodingTestCase2;
     procedure DecodingTestCase1;
@@ -228,14 +230,14 @@ end;
 
 { TStringEncodingTestCases }
 
-procedure TStringEncodingTestCases.DelimiterTestCase1;
+procedure TStringEncodingTestCases.DelimiterParseTestCase1;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.SetDelimiters('');
+    TestHL7Message.ParseDelimiters('');
     AssertEquals('|', TestHL7Message.Delimiters.FieldSeparator);
     AssertEquals('^', TestHL7Message.Delimiters.ComponentSeparator);
     AssertEquals('~', TestHL7Message.Delimiters.RepetitionSeparator);
@@ -246,19 +248,65 @@ begin
     TestHL7Message.Destroy;
 end;
 
-procedure TStringEncodingTestCases.DelimiterTestCase2;
+procedure TStringEncodingTestCases.DelimiterParseTestCase2;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.SetDelimiters('#/@+*');
+    TestHL7Message.ParseDelimiters('#/@+*');
     AssertEquals('#', TestHL7Message.Delimiters.FieldSeparator);
     AssertEquals('/', TestHL7Message.Delimiters.ComponentSeparator);
     AssertEquals('@', TestHL7Message.Delimiters.RepetitionSeparator);
     AssertEquals('+', TestHL7Message.Delimiters.EscapeCharacter);
     AssertEquals('*', TestHL7Message.Delimiters.SubcomponentSeparator);
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TStringEncodingTestCases.DelimiterCompileTestCase1;
+var
+  testSequence: str5;
+  testDelimiters: THL7Delimiters;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  testDelimiters.SegmentTerminator := char(0);
+  testDelimiters.ComponentSeparator := char(0);
+  testDelimiters.EscapeCharacter := char(0);
+  testDelimiters.FieldSeparator := char(0);
+  testDelimiters.RepetitionSeparator := char(0);
+  testDelimiters.SubcomponentSeparator := char(0);
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    testSequence := TestHL7Message.CompiledDelimiters(testDelimiters);
+    AssertEquals(STANDARD_DELIMITERS, testSequence);
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TStringEncodingTestCases.DelimiterCompileTestCase2;
+var
+  testSequence: str5;
+  testDelimiters: THL7Delimiters;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  testDelimiters.SegmentTerminator := char(13);
+  testDelimiters.ComponentSeparator := '/';
+  testDelimiters.EscapeCharacter := '+';
+  testDelimiters.FieldSeparator := '#';
+  testDelimiters.RepetitionSeparator := '@';
+  testDelimiters.SubcomponentSeparator := '*';
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    testSequence := TestHL7Message.CompiledDelimiters(testDelimiters);
+    AssertEquals('#/@+*', testSequence);
   end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
@@ -276,7 +324,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.SetDelimiters('');
+    TestHL7Message.ParseDelimiters('');
     AssertEquals(ESCAPED_EXAMPLE_STRING, TestHL7Message.Encoded(
       STRING_WITH_SPECIAL_SYMBOLS));
   end;
@@ -309,7 +357,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.SetDelimiters('');
+    TestHL7Message.ParseDelimiters('');
     AssertEquals(STRING_WITH_SPECIAL_SYMBOLS,
       TestHL7Message.Decoded(ESCAPED_EXAMPLE_STRING));
   end;
