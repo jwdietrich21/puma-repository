@@ -58,7 +58,8 @@ type
   TMessageTestCases = class(TTestCase)
   published
     procedure VersionTestCase1;
-    procedure WholeMessageTestCase1;
+    procedure WholeMessageParseTestCase1;
+    procedure WholeMessageCompileTestCase1;
   end;
 
   { TStringEncodingTestCases }
@@ -142,7 +143,7 @@ begin
     TestHL7Message.Destroy;
 end;
 
-procedure TMessageTestCases.WholeMessageTestCase1;
+procedure TMessageTestCases.WholeMessageParseTestCase1;
 var
   fieldContent: string;
 begin
@@ -176,6 +177,47 @@ begin
           fieldContent := TestHL7Message.FirstSegment.nextSibling.
             nextSibling.FirstOccurrence.FirstField.nextSibling.nextSibling.contentString;
           AssertEquals('ROE^MARIE^^^^', fieldContent);
+        end;
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TMessageTestCases.WholeMessageCompileTestCase1;
+var
+  messageContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    if (TestHL7Message.FirstSegment = nil) or
+      (TestHL7Message.FirstSegment.nextSibling = nil) or
+      (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField
+          = nil then
+          fail('Field could not be created.')
+        else
+        if (TestHL7Message.FirstSegment.nextSibling.nextSibling.
+          FirstOccurrence.FirstField.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.nextSibling.nextSibling.
+          FirstOccurrence.FirstField.nextSibling.nextSibling = nil) then
+          fail('Field could not be found.')
+        else
+        begin
+          messageContent := TestHL7Message.contentString;
+          AssertEquals(EXAMPLE_MESSAGE, messageContent);
         end;
       end;
     end;

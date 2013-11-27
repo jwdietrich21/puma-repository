@@ -698,9 +698,26 @@ begin
 end;
 
 function THL7Message.CompiledMessageString: ansistring;
+var
+  curSegment: THL7Segment;
 begin
-  Result := HL7Text;
+    curSegment := FirstSegment;
+    if curSegment = nil then
+      Result := HL7Text
+    else
+    begin
+      HL7Text := '';
+      while curSegment <> nil do
+      begin
+        HL7Text := HL7Text + curSegment.contentString;
+        curSegment := curSegment.nextSibling;
+        if curSegment <> nil then
+          HL7Text := HL7Text + Delimiters.SegmentTerminator;
+      end;
+      Result := HL7Text;
+    end;
 end;
+
 
 procedure THL7Message.SetDelimiters(DelimiterDefinition: ansistring);
 begin
@@ -831,4 +848,4 @@ begin
 end;
 
 
-end.
+end.
