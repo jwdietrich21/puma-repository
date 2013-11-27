@@ -219,7 +219,7 @@ begin
         else
         begin
           messageContent := TestHL7Message.contentString;
-          AssertEquals(EXAMPLE_MESSAGE, messageContent);
+          AssertEquals(EXAMPLE_MESSAGE, LeftStr(messageContent, length(EXAMPLE_MESSAGE)));
         end;
       end;
     end;
@@ -552,7 +552,7 @@ end;
 
 procedure TFieldsTestCases.FieldsCompileTestCase1;
 var
-  fieldContent, componentContent: string;
+  fieldContent: string;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then

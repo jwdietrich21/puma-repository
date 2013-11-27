@@ -57,6 +57,8 @@ const
   ESCAPE_ISO_IR87   = '\M2442\';    {JIS X 0208 : Kanji, hiragana and katakana}
   ESCAPE_ISO_IR159  = '\M242844\';  {JIS X 0212 : Supplementary Kanji}
 
+  MSH_ID = 'MSH';
+
 type
 
   str5 = string
@@ -639,6 +641,12 @@ begin
       while curField <> nil do
       begin
         FText    := FText + curField.contentString;
+        if FText = MSH_ID then
+        begin
+          {bypass parsing of delimiter definition sequence:}
+          curField := curField.nextSibling;
+          FText := FText + FMessage.Delimiters.FieldSeparator + curField.FText;
+        end;
         curField := curField.nextSibling;
         if curField <> nil then
           FText := FText + FMessage.Delimiters.FieldSeparator;
