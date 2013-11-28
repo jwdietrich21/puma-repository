@@ -60,6 +60,7 @@ type
     procedure VersionTestCase1;
     procedure WholeMessageParseTestCase1;
     procedure WholeMessageCompileTestCase1;
+    procedure WholeMessageFindTestCase1;
   end;
 
   { TStringEncodingTestCases }
@@ -220,6 +221,47 @@ begin
         begin
           messageContent := TestHL7Message.contentString;
           AssertEquals(EXAMPLE_MESSAGE, LeftStr(messageContent, length(EXAMPLE_MESSAGE)));
+        end;
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TMessageTestCases.WholeMessageFindTestCase1;
+var
+  segmentContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    if (TestHL7Message.FirstSegment = nil) or
+      (TestHL7Message.FirstSegment.nextSibling = nil) or
+      (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.nextSibling.nextSibling.FirstOccurrence.FirstField
+          = nil then
+          fail('Field could not be created.')
+        else
+        if (TestHL7Message.FirstSegment.nextSibling.nextSibling.
+          FirstOccurrence.FirstField.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.nextSibling.nextSibling.
+          FirstOccurrence.FirstField.nextSibling.nextSibling = nil) then
+          fail('Field could not be found.')
+        else
+        begin
+          segmentContent := TestHL7Message.FoundSegment('NK1').contentString;
+          AssertEquals(EXAMPLE_SEGMENT3, segmentContent);
         end;
       end;
     end;

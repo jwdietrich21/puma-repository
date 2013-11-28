@@ -832,8 +832,22 @@ begin
 end;
 
 function THL7Message.FoundSegment(const aSegmentName: ansistring): THL7Segment;
+var
+  found: boolean;
+  curSegment: THL7Segment;
 begin
-
+  found := false;
+  Result := nil;
+  curSegment := FirstSegment;
+  repeat
+    if (curSegment <> nil) and (curSegment.SegmentName = aSegmentName) then
+      begin
+        found := true;
+        Result := curSegment;
+      end
+    else
+    curSegment := curSegment.nextSibling;
+  until (found = true) or (curSegment = nil);
 end;
 
 function THL7Message.NewSegment: THL7Segment;
@@ -881,4 +895,4 @@ begin
 end;
 
 
-end.
+end.
