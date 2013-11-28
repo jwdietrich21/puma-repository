@@ -8,15 +8,15 @@ unit HL7;
 
 { Version 0.9 }
 
- { (c) J. W. Dietrich, 1994 - 2013 }
- { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
- { (c) University of Ulm Hospitals 2002-2004 }
- { (c) Ruhr University of Bochum 2005 - 2013 }
+{ (c) J. W. Dietrich, 1994 - 2013 }
+{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+{ (c) University of Ulm Hospitals 2002-2004 }
+{ (c) Ruhr University of Bochum 2005 - 2013 }
 
 { Parser and compiler for HL7 messages }
 
- { Source code released under the BSD License }
- { See http://puma-repository.sf.net for details }
+{ Source code released under the BSD License }
+{ See http://puma-repository.sf.net for details }
 
 {$mode objfpc}
 
@@ -309,7 +309,10 @@ end;
 
 function THL7SubComponent.CompiledMessageString: ansistring;
 begin
-  Result := FText;
+  if FMessage <> nil then
+    Result := FMessage.Encoded(FText)
+  else
+    Result := FText;
 end;
 
 constructor THL7SubComponent.Create(owner: THL7Component; SubComponentText: ansistring);
@@ -878,4 +881,4 @@ begin
 end;
 
 
-end.
+end.
