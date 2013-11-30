@@ -40,6 +40,8 @@ const
   EXAMPLE_SEGMENT8 = 'NTE|||This is a test report for PUMA HL7 units';
   EXAMPLE_SEGMENT9 =
     'NK1||DOE^DONNA^^^^|MTH||(299)123-4567||CN|||||||||||||||||||||||||||';
+  EXAMPLE_SEGMENT10 =
+    'MSH|^~\&|SPINA Thyr|RUB|medico|BMH|201311302157||PRF^R04|12345|P|2.5|||||276|ASCII|';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
   EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
@@ -68,6 +70,8 @@ type
   published
     procedure MSHGetCase1;
     procedure MSHGetCase2;
+    procedure MSHSetCase1;
+    procedure MSHSetCase2;
   end;
 
   { TMessageTestCases }
@@ -176,14 +180,21 @@ procedure TMSHTestCases.MSHGetCase2;
 var
   testSegment: THL7Segment;
   delimiters: str5;
-  sendingApp: str15;
-  sendingFac: str20;
-  receivingApp, receivingFac: str30;
+  sendingApp, sendingFac, receivingApp, receivingFac: str227;
   dateTime: str26;
-  messageType: str7;
-  controlID: char;
-  versionID: str8;
+  security: str40;
+  messageType: str15;
+  controlID: str20;
+  processingID: str3;
+  versionID: str60;
+  sequenceNumber: str15;
+  continuationPointer: str180;
   AccAckType, AppAckType: Str2;
+  countryCode: str3;
+  charSet: str16;
+  messageLanguage: str250;
+  altCharHandlScheme: str20;
+  profileID: str427;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -191,10 +202,102 @@ begin
   else
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
-    GetMSH(TestHL7Message, delimiters, sendingApp, sendingFac,
-      receivingApp, receivingFac, dateTime, messageType, controlID, versionID,
-      AccAckType, AppAckType);
+    GetMSH(TestHL7Message, delimiters, sendingApp,
+  sendingFac, receivingApp, receivingFac, dateTime,
+  security, messageType, controlID, processingID,
+  versionID, sequenceNumber, continuationPointer,
+  AccAckType, AppAckType, countryCode, charSet,
+  messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('199912271408', dateTime);
+  end;
+end;
+
+procedure TMSHTestCases.MSHSetCase1;
+var
+  testSegment: THL7Segment;
+  delimiters: str5;
+  sendingApp, sendingFac, receivingApp, receivingFac: str227;
+  dateTime: str26;
+  security: str40;
+  messageType: str15;
+  controlID: str20;
+  processingID: str3;
+  versionID: str60;
+  sequenceNumber: str15;
+  continuationPointer: str180;
+  AccAckType, AppAckType: Str2;
+  countryCode: str3;
+  charSet: str16;
+  messageLanguage: str250;
+  altCharHandlScheme: str20;
+  profileID: str427;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    testSegment := THL7Segment.Create(TestHL7Message, '');
+    testSegment.contentString := EXAMPLE_SEGMENT10;
+    SetMSH(TestHL7Message, testSegment);
+    GetMSH(TestHL7Message, delimiters, sendingApp,
+  sendingFac, receivingApp, receivingFac, dateTime,
+  security, messageType, controlID, processingID,
+  versionID, sequenceNumber, continuationPointer,
+  AccAckType, AppAckType, countryCode, charSet,
+  messageLanguage, altCharHandlScheme, profileID);
+    AssertEquals('201311302157', dateTime);
+  end;
+end;
+
+procedure TMSHTestCases.MSHSetCase2;
+var
+  testSegment: THL7Segment;
+  delimiters: str5;
+  sendingApp, sendingFac, receivingApp, receivingFac: str227;
+  dateTime: str26;
+  security: str40;
+  messageType: str15;
+  controlID: str20;
+  processingID: str3;
+  versionID: str60;
+  sequenceNumber: str15;
+  continuationPointer: str180;
+  AccAckType, AppAckType: Str2;
+  countryCode: str3;
+  charSet: str16;
+  messageLanguage: str250;
+  altCharHandlScheme: str20;
+  profileID: str427;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    delimiters := STANDARD_DELIMITERS;
+    sendingApp := 'TestApp1';
+    sendingFac := 'Dr. Mabuse';
+    receivingApp := 'TestApp2';
+    receivingFac := 'Dr. Frankenstein';
+    dateTime := '201311302140';
+    messageType := 'ADT^A04';
+    countryCode := '276';
+    SetMSH(TestHL7Message, delimiters, sendingApp,
+  sendingFac, receivingApp, receivingFac, dateTime,
+  security, messageType, controlID, processingID,
+  versionID, sequenceNumber, continuationPointer,
+  AccAckType, AppAckType, countryCode, charSet,
+  messageLanguage, altCharHandlScheme, profileID);
+    GetMSH(TestHL7Message, delimiters, sendingApp,
+  sendingFac, receivingApp, receivingFac, dateTime,
+  security, messageType, controlID, processingID,
+  versionID, sequenceNumber, continuationPointer,
+  AccAckType, AppAckType, countryCode, charSet,
+  messageLanguage, altCharHandlScheme, profileID);
+    AssertEquals('276', countryCode);
   end;
 end;
 

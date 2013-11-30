@@ -64,12 +64,16 @@ type
   str2 = string[2];
   str3 = string[3];
   str5 = string[5];
-  str7 = string[7];
-  str8 = string[8];
   str15 = string[15];
+  str16 = string[16];
   str20 = string[20];
   str26 = string[26];
-  str30 = string[30];
+  str40 = string[40];
+  str60 = string[60];
+  str180 = string[180];
+  str227 = string[227];
+  str250 = string[250];
+  str427 = AnsiString;
 
   THL7Delimiters = record
     SegmentTerminator, FieldSeparator, ComponentSeparator: char;
@@ -133,6 +137,7 @@ type
     constructor Create(owner: THL7Segment; OccurrencesText: ansistring);
     destructor Destroy; override;
     function NewField: THL7Field;
+    function GetNextFieldContent(var aField: THL7Field): String;
     procedure AllocFields(const FieldText: ansistring);
     property contentString: ansistring read CompiledMessageString
       write ParseMessageString;
@@ -601,6 +606,17 @@ begin
     currField.FNextSibling := theField;
   end;
   Result := theField;
+end;
+
+function THL7Occurrence.GetNextFieldContent(var aField: THL7Field): String;
+begin
+  if aField <> nil then
+  begin
+    result := aField.contentString;
+    aField := aField.nextSibling;
+  end
+  else
+    result := '';
 end;
 
 procedure THL7Occurrence.AllocFields(const FieldText: ansistring);
