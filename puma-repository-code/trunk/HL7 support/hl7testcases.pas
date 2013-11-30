@@ -37,16 +37,22 @@ const
   EXAMPLE_SEGMENT5 = 'PID|||||Thomas&Gregory||19481211|M';
   EXAMPLE_SEGMENT6 = 'OBR|||||||||';
   EXAMPLE_SEGMENT7 = 'OBR|||||""||||';
+  EXAMPLE_SEGMENT8 = 'NTE|||This is a test report for PUMA HL7 units';
+  EXAMPLE_SEGMENT9 =
+    'NK1||DOE^DONNA^^^^|MTH||(299)123-4567||CN|||||||||||||||||||||||||||';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
   EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
   EXAMPLE_FIELD4 = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
   EXAMPLE_FIELD5 = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
   EXAMOLE_FIELD6 = '13.5&18^M~12.0 & 16^F';
-  EXAMPLE_MESSAGE = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
+  EXAMPLE_MESSAGE1 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
     SEGMENT_DELIMITER + EXAMPLE_SEGMENT3 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT4;
   EXAMPLE_MESSAGE2 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
     SEGMENT_DELIMITER + EXAMPLE_SEGMENT4;
+  EXAMPLE_MESSAGE3 = EXAMPLE_MESSAGE1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT8;
+  EXAMPLE_MESSAGE4 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
+    SEGMENT_DELIMITER + EXAMPLE_SEGMENT9 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT4;
 
 
 type
@@ -75,6 +81,8 @@ type
     procedure WholeMessageFindTestCase2;
     procedure WholeMessageFindTestCase3;
     procedure WholeMessageDeleteTestCase;
+    procedure WholeMessageReplaceTestCase1;
+    procedure WholeMessageReplaceTestCase2;
   end;
 
   { TStringEncodingTestCases }
@@ -158,7 +166,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     testSegment := MSH_Segment(TestHL7Message);
     AssertEquals('MSH', testSegment.segmentType);
   end;
@@ -182,7 +190,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     GetMSH(TestHL7Message, delimiters, sendingApp, sendingFac,
       receivingApp, receivingFac, dateTime, messageType, controlID, versionID,
       AccAckType, AppAckType);
@@ -212,7 +220,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     if (TestHL7Message.FirstSegment = nil) or
       (TestHL7Message.FirstSegment.nextSibling = nil) or
       (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
@@ -254,7 +262,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     if (TestHL7Message.FirstSegment = nil) or
       (TestHL7Message.FirstSegment.nextSibling = nil) or
       (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
@@ -277,8 +285,8 @@ begin
         else
         begin
           messageContent := TestHL7Message.contentString;
-          AssertEquals(EXAMPLE_MESSAGE, LeftStr(messageContent,
-            length(EXAMPLE_MESSAGE)));
+          AssertEquals(EXAMPLE_MESSAGE1, LeftStr(messageContent,
+            length(EXAMPLE_MESSAGE1)));
         end;
       end;
     end;
@@ -296,7 +304,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     if (TestHL7Message.FirstSegment = nil) or
       (TestHL7Message.FirstSegment.nextSibling = nil) or
       (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
@@ -337,7 +345,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     if (TestHL7Message.FirstSegment = nil) or
       (TestHL7Message.FirstSegment.nextSibling = nil) or
       (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
@@ -378,7 +386,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     if (TestHL7Message.FirstSegment = nil) or
       (TestHL7Message.FirstSegment.nextSibling = nil) or
       (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
@@ -420,7 +428,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     TestHL7Message.DeleteSegment('NK1', '0');
     messageContent := TestHL7Message.contentString;
     AssertEquals(EXAMPLE_MESSAGE2, LeftStr(messageContent,
@@ -429,6 +437,49 @@ begin
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
 end;
+
+procedure TMessageTestCases.WholeMessageReplaceTestCase1;
+var
+  segmentContent: string;
+  testSegment: THL7Segment;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    testSegment := THL7Segment.Create(nil, '');
+    testSegment.contentString := EXAMPLE_SEGMENT8;
+    TestHL7Message.ReplaceSegment('NTE', '0', testSegment, true);
+    segmentContent := TestHL7Message.FirstSegment.nextSibling.nextSibling.nextSibling.nextSibling.contentString;
+    AssertEquals(EXAMPLE_SEGMENT8, segmentContent);
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TMessageTestCases.WholeMessageReplaceTestCase2;
+var
+  messageContent: string;
+  testSegment: THL7Segment;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    testSegment := THL7Segment.Create(nil, EXAMPLE_SEGMENT9);
+    TestHL7Message.ReplaceSegment('NK1', '0', testSegment, true);
+    messageContent := TestHL7Message.contentString;
+    AssertEquals(EXAMPLE_MESSAGE4, LeftStr(messageContent,
+            length(EXAMPLE_MESSAGE4)));
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
 { TStringEncodingTestCases }
 
 procedure TStringEncodingTestCases.DelimiterParseTestCase1;
@@ -647,7 +698,7 @@ begin
     fail('Message could not be created.')
   else
   begin
-    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     if (TestHL7Message.FirstSegment = nil) or
       (TestHL7Message.FirstSegment.nextSibling = nil) or
       (TestHL7Message.FirstSegment.nextSibling.nextSibling = nil) then
