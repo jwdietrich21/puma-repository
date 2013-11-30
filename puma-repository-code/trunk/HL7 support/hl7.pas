@@ -4,7 +4,7 @@ unit HL7;
 
 { Pascal Units for Medical Applications }
 
-{ HL7 support unit}
+{ HL7 base unit}
 
 { Version 0.9 }
 
@@ -61,9 +61,15 @@ const
 
 type
 
-  str5 = string
-
-    [5];
+  str2 = string[2];
+  str3 = string[3];
+  str5 = string[5];
+  str7 = string[7];
+  str8 = string[8];
+  str15 = string[15];
+  str20 = string[20];
+  str26 = string[26];
+  str30 = string[30];
 
   THL7Delimiters = record
     SegmentTerminator, FieldSeparator, ComponentSeparator: char;
@@ -98,7 +104,7 @@ type
   THL7Segment = class(THL7MessageSection)
   protected
     FPreviousSibling, FNextSibling: THL7Segment;
-    SegmentName: ansistring;
+    SegmentName: str3;
     FlOwner: THL7Message;
     procedure ParseMessageString(const aString: ansistring);
     function CompiledMessageString: ansistring;
@@ -112,6 +118,7 @@ type
       write ParseMessageString;
     property previousSibling: THL7Segment read FPreviousSibling;
     property nextSibling: THL7Segment read FNextSibling;
+    property segmentType: str3 read SegmentName write SegmentName;
   end;
 
   { THL7Occurrence }
@@ -210,8 +217,8 @@ type
     destructor Destroy; override;
     property HL7Version: string read HL7_version write SetHL7Version;
     property Delimiters: THL7Delimiters read HL7Delimiters write HL7Delimiters;
-    function FoundSegment(const aSegmentName: ansistring): THL7Segment;
-    function FoundSegment(const aSegmentName: ansistring;
+    function FoundSegment(const aSegmentName: str3): THL7Segment;
+    function FoundSegment(const aSegmentName: str3;
       beginWith: THL7Segment): THL7Segment;
     function NewSegment: THL7Segment;
     procedure AllocSegments(const SegmentText: ansistring);
@@ -833,7 +840,7 @@ begin
   inherited Destroy;
 end;
 
-function THL7Message.FoundSegment(const aSegmentName: ansistring): THL7Segment;
+function THL7Message.FoundSegment(const aSegmentName: str3): THL7Segment;
 var
   found: boolean;
   curSegment: THL7Segment;
@@ -853,7 +860,7 @@ begin
   until (found = True) or (curSegment = nil);
 end;
 
-function THL7Message.FoundSegment(const aSegmentName: ansistring;
+function THL7Message.FoundSegment(const aSegmentName: str3;
   beginWith: THL7Segment): THL7Segment;
 var
   found: boolean;

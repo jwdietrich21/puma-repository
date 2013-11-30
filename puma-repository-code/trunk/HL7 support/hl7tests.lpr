@@ -4,7 +4,7 @@ program hl7tests;
 
 { Pascal Units for Medical Applications }
 
-{ HL7 support unit}
+{ HL7 testing project for FPCUnit }
 
 { Version 0.9 }
 
@@ -25,7 +25,7 @@ uses
   Forms,
   hl7,
   GuiTestRunner,
-  HL7TestCases;
+  HL7TestCases, MSH;
 
 {$R *.res}
 

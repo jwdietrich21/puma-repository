@@ -4,7 +4,7 @@ unit HL7TestCases;
 
 { Pascal Units for Medical Applications }
 
-{ HL7 support unit}
+{ HL7 test cases }
 
 { Version 0.9 }
 
@@ -23,7 +23,7 @@ unit HL7TestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, HL7;
+  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -37,13 +37,13 @@ const
   EXAMPLE_SEGMENT5 = 'PID|||||Thomas&Gregory||19481211|M';
   EXAMPLE_SEGMENT6 = 'OBR|||||||||';
   EXAMPLE_SEGMENT7 = 'OBR|||||""||||';
-  EXAMPLE_FIELD1   = '0493575^^^2^ID 1';
-  EXAMPLE_FIELD2   = '168 ~219~C~PMA^^^^^^^^^';
-  EXAMPLE_FIELD3   = 'DOE^JOHN^^^^';
-  EXAMPLE_FIELD4   = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
-  EXAMPLE_FIELD5   = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
-  EXAMOLE_FIELD6   = '13.5&18^M~12.0 & 16^F';
-  EXAMPLE_MESSAGE  = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
+  EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
+  EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
+  EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
+  EXAMPLE_FIELD4 = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
+  EXAMPLE_FIELD5 = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
+  EXAMOLE_FIELD6 = '13.5&18^M~12.0 & 16^F';
+  EXAMPLE_MESSAGE = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
     SEGMENT_DELIMITER + EXAMPLE_SEGMENT3 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT4;
 
 type
@@ -51,6 +51,14 @@ type
   TControlTestCases = class(TTestCase)
   published
     procedure PositiveCheck;
+  end;
+
+  { TMSHTestCases }
+
+  TMSHTestCases = class(TTestCase)
+  published
+    procedure MSHGetCase1;
+    procedure MSHGetCase2;
   end;
 
   { TMessageTestCases }
@@ -133,6 +141,49 @@ procedure TControlTestCases.PositiveCheck;
 { Positive check, should always succeed }
 begin
   AssertNull('This test is bound to succeed', nil);
+end;
+
+{ TMSHTestCases }
+
+procedure TMSHTestCases.MSHGetCase1;
+var
+  testSegment: THL7Segment;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    testSegment := MSH_Segment(TestHL7Message);
+    AssertEquals('MSH', testSegment.segmentType);
+  end;
+end;
+
+procedure TMSHTestCases.MSHGetCase2;
+var
+  testSegment: THL7Segment;
+  delimiters: str5;
+  sendingApp: str15;
+  sendingFac: str20;
+  receivingApp, receivingFac: str30;
+  dateTime: str26;
+  messageType: str7;
+  controlID: char;
+  versionID: str8;
+  AccAckType, AppAckType: Str2;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    GetMSH(TestHL7Message, delimiters, sendingApp, sendingFac,
+      receivingApp, receivingFac, dateTime, messageType, controlID, versionID,
+      AccAckType, AppAckType);
+    AssertEquals('199912271408', dateTime);
+  end;
 end;
 
 { TMessageTestCases }
@@ -222,7 +273,8 @@ begin
         else
         begin
           messageContent := TestHL7Message.contentString;
-          AssertEquals(EXAMPLE_MESSAGE, LeftStr(messageContent, length(EXAMPLE_MESSAGE)));
+          AssertEquals(EXAMPLE_MESSAGE, LeftStr(messageContent,
+            length(EXAMPLE_MESSAGE)));
         end;
       end;
     end;
@@ -344,7 +396,8 @@ begin
           fail('Field could not be found.')
         else
         begin
-          segmentContent := TestHL7Message.FoundSegment('NK1', TestHL7Message.FirstSegment.nextSibling).contentString;
+          segmentContent := TestHL7Message.FoundSegment('NK1',
+            TestHL7Message.FirstSegment.nextSibling).contentString;
           AssertEquals(EXAMPLE_SEGMENT3, segmentContent);
         end;
       end;
@@ -442,7 +495,7 @@ procedure TStringEncodingTestCases.EncodingTestCase1;
 const
   STRING_WITH_SPECIAL_SYMBOLS =
     'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
-  ESCAPED_EXAMPLE_STRING      =
+  ESCAPED_EXAMPLE_STRING =
     'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
 begin
   TestHL7Message := THL7Message.Create('2.5');
@@ -475,7 +528,7 @@ procedure TStringEncodingTestCases.DecodingTestCase1;
 const
   STRING_WITH_SPECIAL_SYMBOLS =
     'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
-  ESCAPED_EXAMPLE_STRING      =
+  ESCAPED_EXAMPLE_STRING =
     'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
 begin
   TestHL7Message := THL7Message.Create('2.5');
@@ -579,7 +632,8 @@ begin
       fail('Segment could not be created.')
     else
     begin
-      segmentContent := TestHL7Message.FirstSegment.nextSibling.nextSibling.contentString;
+      segmentContent := TestHL7Message.FirstSegment.nextSibling.
+        nextSibling.contentString;
       AssertEquals(EXAMPLE_SEGMENT3, segmentContent);
     end;
   end;
@@ -1020,6 +1074,7 @@ end;
 
 initialization
   RegisterTest(TControlTestCases);
+  RegisterTest(TMSHTestCases);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);
