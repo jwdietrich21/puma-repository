@@ -282,7 +282,7 @@ begin
     sendingFac := 'Dr. Mabuse';
     receivingApp := 'TestApp2';
     receivingFac := 'Dr. Frankenstein';
-    dateTime := '201311302140';
+    dateTime := EncodedDateTime(Now);
     messageType := 'ADT^A04';
     countryCode := '276';
     SetMSH(TestHL7Message, delimiters, sendingApp,

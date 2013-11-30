@@ -23,7 +23,7 @@ unit HL7;
 interface
 
 uses
-  Classes, SysUtils, StrUtils;
+  Classes, SysUtils, StrUtils, Math;
 
 const
 
@@ -244,6 +244,8 @@ procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream; const aBaseURI: ansis
 procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: ansistring); overload;
 procedure WriteHL7File(HL7Doc: THL7Message; var AFile: Text); overload;
 procedure WriteHL7File(HL7Doc: THL7Message; AStream: TStream); overload;
+function EncodedDateTime(DateTime: TDateTime): string;
+function DecodeDateTime(StringRepresentation: string): TDateTime;
 
 
 implementation
@@ -288,6 +290,26 @@ procedure WriteHL7File(HL7Doc: THL7Message; AStream: TStream);
 {compiles and writes an HL7 message to stream}
 begin
 
+end;
+
+function EncodedDateTime(DateTime: TDateTime): string;
+begin
+  Result := FormatDateTime('YYYYMMDDhhnnss', DateTime);
+end;
+
+function DecodeDateTime(StringRepresentation: string): TDateTime;
+var
+  oldDateFormat: string;
+  format: TFormatSettings;
+begin
+  oldDateFormat := ShortDateFormat;
+  ShortDateFormat := 'YYYYMMDDhhnnss';
+  format.DateSeparator := char(0);
+  format.TimeSeparator := char(0);
+  format.ShortDateFormat := 'YYYYMMDDhhnnss';
+  if not TryStrToDateTime(StringRepresentation, result, format) then
+    result := NaN;
+  ShortDateFormat := oldDateFormat;
 end;
 
 function NextSection(const aString: ansistring; var Pos: integer;
