@@ -45,6 +45,9 @@ const
   EXAMOLE_FIELD6 = '13.5&18^M~12.0 & 16^F';
   EXAMPLE_MESSAGE = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
     SEGMENT_DELIMITER + EXAMPLE_SEGMENT3 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT4;
+  EXAMPLE_MESSAGE2 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
+    SEGMENT_DELIMITER + EXAMPLE_SEGMENT4;
+
 
 type
 
@@ -71,6 +74,7 @@ type
     procedure WholeMessageFindTestCase1;
     procedure WholeMessageFindTestCase2;
     procedure WholeMessageFindTestCase3;
+    procedure WholeMessageDeleteTestCase;
   end;
 
   { TStringEncodingTestCases }
@@ -314,7 +318,7 @@ begin
           fail('Field could not be found.')
         else
         begin
-          segmentContent := TestHL7Message.FoundSegment('NK1').contentString;
+          segmentContent := TestHL7Message.FoundSegment('NK1', '0').contentString;
           AssertEquals(EXAMPLE_SEGMENT3, segmentContent);
         end;
       end;
@@ -355,7 +359,7 @@ begin
           fail('Field could not be found.')
         else
         begin
-          segmentFound := TestHL7Message.FoundSegment('NK1', nil);
+          segmentFound := TestHL7Message.FoundSegment('NK1', '0', nil);
           AssertNull(segmentFound);
         end;
       end;
@@ -396,7 +400,7 @@ begin
           fail('Field could not be found.')
         else
         begin
-          segmentContent := TestHL7Message.FoundSegment('NK1',
+          segmentContent := TestHL7Message.FoundSegment('NK1', '0',
             TestHL7Message.FirstSegment.nextSibling).contentString;
           AssertEquals(EXAMPLE_SEGMENT3, segmentContent);
         end;
@@ -407,6 +411,24 @@ begin
     TestHL7Message.Destroy;
 end;
 
+procedure TMessageTestCases.WholeMessageDeleteTestCase;
+var
+  messageContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE;
+    TestHL7Message.DeleteSegment('NK1', '0');
+    messageContent := TestHL7Message.contentString;
+    AssertEquals(EXAMPLE_MESSAGE2, LeftStr(messageContent,
+            length(EXAMPLE_MESSAGE2)));
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
 { TStringEncodingTestCases }
 
 procedure TStringEncodingTestCases.DelimiterParseTestCase1;

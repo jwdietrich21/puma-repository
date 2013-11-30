@@ -217,10 +217,15 @@ type
     destructor Destroy; override;
     property HL7Version: string read HL7_version write SetHL7Version;
     property Delimiters: THL7Delimiters read HL7Delimiters write HL7Delimiters;
-    function FoundSegment(const aSegmentName: str3): THL7Segment;
-    function FoundSegment(const aSegmentName: str3;
+    function FoundSegment(const aSegmentName, SetID: Str3): THL7Segment;
+    function FoundSegment(const aSegmentName, SetID: Str3;
       beginWith: THL7Segment): THL7Segment;
+    function FoundSegment(const aSegmentName, SetID: Str3;
+      beginWith: THL7Segment; out lastSegment: THL7Segment): THL7Segment;
     function NewSegment: THL7Segment;
+    procedure DeleteSegment(const aSegmentName, SetID: Str3);
+    function ReplaceSegment(const aSegmentName, SetID: Str3): THL7Segment;
+    function ReplaceSegment(const aSegmentName, SetID: Str3; insertAlways: boolean): THL7Segment;
     procedure AllocSegments(const SegmentText: ansistring);
     property contentString: ansistring read CompiledMessageString
       write ParseMessageString;
@@ -840,7 +845,7 @@ begin
   inherited Destroy;
 end;
 
-function THL7Message.FoundSegment(const aSegmentName: str3): THL7Segment;
+function THL7Message.FoundSegment(const aSegmentName, SetID: Str3): THL7Segment;
 var
   found: boolean;
   curSegment: THL7Segment;
@@ -849,7 +854,9 @@ begin
   Result := nil;
   curSegment := FirstSegment;
   repeat
-    if (curSegment <> nil) and (curSegment.SegmentName = aSegmentName) then
+    if (curSegment <> nil) and (curSegment.SegmentName = aSegmentName) and
+      ((SetID = '0') or
+      (curSegment.FirstOccurrence.FirstField.nextSibling.contentString = SetID)) then
     begin
       found := True;
       Result := curSegment;
@@ -860,7 +867,7 @@ begin
   until (found = True) or (curSegment = nil);
 end;
 
-function THL7Message.FoundSegment(const aSegmentName: str3;
+function THL7Message.FoundSegment(const aSegmentName, SetID: Str3;
   beginWith: THL7Segment): THL7Segment;
 var
   found: boolean;
@@ -870,7 +877,9 @@ begin
   Result := nil;
   curSegment := beginWith;
   repeat
-    if (curSegment <> nil) and (curSegment.SegmentName = aSegmentName) then
+    if (curSegment <> nil) and (curSegment.SegmentName = aSegmentName) and
+      ((SetID = '0') or
+      (curSegment.FirstOccurrence.FirstField.nextSibling.contentString = SetID)) then
     begin
       found := True;
       Result := curSegment;
@@ -878,6 +887,33 @@ begin
     else
     if curSegment <> nil then
       curSegment := curSegment.nextSibling;
+  until (found = True) or (curSegment = nil);
+end;
+
+function THL7Message.FoundSegment(const aSegmentName, SetID: Str3;
+  beginWith: THL7Segment; out lastSegment: THL7Segment): THL7Segment;
+var
+  found: boolean;
+  curSegment: THL7Segment;
+begin
+  found := False;
+  Result := nil;
+  lastSegment := nil;
+  curSegment := beginWith;
+  repeat
+    if (curSegment <> nil) and (curSegment.SegmentName = aSegmentName) and
+      ((SetID = '0') or
+      (curSegment.FirstOccurrence.FirstField.nextSibling.contentString = SetID)) then
+    begin
+      found := True;
+      Result := curSegment;
+    end
+    else
+    if curSegment <> nil then
+      begin
+        lastSegment := curSegment;
+        curSegment := curSegment.nextSibling;
+      end;
   until (found = True) or (curSegment = nil);
 end;
 
@@ -896,6 +932,46 @@ begin
     currSegment.FNextSibling := theSegment;
   end;
   Result := theSegment;
+end;
+
+procedure THL7Message.DeleteSegment(const aSegmentName, SetID: Str3);
+var
+  curSegment, tempSegment, lastSegment: THL7Segment;
+begin
+  curSegment := FoundSegment(aSegmentName, SetID, self.FirstSegment, lastSegment);
+  if CurSegment <> nil then
+    begin
+      tempSegment := CurSegment.nextSibling;
+      if lastSegment = nil then
+        self.FirstSegment := tempSegment
+      else
+        lastSegment.FnextSibling := tempSegment;
+      curSegment.FnextSibling := nil;
+      CurSegment.Destroy;
+    end;
+end;
+
+function THL7Message.ReplaceSegment(const aSegmentName, SetID: Str3): THL7Segment;
+var
+  theSegment, currSegment: THL7Segment;
+begin
+  theSegment := THL7Segment.Create(self, '');
+  currSegment := FirstSegment;
+  if currSegment = nil then
+    FirstSegment := theSegment
+  else
+  begin
+    while currSegment.FNextSibling <> nil do
+      currSegment := currSegment.FNextSibling;
+    currSegment.FNextSibling := theSegment;
+  end;
+  Result := theSegment;
+end;
+
+function THL7Message.ReplaceSegment(const aSegmentName, SetID: Str3;
+  insertAlways: boolean): THL7Segment;
+begin
+
 end;
 
 procedure THL7Message.AllocSegments(const SegmentText: ansistring);

@@ -36,7 +36,7 @@ implementation
 function MSH_Segment(message: THL7Message): THL7Segment;
 begin
   if message <> nil then
-    Result := message.FoundSegment('MSH')
+    Result := message.FoundSegment('MSH', '0')
   else
     Result := nil;
 end;
