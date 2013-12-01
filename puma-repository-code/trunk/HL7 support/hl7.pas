@@ -23,7 +23,7 @@ unit HL7;
 interface
 
 uses
-  Classes, SysUtils, StrUtils, Math;
+  Classes, SysUtils, StrUtils, Math, URIParser;
 
 const
 
@@ -252,26 +252,49 @@ implementation
 
 procedure ReadHL7File(out HL7Doc: THL7Message; const aFileName: ansistring);
 {reads and parses an HL7 message from file}
+var
+  theStream: TStream;
 begin
-
+  HL7Doc := nil;
+  theStream := TFileStream.Create(AFilename, fmOpenRead + fmShareDenyWrite);
+  try
+    ReadHL7File(HL7Doc, theStream, FilenameToURI(AFilename));
+  finally
+    theStream.Free;
+  end;
 end;
 
 procedure ReadHL7File(out HL7Doc: THL7Message; var f: Text);
 {reads and parses an HL7 message from text file}
+var
+  theString, nextFragment: ansiString;
 begin
-
+  HL7Doc := nil;
+  reset(f);
+  while not eof do
+  begin
+    readln(f, nextFragment);
+    theString := theString + nextFragment;
+  end;
+  if theString <> '' then
+    HL7Doc.contentString := theString;
 end;
 
 procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream);
 {reads and parses an HL7 message from stream}
 begin
-
+  ReadHL7File(HL7Doc, f, 'stream:');
 end;
 
 procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream; const aBaseURI: ansistring);
 {reads and parses an HL7 message from URI}
+var
+  theString: ansiString;
 begin
-
+  HL7Doc := nil;
+  theString := f.ReadAnsiString;
+  if theString <> '' then
+    HL7Doc.contentString := theString;
 end;
 
 procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: ansistring);
