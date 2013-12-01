@@ -36,6 +36,13 @@ procedure GetMSH(message: THL7Message; out delimiters: str5;
 procedure SetMSH(message: THL7Message; aSegment: THL7Segment);
 procedure SetMSH(message: THL7Message; delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: str227;
+  security: str40; messageType: str15; controlID: str20;
+  processingID: str3; sequenceNumber: str15;
+  continuationPointer: str180; AccAckType, AppAckType: Str2;
+  countryCode: str3; charSet: str16; messageLanguage: str250;
+  altCharHandlScheme: str20; profileID: str427);
+procedure SetMSH(message: THL7Message; delimiters: str5;
+  sendingApp, sendingFac, receivingApp, receivingFac: str227;
   dateTime: str26; security: str40; messageType: str15; controlID: str20;
   processingID: str3; versionID: str60; sequenceNumber: str15;
   continuationPointer: str180; AccAckType, AppAckType: Str2;
@@ -101,6 +108,35 @@ begin
   message.ReplaceSegment('MSH', '0', aSegment, True);
 end;
 
+procedure SetMSH(message: THL7Message; delimiters: str5; sendingApp,
+  sendingFac, receivingApp, receivingFac: str227; security: str40;
+  messageType: str15; controlID: str20; processingID: str3;
+  sequenceNumber: str15; continuationPointer: str180; AccAckType,
+  AppAckType: Str2; countryCode: str3; charSet: str16; messageLanguage: str250;
+  altCharHandlScheme: str20; profileID: str427);
+var
+  newSegment: THL7Segment;
+  FieldSep: char;
+  dateTime: str26;
+  versionID: str60;
+  theString: AnsiString;
+begin
+  dateTime := EncodedDateTime(Now);
+  versionID := message.HL7Version;
+  FieldSep := message.Delimiters.FieldSeparator;
+  newSegment := THL7Segment.Create(message, '');
+  theString := 'MSH' + delimiters + FieldSep + sendingApp +
+    FieldSep + sendingFac + FieldSep + receivingApp + FieldSep +
+    receivingFac + FieldSep + dateTime + FieldSep + security + FieldSep +
+    messageType + FieldSep + controlID + FieldSep + processingID +
+    FieldSep + versionID + FieldSep + sequenceNumber + FieldSep +
+    continuationPointer + FieldSep + AccAckType + FieldSep +
+    AppAckType + FieldSep + countryCode + FieldSep + charSet + FieldSep +
+    messageLanguage + FieldSep + altCharHandlScheme + FieldSep + profileID + FieldSep;
+  newSegment.contentString := theString;
+  message.ReplaceSegment('MSH', '0', newSegment, True);
+end;
+
 procedure SetMSH(message: THL7Message; delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: str227;
   dateTime: str26; security: str40; messageType: str15; controlID: str20;
@@ -114,7 +150,7 @@ var
 begin
   FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
-  newSegment.contentString := 'MSH|' + delimiters + FieldSep + sendingApp +
+  newSegment.contentString := 'MSH' + delimiters + FieldSep + sendingApp +
     FieldSep + sendingFac + FieldSep + receivingApp + FieldSep +
     receivingFac + FieldSep + dateTime + FieldSep + security + FieldSep +
     messageType + FieldSep + controlID + FieldSep + processingID +

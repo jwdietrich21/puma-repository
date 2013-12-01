@@ -72,6 +72,7 @@ type
     procedure MSHGetCase2;
     procedure MSHSetCase1;
     procedure MSHSetCase2;
+    procedure MSHSetCase3;
   end;
 
   { TMessageTestCases }
@@ -298,6 +299,65 @@ begin
   AccAckType, AppAckType, countryCode, charSet,
   messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('276', countryCode);
+  end;
+end;
+
+procedure TMSHTestCases.MSHSetCase3;
+var
+  testSegment: THL7Segment;
+  delimiters: str5;
+  sendingApp, sendingFac, receivingApp, receivingFac: str227;
+  dateTime: str26;
+  security: str40;
+  messageType: str15;
+  controlID: str20;
+  processingID: str3;
+  versionID: str60;
+  sequenceNumber: str15;
+  continuationPointer: str180;
+  AccAckType, AppAckType: Str2;
+  countryCode: str3;
+  charSet: str16;
+  messageLanguage: str250;
+  altCharHandlScheme: str20;
+  profileID: str427;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    delimiters := STANDARD_DELIMITERS;
+    sendingApp := 'TestApp1';
+    sendingFac := 'Dr. Mabuse';
+    receivingApp := 'TestApp2';
+    receivingFac := 'Dr. Frankenstein';
+    messageType := 'ADT^A04';
+    controlID := '';
+    processingID := '';
+    sequenceNumber := '';
+    continuationPointer := '';
+    AccAckType := '';
+    AppAckType := '';
+    charSet := '';
+    messageLanguage := '';
+    altCharHandlScheme := '';
+    profileID := '';
+    countryCode := '276';
+    SetMSH(TestHL7Message, delimiters, sendingApp,
+  sendingFac, receivingApp, receivingFac,
+  security, messageType, controlID, processingID,
+  sequenceNumber, continuationPointer,
+  AccAckType, AppAckType, countryCode, charSet,
+  messageLanguage, altCharHandlScheme, profileID);
+    GetMSH(TestHL7Message, delimiters, sendingApp,
+  sendingFac, receivingApp, receivingFac, dateTime,
+  security, messageType, controlID, processingID,
+  versionID, sequenceNumber, continuationPointer,
+  AccAckType, AppAckType, countryCode, charSet,
+  messageLanguage, altCharHandlScheme, profileID);
+    AssertEquals('2.5', versionID);
   end;
 end;
 
