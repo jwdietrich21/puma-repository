@@ -4,7 +4,7 @@ unit MSH;
 
 { Pascal Units for Medical Applications }
 
-{ HL7 support unit for message headers}
+{ HL7 support unit for message headers }
 
 { Version 0.9 }
 

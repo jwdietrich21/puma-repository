@@ -4,7 +4,7 @@ unit HL7;
 
 { Pascal Units for Medical Applications }
 
-{ HL7 base unit}
+{ HL7 base unit }
 
 { Version 0.9 }
 
@@ -237,13 +237,13 @@ type
   end;
 
 procedure ReadHL7File(out HL7Doc: THL7Message; const aFileName: ansistring); overload;
-procedure ReadHL7File(out HL7Doc: THL7Message; var f: Text); overload;
-procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream); overload;
-procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream; const aBaseURI: ansistring);
+procedure ReadHL7File(out HL7Doc: THL7Message; var aFile: Text); overload;
+procedure ReadHL7File(out HL7Doc: THL7Message; aStream: TStream); overload;
+procedure ReadHL7File(out HL7Doc: THL7Message; aStream: TStream; const aBaseURI: ansistring);
   overload;
-procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: ansistring); overload;
-procedure WriteHL7File(HL7Doc: THL7Message; var AFile: Text); overload;
-procedure WriteHL7File(HL7Doc: THL7Message; AStream: TStream); overload;
+procedure WriteHL7File(HL7Doc: THL7Message; const aFileName: ansistring); overload;
+procedure WriteHL7File(HL7Doc: THL7Message; var aFile: Text); overload;
+procedure WriteHL7File(HL7Doc: THL7Message; aStream: TStream); overload;
 function EncodedDateTime(DateTime: TDateTime): string;
 function DecodeDateTime(StringRepresentation: string): TDateTime;
 
@@ -255,64 +255,104 @@ procedure ReadHL7File(out HL7Doc: THL7Message; const aFileName: ansistring);
 var
   theStream: TStream;
 begin
-  HL7Doc := nil;
-  theStream := TFileStream.Create(AFilename, fmOpenRead + fmShareDenyWrite);
-  try
-    ReadHL7File(HL7Doc, theStream, FilenameToURI(AFilename));
-  finally
-    theStream.Free;
+  if FileExists(aFileName) then
+    begin
+      theStream := TFileStream.Create(AFilename, fmOpenRead + fmShareDenyWrite);
+      try
+        ReadHL7File(HL7Doc, theStream, FilenameToURI(AFilename));
+      finally
+        if theStream <> nil then
+          theStream.Free;
+    end;
   end;
 end;
 
-procedure ReadHL7File(out HL7Doc: THL7Message; var f: Text);
+procedure ReadHL7File(out HL7Doc: THL7Message; var aFile: Text);
 {reads and parses an HL7 message from text file}
 var
   theString, nextFragment: ansiString;
 begin
   HL7Doc := nil;
-  reset(f);
-  while not eof do
-  begin
-    readln(f, nextFragment);
-    theString := theString + nextFragment;
+  theString := '';
+  try
+    reset(aFile);
+    repeat
+      readln(aFile, nextFragment);
+      theString := theString + nextFragment + #13;
+    until EOF(aFile);
+  finally
+    CloseFile(aFile);
   end;
   if theString <> '' then
-    HL7Doc.contentString := theString;
+    begin
+      HL7Doc := THL7Message.Create('2.5');
+      HL7Doc.contentString := theString;
+    end;
 end;
 
-procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream);
+procedure ReadHL7File(out HL7Doc: THL7Message; aStream: TStream);
 {reads and parses an HL7 message from stream}
 begin
-  ReadHL7File(HL7Doc, f, 'stream:');
+  ReadHL7File(HL7Doc, aStream, 'stream:');
 end;
 
-procedure ReadHL7File(out HL7Doc: THL7Message; f: TStream; const aBaseURI: ansistring);
+procedure ReadHL7File(out HL7Doc: THL7Message; aStream: TStream; const aBaseURI: ansistring);
 {reads and parses an HL7 message from URI}
 var
-  theString: ansiString;
+  theString: AnsiString;
 begin
   HL7Doc := nil;
-  theString := f.ReadAnsiString;
-  if theString <> '' then
-    HL7Doc.contentString := theString;
+  if aStream.Size > 0 then
+  begin
+    SetLength(theString, aStream.Size);
+    aStream.Read(theString[1], aStream.Size);
+    if theString <> '' then
+    begin
+      HL7Doc := THL7Message.Create('2.5');
+      HL7Doc.contentString := theString;
+    end;
+  end;
 end;
 
-procedure WriteHL7File(HL7Doc: THL7Message; const AFileName: ansistring);
+procedure WriteHL7File(HL7Doc: THL7Message; const aFileName: ansistring);
 {compiles and writes an HL7 message to file}
+var
+  theStream: TStream;
 begin
-
+  theStream := TFileStream.Create(aFilename, fmOpenWrite or fmCreate);
+  try
+    WriteHL7File(HL7Doc, theStream);
+  finally
+    if theStream <> nil then
+      theStream.Free;
+  end;
 end;
 
-procedure WriteHL7File(HL7Doc: THL7Message; var AFile: Text);
+procedure WriteHL7File(HL7Doc: THL7Message; var aFile: Text);
 {compiles and writes an HL7 message to text file}
+var
+  theString: AnsiString;
+  textLength: integer;
 begin
-
+  theString := HL7Doc.contentString;
+  textLength := length(theString);
+  try
+    rewrite(aFile);
+    write(aFile, theString);
+  finally
+    CloseFile(aFile);
+  end;
 end;
 
-procedure WriteHL7File(HL7Doc: THL7Message; AStream: TStream);
+procedure WriteHL7File(HL7Doc: THL7Message; aStream: TStream);
 {compiles and writes an HL7 message to stream}
+var
+  theString: AnsiString;
+  textLength: integer;
 begin
-
+  theString := HL7Doc.contentString;
+  textLength := length(theString);
+  aStream.WriteBuffer(theString[1], textLength);
 end;
 
 function EncodedDateTime(DateTime: TDateTime): string;

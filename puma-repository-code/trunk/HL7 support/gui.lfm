@@ -1,0 +1,140 @@
+object MainForm: TMainForm
+  Left = 283
+  Height = 671
+  Top = 247
+  Width = 844
+  Caption = 'HL7 Message Viewer'
+  ClientHeight = 671
+  ClientWidth = 844
+  LCLVersion = '1.0.14.0'
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 15
+    Top = 656
+    Width = 844
+    Panels = <>
+  end
+  object ToolBar1: TToolBar
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 844
+    Caption = 'ToolBar1'
+    TabOrder = 1
+    object OpenButton: TButton
+      Left = 1
+      Height = 22
+      Top = 2
+      Width = 75
+      Caption = 'Open...'
+      OnClick = OpenButtonClick
+      TabOrder = 0
+    end
+    object SaveButton: TButton
+      Left = 76
+      Height = 22
+      Top = 2
+      Width = 75
+      Caption = 'Save...'
+      OnClick = SaveButtonClick
+      TabOrder = 1
+    end
+  end
+  object SegmentsGroupBox: TGroupBox
+    AnchorSideRight.Control = FieldsGroupBox
+    Left = 8
+    Height = 626
+    Top = 24
+    Width = 198
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Right = 5
+    Caption = 'Segments'
+    ClientHeight = 604
+    ClientWidth = 190
+    TabOrder = 2
+    object SegmentsListBox: TListBox
+      Left = 2
+      Height = 595
+      Top = 5
+      Width = 185
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      ItemHeight = 0
+      ParentBidiMode = False
+      TabOrder = 0
+    end
+  end
+  object FieldsGroupBox: TGroupBox
+    AnchorSideRight.Control = ComponentsGroupBox
+    Left = 214
+    Height = 626
+    Top = 24
+    Width = 200
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 8
+    BorderSpacing.Right = 5
+    Caption = 'Fields'
+    ClientHeight = 604
+    ClientWidth = 192
+    TabOrder = 3
+    object FieldsListBox: TListBox
+      Left = 2
+      Height = 595
+      Top = 5
+      Width = 188
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      ItemHeight = 0
+      TabOrder = 0
+    end
+  end
+  object ComponentsGroupBox: TGroupBox
+    AnchorSideRight.Control = SubComponentsGroupBox
+    Left = 419
+    Height = 626
+    Top = 24
+    Width = 200
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Right = 5
+    Caption = 'Components'
+    ClientHeight = 604
+    ClientWidth = 192
+    TabOrder = 4
+    object ComponentsListBox: TListBox
+      Left = 2
+      Height = 595
+      Top = 5
+      Width = 188
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      ItemHeight = 0
+      TabOrder = 0
+    end
+  end
+  object SubComponentsGroupBox: TGroupBox
+    Left = 624
+    Height = 626
+    Top = 24
+    Width = 200
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Caption = 'Subcomponents'
+    ClientHeight = 604
+    ClientWidth = 192
+    TabOrder = 5
+    object SubComponentsListBox: TListBox
+      Left = 2
+      Height = 595
+      Top = 5
+      Width = 188
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      ItemHeight = 0
+      TabOrder = 0
+    end
+  end
+  object MessageFileOpenDialog: TOpenDialog
+    left = 408
+    top = 16
+  end
+  object MessageFileSaveDialog: TSaveDialog
+    Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
+    left = 579
+    top = 16
+  end
+end

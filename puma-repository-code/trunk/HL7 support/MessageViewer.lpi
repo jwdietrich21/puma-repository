@@ -5,7 +5,7 @@
     <General>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="hl7tests"/>
+      <Title Value="MessageViewer"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -17,8 +17,8 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="90"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS " LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" ProductName="PUMA Repository" ProductVersion=""/>
+      <BuildNr Value="11"/>
+      <StringTable ProductName="HL7 MessageViewer" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -33,27 +33,24 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="1">
       <Item1>
-        <PackageName Value="FPCUnitTestRunner"/>
-      </Item1>
-      <Item2>
         <PackageName Value="LCL"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="FCL"/>
-      </Item3>
+      </Item1>
     </RequiredPackages>
     <Units Count="4">
       <Unit0>
-        <Filename Value="hl7tests.lpr"/>
+        <Filename Value="MessageViewer.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="hl7tests"/>
+        <UnitName Value="MessageViewer"/>
       </Unit0>
       <Unit1>
-        <Filename Value="hl7testcases.pas"/>
+        <Filename Value="gui.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="HL7TestCases"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="GUI"/>
       </Unit1>
       <Unit2>
         <Filename Value="hl7.pas"/>
@@ -69,13 +66,19 @@
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
+    <Target>
+      <Filename Value="MessageViewer"/>
+    </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
-      <Debugging>
-        <UseHeaptrc Value="True"/>
-      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
     </Linking>
     <Other>
       <CompilerMessages>
