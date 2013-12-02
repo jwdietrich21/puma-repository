@@ -483,6 +483,7 @@ begin
     obsSubID := '';
     obsValue := '91';
     Units := '/MIN';
+    RefRange := '';
     AbnormFlags := '';
     probability := '';
     Nature := '';
