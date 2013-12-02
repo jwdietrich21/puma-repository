@@ -33,6 +33,9 @@ const
   ACKNOWLEDGEMENT_OK = 'AA';
   ACKNOWLEDGEMENT_ERROR = 'AE';
   ACKNOWLEDGEMENT_REJECT = 'AR';
+  COMMIT_ACCEPT = 'CA';
+  COMMIT_ERROR = 'CE';
+  COMMIT_REJECT = 'CR';
 
   ESCAPE_HIGHLIGHTING = '\H\';   {start highlighting}
   ESCAPE_NORMAL = '\N\';     {end highlighting}
@@ -70,6 +73,7 @@ type
   str26 = string[26];
   str40 = string[40];
   str60 = string[60];
+  str80 = string[80];
   str180 = string[180];
   str227 = string[227];
   str250 = string[250];
@@ -211,6 +215,7 @@ type
     procedure ParseMessageString(const aString: ansistring);
     function CompiledMessageString: ansistring;
   public
+    ControlID: Str20;
     FirstSegment: THL7Segment;
     procedure ParseDelimiters(DelimiterDefinition: ansistring);
     function CompiledDelimiters(const delimiters: THL7Delimiters): str5;
@@ -228,6 +233,7 @@ type
     function FoundSegment(const aSegmentName, SetID: Str3;
       beginWith: THL7Segment; out lastSegment: THL7Segment): THL7Segment;
     function NewSegment: THL7Segment;
+    procedure AddSegment(theSegment: THL7Segment);
     procedure DeleteSegment(const aSegmentName, SetID: Str3);
     procedure ReplaceSegment(const aSegmentName, SetID: Str3; by: THL7Segment);
     procedure ReplaceSegment(const aSegmentName, SetID: Str3; by: THL7Segment; insertAlways: boolean);
@@ -1033,6 +1039,21 @@ begin
     currSegment.FNextSibling := theSegment;
   end;
   Result := theSegment;
+end;
+
+procedure THL7Message.AddSegment(theSegment: THL7Segment);
+var
+  currSegment: THL7Segment;
+begin
+  currSegment := FirstSegment;
+  if currSegment = nil then
+    FirstSegment := theSegment
+  else
+  begin
+    while currSegment.NextSibling <> nil do
+      currSegment := currSegment.NextSibling;
+    currSegment.FNextSibling := theSegment;
+  end;
 end;
 
 procedure THL7Message.DeleteSegment(const aSegmentName, SetID: Str3);

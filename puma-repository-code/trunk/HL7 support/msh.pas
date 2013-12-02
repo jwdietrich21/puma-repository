@@ -36,7 +36,7 @@ procedure GetMSH(message: THL7Message; out delimiters: str5;
 procedure SetMSH(message: THL7Message; aSegment: THL7Segment);
 procedure SetMSH(message: THL7Message; delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  security: str40; messageType: str15; controlID: str20;
+  security: str40; messageType: str15;
   processingID: str3; sequenceNumber: str15;
   continuationPointer: str180; AccAckType, AppAckType: Str2;
   countryCode: str3; charSet: str16; messageLanguage: str250;
@@ -110,7 +110,7 @@ end;
 
 procedure SetMSH(message: THL7Message; delimiters: str5; sendingApp,
   sendingFac, receivingApp, receivingFac: str227; security: str40;
-  messageType: str15; controlID: str20; processingID: str3;
+  messageType: str15; processingID: str3;
   sequenceNumber: str15; continuationPointer: str180; AccAckType,
   AppAckType: Str2; countryCode: str3; charSet: str16; messageLanguage: str250;
   altCharHandlScheme: str20; profileID: str427);
@@ -118,12 +118,14 @@ var
   newSegment: THL7Segment;
   FieldSep: char;
   dateTime: str26;
+  controlID: str20;
   versionID: str60;
   theString: AnsiString;
 begin
   dateTime := EncodedDateTime(Now);
   versionID := message.HL7Version;
   FieldSep := message.Delimiters.FieldSeparator;
+  controlID := message.ControlID;
   newSegment := THL7Segment.Create(message, '');
   theString := 'MSH' + delimiters + FieldSep + sendingApp +
     FieldSep + sendingFac + FieldSep + receivingApp + FieldSep +

@@ -17,7 +17,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="91"/>
+      <BuildNr Value="93"/>
       <StringTable CompanyName="FORMATIO RETICULARIS " LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" ProductName="PUMA Repository" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -44,7 +44,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="5">
       <Unit0>
         <Filename Value="hl7tests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -65,6 +65,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MSH"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="msa.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MSA"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

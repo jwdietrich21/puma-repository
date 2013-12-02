@@ -23,7 +23,7 @@ unit HL7TestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH;
+  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -42,6 +42,7 @@ const
     'NK1||DOE^DONNA^^^^|MTH||(299)123-4567||CN|||||||||||||||||||||||||||';
   EXAMPLE_SEGMENT10 =
     'MSH|^~\&|SPINA Thyr|RUB|medico|BMH|201311302157||PRF^R04|12345|P|2.5|||||276|ASCII|';
+  EXAMPLE_MSA_SEGMENT = 'MSA|AA|CDB22222|P|';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
   EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
@@ -75,6 +76,12 @@ type
     procedure MSHSetCase3;
   end;
 
+  { TMSATestCases }
+
+  TMSATestCases = class(TTestCase)
+  published
+    procedure MSASetCase1;
+  end;
   { TMessageTestCases }
 
   TMessageTestCases = class(TTestCase)
@@ -347,7 +354,7 @@ begin
     countryCode := '276';
     SetMSH(TestHL7Message, delimiters, sendingApp,
   sendingFac, receivingApp, receivingFac,
-  security, messageType, controlID, processingID,
+  security, messageType, processingID,
   sequenceNumber, continuationPointer,
   AccAckType, AppAckType, countryCode, charSet,
   messageLanguage, altCharHandlScheme, profileID);
@@ -358,6 +365,37 @@ begin
   AccAckType, AppAckType, countryCode, charSet,
   messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('2.5', versionID);
+  end;
+end;
+
+{ TMSATestCases }
+
+procedure TMSATestCases.MSASetCase1;
+var
+  AckCode, AckCode2: str2;
+  controlID: str20;
+  textMessage: str80;
+  exSeqNum: Str15;
+  delAckType: char;
+  ErrorCond: Str250;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    AckCode := ACKNOWLEDGEMENT_OK;
+    controlID := 'CDB22222';
+    textMessage := 'P';
+    exSeqNum := '';
+    delAckType := char(0);
+    ErrorCond := '';
+    SetMSA(TestHL7Message, AckCode, controlID,
+  textMessage, exSeqNum, delAckType, ErrorCond);
+    GetMSA(TestHL7Message, AckCode2, controlID,
+  textMessage, exSeqNum, delAckType, ErrorCond);
+    AssertEquals(AckCode, AckCode2);
   end;
 end;
 
@@ -1311,6 +1349,7 @@ end;
 initialization
   RegisterTest(TControlTestCases);
   RegisterTest(TMSHTestCases);
+  RegisterTest(TMSATestCases);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);
