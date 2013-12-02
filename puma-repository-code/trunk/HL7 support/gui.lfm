@@ -10,8 +10,8 @@ object MainForm: TMainForm
   LCLVersion = '1.0.14.0'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 547
+    Height = 15
+    Top = 555
     Width = 834
     Panels = <>
   end
@@ -44,7 +44,7 @@ object MainForm: TMainForm
   object PairSplitter1: TPairSplitter
     Cursor = crVSplit
     Left = 0
-    Height = 521
+    Height = 529
     Top = 26
     Width = 834
     Align = alClient
@@ -63,82 +63,34 @@ object MainForm: TMainForm
         Height = 400
         Top = 0
         Width = 834
-        HorzScrollBar.Page = 830
-        VertScrollBar.Page = 396
+        HorzScrollBar.Page = 819
+        VertScrollBar.Page = 400
         Align = alClient
         Anchors = [akTop, akLeft, akRight]
-        ClientHeight = 396
-        ClientWidth = 830
+        ClientHeight = 400
+        ClientWidth = 819
         TabOrder = 0
-        object SegmentsGroupBox: TGroupBox
-          AnchorSideBottom.Control = ScrollBox1
-          AnchorSideBottom.Side = asrBottom
-          Left = 0
-          Height = 372
-          Top = 24
-          Width = 209
-          Anchors = [akTop, akLeft, akBottom]
-          BorderSpacing.Right = 5
-          Caption = 'Segments'
-          ClientHeight = 354
-          ClientWidth = 205
-          TabOrder = 0
-          object SegmentsListBox: TListBox
-            Left = 2
-            Height = 345
-            Top = 5
-            Width = 200
-            Anchors = [akTop, akLeft, akRight, akBottom]
-            ItemHeight = 0
-            OnClick = SegmentsListBoxClick
-            TabOrder = 0
-          end
-        end
-        object FieldsGroupBox: TGroupBox
-          AnchorSideBottom.Control = ScrollBox1
-          AnchorSideBottom.Side = asrBottom
-          Left = 206
-          Height = 372
-          Top = 24
-          Width = 211
-          Anchors = [akTop, akLeft, akBottom]
-          BorderSpacing.Left = 8
-          BorderSpacing.Right = 5
-          Caption = 'Fields'
-          ClientHeight = 354
-          ClientWidth = 207
-          TabOrder = 1
-          object FieldsListBox: TListBox
-            Left = 2
-            Height = 345
-            Top = 5
-            Width = 203
-            Anchors = [akTop, akLeft, akRight, akBottom]
-            ItemHeight = 0
-            OnClick = FieldsListBoxClick
-            TabOrder = 0
-          end
-        end
         object ComponentsGroupBox: TGroupBox
           AnchorSideBottom.Control = ScrollBox1
           AnchorSideBottom.Side = asrBottom
           Left = 411
-          Height = 372
+          Height = 376
           Top = 24
-          Width = 211
+          Width = 200
           Anchors = [akTop, akLeft, akBottom]
           BorderSpacing.Right = 5
           Caption = 'Components'
           ClientHeight = 354
-          ClientWidth = 207
-          TabOrder = 2
+          ClientWidth = 192
+          TabOrder = 0
           object ComponentsListBox: TListBox
             Left = 2
             Height = 345
             Top = 5
-            Width = 203
+            Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
             ItemHeight = 0
+            OnClick = ComponentsListBoxClick
             TabOrder = 0
           end
         end
@@ -146,21 +98,66 @@ object MainForm: TMainForm
           AnchorSideBottom.Control = ScrollBox1
           AnchorSideBottom.Side = asrBottom
           Left = 616
-          Height = 372
+          Height = 376
           Top = 24
-          Width = 211
+          Width = 200
           Anchors = [akTop, akLeft, akBottom]
           Caption = 'Subcomponents'
           ClientHeight = 354
-          ClientWidth = 207
-          TabOrder = 3
+          ClientWidth = 192
+          TabOrder = 1
           object SubComponentsListBox: TListBox
             Left = 2
             Height = 345
             Top = 5
-            Width = 203
+            Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
             ItemHeight = 0
+            TabOrder = 0
+          end
+        end
+        object SegmentsGroupBox: TGroupBox
+          Left = 0
+          Height = 376
+          Top = 24
+          Width = 200
+          Anchors = [akTop, akLeft, akBottom]
+          BorderSpacing.Right = 5
+          Caption = 'Segments'
+          ClientHeight = 353
+          ClientWidth = 192
+          TabOrder = 2
+          object SegmentsListBox: TListBox
+            Left = 2
+            Height = 344
+            Top = 5
+            Width = 187
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            ItemHeight = 0
+            OnClick = SegmentsListBoxClick
+            TabOrder = 0
+          end
+        end
+        object FieldsGroupBox: TGroupBox
+          Left = 206
+          Height = 376
+          Top = 24
+          Width = 200
+          Anchors = [akTop, akLeft, akBottom]
+          BorderSpacing.Left = 8
+          BorderSpacing.Right = 5
+          Caption = 'Fields'
+          ClientHeight = 353
+          ClientWidth = 192
+          TabOrder = 3
+          object FieldsListBox: TListBox
+            Left = 2
+            Height = 344
+            Top = 5
+            Width = 188
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            ItemHeight = 0
+            OnClick = FieldsListBoxClick
             TabOrder = 0
           end
         end
@@ -169,20 +166,31 @@ object MainForm: TMainForm
     object PairSplitterSide2: TPairSplitterSide
       Cursor = crArrow
       Left = 0
-      Height = 116
+      Height = 124
       Top = 405
       Width = 834
       ClientWidth = 834
-      ClientHeight = 116
-      object MessageMemo: TMemo
+      ClientHeight = 124
+      object MessageGroupBox: TGroupBox
         Left = 0
-        Height = 116
+        Height = 124
         Top = 0
         Width = 834
         Align = alClient
-        ReadOnly = True
-        ScrollBars = ssAutoBoth
+        Caption = 'Message'
+        ClientHeight = 102
+        ClientWidth = 826
         TabOrder = 0
+        object MessageMemo: TMemo
+          Left = 0
+          Height = 102
+          Top = 0
+          Width = 826
+          Align = alClient
+          ReadOnly = True
+          ScrollBars = ssAutoBoth
+          TabOrder = 0
+        end
       end
     end
   end
