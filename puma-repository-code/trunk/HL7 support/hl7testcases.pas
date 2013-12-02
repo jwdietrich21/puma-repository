@@ -309,7 +309,20 @@ begin
     receivingFac := 'Dr. Frankenstein';
     dateTime := EncodedDateTime(Now);
     messageType := 'ADT^A04';
-    countryCode := '276';
+    security     := '';
+    messageType  := '';
+    controlID    := EncodedDateTime(Now) + IntToStr(random(13000));
+    processingID := '';
+    versionID    := '';
+    sequenceNumber := '';
+    continuationPointer := '';
+    AccAckType   := '';
+    AppAckType   := '';
+    countryCode  := '276';
+    charSet      := '';
+    messageLanguage := '';
+    altCharHandlScheme := '';
+    profileID    := '';
     SetMSH(TestHL7Message, delimiters, sendingApp,
       sendingFac, receivingApp, receivingFac, dateTime,
       security, messageType, controlID, processingID,

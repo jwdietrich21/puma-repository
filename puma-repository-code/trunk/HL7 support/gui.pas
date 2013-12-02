@@ -48,6 +48,7 @@ type
     ToolBar1: TToolBar;
     procedure OpenButtonClick(Sender: TObject);
     procedure SaveButtonClick(Sender: TObject);
+    procedure SegmentsListBoxClick(Sender: TObject);
   private
     { private declarations }
   public
@@ -85,6 +86,31 @@ begin
   if MessageFileSaveDialog.Execute then
   begin
     WriteHL7File(gMessage, MessageFileSaveDialog.FileName);
+  end;
+end;
+
+procedure TMainForm.SegmentsListBoxClick(Sender: TObject);
+var
+  count, index: integer;
+  theSegment: THL7Segment;
+  theField: THL7Field;
+begin
+  FieldsListBox.Clear;
+  ComponentsListBox.Clear;
+  SubComponentsListBox.Clear;
+  count := 0;
+  index := SegmentsListBox.ItemIndex;
+  theSegment := gMessage.FirstSegment;
+  while (theSegment <> nil) and (count < index) do
+  begin
+    theSegment := theSegment.nextSibling;
+    count := count + 1;
+  end;
+  theField := theSegment.FirstOccurrence.FirstField;
+  while theField <> nil do
+  begin
+    FieldsListBox.Items.Add(theField.contentString);
+    theField := theField.nextSibling;
   end;
 end;
 

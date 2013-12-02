@@ -9,8 +9,8 @@ object MainForm: TMainForm
   LCLVersion = '1.0.14.0'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 15
-    Top = 656
+    Height = 23
+    Top = 648
     Width = 844
     Panels = <>
   end
@@ -49,16 +49,17 @@ object MainForm: TMainForm
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Right = 5
     Caption = 'Segments'
-    ClientHeight = 604
-    ClientWidth = 190
+    ClientHeight = 608
+    ClientWidth = 194
     TabOrder = 2
     object SegmentsListBox: TListBox
       Left = 2
-      Height = 595
+      Height = 599
       Top = 5
-      Width = 185
+      Width = 189
       Anchors = [akTop, akLeft, akRight, akBottom]
       ItemHeight = 0
+      OnClick = SegmentsListBoxClick
       ParentBidiMode = False
       TabOrder = 0
     end
@@ -73,14 +74,14 @@ object MainForm: TMainForm
     BorderSpacing.Left = 8
     BorderSpacing.Right = 5
     Caption = 'Fields'
-    ClientHeight = 604
-    ClientWidth = 192
+    ClientHeight = 608
+    ClientWidth = 196
     TabOrder = 3
     object FieldsListBox: TListBox
       Left = 2
-      Height = 595
+      Height = 599
       Top = 5
-      Width = 188
+      Width = 192
       Anchors = [akTop, akLeft, akRight, akBottom]
       ItemHeight = 0
       TabOrder = 0
@@ -95,14 +96,14 @@ object MainForm: TMainForm
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Right = 5
     Caption = 'Components'
-    ClientHeight = 604
-    ClientWidth = 192
+    ClientHeight = 608
+    ClientWidth = 196
     TabOrder = 4
     object ComponentsListBox: TListBox
       Left = 2
-      Height = 595
+      Height = 599
       Top = 5
-      Width = 188
+      Width = 192
       Anchors = [akTop, akLeft, akRight, akBottom]
       ItemHeight = 0
       TabOrder = 0
@@ -115,14 +116,14 @@ object MainForm: TMainForm
     Width = 200
     Anchors = [akTop, akLeft, akRight, akBottom]
     Caption = 'Subcomponents'
-    ClientHeight = 604
-    ClientWidth = 192
+    ClientHeight = 608
+    ClientWidth = 196
     TabOrder = 5
     object SubComponentsListBox: TListBox
       Left = 2
-      Height = 595
+      Height = 599
       Top = 5
-      Width = 188
+      Width = 192
       Anchors = [akTop, akLeft, akRight, akBottom]
       ItemHeight = 0
       TabOrder = 0
