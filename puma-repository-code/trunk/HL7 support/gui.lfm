@@ -63,12 +63,12 @@ object MainForm: TMainForm
         Height = 400
         Top = 0
         Width = 834
-        HorzScrollBar.Page = 819
+        HorzScrollBar.Page = 834
         VertScrollBar.Page = 400
         Align = alClient
         Anchors = [akTop, akLeft, akRight]
         ClientHeight = 400
-        ClientWidth = 819
+        ClientWidth = 834
         TabOrder = 0
         object ComponentsGroupBox: TGroupBox
           AnchorSideBottom.Control = ScrollBox1
@@ -91,6 +91,8 @@ object MainForm: TMainForm
             Anchors = [akTop, akLeft, akRight, akBottom]
             ItemHeight = 0
             OnClick = ComponentsListBoxClick
+            OnDrawItem = SegmentsListBoxDrawItem
+            Style = lbOwnerDrawFixed
             TabOrder = 0
           end
         end
@@ -113,6 +115,8 @@ object MainForm: TMainForm
             Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
             ItemHeight = 0
+            OnDrawItem = SegmentsListBoxDrawItem
+            Style = lbOwnerDrawFixed
             TabOrder = 0
           end
         end
@@ -124,17 +128,19 @@ object MainForm: TMainForm
           Anchors = [akTop, akLeft, akBottom]
           BorderSpacing.Right = 5
           Caption = 'Segments'
-          ClientHeight = 353
+          ClientHeight = 354
           ClientWidth = 192
           TabOrder = 2
           object SegmentsListBox: TListBox
             Left = 2
-            Height = 344
+            Height = 345
             Top = 5
             Width = 187
             Anchors = [akTop, akLeft, akRight, akBottom]
             ItemHeight = 0
             OnClick = SegmentsListBoxClick
+            OnDrawItem = SegmentsListBoxDrawItem
+            Style = lbOwnerDrawFixed
             TabOrder = 0
           end
         end
@@ -147,17 +153,19 @@ object MainForm: TMainForm
           BorderSpacing.Left = 8
           BorderSpacing.Right = 5
           Caption = 'Fields'
-          ClientHeight = 353
+          ClientHeight = 354
           ClientWidth = 192
           TabOrder = 3
           object FieldsListBox: TListBox
             Left = 2
-            Height = 344
+            Height = 345
             Top = 5
             Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
             ItemHeight = 0
             OnClick = FieldsListBoxClick
+            OnDrawItem = SegmentsListBoxDrawItem
+            Style = lbOwnerDrawFixed
             TabOrder = 0
           end
         end

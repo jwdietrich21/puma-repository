@@ -17,7 +17,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="18"/>
+      <BuildNr Value="19"/>
       <StringTable ProductName="HL7 MessageViewer" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">

@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  StdCtrls, ExtCtrls, Buttons, PairSplitter, HL7, MSH;
+  StdCtrls, ExtCtrls, Buttons, PairSplitter, HL7, MSH, types;
 
 type
 
@@ -58,6 +58,8 @@ type
     procedure OpenButtonClick(Sender: TObject);
     procedure SaveButtonClick(Sender: TObject);
     procedure SegmentsListBoxClick(Sender: TObject);
+    procedure SegmentsListBoxDrawItem(Control: TWinControl; Index: integer;
+      ARect: TRect; State: TOwnerDrawState);
   private
     { private declarations }
   public
@@ -96,102 +98,133 @@ begin
   end;
 end;
 
+procedure TMainForm.SegmentsListBoxDrawItem(Control: TWinControl;
+  Index: integer; aRect: TRect; State: TOwnerDrawState);
+var
+  listColor: TColor;
+begin
+  with (Control as TListBox).Canvas do
+  begin
+    if index = (Control as TListBox).ItemIndex then
+      listColor := clHighLight
+    else if odd(index) then
+      listColor := clWhite
+    else
+      listColor := clMoneyGreen;
+    Brush.Style := bsSolid;
+    Brush.Color := listColor;
+    Pen.Style := psClear;
+    FillRect(aRect);
+    Brush.Style := bsClear;
+    TextOut(aRect.Left, aRect.Top, (Control as TListBox).Items[index]);
+  end;
+end;
+
 procedure TMainForm.SegmentsListBoxClick(Sender: TObject);
 var
-  count, index: integer;
+  Count, index: integer;
   theSegment: THL7Segment;
   theField: THL7Field;
 begin
-  FieldsListBox.Clear;
-  ComponentsListBox.Clear;
-  SubComponentsListBox.Clear;
-  count := 0;
-  index := SegmentsListBox.ItemIndex;
-  theSegment := gMessage.FirstSegment;
-  while (theSegment <> nil) and (count < index) do
+  if gMessage <> nil then
   begin
-    theSegment := theSegment.nextSibling;
-    count := count + 1;
-  end;
-  theField := theSegment.FirstOccurrence.FirstField;
-  while theField <> nil do
-  begin
-    FieldsListBox.Items.Add(theField.contentString);
-    theField := theField.nextSibling;
+    FieldsListBox.Clear;
+    ComponentsListBox.Clear;
+    SubComponentsListBox.Clear;
+    Count := 0;
+    index := SegmentsListBox.ItemIndex;
+    theSegment := gMessage.FirstSegment;
+    while (theSegment <> nil) and (Count < index) do
+    begin
+      theSegment := theSegment.nextSibling;
+      Count := Count + 1;
+    end;
+    theField := theSegment.FirstOccurrence.FirstField;
+    while theField <> nil do
+    begin
+      FieldsListBox.Items.Add(theField.contentString);
+      theField := theField.nextSibling;
+    end;
   end;
 end;
 
 procedure TMainForm.FieldsListBoxClick(Sender: TObject);
 var
-  count, index: integer;
+  Count, index: integer;
   theSegment: THL7Segment;
   theField: THL7Field;
   theComponent: THL7Component;
 begin
-  ComponentsListBox.Clear;
-  SubComponentsListBox.Clear;
-  count := 0;
-  index := SegmentsListBox.ItemIndex;
-  theSegment := gMessage.FirstSegment;
-  while (theSegment <> nil) and (count < index) do
+  if gMessage <> nil then
   begin
-    theSegment := theSegment.nextSibling;
-    count := count + 1;
-  end;
-  count := 0;
-  index := FieldsListBox.ItemIndex;
-  theField := theSegment.FirstOccurrence.FirstField;
-  while (theField <> nil) and (count < index) do
-  begin
-    theField := theField.nextSibling;
-    count := count + 1;
-  end;
-  theComponent := theField.FirstComponent;
-  while theComponent <> nil do
-  begin
-    ComponentsListBox.Items.Add(theComponent.contentString);
-    theComponent := theComponent.nextSibling;
+    ComponentsListBox.Clear;
+    SubComponentsListBox.Clear;
+    Count := 0;
+    index := SegmentsListBox.ItemIndex;
+    theSegment := gMessage.FirstSegment;
+    while (theSegment <> nil) and (Count < index) do
+    begin
+      theSegment := theSegment.nextSibling;
+      Count := Count + 1;
+    end;
+    Count := 0;
+    index := FieldsListBox.ItemIndex;
+    theField := theSegment.FirstOccurrence.FirstField;
+    while (theField <> nil) and (Count < index) do
+    begin
+      theField := theField.nextSibling;
+      Count := Count + 1;
+    end;
+    theComponent := theField.FirstComponent;
+    while theComponent <> nil do
+    begin
+      ComponentsListBox.Items.Add(theComponent.contentString);
+      theComponent := theComponent.nextSibling;
+    end;
   end;
 end;
 
 procedure TMainForm.ComponentsListBoxClick(Sender: TObject);
 var
-  count, index: integer;
+  Count, index: integer;
   theSegment: THL7Segment;
   theField: THL7Field;
   theComponent: THL7Component;
   theSubComponent: THL7SubComponent;
 begin
-  SubComponentsListBox.Clear;
-  count := 0;
-  index := SegmentsListBox.ItemIndex;
-  theSegment := gMessage.FirstSegment;
-  while (theSegment <> nil) and (count < index) do
+  if gMessage <> nil then
   begin
-    theSegment := theSegment.nextSibling;
-    count := count + 1;
-  end;
-  count := 0;
-  index := FieldsListBox.ItemIndex;
-  theField := theSegment.FirstOccurrence.FirstField;
-  while (theField <> nil) and (count < index) do
-  begin
-    theField := theField.nextSibling;
-    count := count + 1;
-  end;
-  count := 0;
-  index := ComponentsListBox.ItemIndex;
-  theComponent := theField.FirstComponent;
-  while (theComponent <> nil) and (count < index) do
-  begin
-    theComponent := theComponent.nextSibling;
-    count := count + 1
-  end;
-  theSubComponent := theComponent.FirstSubComponent;
-  while theSubComponent <> nil do
-  begin
-    SubComponentsListBox.Items.Add(theSubComponent.contentString);
-    theSubComponent := theSubComponent.nextSibling;
+    SubComponentsListBox.Clear;
+    Count := 0;
+    index := SegmentsListBox.ItemIndex;
+    theSegment := gMessage.FirstSegment;
+    while (theSegment <> nil) and (Count < index) do
+    begin
+      theSegment := theSegment.nextSibling;
+      Count := Count + 1;
+    end;
+    Count := 0;
+    index := FieldsListBox.ItemIndex;
+    theField := theSegment.FirstOccurrence.FirstField;
+    while (theField <> nil) and (Count < index) do
+    begin
+      theField := theField.nextSibling;
+      Count := Count + 1;
+    end;
+    Count := 0;
+    index := ComponentsListBox.ItemIndex;
+    theComponent := theField.FirstComponent;
+    while (theComponent <> nil) and (Count < index) do
+    begin
+      theComponent := theComponent.nextSibling;
+      Count := Count + 1;
+    end;
+    theSubComponent := theComponent.FirstSubComponent;
+    while theSubComponent <> nil do
+    begin
+      SubComponentsListBox.Items.Add(theSubComponent.contentString);
+      theSubComponent := theSubComponent.nextSibling;
+    end;
   end;
 end;
 
