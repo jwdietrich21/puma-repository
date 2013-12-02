@@ -23,7 +23,7 @@ unit HL7TestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA, OBR;
+  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA, OBR, OBX;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -43,7 +43,8 @@ const
   EXAMPLE_SEGMENT10 =
     'MSH|^~\&|SPINA Thyr|RUB|medico|BMH|201311302157||PRF^R04|12345|P|2.5|||||276|ASCII|';
   EXAMPLE_MSA_SEGMENT = 'MSA|AA|CDB22222|P|';
-  EXAMPLE_OBR_SEGMENT = 'OBR|1|43215^OE|98765^EKG|93000^EKG REPORT|||198801111330|||1235^TAYLOR^ROBERT^M||||198801111330||P030||||||198801120930||||||P011^PRESLEY^ELVIS^AARON^^^MD|43214^OE|';
+  EXAMPLE_OBR_SEGMENT =
+    'OBR|1|43215^OE|98765^EKG|93000^EKG REPORT|||198801111330|||1235^TAYLOR^ROBERT^M||||198801111330||P030||||||198801120930||||||P011^PRESLEY^ELVIS^AARON^^^MD|43214^OE|';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
   EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
@@ -89,6 +90,13 @@ type
   TOBRTestCases = class(TTestCase)
   published
     procedure OBRSetCase1;
+  end;
+
+  { TOBXTestCases }
+
+  TOBXTestCases = class(TTestCase)
+  published
+    procedure OBXSetCase1;
   end;
 
   { TMessageTestCases }
@@ -220,11 +228,11 @@ begin
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     GetMSH(TestHL7Message, delimiters, sendingApp,
-  sendingFac, receivingApp, receivingFac, dateTime,
-  security, messageType, controlID, processingID,
-  versionID, sequenceNumber, continuationPointer,
-  AccAckType, AppAckType, countryCode, charSet,
-  messageLanguage, altCharHandlScheme, profileID);
+      sendingFac, receivingApp, receivingFac, dateTime,
+      security, messageType, controlID, processingID,
+      versionID, sequenceNumber, continuationPointer,
+      AccAckType, AppAckType, countryCode, charSet,
+      messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('199912271408', dateTime);
   end;
 end;
@@ -259,11 +267,11 @@ begin
     testSegment.contentString := EXAMPLE_SEGMENT10;
     SetMSH(TestHL7Message, testSegment);
     GetMSH(TestHL7Message, delimiters, sendingApp,
-  sendingFac, receivingApp, receivingFac, dateTime,
-  security, messageType, controlID, processingID,
-  versionID, sequenceNumber, continuationPointer,
-  AccAckType, AppAckType, countryCode, charSet,
-  messageLanguage, altCharHandlScheme, profileID);
+      sendingFac, receivingApp, receivingFac, dateTime,
+      security, messageType, controlID, processingID,
+      versionID, sequenceNumber, continuationPointer,
+      AccAckType, AppAckType, countryCode, charSet,
+      messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('201311302157', dateTime);
   end;
 end;
@@ -303,17 +311,17 @@ begin
     messageType := 'ADT^A04';
     countryCode := '276';
     SetMSH(TestHL7Message, delimiters, sendingApp,
-  sendingFac, receivingApp, receivingFac, dateTime,
-  security, messageType, controlID, processingID,
-  versionID, sequenceNumber, continuationPointer,
-  AccAckType, AppAckType, countryCode, charSet,
-  messageLanguage, altCharHandlScheme, profileID);
+      sendingFac, receivingApp, receivingFac, dateTime,
+      security, messageType, controlID, processingID,
+      versionID, sequenceNumber, continuationPointer,
+      AccAckType, AppAckType, countryCode, charSet,
+      messageLanguage, altCharHandlScheme, profileID);
     GetMSH(TestHL7Message, delimiters, sendingApp,
-  sendingFac, receivingApp, receivingFac, dateTime,
-  security, messageType, controlID, processingID,
-  versionID, sequenceNumber, continuationPointer,
-  AccAckType, AppAckType, countryCode, charSet,
-  messageLanguage, altCharHandlScheme, profileID);
+      sendingFac, receivingApp, receivingFac, dateTime,
+      security, messageType, controlID, processingID,
+      versionID, sequenceNumber, continuationPointer,
+      AccAckType, AppAckType, countryCode, charSet,
+      messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('276', countryCode);
   end;
 end;
@@ -362,17 +370,17 @@ begin
     profileID := '';
     countryCode := '276';
     SetMSH(TestHL7Message, delimiters, sendingApp,
-  sendingFac, receivingApp, receivingFac,
-  security, messageType, processingID,
-  sequenceNumber, continuationPointer,
-  AccAckType, AppAckType, countryCode, charSet,
-  messageLanguage, altCharHandlScheme, profileID);
+      sendingFac, receivingApp, receivingFac,
+      security, messageType, processingID,
+      sequenceNumber, continuationPointer,
+      AccAckType, AppAckType, countryCode, charSet,
+      messageLanguage, altCharHandlScheme, profileID);
     GetMSH(TestHL7Message, delimiters, sendingApp,
-  sendingFac, receivingApp, receivingFac, dateTime,
-  security, messageType, controlID, processingID,
-  versionID, sequenceNumber, continuationPointer,
-  AccAckType, AppAckType, countryCode, charSet,
-  messageLanguage, altCharHandlScheme, profileID);
+      sendingFac, receivingApp, receivingFac, dateTime,
+      security, messageType, controlID, processingID,
+      versionID, sequenceNumber, continuationPointer,
+      AccAckType, AppAckType, countryCode, charSet,
+      messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('2.5', versionID);
   end;
 end;
@@ -401,9 +409,9 @@ begin
     delAckType := char(0);
     ErrorCond := '';
     SetMSA(TestHL7Message, AckCode, controlID,
-  textMessage, exSeqNum, delAckType, ErrorCond);
+      textMessage, exSeqNum, delAckType, ErrorCond);
     GetMSA(TestHL7Message, AckCode2, controlID,
-  textMessage, exSeqNum, delAckType, ErrorCond);
+      textMessage, exSeqNum, delAckType, ErrorCond);
     AssertEquals(AckCode, AckCode2);
   end;
 end;
@@ -434,9 +442,70 @@ begin
     ReqDateTime := '198801111330';
     ObsDateTime := '';
     ObsEndDateTime := '';
-    SetOBR(TestHL7Message, SetID, PlacOrdNumb, FillOrdNumb, USI, Priority, ReqDateTime, ObsDateTime, ObsEndDateTime);
-    GetOBR(TestHL7Message, SetID, PlacOrdNumb, FillOrdNumb, USI, Priority, ReqDateTime2, ObsDateTime, ObsEndDateTime);
+    SetOBR(TestHL7Message, SetID, PlacOrdNumb, FillOrdNumb, USI,
+      Priority, ReqDateTime, ObsDateTime, ObsEndDateTime);
+    GetOBR(TestHL7Message, SetID, PlacOrdNumb, FillOrdNumb, USI,
+      Priority, ReqDateTime2, ObsDateTime, ObsEndDateTime);
     AssertEquals(ReqDateTime, ReqDateTime2);
+  end;
+end;
+
+{ TOBXTestCases }
+
+procedure TOBXTestCases.OBXSetCase1;
+var
+  SetID: str4;
+  ValueType: str2;
+  ObsID: str250;
+  obsSubID: str20;
+  obsValue, obsValue2: ansistring;
+  Units: str250;
+  RefRange: str60;
+  AbnormFlags, probability: str5;
+  Nature: str2;
+  status: char;
+  RRDate: str26;
+  UDAC: str20;
+  ObsDateTime: str26;
+  prodID, respObs, observMethod: str250;
+  EquipInstID: str22;
+  AnalysisDateTime: str26;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    SetID := '1';
+    ValueType := 'ST';
+    ObsID := '8897-1^QRS COMPLEX^LN';
+    obsSubID := '';
+    obsValue := '91';
+    Units := '/MIN';
+    AbnormFlags := '';
+    probability := '';
+    Nature := '';
+    status := 'F';
+    RRDate := '';
+    UDAC := '';
+    ObsDateTime := '198804011230';
+    prodID := '';
+    respObs := '';
+    observMethod := '';
+    EquipInstID := '';
+    AnalysisDateTime := '';
+    SetOBX(TestHL7Message, SetID, ValueType, ObsID,
+      obsSubID, obsValue, Units, RefRange,
+      AbnormFlags, probability, Nature, status, RRDate,
+      UDAC, ObsDateTime, prodID, respObs, observMethod,
+      EquipInstID, AnalysisDateTime);
+    GetOBX(TestHL7Message, SetID, ValueType, ObsID,
+      obsSubID, obsValue2, Units, RefRange,
+      AbnormFlags, probability, Nature, status, RRDate,
+      UDAC, ObsDateTime, prodID, respObs, observMethod,
+      EquipInstID, AnalysisDateTime);
+    AssertEquals(obsValue, obsValue2);
   end;
 end;
 
@@ -674,7 +743,7 @@ begin
     TestHL7Message.DeleteSegment('NK1', '0');
     messageContent := TestHL7Message.contentString;
     AssertEquals(EXAMPLE_MESSAGE2, LeftStr(messageContent,
-            length(EXAMPLE_MESSAGE2)));
+      length(EXAMPLE_MESSAGE2)));
   end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
@@ -693,8 +762,9 @@ begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     testSegment := THL7Segment.Create(nil, '');
     testSegment.contentString := EXAMPLE_SEGMENT8;
-    TestHL7Message.ReplaceSegment('NTE', '0', testSegment, true);
-    segmentContent := TestHL7Message.FirstSegment.nextSibling.nextSibling.nextSibling.nextSibling.contentString;
+    TestHL7Message.ReplaceSegment('NTE', '0', testSegment, True);
+    segmentContent := TestHL7Message.FirstSegment.nextSibling.
+      nextSibling.nextSibling.nextSibling.contentString;
     AssertEquals(EXAMPLE_SEGMENT8, segmentContent);
   end;
   if TestHL7Message <> nil then
@@ -713,10 +783,10 @@ begin
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     testSegment := THL7Segment.Create(nil, EXAMPLE_SEGMENT9);
-    TestHL7Message.ReplaceSegment('NK1', '0', testSegment, true);
+    TestHL7Message.ReplaceSegment('NK1', '0', testSegment, True);
     messageContent := TestHL7Message.contentString;
     AssertEquals(EXAMPLE_MESSAGE4, LeftStr(messageContent,
-            length(EXAMPLE_MESSAGE4)));
+      length(EXAMPLE_MESSAGE4)));
   end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
@@ -1392,6 +1462,7 @@ initialization
   RegisterTest(TMSHTestCases);
   RegisterTest(TMSATestCases);
   RegisterTest(TOBRTestCases);
+  RegisterTest(TOBXTestCases);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);
