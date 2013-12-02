@@ -25,17 +25,22 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  StdCtrls, ExtCtrls, Buttons, HL7, MSH;
+  StdCtrls, ExtCtrls, Buttons, PairSplitter, HL7, MSH;
 
 type
 
   { TMainForm }
 
   TMainForm = class(TForm)
+    MessageMemo: TMemo;
     MessageFileSaveDialog: TSaveDialog;
     OpenButton: TButton;
     MessageFileOpenDialog: TOpenDialog;
+    PairSplitter1: TPairSplitter;
+    PairSplitterSide1: TPairSplitterSide;
+    PairSplitterSide2: TPairSplitterSide;
     SaveButton: TButton;
+    ScrollBox1: TScrollBox;
     SegmentsGroupBox: TGroupBox;
     FieldsGroupBox: TGroupBox;
     ComponentsGroupBox: TGroupBox;
@@ -46,6 +51,8 @@ type
     SubComponentsGroupBox: TGroupBox;
     StatusBar1: TStatusBar;
     ToolBar1: TToolBar;
+    procedure FieldsListBoxClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure OpenButtonClick(Sender: TObject);
     procedure SaveButtonClick(Sender: TObject);
     procedure SegmentsListBoxClick(Sender: TObject);
@@ -71,7 +78,13 @@ var
 begin
   if MessageFileOpenDialog.Execute then
   begin
+    SegmentsListBox.Clear;
+    FieldsListBox.Clear;
+    ComponentsListBox.Clear;
+    SubComponentsListBox.Clear;
     ReadHL7File(gMessage, MessageFileOpenDialog.FileName);
+    MessageMemo.Lines.Clear;
+    MessageMemo.Lines.Add(gMessage.contentString);
     theSegment := gMessage.FirstSegment;
     while theSegment <> nil do
     begin
@@ -79,6 +92,44 @@ begin
       theSegment := theSegment.nextSibling;
     end;
   end;
+end;
+
+procedure TMainForm.FieldsListBoxClick(Sender: TObject);
+var
+  count, index1, index2: integer;
+  theSegment: THL7Segment;
+  theField: THL7Field;
+  theComponent: THL7Component;
+begin
+  ComponentsListBox.Clear;
+  SubComponentsListBox.Clear;
+  count := 0;
+  index1 := SegmentsListBox.ItemIndex;
+  index2 := FieldsListBox.ItemIndex;
+  theSegment := gMessage.FirstSegment;
+  while (theSegment <> nil) and (count < index1) do
+  begin
+    theSegment := theSegment.nextSibling;
+    count := count + 1;
+  end;
+  count := 0;
+  theField := theSegment.FirstOccurrence.FirstField;
+  while (theField <> nil) and (count < index2) do
+  begin
+    theField := theField.nextSibling;
+    count := count + 1;
+  end;
+  theComponent := theField.FirstComponent;
+  while theComponent <> nil do
+  begin
+    ComponentsListBox.Items.Add(theComponent.contentString);
+    theComponent := theComponent.nextSibling;
+  end;
+end;
+
+procedure TMainForm.FormShow(Sender: TObject);
+begin
+  //SetTextLineEnding(MessageMemo.Lines, tlbsCR);
 end;
 
 procedure TMainForm.SaveButtonClick(Sender: TObject);
