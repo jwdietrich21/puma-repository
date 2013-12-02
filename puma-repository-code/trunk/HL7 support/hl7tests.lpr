@@ -25,7 +25,7 @@ uses
   Forms,
   hl7,
   GuiTestRunner,
-  HL7TestCases, MSH, MSA;
+  HL7TestCases, MSH, MSA, OBR;
 
 {$R *.res}
 

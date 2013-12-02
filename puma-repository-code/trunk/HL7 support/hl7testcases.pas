@@ -23,7 +23,7 @@ unit HL7TestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA;
+  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA, OBR;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -43,6 +43,7 @@ const
   EXAMPLE_SEGMENT10 =
     'MSH|^~\&|SPINA Thyr|RUB|medico|BMH|201311302157||PRF^R04|12345|P|2.5|||||276|ASCII|';
   EXAMPLE_MSA_SEGMENT = 'MSA|AA|CDB22222|P|';
+  EXAMPLE_OBR_SEGMENT = 'OBR|1|43215^OE|98765^EKG|93000^EKG REPORT|||198801111330|||1235^TAYLOR^ROBERT^M||||198801111330||P030||||||198801120930||||||P011^PRESLEY^ELVIS^AARON^^^MD|43214^OE|';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
   EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
@@ -82,6 +83,14 @@ type
   published
     procedure MSASetCase1;
   end;
+
+  { TOBRTestCases }
+
+  TOBRTestCases = class(TTestCase)
+  published
+    procedure OBRSetCase1;
+  end;
+
   { TMessageTestCases }
 
   TMessageTestCases = class(TTestCase)
@@ -396,6 +405,38 @@ begin
     GetMSA(TestHL7Message, AckCode2, controlID,
   textMessage, exSeqNum, delAckType, ErrorCond);
     AssertEquals(AckCode, AckCode2);
+  end;
+end;
+
+
+{ TOBRTestCases }
+
+procedure TOBRTestCases.OBRSetCase1;
+var
+  SetID: str4;
+  PlacOrdNumb, FillOrdNumb: str22;
+  USI: str250;
+  Priority: Str2;
+  ReqDateTime, ObsDateTime, ObsEndDateTime: str26;
+  ReqDateTime2: str26;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    SetID := '1';
+    PlacOrdNumb := '43215^OE';
+    FillOrdNumb := '98765^EKG';
+    USI := '93000^EKG REPORT';
+    Priority := '';
+    ReqDateTime := '198801111330';
+    ObsDateTime := '';
+    ObsEndDateTime := '';
+    SetOBR(TestHL7Message, SetID, PlacOrdNumb, FillOrdNumb, USI, Priority, ReqDateTime, ObsDateTime, ObsEndDateTime);
+    GetOBR(TestHL7Message, SetID, PlacOrdNumb, FillOrdNumb, USI, Priority, ReqDateTime2, ObsDateTime, ObsEndDateTime);
+    AssertEquals(ReqDateTime, ReqDateTime2);
   end;
 end;
 
@@ -1350,6 +1391,7 @@ initialization
   RegisterTest(TControlTestCases);
   RegisterTest(TMSHTestCases);
   RegisterTest(TMSATestCases);
+  RegisterTest(TOBRTestCases);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);

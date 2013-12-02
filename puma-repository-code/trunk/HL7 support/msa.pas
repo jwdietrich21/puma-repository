@@ -70,7 +70,7 @@ end;
 
 procedure SetMSA(message: THL7Message; aSegment: THL7Segment);
 begin
-  message.ReplaceSegment('MSA', '0', aSegment, True);
+  message.AddSegment(aSegment);
 end;
 
 procedure SetMSA(message: THL7Message; AckCode: str2; controlID: str20;
@@ -78,10 +78,9 @@ procedure SetMSA(message: THL7Message; AckCode: str2; controlID: str20;
 var
   newSegment: THL7Segment;
   FieldSep: char;
-  dateTime: str26;
-  versionID: str60;
   theString: AnsiString;
 begin
+  FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
   theString := 'MSA|' + AckCode + FieldSep + controlID +
     FieldSep + textMessage + FieldSep + exSeqNum + FieldSep +

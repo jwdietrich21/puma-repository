@@ -66,10 +66,12 @@ type
 
   str2 = string[2];
   str3 = string[3];
+  str4 = string[4];
   str5 = string[5];
   str15 = string[15];
   str16 = string[16];
   str20 = string[20];
+  str22 = string[22];
   str26 = string[26];
   str40 = string[40];
   str60 = string[60];

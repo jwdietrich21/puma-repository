@@ -44,7 +44,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="6">
       <Unit0>
         <Filename Value="hl7tests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -70,6 +70,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MSA"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="obr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="OBR"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
