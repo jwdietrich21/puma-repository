@@ -25,8 +25,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, GUI, hl7, msh
-  { you can add units after this };
+  Forms
+  { you can add units after this },
+  HL7, MSH, GUI ;
 
 {$R *.res}
 

@@ -25,13 +25,28 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  StdCtrls, ExtCtrls, Buttons, PairSplitter, HL7, MSH, types;
+  StdCtrls, ExtCtrls, Buttons, PairSplitter, Menus, HL7, MSH, types;
 
 type
 
   { TMainForm }
 
   TMainForm = class(TForm)
+    MainMenu1: TMainMenu;
+    FileMenu: TMenuItem;
+    EditMenu: TMenuItem;
+    Divider11: TMenuItem;
+    RedoItem: TMenuItem;
+    Divider21: TMenuItem;
+    CutItem: TMenuItem;
+    CopyItem: TMenuItem;
+    PasteItem: TMenuItem;
+    OpenItem: TMenuItem;
+    SaveItem: TMenuItem;
+    Divider12: TMenuItem;
+    QuitItem: TMenuItem;
+    NewItem: TMenuItem;
+    UndoItem: TMenuItem;
     MessageGroupBox: TGroupBox;
     MessageMemo: TMemo;
     MessageFileSaveDialog: TSaveDialog;
@@ -56,6 +71,7 @@ type
     procedure FieldsListBoxClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure OpenButtonClick(Sender: TObject);
+    procedure QuitItemClick(Sender: TObject);
     procedure SaveButtonClick(Sender: TObject);
     procedure SegmentsListBoxClick(Sender: TObject);
     procedure SegmentsListBoxDrawItem(Control: TWinControl; Index: integer;
@@ -87,8 +103,9 @@ begin
     ComponentsListBox.Clear;
     SubComponentsListBox.Clear;
     ReadHL7File(gMessage, MessageFileOpenDialog.FileName);
+    MainForm.Caption := 'HL7 Message Viewer: ' + ExtractFileName(MessageFileOpenDialog.FileName);
     MessageMemo.Lines.Clear;
-    MessageMemo.Lines.Add(gMessage.contentString);
+    MessageMemo.Lines.Add(AdjustLineBreaks(gMessage.contentString));
     theSegment := gMessage.FirstSegment;
     while theSegment <> nil do
     begin
@@ -96,6 +113,11 @@ begin
       theSegment := theSegment.nextSibling;
     end;
   end;
+end;
+
+procedure TMainForm.QuitItemClick(Sender: TObject);
+begin
+  application.Terminate;
 end;
 
 procedure TMainForm.SegmentsListBoxDrawItem(Control: TWinControl;
@@ -122,7 +144,7 @@ end;
 
 procedure TMainForm.SegmentsListBoxClick(Sender: TObject);
 var
-  Count, index: integer;
+  Count, index, n: integer;
   theSegment: THL7Segment;
   theField: THL7Field;
 begin
@@ -139,10 +161,15 @@ begin
       theSegment := theSegment.nextSibling;
       Count := Count + 1;
     end;
+    n := 1;
     theField := theSegment.FirstOccurrence.FirstField;
     while theField <> nil do
     begin
-      FieldsListBox.Items.Add(theField.contentString);
+      if (theSegment.segmentType = 'MSH') and (n = 2) then
+        FieldsListBox.Items.Add(gMessage.CompiledDelimiters(gMessage.Delimiters))
+      else
+        FieldsListBox.Items.Add(theField.contentString);
+      n := n + 1;
       theField := theField.nextSibling;
     end;
   end;

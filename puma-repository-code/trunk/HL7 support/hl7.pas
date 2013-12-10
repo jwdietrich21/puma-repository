@@ -391,7 +391,7 @@ var
   theString: ansistring;
 begin
   theString := aString;
-  if pos > 1 then
+  if pos >= 1 then
     Delete(theString, 1, pos);
   i := system.pos(delim, theString);
   if i = 0 then
@@ -1151,4 +1151,4 @@ begin
 end;
 
 
-end.
+end.

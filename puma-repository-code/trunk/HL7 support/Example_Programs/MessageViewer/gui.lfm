@@ -4,14 +4,15 @@ object MainForm: TMainForm
   Top = 160
   Width = 834
   Caption = 'HL7 Message Viewer'
-  ClientHeight = 570
+  ClientHeight = 550
   ClientWidth = 834
+  Menu = MainMenu1
   OnShow = FormShow
   LCLVersion = '1.0.14.0'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 15
-    Top = 555
+    Height = 23
+    Top = 527
     Width = 834
     Panels = <>
   end
@@ -44,7 +45,7 @@ object MainForm: TMainForm
   object PairSplitter1: TPairSplitter
     Cursor = crVSplit
     Left = 0
-    Height = 529
+    Height = 501
     Top = 26
     Width = 834
     Align = alClient
@@ -63,32 +64,33 @@ object MainForm: TMainForm
         Height = 400
         Top = 0
         Width = 834
-        HorzScrollBar.Page = 834
-        VertScrollBar.Page = 400
+        HorzScrollBar.Page = 830
+        VertScrollBar.Page = 396
         Align = alClient
         Anchors = [akTop, akLeft, akRight]
-        ClientHeight = 400
-        ClientWidth = 834
+        ClientHeight = 396
+        ClientWidth = 830
         TabOrder = 0
         object ComponentsGroupBox: TGroupBox
           AnchorSideBottom.Control = ScrollBox1
           AnchorSideBottom.Side = asrBottom
           Left = 411
-          Height = 376
+          Height = 372
           Top = 24
           Width = 200
           Anchors = [akTop, akLeft, akBottom]
           BorderSpacing.Right = 5
           Caption = 'Components'
           ClientHeight = 354
-          ClientWidth = 192
+          ClientWidth = 196
           TabOrder = 0
           object ComponentsListBox: TListBox
             Left = 2
             Height = 345
             Top = 5
-            Width = 188
+            Width = 192
             Anchors = [akTop, akLeft, akRight, akBottom]
+            ExtendedSelect = False
             ItemHeight = 0
             OnClick = ComponentsListBoxClick
             OnDrawItem = SegmentsListBoxDrawItem
@@ -100,20 +102,21 @@ object MainForm: TMainForm
           AnchorSideBottom.Control = ScrollBox1
           AnchorSideBottom.Side = asrBottom
           Left = 616
-          Height = 376
+          Height = 372
           Top = 24
           Width = 200
           Anchors = [akTop, akLeft, akBottom]
           Caption = 'Subcomponents'
           ClientHeight = 354
-          ClientWidth = 192
+          ClientWidth = 196
           TabOrder = 1
           object SubComponentsListBox: TListBox
             Left = 2
             Height = 345
             Top = 5
-            Width = 188
+            Width = 192
             Anchors = [akTop, akLeft, akRight, akBottom]
+            ExtendedSelect = False
             ItemHeight = 0
             OnDrawItem = SegmentsListBoxDrawItem
             Style = lbOwnerDrawFixed
@@ -122,21 +125,22 @@ object MainForm: TMainForm
         end
         object SegmentsGroupBox: TGroupBox
           Left = 0
-          Height = 376
+          Height = 372
           Top = 24
           Width = 200
           Anchors = [akTop, akLeft, akBottom]
           BorderSpacing.Right = 5
           Caption = 'Segments'
           ClientHeight = 354
-          ClientWidth = 192
+          ClientWidth = 196
           TabOrder = 2
           object SegmentsListBox: TListBox
             Left = 2
             Height = 345
             Top = 5
-            Width = 187
+            Width = 191
             Anchors = [akTop, akLeft, akRight, akBottom]
+            ExtendedSelect = False
             ItemHeight = 0
             OnClick = SegmentsListBoxClick
             OnDrawItem = SegmentsListBoxDrawItem
@@ -146,7 +150,7 @@ object MainForm: TMainForm
         end
         object FieldsGroupBox: TGroupBox
           Left = 206
-          Height = 376
+          Height = 372
           Top = 24
           Width = 200
           Anchors = [akTop, akLeft, akBottom]
@@ -154,14 +158,15 @@ object MainForm: TMainForm
           BorderSpacing.Right = 5
           Caption = 'Fields'
           ClientHeight = 354
-          ClientWidth = 192
+          ClientWidth = 196
           TabOrder = 3
           object FieldsListBox: TListBox
             Left = 2
             Height = 345
             Top = 5
-            Width = 188
+            Width = 192
             Anchors = [akTop, akLeft, akRight, akBottom]
+            ExtendedSelect = False
             ItemHeight = 0
             OnClick = FieldsListBoxClick
             OnDrawItem = SegmentsListBoxDrawItem
@@ -174,26 +179,26 @@ object MainForm: TMainForm
     object PairSplitterSide2: TPairSplitterSide
       Cursor = crArrow
       Left = 0
-      Height = 124
+      Height = 96
       Top = 405
       Width = 834
       ClientWidth = 834
-      ClientHeight = 124
+      ClientHeight = 96
       object MessageGroupBox: TGroupBox
         Left = 0
-        Height = 124
+        Height = 96
         Top = 0
         Width = 834
         Align = alClient
         Caption = 'Message'
-        ClientHeight = 102
-        ClientWidth = 826
+        ClientHeight = 78
+        ClientWidth = 830
         TabOrder = 0
         object MessageMemo: TMemo
           Left = 0
-          Height = 102
+          Height = 78
           Top = 0
-          Width = 826
+          Width = 830
           Align = alClient
           ReadOnly = True
           ScrollBars = ssAutoBoth
@@ -210,5 +215,60 @@ object MainForm: TMainForm
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     left = 579
     top = 16
+  end
+  object MainMenu1: TMainMenu
+    left = 729
+    top = 16
+    object FileMenu: TMenuItem
+      Caption = 'File'
+      object NewItem: TMenuItem
+        Caption = 'New'
+        Enabled = False
+      end
+      object Divider11: TMenuItem
+        Caption = '-'
+      end
+      object OpenItem: TMenuItem
+        Caption = 'Open'
+        OnClick = OpenButtonClick
+      end
+      object SaveItem: TMenuItem
+        Caption = 'Save'
+        OnClick = SaveButtonClick
+      end
+      object Divider12: TMenuItem
+        Caption = '-'
+      end
+      object QuitItem: TMenuItem
+        Caption = 'Quit'
+        OnClick = QuitItemClick
+      end
+    end
+    object EditMenu: TMenuItem
+      Caption = 'Edit'
+      object UndoItem: TMenuItem
+        Caption = 'Undo'
+        Enabled = False
+      end
+      object RedoItem: TMenuItem
+        Caption = 'Redo'
+        Enabled = False
+      end
+      object Divider21: TMenuItem
+        Caption = '-'
+      end
+      object CutItem: TMenuItem
+        Caption = 'Cut'
+        Enabled = False
+      end
+      object CopyItem: TMenuItem
+        Caption = 'Copy'
+        Enabled = False
+      end
+      object PasteItem: TMenuItem
+        Caption = 'Paste'
+        Enabled = False
+      end
+    end
   end
 end
