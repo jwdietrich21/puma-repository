@@ -17,8 +17,8 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="97"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS " LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" ProductName="PUMA Repository" ProductVersion=""/>
+      <BuildNr Value="98"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS " LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>

@@ -27,8 +27,12 @@ uses
 
 const
 
+  ksCR = #13;
+  ksLF = #10;
+  ksCRLF = #13#10;
+
   STANDARD_DELIMITERS = '|^~\&';
-  SEGMENT_DELIMITER = char(13);
+  SEGMENT_DELIMITER = ksCR;
 
   ACKNOWLEDGEMENT_OK = 'AA';
   ACKNOWLEDGEMENT_ERROR = 'AE';
@@ -293,6 +297,7 @@ begin
   end;
   if theString <> '' then
     begin
+      theString := StringReplace(theString, ksCRLF, ksCR, [rfReplaceAll, rfIgnoreCase]);
       HL7Doc := THL7Message.Create('2.5');
       HL7Doc.contentString := theString;
     end;
@@ -316,6 +321,7 @@ begin
     aStream.Read(theString[1], aStream.Size);
     if theString <> '' then
     begin
+      theString := StringReplace(theString, ksCRLF, ksCR, [rfReplaceAll, rfIgnoreCase]);
       HL7Doc := THL7Message.Create('2.5');
       HL7Doc.contentString := theString;
     end;
@@ -403,7 +409,6 @@ begin
     Result := copy(theString, 1, i - 1);
   Inc(pos, i);
 end;
-
 
 { THL7MessageSection }
 
@@ -1151,4 +1156,4 @@ begin
 end;
 
 
-end.
+end.
