@@ -23,9 +23,8 @@ program hl7tests;
 uses
   Interfaces,
   Forms,
-  hl7,
   GuiTestRunner,
-  HL7TestCases, MSH, MSA, OBR, OBX;
+  HL7TestCases, obx, hl7, msa, msh, obr;
 
 {$R *.res}
 

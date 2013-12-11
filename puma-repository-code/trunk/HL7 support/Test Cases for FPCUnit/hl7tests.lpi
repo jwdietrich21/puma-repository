@@ -17,7 +17,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="98"/>
+      <BuildNr Value="99"/>
       <StringTable CompanyName="FORMATIO RETICULARIS " LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -56,36 +56,37 @@
         <UnitName Value="HL7TestCases"/>
       </Unit1>
       <Unit2>
-        <Filename Value="hl7.pas"/>
+        <Filename Value="../obx.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="HL7"/>
+        <UnitName Value="OBX"/>
       </Unit2>
       <Unit3>
-        <Filename Value="msh.pas"/>
+        <Filename Value="../hl7.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="MSH"/>
+        <UnitName Value="HL7"/>
       </Unit3>
       <Unit4>
-        <Filename Value="msa.pas"/>
+        <Filename Value="../msa.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MSA"/>
       </Unit4>
       <Unit5>
-        <Filename Value="obr.pas"/>
+        <Filename Value="../msh.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="OBR"/>
+        <UnitName Value="MSH"/>
       </Unit5>
       <Unit6>
-        <Filename Value="obx.pas"/>
+        <Filename Value="../obr.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="OBX"/>
+        <UnitName Value="OBR"/>
       </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir)"/>
+      <IncludeFiles Value="$(ProjOutDir);.."/>
+      <OtherUnitFiles Value=".."/>
     </SearchPaths>
     <Linking>
       <Debugging>
