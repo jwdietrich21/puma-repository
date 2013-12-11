@@ -19,7 +19,6 @@
         <Filename Value="hl7testcases.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7TestCases"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -41,6 +40,7 @@
         <Filename Value="../obx.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="OBX"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>

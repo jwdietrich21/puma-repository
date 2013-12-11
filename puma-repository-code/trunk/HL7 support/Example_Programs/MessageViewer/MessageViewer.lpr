@@ -6,14 +6,14 @@ program MessageViewer;
 
 { Demo implementation: Viewer for HL7 messages }
 
-{ Version 0.9 }
+{ Version 1.0 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
 { (c) Ruhr University of Bochum 2005 - 2013 }
 
-{ Parser and compiler for HL7 messages }
+{ Viewer and browser for HL7 messages }
 
 { Source code released under the BSD License }
 { See http://puma-repository.sf.net for details }

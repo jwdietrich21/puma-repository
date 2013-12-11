@@ -4,9 +4,9 @@ unit OBX;
 
 { Pascal Units for Medical Applications }
 
-{ HL7 support unit for message headers }
+{ HL7 support unit for observation / result segments }
 
-{ Version 0.9 }
+{ Version 1.0 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
