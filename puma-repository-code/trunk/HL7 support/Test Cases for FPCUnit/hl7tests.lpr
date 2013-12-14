@@ -6,7 +6,7 @@ program hl7tests;
 
 { HL7 testing project for FPCUnit }
 
-{ Version 1.0 }
+{ Version 1.1 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -24,7 +24,7 @@ uses
   Interfaces,
   Forms,
   GuiTestRunner,
-  HL7TestCases, obx, hl7, msa, msh, obr;
+  HL7TestCases, obx, hl7, msa, msh, obr, nte;
 
 {$R *.res}
 

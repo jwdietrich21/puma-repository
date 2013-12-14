@@ -6,7 +6,7 @@ unit HL7;
 
 { HL7 base unit }
 
-{ Version 1.0 }
+{ Version 1.1 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -72,6 +72,7 @@ type
   str3 = string[3];
   str4 = string[4];
   str5 = string[5];
+  str8 = string[8];
   str15 = string[15];
   str16 = string[16];
   str20 = string[20];

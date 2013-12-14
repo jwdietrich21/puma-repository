@@ -6,7 +6,7 @@ unit HL7TestCases;
 
 { HL7 test cases }
 
-{ Version 1.0 }
+{ Version 1.1 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -23,7 +23,7 @@ unit HL7TestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA, OBR, OBX;
+  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA, OBR, OBX, NTE;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -97,6 +97,13 @@ type
   TOBXTestCases = class(TTestCase)
   published
     procedure OBXSetCase1;
+  end;
+
+  { TNTETestCases }
+
+  TNTETestCases = class(TTestCase)
+  published
+    procedure NTESetCase1;
   end;
 
   { TMessageTestCases }
@@ -520,6 +527,33 @@ begin
       UDAC, ObsDateTime, prodID, respObs, observMethod,
       EquipInstID, AnalysisDateTime);
     AssertEquals(obsValue, obsValue2);
+  end;
+end;
+
+{ TNTETestCases }
+
+procedure TNTETestCases.NTESetCase1;
+var
+  SetID, SetID2: str4;
+  CommentSource, CommentSource2: str8;
+  comment, comment2: ansistring;
+  commentType, commentType2: str250;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    SetID := '1';
+    CommentSource := 'O';
+    comment := 'This is a test segment for PUMA HL7 units';
+    commentType := 'RE';
+    SetNTE(TestHL7Message, SetID, CommentSource, comment,
+      commentType);
+    GetNTE(TestHL7Message, SetID2, CommentSource2, comment2,
+      commentType2);
+    AssertEquals(comment, comment2);
   end;
 end;
 
@@ -1477,6 +1511,7 @@ initialization
   RegisterTest(TMSATestCases);
   RegisterTest(TOBRTestCases);
   RegisterTest(TOBXTestCases);
+  RegisterTest(TNTETestCases);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);
