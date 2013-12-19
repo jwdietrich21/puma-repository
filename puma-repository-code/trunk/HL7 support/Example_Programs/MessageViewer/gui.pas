@@ -6,7 +6,7 @@ unit GUI;
 
 { Demo implementation: Viewer for HL7 messages }
 
-{ Version 1.0 }
+{ Version 1.0.1 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -246,7 +246,8 @@ begin
       theComponent := theComponent.nextSibling;
       Count := Count + 1;
     end;
-    theSubComponent := theComponent.FirstSubComponent;
+    if theComponent <> nil then
+      theSubComponent := theComponent.FirstSubComponent;
     while theSubComponent <> nil do
     begin
       SubComponentsListBox.Items.Add(theSubComponent.contentString);

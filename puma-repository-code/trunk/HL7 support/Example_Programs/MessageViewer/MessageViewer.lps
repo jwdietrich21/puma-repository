@@ -19,7 +19,6 @@
         <Filename Value="../../hl7.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -45,6 +44,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="GUI"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -120,7 +120,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../../hl7.pas"/>
         <Caret Line="632" Column="1" TopLine="614"/>
@@ -233,6 +233,10 @@
         <Filename Value="../../hl7.pas"/>
         <Caret Line="300" Column="74" TopLine="277"/>
       </Position28>
+      <Position29>
+        <Filename Value="../../hl7.pas"/>
+        <Caret Line="2" Column="1" TopLine="1"/>
+      </Position29>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
