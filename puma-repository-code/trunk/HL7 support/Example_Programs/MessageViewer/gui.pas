@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  StdCtrls, ExtCtrls, Buttons, PairSplitter, Menus, HL7, MSH, types;
+  StdCtrls, LCLType, ExtCtrls, Buttons, PairSplitter, Menus, HL7, MSH, types;
 
 type
 
@@ -127,7 +127,7 @@ var
 begin
   with (Control as TListBox).Canvas do
   begin
-    if index = (Control as TListBox).ItemIndex then
+    if (odSelected in State) then
       listColor := clHighLight
     else if odd(index) then
       listColor := clWhite
@@ -247,7 +247,9 @@ begin
       Count := Count + 1;
     end;
     if theComponent <> nil then
-      theSubComponent := theComponent.FirstSubComponent;
+      theSubComponent := theComponent.FirstSubComponent
+    else
+      theSubComponent := nil;
     while theSubComponent <> nil do
     begin
       SubComponentsListBox.Items.Add(theSubComponent.contentString);
