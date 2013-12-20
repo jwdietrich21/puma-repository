@@ -6,7 +6,7 @@ unit HL7TestCases;
 
 { HL7 test cases }
 
-{ Version 1.1 }
+{ Version 1.2 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -23,7 +23,7 @@ unit HL7TestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA, OBR, OBX, NTE;
+  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA, ERR, OBR, OBX, NTE;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -43,6 +43,7 @@ const
   EXAMPLE_SEGMENT10 =
     'MSH|^~\&|SPINA Thyr|RUB|medico|BMH|201311302157||PRF^R04|12345|P|2.5|||||276|ASCII|';
   EXAMPLE_MSA_SEGMENT = 'MSA|AA|CDB22222|P|';
+  EXAMPLE_ERR_SEGMENT = 'ERR| |PID^1^11^^9|103|E';
   EXAMPLE_OBR_SEGMENT =
     'OBR|1|43215^OE|98765^EKG|93000^EKG REPORT|||198801111330|||1235^TAYLOR^ROBERT^M||||198801111330||P030||||||198801120930||||||P011^PRESLEY^ELVIS^AARON^^^MD|43214^OE|';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
@@ -83,6 +84,13 @@ type
   TMSATestCases = class(TTestCase)
   published
     procedure MSASetCase1;
+  end;
+
+  { TERRTestCases }
+
+  TERRTestCases = class(TTestCase)
+  published
+    procedure ERRSetCase1;
   end;
 
   { TOBRTestCases }
@@ -316,20 +324,20 @@ begin
     receivingFac := 'Dr. Frankenstein';
     dateTime := EncodedDateTime(Now);
     messageType := 'ADT^A04';
-    security     := '';
-    messageType  := '';
-    controlID    := EncodedDateTime(Now) + IntToStr(random(13000));
+    security := '';
+    messageType := '';
+    controlID := EncodedDateTime(Now) + IntToStr(random(13000));
     processingID := '';
-    versionID    := '';
+    versionID := '';
     sequenceNumber := '';
     continuationPointer := '';
-    AccAckType   := '';
-    AppAckType   := '';
-    countryCode  := '276';
-    charSet      := '';
+    AccAckType := '';
+    AppAckType := '';
+    countryCode := '276';
+    charSet := '';
     messageLanguage := '';
     altCharHandlScheme := '';
-    profileID    := '';
+    profileID := '';
     SetMSH(TestHL7Message, delimiters, sendingApp,
       sendingFac, receivingApp, receivingFac, dateTime,
       security, messageType, controlID, processingID,
@@ -436,6 +444,43 @@ begin
   end;
 end;
 
+{ TERRTestCases }
+
+procedure TERRTestCases.ERRSetCase1;
+var
+  ErrCodeLoc, ErrLoc, ErrLoc2, ErrCode, Errcode2: string;
+  severity: char;
+  appErrCode, appErrPar, DiagInfo, UserMessage, InformPersIndic,
+  OverrideType, OverrideReason, HelpDeskContact: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    ErrCodeLoc := '';
+    ErrLoc := 'PID^1^11^^9';
+    ErrCode := E_TBL_VAL_NFD;
+    severity := SEV_ERROR;
+    appErrCode := '';
+    appErrPar := '';
+    DiagInfo := '';
+    UserMessage := '';
+    InformPersIndic := '';
+    OverrideType := '';
+    OverrideReason := '';
+    HelpDeskContact := '';
+    SetERR(TestHL7Message, ErrCodeLoc, ErrLoc, ErrCode, severity, appErrCode, appErrPar,
+      DiagInfo, UserMessage, InformPersIndic, OverrideType, OverrideReason,
+      HelpDeskContact);
+    GetERR(TestHL7Message, ErrCodeLoc, ErrLoc2, ErrCode2, severity, appErrCode, appErrPar,
+      DiagInfo, UserMessage, InformPersIndic, OverrideType, OverrideReason,
+      HelpDeskContact);
+    AssertEquals(ErrLoc, ErrLoc2);
+    AssertEquals(ErrCode, ErrCode2);
+  end;
+end;
 
 { TOBRTestCases }
 
@@ -1509,6 +1554,7 @@ initialization
   RegisterTest(TControlTestCases);
   RegisterTest(TMSHTestCases);
   RegisterTest(TMSATestCases);
+  RegisterTest(TERRTestCases);
   RegisterTest(TOBRTestCases);
   RegisterTest(TOBXTestCases);
   RegisterTest(TNTETestCases);
