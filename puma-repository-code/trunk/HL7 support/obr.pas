@@ -6,7 +6,7 @@ unit OBR;
 
 { HL7 support unit for observation request segments }
 
-{ Version 1.1 }
+{ Version 1.2 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -25,6 +25,9 @@ interface
 uses
   Classes, SysUtils, HL7;
 
+const
+  OBR_ID = 'OBR';
+
 function OBR_Segment(message: THL7Message): THL7Segment;
 procedure GetOBR(message: THL7Message; out SetID: str4;
   out PlacOrdNumb, FillOrdNumb: str22; out USI: str250; out Priority: Str2;
@@ -38,7 +41,7 @@ implementation
 function OBR_Segment(message: THL7Message): THL7Segment;
 begin
   if message <> nil then
-    Result := message.FoundSegment('OBR', '0')
+    Result := message.FoundSegment(OBR_ID, '0')
   else
     Result := nil;
 end;
@@ -84,7 +87,7 @@ var
 begin
   FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
-  theString := 'OBR|' + SetID + FieldSep + PlacOrdNumb +
+  theString := OBR_ID + FieldSep + SetID + FieldSep + PlacOrdNumb +
     FieldSep + FillOrdNumb + FieldSep + USI + FieldSep +
     Priority + FieldSep + ReqDateTime + FieldSep + ObsDateTime +
     FieldSep + ObsEndDateTime + FieldSep;

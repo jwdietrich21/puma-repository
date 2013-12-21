@@ -6,7 +6,7 @@ unit HL7;
 
 { HL7 base unit }
 
-{ Version 1.1 }
+{ Version 1.2 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -59,9 +59,9 @@ const
   ESCAPE_ISO_IR126 = '\C2D46\';    {ISO 8859 : Greek}
   ESCAPE_ISO_IR138 = '\C2D48\';    {ISO 8859 : Hebrew}
   ESCAPE_ISO_IR148 = '\C2D4D\';    {ISO 8859 : Latin Alphabet 5}
-  ESCAPE_ISO_IR14 = '\C284A\';    {JIS X 0201 -1976: Romaji}
-  ESCAPE_ISO_IR13 = '\C2949\';    {JIS X 0201 : Katakana}
-  ESCAPE_ISO_IR87 = '\M2442\';    {JIS X 0208 : Kanji, hiragana and katakana}
+  ESCAPE_ISO_IR14  = '\C284A\';    {JIS X 0201 -1976: Romaji}
+  ESCAPE_ISO_IR13  = '\C2949\';    {JIS X 0201 : Katakana}
+  ESCAPE_ISO_IR87  = '\M2442\';    {JIS X 0208 : Kanji, hiragana and katakana}
   ESCAPE_ISO_IR159 = '\M242844\';  {JIS X 0212 : Supplementary Kanji}
 
   MSH_ID = 'MSH';

@@ -6,7 +6,7 @@ unit MSH;
 
 { HL7 support unit for message headers }
 
-{ Version 1.1 }
+{ Version 1.2 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -55,7 +55,7 @@ implementation
 function MSH_Segment(message: THL7Message): THL7Segment;
 begin
   if message <> nil then
-    Result := message.FoundSegment('MSH', '0')
+    Result := message.FoundSegment(MSH_ID, '0')
   else
     Result := nil;
 end;
@@ -105,7 +105,7 @@ end;
 
 procedure SetMSH(message: THL7Message; aSegment: THL7Segment);
 begin
-  message.ReplaceSegment('MSH', '0', aSegment, True);
+  message.ReplaceSegment(MSH_ID, '0', aSegment, True);
 end;
 
 procedure SetMSH(message: THL7Message; delimiters: str5; sendingApp,
@@ -127,7 +127,7 @@ begin
   FieldSep := message.Delimiters.FieldSeparator;
   controlID := message.ControlID;
   newSegment := THL7Segment.Create(message, '');
-  theString := 'MSH' + delimiters + FieldSep + sendingApp +
+  theString := MSH_ID + delimiters + FieldSep + sendingApp +
     FieldSep + sendingFac + FieldSep + receivingApp + FieldSep +
     receivingFac + FieldSep + dateTime + FieldSep + security + FieldSep +
     messageType + FieldSep + controlID + FieldSep + processingID +
@@ -136,7 +136,7 @@ begin
     AppAckType + FieldSep + countryCode + FieldSep + charSet + FieldSep +
     messageLanguage + FieldSep + altCharHandlScheme + FieldSep + profileID + FieldSep;
   newSegment.contentString := theString;
-  message.ReplaceSegment('MSH', '0', newSegment, True);
+  message.ReplaceSegment(MSH_ID, '0', newSegment, True);
 end;
 
 procedure SetMSH(message: THL7Message; delimiters: str5;
@@ -152,7 +152,7 @@ var
 begin
   FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
-  newSegment.contentString := 'MSH' + delimiters + FieldSep + sendingApp +
+  newSegment.contentString := MSH_ID + delimiters + FieldSep + sendingApp +
     FieldSep + sendingFac + FieldSep + receivingApp + FieldSep +
     receivingFac + FieldSep + dateTime + FieldSep + security + FieldSep +
     messageType + FieldSep + controlID + FieldSep + processingID +
@@ -160,7 +160,7 @@ begin
     continuationPointer + FieldSep + AccAckType + FieldSep +
     AppAckType + FieldSep + countryCode + FieldSep + charSet + FieldSep +
     messageLanguage + FieldSep + altCharHandlScheme + FieldSep + profileID + FieldSep;
-  message.ReplaceSegment('MSH', '0', newSegment, True);
+  message.ReplaceSegment(MSH_ID, '0', newSegment, True);
 end;
 
 end.

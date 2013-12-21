@@ -6,7 +6,7 @@ unit OBX;
 
 { HL7 support unit for observation / result segments }
 
-{ Version 1.1 }
+{ Version 1.2 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -24,6 +24,9 @@ interface
 
 uses
   Classes, SysUtils, HL7;
+
+const
+  OBX_ID = 'OBX';
 
 function OBX_Segment(message: THL7Message): THL7Segment;
 procedure GetOBX(message: THL7Message; out SetID: str4; out ValueType: str2; out ObsID: str250;
@@ -43,7 +46,7 @@ implementation
 function OBX_Segment(message: THL7Message): THL7Segment;
 begin
   if message <> nil then
-    Result := message.FoundSegment('OBX', '0')
+    Result := message.FoundSegment(OBX_ID, '0')
   else
     Result := nil;
 end;
@@ -105,7 +108,7 @@ var
 begin
   FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
-  theString := 'OBX|' + SetID + FieldSep + ValueType +
+  theString := OBX_ID + FieldSep + SetID + FieldSep + ValueType +
     FieldSep + ObsID + FieldSep + obsSubID + FieldSep +
     obsValue + FieldSep + Units + FieldSep + RefRange +
     FieldSep + AbnormFlags + FieldSep + probability + FieldSep + Nature +

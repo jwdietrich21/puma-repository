@@ -6,7 +6,7 @@ unit NTE;
 
 { HL7 support unit for notes and comments segment }
 
-{ Version 1.1 }
+{ Version 1.2 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -25,6 +25,9 @@ interface
 uses
   Classes, SysUtils, HL7;
 
+const
+  NTE_ID = 'NTE';
+
 function NTE_Segment(message: THL7Message): THL7Segment;
 procedure GetNTE(message: THL7Message; out SetID: str4; out CommentSource: str8;
   out comment: ansistring; out commentType: str250);
@@ -37,7 +40,7 @@ implementation
 function NTE_Segment(message: THL7Message): THL7Segment;
 begin
   if message <> nil then
-    Result := message.FoundSegment('NTE', '0')
+    Result := message.FoundSegment(NTE_ID, '0')
   else
     Result := nil;
 end;
@@ -78,8 +81,8 @@ var
 begin
   FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
-  theString := 'NTE|' + SetID + FieldSep + CommentSource + FieldSep +
-    comment + FieldSep + commentType + FieldSep;
+  theString := NTE_ID + FieldSep + SetID + FieldSep + CommentSource +
+    FieldSep + comment + FieldSep + commentType + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;

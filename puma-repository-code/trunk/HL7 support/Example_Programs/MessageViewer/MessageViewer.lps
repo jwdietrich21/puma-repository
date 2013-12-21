@@ -117,7 +117,7 @@
         <UsageCount Value="10"/>
       </Unit12>
       <Unit13>
-        <Filename Value="../../../../../../../../../../lazarus/lcl/controls.pp"/>
+        <Filename Value="/lazarus/lcl/controls.pp"/>
         <UnitName Value="Controls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1820"/>
@@ -125,7 +125,7 @@
         <UsageCount Value="10"/>
       </Unit13>
       <Unit14>
-        <Filename Value="../../../../../../../../../../lazarus/lcl/stdctrls.pp"/>
+        <Filename Value="/lazarus/lcl/stdctrls.pp"/>
         <UnitName Value="StdCtrls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="238"/>
@@ -133,7 +133,7 @@
         <UsageCount Value="10"/>
       </Unit14>
       <Unit15>
-        <Filename Value="../../../../../../../../../../lazarus/lcl/lcltype.pp"/>
+        <Filename Value="/lazarus/lcl/lcltype.pp"/>
         <UnitName Value="LCLType"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1071"/>

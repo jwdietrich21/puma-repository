@@ -6,7 +6,7 @@ unit MSA;
 
 { HL7 support unit for message acknowledgement segments }
 
-{ Version 1.1 }
+{ Version 1.2 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -25,6 +25,9 @@ interface
 uses
   Classes, SysUtils, HL7;
 
+const
+  MSA_ID = 'MSA';
+
 function MSA_Segment(message: THL7Message): THL7Segment;
 procedure GetMSA(message: THL7Message; out AckCode: str2; out controlID: str20;
   out textMessage: str80; out exSeqNum: Str15; out delAckType: char;
@@ -38,7 +41,7 @@ implementation
 function MSA_Segment(message: THL7Message): THL7Segment;
 begin
   if message <> nil then
-    Result := message.FoundSegment('MSA', '0')
+    Result := message.FoundSegment(MSA_ID, '0')
   else
     Result := nil;
 end;
@@ -82,7 +85,7 @@ var
 begin
   FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
-  theString := 'MSA|' + AckCode + FieldSep + controlID +
+  theString := MSA_ID + FieldSep + AckCode + FieldSep + controlID +
     FieldSep + textMessage + FieldSep + exSeqNum + FieldSep +
     delAckType + FieldSep + ErrorCond + FieldSep;
   newSegment.contentString := theString;

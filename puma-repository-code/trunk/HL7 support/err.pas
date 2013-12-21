@@ -26,6 +26,9 @@ uses
   Classes, SysUtils, HL7;
 
 const
+  ERR_ID = 'ERR';
+
+const
   E_MESS_ACC = '0';
   E_SEG_SEQ_ERR = '100';
   E_REQ_FLD_MIS = '101';
@@ -60,7 +63,7 @@ implementation
 function ERR_Segment(message: THL7Message): THL7Segment;
 begin
   if message <> nil then
-    Result := message.FoundSegment('ERR', '0')
+    Result := message.FoundSegment(ERR_ID, '0')
   else
     Result := nil;
 end;
@@ -111,7 +114,7 @@ var
 begin
   FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
-  theString := 'ERR|' + ErrCodeLoc + FieldSep + ErrLoc + FieldSep +
+  theString := ERR_ID + FieldSep + ErrCodeLoc + FieldSep + ErrLoc + FieldSep +
     ErrCode + FieldSep + severity + FieldSep + appErrCode + FieldSep +
     appErrPar + FieldSep + DiagInfo + FieldSep + UserMessage + FieldSep +
     InformPersIndic + FieldSep + OverrideType + FieldSep + OverrideReason +
