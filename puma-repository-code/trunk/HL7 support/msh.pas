@@ -6,7 +6,7 @@ unit MSH;
 
 { HL7 support unit for message headers }
 
-{ Version 1.2 }
+{ Version 1.3 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -27,23 +27,23 @@ uses
 
 function MSH_Segment(message: THL7Message): THL7Segment;
 procedure GetMSH(message: THL7Message; out delimiters: str5;
-  out sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  out dateTime: str26; out security: str40; out messageType: str15;
+  out sendingApp, sendingFac, receivingApp, receivingFac: tHD;
+  out dateTime: tDTM; out security: str40; out messageType: tMSG;
   out controlID: str20; out processingID: str3; out versionID: str60;
   sequenceNumber: str15; out continuationPointer: str180;
   out AccAckType, AppAckType: Str2; out countryCode: str3; out charSet: str16;
   out messageLanguage: str250; out altCharHandlScheme: str20; out profileID: str427);
 procedure SetMSH(message: THL7Message; aSegment: THL7Segment);
 procedure SetMSH(message: THL7Message; delimiters: str5;
-  sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  security: str40; messageType: str15;
+  sendingApp, sendingFac, receivingApp, receivingFac: tHD;
+  security: str40; messageType: tMSG;
   processingID: str3; sequenceNumber: str15;
   continuationPointer: str180; AccAckType, AppAckType: Str2;
   countryCode: str3; charSet: str16; messageLanguage: str250;
   altCharHandlScheme: str20; profileID: str427);
 procedure SetMSH(message: THL7Message; delimiters: str5;
-  sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  dateTime: str26; security: str40; messageType: str15; controlID: str20;
+  sendingApp, sendingFac, receivingApp, receivingFac: tHD;
+  dateTime: tDTM; security: str40; messageType: tMSG; controlID: str20;
   processingID: str3; versionID: str60; sequenceNumber: str15;
   continuationPointer: str180; AccAckType, AppAckType: Str2;
   countryCode: str3; charSet: str16; messageLanguage: str250;
@@ -61,8 +61,8 @@ begin
 end;
 
 procedure GetMSH(message: THL7Message; out delimiters: str5;
-  out sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  out dateTime: str26; out security: str40; out messageType: str15;
+  out sendingApp, sendingFac, receivingApp, receivingFac: tHD;
+  out dateTime: tDTM; out security: str40; out messageType: tMSG;
   out controlID: str20; out processingID: str3; out versionID: str60;
   sequenceNumber: str15; out continuationPointer: str180;
   out AccAckType, AppAckType: Str2; out countryCode: str3; out charSet: str16;
@@ -109,15 +109,15 @@ begin
 end;
 
 procedure SetMSH(message: THL7Message; delimiters: str5; sendingApp,
-  sendingFac, receivingApp, receivingFac: str227; security: str40;
-  messageType: str15; processingID: str3;
+  sendingFac, receivingApp, receivingFac: tHD; security: str40;
+  messageType: tMSG; processingID: str3;
   sequenceNumber: str15; continuationPointer: str180; AccAckType,
   AppAckType: Str2; countryCode: str3; charSet: str16; messageLanguage: str250;
   altCharHandlScheme: str20; profileID: str427);
 var
   newSegment: THL7Segment;
   FieldSep: char;
-  dateTime: str26;
+  dateTime: tDTM;
   controlID: str20;
   versionID: str60;
   theString: AnsiString;
@@ -140,8 +140,8 @@ begin
 end;
 
 procedure SetMSH(message: THL7Message; delimiters: str5;
-  sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  dateTime: str26; security: str40; messageType: str15; controlID: str20;
+  sendingApp, sendingFac, receivingApp, receivingFac: tHD;
+  dateTime: tDTM; security: str40; messageType: tMSG; controlID: str20;
   processingID: str3; versionID: str60; sequenceNumber: str15;
   continuationPointer: str180; AccAckType, AppAckType: Str2;
   countryCode: str3; charSet: str16; messageLanguage: str250;

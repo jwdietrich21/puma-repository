@@ -17,8 +17,8 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="2"/>
-      <BuildNr Value="108"/>
+      <MinorVersionNr Value="3"/>
+      <BuildNr Value="109"/>
       <StringTable CompanyName="FORMATIO RETICULARIS " LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -45,7 +45,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="9">
+    <Units Count="10">
       <Unit0>
         <Filename Value="hl7tests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -91,6 +91,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ERR"/>
       </Unit8>
+      <Unit9>
+        <Filename Value="../evn.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="EVN"/>
+      </Unit9>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -6,7 +6,7 @@ unit HL7;
 
 { HL7 base unit }
 
-{ Version 1.2 }
+{ Version 1.3 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -83,8 +83,17 @@ type
   str80 = string[80];
   str180 = string[180];
   str227 = string[227];
+  str241 = string[241];
   str250 = string[250];
   str427 = AnsiString;
+
+  tCWE = str3;   { HL7 2.7 CWE type }
+  tIS = str3;    { HL7 2.5 IS type }
+  tMSG = str15;  { HL7 MSG type }
+  tDTM = str26;  { HL7 2.7 DTM type }
+  tTS = str26;   { HL7 2.5 TS type }
+  tHD = str241;  { HL7 HD type }
+  tXCN = str250; { HL7 XCN type }
 
   THL7Delimiters = record
     SegmentTerminator, FieldSeparator, ComponentSeparator: char;

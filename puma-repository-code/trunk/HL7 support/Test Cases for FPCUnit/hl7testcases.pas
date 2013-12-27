@@ -6,7 +6,7 @@ unit HL7TestCases;
 
 { HL7 test cases }
 
-{ Version 1.2 }
+{ Version 1.3 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -23,7 +23,8 @@ unit HL7TestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA, ERR, OBR, OBX, NTE;
+  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA,
+  ERR, OBR, OBX, NTE, EVN;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -44,6 +45,7 @@ const
     'MSH|^~\&|SPINA Thyr|RUB|medico|BMH|201311302157||PRF^R04|12345|P|2.5|||||276|ASCII|';
   EXAMPLE_MSA_SEGMENT = 'MSA|AA|CDB22222|P|';
   EXAMPLE_ERR_SEGMENT = 'ERR| |PID^1^11^^9|103|E';
+  EXAMPLE_EVN_SEGMENT = 'EVN||200605290901||||200605290900';
   EXAMPLE_OBR_SEGMENT =
     'OBR|1|43215^OE|98765^EKG|93000^EKG REPORT|||198801111330|||1235^TAYLOR^ROBERT^M||||198801111330||P030||||||198801120930||||||P011^PRESLEY^ELVIS^AARON^^^MD|43214^OE|';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
@@ -105,6 +107,13 @@ type
   TOBXTestCases = class(TTestCase)
   published
     procedure OBXSetCase1;
+  end;
+
+  { TEVNTestCases }
+
+  TEVNTestCase = class(TTestCase)
+  published
+    procedure EVNTestCase1;
   end;
 
   { TNTETestCases }
@@ -221,7 +230,7 @@ var
   testSegment: THL7Segment;
   delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  dateTime: str26;
+  dateTime: tDTM;
   security: str40;
   messageType: str15;
   controlID: str20;
@@ -257,7 +266,7 @@ var
   testSegment: THL7Segment;
   delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  dateTime: str26;
+  dateTime: tDTM;
   security: str40;
   messageType: str15;
   controlID: str20;
@@ -296,7 +305,7 @@ var
   testSegment: THL7Segment;
   delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  dateTime: str26;
+  dateTime: tDTM;
   security: str40;
   messageType: str15;
   controlID: str20;
@@ -359,7 +368,7 @@ var
   testSegment: THL7Segment;
   delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: str227;
-  dateTime: str26;
+  dateTime: tDTM;
   security: str40;
   messageType: str15;
   controlID: str20;
@@ -474,7 +483,8 @@ begin
     SetERR(TestHL7Message, ErrCodeLoc, ErrLoc, ErrCode, severity, appErrCode, appErrPar,
       DiagInfo, UserMessage, InformPersIndic, OverrideType, OverrideReason,
       HelpDeskContact);
-    GetERR(TestHL7Message, ErrCodeLoc, ErrLoc2, ErrCode2, severity, appErrCode, appErrPar,
+    GetERR(TestHL7Message, ErrCodeLoc, ErrLoc2, ErrCode2, severity,
+      appErrCode, appErrPar,
       DiagInfo, UserMessage, InformPersIndic, OverrideType, OverrideReason,
       HelpDeskContact);
     AssertEquals(ErrLoc, ErrLoc2);
@@ -490,8 +500,8 @@ var
   PlacOrdNumb, FillOrdNumb: str22;
   USI: str250;
   Priority: Str2;
-  ReqDateTime, ObsDateTime, ObsEndDateTime: str26;
-  ReqDateTime2: str26;
+  ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM;
+  ReqDateTime2: tDTM;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -529,12 +539,12 @@ var
   AbnormFlags, probability: str5;
   Nature: str2;
   status: char;
-  RRDate: str26;
+  RRDate: tDTM;
   UDAC: str20;
-  ObsDateTime: str26;
+  ObsDateTime: tDTM;
   prodID, respObs, observMethod: str250;
   EquipInstID: str22;
-  AnalysisDateTime: str26;
+  AnalysisDateTime: tDTM;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -574,6 +584,40 @@ begin
     AssertEquals(obsValue, obsValue2);
   end;
 end;
+
+{ TEVNTestCase }
+
+procedure TEVNTestCase.EVNTestCase1;
+var
+  evtTypeCode: char;
+  recDateTime, recDateTime2, plannedDateTime: tDTM;
+  reasonCode: tCWE;
+  opID: tXCN;
+  evtOccurred, evtOccurred2: tDTM;
+  evtFacility: tHD;
+begin
+  TestHL7Message := THL7Message.Create('2.7');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    evtTypeCode := char(0);
+    recDateTime := '200605290901';
+    plannedDateTime := '';
+    reasonCode := '';
+    opID := '';
+    evtOccurred := '200605290900';
+    evtFacility := '';
+    SetEVN(TestHL7Message, evtTypeCode, recDateTime, plannedDateTime,
+      reasonCode, opID, evtOccurred, evtFacility);
+    GetEVN(TestHL7Message, evtTypeCode, recDateTime2, plannedDateTime,
+      reasonCode, opID, evtOccurred2, evtFacility);
+    AssertEquals(recDateTime, recDateTime2);
+    AssertEquals(evtOccurred, evtOccurred2);
+  end;
+end;
+
 
 { TNTETestCases }
 
@@ -1558,6 +1602,7 @@ initialization
   RegisterTest(TOBRTestCases);
   RegisterTest(TOBXTestCases);
   RegisterTest(TNTETestCases);
+  RegisterTest(TEVNTestCase);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);

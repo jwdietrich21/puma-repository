@@ -6,7 +6,7 @@ unit MSA;
 
 { HL7 support unit for message acknowledgement segments }
 
-{ Version 1.2 }
+{ Version 1.3 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
