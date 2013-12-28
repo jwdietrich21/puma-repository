@@ -5,7 +5,7 @@
     <General>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="hl7tests"/>
+      <Title Value="UnitConverterTests"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -17,9 +17,10 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="3"/>
-      <BuildNr Value="112"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS " LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion=""/>
+      <MinorVersionNr Value="2"/>
+      <RevisionNr Value="1"/>
+      <BuildNr Value="21"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS " ProductVersion="PUMA Repository"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -45,70 +46,30 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="10">
+    <Units Count="3">
       <Unit0>
-        <Filename Value="hl7tests.lpr"/>
+        <Filename Value="UnitConverterTests.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="hl7tests"/>
+        <UnitName Value="UnitConverterTests"/>
       </Unit0>
       <Unit1>
-        <Filename Value="hl7testcases.pas"/>
+        <Filename Value="unitconvertertestcase.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="HL7TestCases"/>
+        <UnitName Value="UnitConverterTestCase"/>
       </Unit1>
       <Unit2>
-        <Filename Value="../obx.pas"/>
+        <Filename Value="../unitconverter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="OBX"/>
+        <UnitName Value="UnitConverter"/>
       </Unit2>
-      <Unit3>
-        <Filename Value="../hl7.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="HL7"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="../msa.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="MSA"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="../msh.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="MSH"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="../obr.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OBR"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="../nte.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="NTE"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="../err.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="ERR"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="../evn.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="EVN"/>
-      </Unit9>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);.."/>
+      <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value=".."/>
     </SearchPaths>
-    <Linking>
-      <Debugging>
-        <UseHeaptrc Value="True"/>
-      </Debugging>
-    </Linking>
     <Other>
       <CompilerMessages>
         <MsgFileName Value=""/>

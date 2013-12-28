@@ -18,6 +18,6 @@ The PUMA repository is a collection of units for development of medical applicat
 
 License
 
-Files of the PUMA repository are licensed with a BSD license. This facilitates their usage in both free open source software and commercial applications.
+Files of the PUMA repository are licensed with a BSD license. This facilitates their usage in both free open source software and commercial applications. See the file "license.txt" for detailled information.
 
 J. W. Dietrich
