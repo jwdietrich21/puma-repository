@@ -322,7 +322,7 @@ var
   sequenceNumber: str15;
   continuationPointer: str180;
   AccAckType, AppAckType: Str2;
-  countryCode: str3;
+  countryCode, countryCode2: str3;
   charSet: str16;
   messageLanguage: str250;
   altCharHandlScheme: str20;
@@ -365,9 +365,9 @@ begin
       sendingFac, receivingApp, receivingFac, dateTime,
       security, messageType, controlID, processingID,
       versionID, sequenceNumber, continuationPointer,
-      AccAckType, AppAckType, countryCode, charSet,
+      AccAckType, AppAckType, countryCode2, charSet,
       messageLanguage, altCharHandlScheme, profileID);
-    AssertEquals('276', countryCode);
+    AssertEquals('276', countryCode2);
   end;
 end;
 
@@ -381,7 +381,7 @@ var
   messageType: str15;
   controlID: str20;
   processingID: str3;
-  versionID: str60;
+  versionID, versionID2: str60;
   sequenceNumber: str15;
   continuationPointer: str180;
   AccAckType, AppAckType: Str2;
@@ -423,10 +423,10 @@ begin
     GetMSH(TestHL7Message, delimiters, sendingApp,
       sendingFac, receivingApp, receivingFac, dateTime,
       security, messageType, controlID, processingID,
-      versionID, sequenceNumber, continuationPointer,
+      versionID2, sequenceNumber, continuationPointer,
       AccAckType, AppAckType, countryCode, charSet,
       messageLanguage, altCharHandlScheme, profileID);
-    AssertEquals('2.5', versionID);
+    AssertEquals('2.5', versionID2);
   end;
 end;
 
