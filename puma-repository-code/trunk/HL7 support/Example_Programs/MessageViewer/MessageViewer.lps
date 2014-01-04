@@ -8,7 +8,6 @@
         <Filename Value="MessageViewer.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MessageViewer"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -20,10 +19,11 @@
         <Filename Value="../../hl7.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <CursorPos X="55" Y="5"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit1>

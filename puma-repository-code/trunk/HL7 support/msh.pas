@@ -8,10 +8,10 @@ unit MSH;
 
 { Version 1.3 }
 
-{ (c) J. W. Dietrich, 1994 - 2013 }
+{ (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2013 }
+{ (c) Ruhr University of Bochum 2005 - 2014 }
 
 { Parser and compiler for HL7 messages }
 
@@ -50,7 +50,7 @@ type
     charSet: str16;
     messageLanguage: str250;
     altCharHandlScheme: str20;
-    profileID: str427
+    profileID: str427;
   end;
 
 function MSH_Segment(message: THL7Message): THL7Segment;
