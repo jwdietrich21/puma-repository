@@ -10,7 +10,11 @@ About the PUMA repository
 The PUMA repository is a collection of units for development of medical applications in Pascal. See http://puma-repository.sf.net for details.
 
 
-License:
+License
+
 Files of the PUMA repository are licensed with a BSD license. This facilitates their usage in both free open source software and commercial applications.
+
+This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
 
 J. W. Dietrich

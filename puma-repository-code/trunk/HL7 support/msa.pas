@@ -33,6 +33,9 @@ interface
 uses
   Classes, SysUtils, HL7;
 
+const
+  MSA_ID = 'MSA';
+
 type
   tMSA = record
     AckCode: str2;
@@ -42,9 +45,6 @@ type
     delAckType: char;
     ErrorCond: Str250;
   end;
-
-const
-  MSA_ID = 'MSA';
 
 function MSA_Segment(message: THL7Message): THL7Segment;
 procedure GetMSA(message: THL7Message; out MSARecord: tMSA);

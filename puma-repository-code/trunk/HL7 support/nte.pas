@@ -33,6 +33,9 @@ interface
 uses
   Classes, SysUtils, HL7;
 
+const
+  NTE_ID = 'NTE';
+
 type
   tNTE = record
     SetID: str4;
@@ -40,9 +43,6 @@ type
     comment: ansistring;
     commentType: str250;
   end;
-
-const
-  NTE_ID = 'NTE';
 
 function NTE_Segment(message: THL7Message): THL7Segment;
 procedure GetNTE(message: THL7Message; out NTERecord: tNTE);
