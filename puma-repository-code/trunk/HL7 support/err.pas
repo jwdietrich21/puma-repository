@@ -61,7 +61,7 @@ type
     ErrCodeLoc, ErrLoc, ErrCode: string;
     severity: char;
     appErrCode, appErrPar, DiagInfo, UserMessage: string;
-    InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string
+    InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string;
   end;
 
 function ERR_Segment(message: THL7Message): THL7Segment;

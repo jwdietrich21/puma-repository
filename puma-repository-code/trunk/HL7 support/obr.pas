@@ -42,7 +42,7 @@ type
     PlacOrdNumb, FillOrdNumb: str22;
     USI: str250;
     Priority: Str2;
-    ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM
+    ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM;
   end;
 
 function OBR_Segment(message: THL7Message): THL7Segment;
