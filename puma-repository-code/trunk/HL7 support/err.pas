@@ -36,7 +36,6 @@ uses
 const
   ERR_ID = 'ERR';
 
-const
   E_MESS_ACC = '0';
   E_SEG_SEQ_ERR = '100';
   E_REQ_FLD_MIS = '101';

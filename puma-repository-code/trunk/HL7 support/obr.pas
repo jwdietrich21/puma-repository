@@ -36,11 +36,22 @@ uses
 const
   OBR_ID = 'OBR';
 
+type
+  tOBR = record
+    SetID: str4;
+    PlacOrdNumb, FillOrdNumb: str22;
+    USI: str250;
+    Priority: Str2;
+    ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM
+  end;
+
 function OBR_Segment(message: THL7Message): THL7Segment;
+procedure GetOBR(message: THL7Message; out OBRRecord: tOBR);
 procedure GetOBR(message: THL7Message; out SetID: str4;
   out PlacOrdNumb, FillOrdNumb: str22; out USI: str250; out Priority: Str2;
   out ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
 procedure SetOBR(message: THL7Message; aSegment: THL7Segment);
+procedure SetOBR(message: THL7Message; OBRRecord: tOBR);
 procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb, FillOrdNumb: str22;
   USI: str250; Priority: Str2; ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
 
@@ -54,9 +65,7 @@ begin
     Result := nil;
 end;
 
-procedure GetOBR(message: THL7Message; out SetID: str4;
-  out PlacOrdNumb, FillOrdNumb: str22; out USI: str250; out Priority: Str2;
-  out ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
+procedure GetOBR(message: THL7Message; out OBRRecord: tOBR);
 var
   curSegment: THL7Segment;
   nextField: THL7Field;
@@ -67,18 +76,38 @@ begin
   begin
     nextOccurrence := curSegment.FirstOccurrence;
     if nextOccurrence <> nil then
-    begin
-      nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
-      SetID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      PlacOrdNumb := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      FillOrdNumb := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      USI := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      Priority := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      ReqDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      ObsDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      ObsEndDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-    end;
+      with OBRRecord do
+      begin
+        nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
+        SetID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PlacOrdNumb := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        FillOrdNumb := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        USI := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Priority := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ReqDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObsDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObsEndDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+      end;
   end;
+end;
+
+procedure GetOBR(message: THL7Message; out SetID: str4;
+  out PlacOrdNumb, FillOrdNumb: str22; out USI: str250; out Priority: Str2;
+  out ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic GetOBR }
+var
+  OBRRecord: tOBR;
+begin
+  GetOBR(message, OBRRecord);
+  SetID := OBRRecord.SetID;
+  PlacOrdNumb := OBRRecord.PlacOrdNumb;
+  FillOrdNumb := OBRRecord.FillOrdNumb;
+  USI := OBRRecord.USI;
+  Priority := OBRRecord.Priority;
+  ReqDateTime := OBRRecord.ReqDateTime;
+  ObsDateTime := OBRRecord.ObsDateTime;
+  ObsEndDateTime := OBRRecord.ObsEndDateTime;
 end;
 
 procedure SetOBR(message: THL7Message; aSegment: THL7Segment);
@@ -86,21 +115,39 @@ begin
   message.AddSegment(aSegment);
 end;
 
-procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb, FillOrdNumb: str22;
-  USI: str250; Priority: Str2; ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
+procedure SetOBR(message: THL7Message; OBRRecord: tOBR);
 var
   newSegment: THL7Segment;
   FieldSep: char;
-  theString: AnsiString;
+  theString: ansistring;
 begin
   FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
-  theString := OBR_ID + FieldSep + SetID + FieldSep + PlacOrdNumb +
-    FieldSep + FillOrdNumb + FieldSep + USI + FieldSep +
-    Priority + FieldSep + ReqDateTime + FieldSep + ObsDateTime +
-    FieldSep + ObsEndDateTime + FieldSep;
+  with OBRRecord do
+    theString := OBR_ID + FieldSep + SetID + FieldSep + PlacOrdNumb +
+      FieldSep + FillOrdNumb + FieldSep + USI + FieldSep + Priority +
+      FieldSep + ReqDateTime + FieldSep + ObsDateTime + FieldSep +
+      ObsEndDateTime + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
+end;
+
+procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb, FillOrdNumb: str22;
+  USI: str250; Priority: Str2; ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic SetOBR }
+var
+  OBRRecord: tOBR;
+begin
+  OBRRecord.SetID := SetID;
+  OBRRecord.PlacOrdNumb := PlacOrdNumb;
+  OBRRecord.FillOrdNumb := FillOrdNumb;
+  OBRRecord.USI := USI;
+  OBRRecord.Priority := Priority;
+  OBRRecord.ReqDateTime := ReqDateTime;
+  OBRRecord.ObsDateTime := ObsDateTime;
+  OBRRecord.ObsEndDateTime := ObsEndDateTime;
+  SetOBR(message, OBRRecord);
 end;
 
 end.

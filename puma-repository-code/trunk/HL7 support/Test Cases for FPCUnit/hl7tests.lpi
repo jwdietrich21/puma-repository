@@ -18,7 +18,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="3"/>
-      <BuildNr Value="121"/>
+      <BuildNr Value="124"/>
       <StringTable CompanyName="FORMATIO RETICULARIS " LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
