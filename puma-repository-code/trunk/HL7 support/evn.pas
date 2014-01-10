@@ -36,14 +36,26 @@ uses
 const
   EVN_ID = 'EVN';
 
+type
+  tEVN = record
+    evtTypeCode: char;
+    recDateTime, plannedDateTime: tDTM;
+    reasonCode: tCWE;
+    opID: tXCN;
+    evtOccurred: tDTM;
+    evtFacility: tHD;
+  end;
+
 function EVN_Segment(message: THL7Message): THL7Segment;
+procedure GetEVN(message: THL7Message; out EVNRecord: tEVN);
 procedure GetEVN(message: THL7Message; out evtTypeCode: char;
-    out recDateTime, plannedDateTime: tDTM; out reasonCode: tCWE;
-    out opID: tXCN; out evtOccurred: tDTM; out evtFacility: tHD);
+  out recDateTime, plannedDateTime: tDTM; out reasonCode: tCWE;
+  out opID: tXCN; out evtOccurred: tDTM; out evtFacility: tHD);
 procedure SetEVN(message: THL7Message; aSegment: THL7Segment);
+procedure SetEVN(message: THL7message; EVNRecord: tEVN);
 procedure SetEVN(message: THL7Message; evtTypeCode: char;
-    recDateTime, plannedDateTime: tDTM; reasonCode: tCWE;
-    opID: tXCN; evtOccurred: tDTM; evtFacility: tHD);
+  recDateTime, plannedDateTime: tDTM; reasonCode: tCWE; opID: tXCN;
+  evtOccurred: tDTM; evtFacility: tHD);
 
 implementation
 
@@ -55,9 +67,7 @@ begin
     Result := nil;
 end;
 
-procedure GetEVN(message: THL7Message; out evtTypeCode: char; out recDateTime,
-  plannedDateTime: tDTM; out reasonCode: tCWE; out opID: tXCN; out
-  evtOccurred: tDTM; out evtFacility: tHD);
+procedure GetEVN(message: THL7Message; out EVNRecord: tEVN);
 var
   curSegment: THL7Segment;
   nextField: THL7Field;
@@ -68,17 +78,36 @@ begin
   begin
     nextOccurrence := curSegment.FirstOccurrence;
     if nextOccurrence <> nil then
-    begin
-      nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
-      evtTypeCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField)[1];
-      recDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      plannedDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      reasonCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      opID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      evtOccurred := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-      evtFacility := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-    end;
+      with EVNRecord do
+      begin
+        nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
+        evtTypeCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField)[1];
+        recDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        plannedDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        reasonCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        opID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        evtOccurred := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        evtFacility := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+      end;
   end;
+end;
+
+procedure GetEVN(message: THL7Message; out evtTypeCode: char;
+  out recDateTime, plannedDateTime: tDTM; out reasonCode: tCWE;
+  out opID: tXCN; out evtOccurred: tDTM; out evtFacility: tHD);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic GetEVN }
+var
+  EVNRecord: tEVN;
+begin
+  GetEVN(message, EVNRecord);
+  evtTypeCode := EVNRecord.evtTypeCode;
+  recDateTime := EVNRecord.recDateTime;
+  plannedDateTime := EVNRecord.plannedDateTime;
+  reasonCode := EVNRecord.reasonCode;
+  opID := EVNRecord.opID;
+  evtOccurred := EVNRecord.evtOccurred;
+  evtFacility := EVNRecord.evtFacility;
 end;
 
 procedure SetEVN(message: THL7Message; aSegment: THL7Segment);
@@ -86,23 +115,40 @@ begin
   message.AddSegment(aSegment);
 end;
 
-procedure SetEVN(message: THL7Message; evtTypeCode: char; recDateTime,
-  plannedDateTime: tDTM; reasonCode: tCWE; opID: tXCN; evtOccurred: tDTM;
-  evtFacility: tHD);
+procedure SetEVN(message: THL7message; EVNRecord: tEVN);
 var
   newSegment: THL7Segment;
   FieldSep: char;
-  theString: AnsiString;
+  theString: ansistring;
 begin
   FieldSep := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
-  theString := EVN_ID + FieldSep + evtTypeCode + FieldSep + recDateTime +
-    FieldSep + plannedDateTime + FieldSep + reasonCode + FieldSep +
-    opID + FieldSep + evtOccurred + FieldSep + evtFacility +
-    FieldSep;
+  with EVNRecord do
+    theString := EVN_ID + FieldSep + evtTypeCode + FieldSep + recDateTime +
+      FieldSep + plannedDateTime + FieldSep + reasonCode + FieldSep +
+      opID + FieldSep + evtOccurred + FieldSep + evtFacility + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;
 
+procedure SetEVN(message: THL7Message; evtTypeCode: char;
+  recDateTime, plannedDateTime: tDTM; reasonCode: tCWE; opID: tXCN;
+  evtOccurred: tDTM; evtFacility: tHD);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic SetEVN }
+var
+  EVNRecord: tEVN;
+begin
+  EVNRecord.evtTypeCode := evtTypeCode;
+  EVNRecord.recDateTime := recDateTime;
+  EVNRecord.plannedDateTime := plannedDateTime;
+  EVNRecord.reasonCode := reasonCode;
+  EVNRecord.opID := opID;
+  EVNRecord.evtOccurred := evtOccurred;
+  EVNRecord.evtFacility := evtFacility;
+  SetEVN(message, EVNRecord);
+end;
+
 end.
+
 
