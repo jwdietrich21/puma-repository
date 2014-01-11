@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA,
-  ERR, OBR, OBX, NTE, EVN;
+  ERR, OBR, OBX, NTE, EVN, PID;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -129,6 +129,13 @@ type
   TNTETestCases = class(TTestCase)
   published
     procedure NTESetCase1;
+  end;
+
+  { tPIDTestCases }
+
+  TPIDTestCases = class(TTestCase)
+  published
+    procedure TPIDTestCase1;
   end;
 
   { TMessageTestCases }
@@ -237,7 +244,7 @@ procedure TMSHTestCases.MSHGetCase2;
 var
   testSegment: THL7Segment;
   delimiters: str5;
-  sendingApp, sendingFac, receivingApp, receivingFac: str227;
+  sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   dateTime: tDTM;
   security: str40;
   messageType: str15;
@@ -273,7 +280,7 @@ procedure TMSHTestCases.MSHSetCase1;
 var
   testSegment: THL7Segment;
   delimiters: str5;
-  sendingApp, sendingFac, receivingApp, receivingFac: str227;
+  sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   dateTime: tDTM;
   security: str40;
   messageType: str15;
@@ -312,7 +319,7 @@ procedure TMSHTestCases.MSHSetCase2;
 var
   testSegment: THL7Segment;
   delimiters: str5;
-  sendingApp, sendingFac, receivingApp, receivingFac: str227;
+  sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   dateTime: tDTM;
   security: str40;
   messageType: str15;
@@ -375,7 +382,7 @@ procedure TMSHTestCases.MSHSetCase3;
 var
   testSegment: THL7Segment;
   delimiters: str5;
-  sendingApp, sendingFac, receivingApp, receivingFac: str227;
+  sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   dateTime: tDTM;
   security: str40;
   messageType: str15;
@@ -504,7 +511,7 @@ end;
 
 procedure TOBRTestCases.OBRSetCase1;
 var
-  SetID: str4;
+  SetID: tSI;
   PlacOrdNumb, FillOrdNumb: str22;
   USI: str250;
   Priority: Str2;
@@ -537,7 +544,7 @@ end;
 
 procedure TOBXTestCases.OBXSetCase1;
 var
-  SetID: str4;
+  SetID: tSI;
   ValueType: str2;
   ObsID: str250;
   obsSubID: str20;
@@ -631,7 +638,7 @@ end;
 
 procedure TNTETestCases.NTESetCase1;
 var
-  SetID, SetID2: str4;
+  SetID, SetID2: tSI;
   CommentSource, CommentSource2: str8;
   comment, comment2: ansistring;
   commentType, commentType2: str250;
@@ -651,6 +658,26 @@ begin
     GetNTE(TestHL7Message, SetID2, CommentSource2, comment2,
       commentType2);
     AssertEquals(comment, comment2);
+  end;
+end;
+
+{ TPIDTestCases }
+
+procedure TPIDTestCases.TPIDTestCase1;
+const
+  TestPatientAccountNumber = '400003403~1129086';
+var
+  PatientAccountNumber, PatientAccountNumber2: tCE;
+  PIDRecord: tPID;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    GetPID(TestHL7Message, PIDRecord);
+    AssertEquals(TestPatientAccountNumber, PIDRecord.PatientAccountNumber);
   end;
 end;
 
@@ -1611,6 +1638,7 @@ initialization
   RegisterTest(TOBXTestCases);
   RegisterTest(TNTETestCases);
   RegisterTest(TEVNTestCase);
+  RegisterTest(TPIDTestCases);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);

@@ -93,6 +93,7 @@ type
   str16 = string[16];
   str20 = string[20];
   str22 = string[22];
+  str25 = string[25];
   str26 = string[26];
   str40 = string[40];
   str60 = string[60];
@@ -103,13 +104,24 @@ type
   str250 = string[250];
   str427 = AnsiString;
 
-  tCWE = str3;   { HL7 2.7 CWE type }
-  tIS = str3;    { HL7 2.5 IS type }
-  tMSG = str15;  { HL7 MSG type }
-  tDTM = str26;  { HL7 2.7 DTM type }
-  tTS = str26;   { HL7 2.5 TS type }
-  tHD = str241;  { HL7 HD type }
-  tXCN = str250; { HL7 XCN type }
+  tCNE = AnsiString; { HL7 2.6 CNE type (Coded with no exceptions) }
+  tCWE = AnsiString; { HL7 2.6 CWE type (coded with exceptions) }
+  tCE = str250;      { HL7 CE type (Coded entry, deprecated as of HL7 v2.6) }
+  tCX = str250;      { HL7 CX type (Extended composite ID with check digit) }
+  tIS = str20;       { HL7 2.5 IS type (Coded value for user-defined tables) }
+  tMSG = str15;      { HL7 MSG type (Message type) }
+  tDLN = str25;      { HL7 DLN type (Driver's license number) }
+  tDTM = str26;      { HL7 2.7 DTM type (Date/time) }
+  tHD = AnsiString;  { HL7 HD type (Hierarchic designator) }
+  tID = AnsiString;  { HL7 ID type (Coded value for HL7 defined tables) }
+  tSI = str4;        { HL7 SI type (Sequence ID) }
+  tTS = str26;       { HL7 2.5 TS type (Time stamp, deprecated as of HL7 v2.6) }
+  tNM = str16;       { HL7 NM type (ASCII-represented number) }
+  tST = AnsiString;  { HL7 ST type (Dtring data ) }
+  tXCN = str250;     { HL7 XCN type (extended composite ID number and name for persons) }
+  tXPN = str250;     { HL7 XPN type (Extended person name) }
+  tXAD = str250;     { HL7 XAD type (Extended address) }
+  tXTN = str250;     { HL7 XAD type (Extended telecommunications number) }
 
   THL7Delimiters = record
     SegmentTerminator, FieldSeparator, ComponentSeparator: char;

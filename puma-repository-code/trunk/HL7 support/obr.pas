@@ -38,7 +38,7 @@ const
 
 type
   tOBR = record
-    SetID: str4;
+    SetID: tSI;
     PlacOrdNumb, FillOrdNumb: str22;
     USI: str250;
     Priority: Str2;
@@ -47,12 +47,12 @@ type
 
 function OBR_Segment(message: THL7Message): THL7Segment;
 procedure GetOBR(message: THL7Message; out OBRRecord: tOBR);
-procedure GetOBR(message: THL7Message; out SetID: str4;
+procedure GetOBR(message: THL7Message; out SetID: tSI;
   out PlacOrdNumb, FillOrdNumb: str22; out USI: str250; out Priority: Str2;
   out ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
 procedure SetOBR(message: THL7Message; aSegment: THL7Segment);
 procedure SetOBR(message: THL7Message; OBRRecord: tOBR);
-procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb, FillOrdNumb: str22;
+procedure SetOBR(message: THL7Message; SetID: tSI; PlacOrdNumb, FillOrdNumb: str22;
   USI: str250; Priority: Str2; ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
 
 implementation
@@ -91,7 +91,7 @@ begin
   end;
 end;
 
-procedure GetOBR(message: THL7Message; out SetID: str4;
+procedure GetOBR(message: THL7Message; out SetID: tSI;
   out PlacOrdNumb, FillOrdNumb: str22; out USI: str250; out Priority: Str2;
   out ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
 { deprecated method, retained for backward-compatibility only, }
@@ -132,7 +132,7 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb, FillOrdNumb: str22;
+procedure SetOBR(message: THL7Message; SetID: tSI; PlacOrdNumb, FillOrdNumb: str22;
   USI: str250; Priority: Str2; ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic SetOBR }

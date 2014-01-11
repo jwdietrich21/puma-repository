@@ -1,0 +1,447 @@
+# Begin asmlist al_begin
+
+.text
+	.stabs "/Volumes/G5 Dokumente/Projekte/PUMA Repository/code/trunk/HL7 support/Test Cases for FPCUnit/",100,0,0,Lf3
+	.stabs "/Volumes/G5 Dokumente/Projekte/PUMA Repository/code/trunk/HL7 support/pid.pas",100,0,0,Lf3
+Lf3:
+# End asmlist al_begin
+# Begin asmlist al_stabs
+
+.text
+# Defs - Begin unit SYSTEM has index 1
+	.stabs "void:t6=6",128,0,0,0
+# Defs - End unit SYSTEM has index 1
+# Defs - Begin unit OBJPAS has index 7
+# Defs - End unit OBJPAS has index 7
+# Defs - Begin unit UNIXTYPE has index 26
+# Defs - End unit UNIXTYPE has index 26
+# Defs - Begin unit SYSCTL has index 28
+# Defs - End unit SYSCTL has index 28
+# Defs - Begin unit BASEUNIX has index 23
+# Defs - End unit BASEUNIX has index 23
+# Defs - Begin unit UNIXUTIL has index 29
+# Defs - End unit UNIXUTIL has index 29
+# Defs - Begin unit UNIX has index 25
+# Defs - End unit UNIX has index 25
+# Defs - Begin unit ERRORS has index 45
+# Defs - End unit ERRORS has index 45
+# Defs - Begin unit SYSCONST has index 46
+# Defs - End unit SYSCONST has index 46
+# Defs - Begin unit CTYPES has index 24
+# Defs - End unit CTYPES has index 24
+# Defs - Begin unit INITC has index 27
+# Defs - End unit INITC has index 27
+# Defs - Begin unit SYSUTILS has index 32
+# Defs - End unit SYSUTILS has index 32
+# Defs - Begin unit TYPES has index 30
+# Defs - End unit TYPES has index 30
+# Defs - Begin unit RTLCONSTS has index 44
+# Defs - End unit RTLCONSTS has index 44
+# Defs - Begin unit TYPINFO has index 43
+# Defs - End unit TYPINFO has index 43
+# Defs - Begin unit CLASSES has index 31
+# Defs - End unit CLASSES has index 31
+# Defs - Begin unit STRUTILS has index 177
+# Defs - End unit STRUTILS has index 177
+# Defs - Begin unit MATH has index 33
+# Defs - End unit MATH has index 33
+# Defs - Begin unit URIPARSER has index 423
+# Defs - End unit URIPARSER has index 423
+# Defs - Begin unit HL7 has index 13
+	.stabs "LONGINT:t7=r7;-2147483648;2147483647;",128,0,0,0
+	.stabs "CHAR:t8=-20;",128,0,0,0
+	.stabs "BYTE:t9=r9;0;255;",128,0,0,0
+	.stabs "SHORTSTRING:Tt10=s256length:9,0,8;st:ar9;1;255;8,8,2040;;",128,0,0,0
+	.stabs ":t11=*10",128,0,0,0
+	.stabs "POINTER:t12=*6",128,0,0,0
+	.stabs ":t13=ar7;0;0;12",128,0,0,0
+	.stabs "__vtbl_ptr_type:Tt14=s2;",128,0,0,0
+	.stabs "pvmt:t15=*14",128,0,0,0
+	.stabs "vtblarray:t16=ar7;0;1;15",128,0,0,0
+	.stabs "TOBJECT:Tt17=s4$vf17:16,0;CREATE::19=##18;:__ct__7TOBJECT7POINTER;2A.;DESTROY::20=##6;:__dt__7TOBJECT7POINTER;2A*0;17;;NEWINSTANCE::21=##18;:11unnamedtype;2A*1;17;;FREEINSTANCE::22=##6;:7TOBJECT;2A*2;17;;SAFECALLEXCEPTION::23=##24;:7TOBJECT7TOBJECT7POINTER;2A*3;17;;DEFAULTHANDLER::25=##6;:7TOBJECT3var;2A*4;17;;FREE::26=##6;:7TOBJECT;2A.;INITINSTANCE::27=##18;:11unnamedtype7POINTER;2A.;CLEANUPINSTANCE::28=##6;:7TOBJECT;2A.;CLASSTYPE::29=##30;:11unnamedtype;2A.;CLASSINFO::31=##12;:11unnamedtype;2A.;CLASSNAME::32=##10;:11unnamedtype11SHORTSTRING;2A.;CLASSNAMEIS::33=##34;:11unnamedtype11SHORTSTRING;2A.;CLASSPARENT::35=##30;:11unnamedtype;2A.;INSTANCESIZE::36=##7;:11unnamedtype;2A.;INHERITSFROM::37=##34;:11unnamedtype6TCLASS;2A.;STRINGMESSAGETABLE::38=##39;:11unnamedtype;2A.;METHODADDRESS::40=##12;:11unnamedtype11SHORTSTRING;2A.;METHODNAME::41=##10;:11unnamedtype11SHORTSTRING7POINTER;2A.;FIELDADDRESS::42=##12;:7TOBJECT11SHORTSTRING;2A.;AFTERCONSTRUCTION::43=##6;:7TOBJECT;2A*5;17;;BEFOREDESTRUCTION::44=##6;:7TOBJECT;2A*6;17;;DEFAULTHANDLERSTR::45=##6;:7TOBJECT3var;2A*7;17;;DISPATCH::46=##6;:7TOBJECT3var;2A*8;17;;DISPATCHSTR::47=##6;:7TOBJECT3var;2A*9;17;;GETINTERFACE::48=##34;:7TOBJECT5TGUID3out;2A.;GETINTERFACEBYSTR::49=##34;:7TOBJECT11SHORTSTRING3out;2A.;GETINTERFACEWEAK::50=##34;:7TOBJECT5TGUID3out;2A.;GETINTERFACEENTRY::51=##52;:11unnamedtype5TGUID;2A.;GETINTERFACEENTRYBYSTR::53=##52;:11unnamedtype11SHORTSTRING;2A.;GETINTERFACETABLE::54=##55;:11unnamedtype;2A.;UNITNAME::56=##57;:11unnamedtype10ANSISTRING;2A.;EQUALS::58=##34;:7TOBJECT7TOBJECT;2A*10;17;;GETHASHCODE::59=##7;:7TOBJECT;2A*11;17;;TOSTRING::60=##57;:7TOBJECT10ANSISTRING;2A*12;17;;;~%17;",128,0,0,0
+	.stabs ":Tt18=*17",128,0,0,0
+	.stabs "vmt_SYSTEMTOBJECT:S14",38,0,0,_VMT_SYSTEM_TOBJECT
+	.stabs "THL7DELIMITERS:Tt61=s6SEGMENTTERMINATOR:8,0,8;FIELDSEPARATOR:8,8,8;COMPONENTSEPARATOR:8,16,8;SUBCOMPONENTSEPARATOR:8,24,8;REPETITIONSEPARATOR:8,32,8;ESCAPECHARACTER:8,40,8;",128,0,0,0
+	.stabs "ANSISTRING:Tt57=*8",128,0,0,0
+	.stabs "STR20:Tt62=s21length:9,0,8;st:ar9;1;20;8,8,160;;",128,0,0,0
+	.stabs "THL7MESSAGESECTION:Tt63=s16!1,020,17;FTEXT:/057,32,32;FOWNER:/164,64,32;FMESSAGE:/15,96,32;DESTROY::65=##6;:__dt__18THL7MESSAGESECTION7POINTER;2A*0;63;;PARSEMESSAGESTRING::66=##6;:18THL7MESSAGESECTION10ANSISTRING;2A*13;63;;COMPILEDMESSAGESTRING::67=##57;:18THL7MESSAGESECTION10ANSISTRING;2A*14;63;;;~%17;",128,0,0,0
+	.stabs ":Tt64=*63",128,0,0,0
+	.stabs "vmt_HL7THL7MESSAGESECTION:S14",38,0,0,_VMT_HL7_THL7MESSAGESECTION
+	.stabs "STR3:Tt68=s4length:9,0,8;st:ar9;1;3;8,8,24;;",128,0,0,0
+	.stabs "THL7SUBCOMPONENT:Tt69=s24!1,020,63;FPREVIOUSSIBLING:/170,128,32;FNEXTSIBLING:/170,160,32;PARSEMESSAGESTRING::71=##6;:16THL7SUBCOMPONENT10ANSISTRING;2A.;COMPILEDMESSAGESTRING::72=##57;:16THL7SUBCOMPONENT10ANSISTRING;2A.;CREATE::73=##70;:__ct__16THL7SUBCOMPONENT7POINTER13THL7COMPONENT10ANSISTRING;2A.;DESTROY::74=##6;:__dt__16THL7SUBCOMPONENT7POINTER;2A*0;69;;;~%17;",128,0,0,0
+	.stabs ":Tt70=*69",128,0,0,0
+	.stabs "vmt_HL7THL7SUBCOMPONENT:S14",38,0,0,_VMT_HL7_THL7SUBCOMPONENT
+	.stabs "THL7COMPONENT:Tt75=s28!1,020,63;FPREVIOUSSIBLING:/176,128,32;FNEXTSIBLING:/176,160,32;FIRSTSUBCOMPONENT:70,192,32;PARSEMESSAGESTRING::77=##6;:13THL7COMPONENT10ANSISTRING;2A.;COMPILEDMESSAGESTRING::78=##57;:13THL7COMPONENT10ANSISTRING;2A.;CREATE::79=##76;:__ct__13THL7COMPONENT7POINTER9THL7FIELD10ANSISTRING;2A.;DESTROY::80=##6;:__dt__13THL7COMPONENT7POINTER;2A*0;75;;NEWSUBCOMPONENT::81=##70;:13THL7COMPONENT;2A.;ALLOCSUBCOMPONENTS::82=##6;:13THL7COMPONENT10ANSISTRING;2A.;;~%17;",128,0,0,0
+	.stabs ":Tt76=*75",128,0,0,0
+	.stabs "vmt_HL7THL7COMPONENT:S14",38,0,0,_VMT_HL7_THL7COMPONENT
+	.stabs "THL7FIELD:Tt83=s28!1,020,63;FPREVIOUSSIBLING:/184,128,32;FNEXTSIBLING:/184,160,32;FIRSTCOMPONENT:76,192,32;PARSEMESSAGESTRING::85=##6;:9THL7FIELD10ANSISTRING;2A.;COMPILEDMESSAGESTRING::86=##57;:9THL7FIELD10ANSISTRING;2A.;CREATE::87=##84;:__ct__9THL7FIELD7POINTER14THL7OCCURRENCE10ANSISTRING;2A.;DESTROY::88=##6;:__dt__9THL7FIELD7POINTER;2A*0;83;;NEWCOMPONENT::89=##76;:9THL7FIELD;2A.;ALLOCCOMPONENTS::90=##6;:9THL7FIELD10ANSISTRING;2A.;;~%17;",128,0,0,0
+	.stabs ":Tt84=*83",128,0,0,0
+	.stabs "vmt_HL7THL7FIELD:S14",38,0,0,_VMT_HL7_THL7FIELD
+	.stabs "THL7OCCURRENCE:Tt91=s28!1,020,63;FPREVIOUSSIBLING:/192,128,32;FNEXTSIBLING:/192,160,32;FIRSTFIELD:84,192,32;PARSEMESSAGESTRING::93=##6;:14THL7OCCURRENCE10ANSISTRING;2A.;COMPILEDMESSAGESTRING::94=##57;:14THL7OCCURRENCE10ANSISTRING;2A.;CREATE::95=##92;:__ct__14THL7OCCURRENCE7POINTER11THL7SEGMENT10ANSISTRING;2A.;DESTROY::96=##6;:__dt__14THL7OCCURRENCE7POINTER;2A*0;91;;NEWFIELD::97=##84;:14THL7OCCURRENCE;2A.;GETNEXTFIELDCONTENT::98=##10;:14THL7OCCURRENCE11SHORTSTRING9THL7FIELD;2A.;ALLOCFIELDS::99=##6;:14THL7OCCURRENCE10ANSISTRING;2A.;;~%17;",128,0,0,0
+	.stabs ":Tt92=*91",128,0,0,0
+	.stabs "vmt_HL7THL7OCCURRENCE:S14",38,0,0,_VMT_HL7_THL7OCCURRENCE
+	.stabs "THL7SEGMENT:Tt2=s36!1,020,63;FPREVIOUSSIBLING:/13,128,32;FNEXTSIBLING:/13,160,32;SEGMENTNAME:/168,192,32;FLOWNER:/15,224,32;FIRSTOCCURRENCE:92,256,32;PARSEMESSAGESTRING::100=##6;:11THL7SEGMENT10ANSISTRING;2A.;COMPILEDMESSAGESTRING::101=##57;:11THL7SEGMENT10ANSISTRING;2A.;CREATE::102=##3;:__ct__11THL7SEGMENT7POINTER11THL7MESSAGE10ANSISTRING;2A.;DESTROY::103=##6;:__dt__11THL7SEGMENT7POINTER;2A*0;2;;NEWOCCURRENCE::104=##92;:11THL7SEGMENT10ANSISTRING;2A.;ALLOCOCCURRENCES::105=##6;:11THL7SEGMENT10ANSISTRING;2A.;;~%17;",128,0,0,0
+	.stabs ":Tt3=*2",128,0,0,0
+	.stabs "vmt_HL7THL7SEGMENT:S14",38,0,0,_VMT_HL7_THL7SEGMENT
+	.stabs "THL7MESSAGE:Tt4=s304!1,020,17;HL7_VERSION:/010,32,2048;HL7DELIMITERS:/061,2080,48;STATUS:/07,2144,32;HL7TEXT:/157,2176,32;CONTROLID:62,2208,168;FIRSTSEGMENT:3,2400,32;SETHL7VERSION::106=##6;:11THL7MESSAGE11SHORTSTRING;2A.;PARSEMESSAGESTRING::107=##6;:11THL7MESSAGE10ANSISTRING;2A.;COMPILEDMESSAGESTRING::108=##57;:11THL7MESSAGE10ANSISTRING;2A.;PARSEDELIMITERS::109=##6;:11THL7MESSAGE10ANSISTRING;2A.;COMPILEDDELIMITERS::110=##111;:11THL7MESSAGE4STR514THL7DELIMITERS;2A.;ENCODED::112=##57;:11THL7MESSAGE10ANSISTRING10ANSISTRING;2A.;ENCODEDHEX::113=##10;:11THL7MESSAGE11SHORTSTRING7LONGINT;2A.;DECODED::114=##57;:11THL7MESSAGE10ANSISTRING10ANSISTRING;2A.;DECODEDHEX::115=##7;:11THL7MESSAGE11SHORTSTRING;2A.;CREATE::116=##5;:__ct__11THL7MESSAGE7POINTER11SHORTSTRING;2A.;DESTROY::117=##6;:__dt__11THL7MESSAGE7POINTER;2A*0;4;;FOUNDSEGMENT::118=##3;:11THL7MESSAGE4STR34STR3;2A.;NEWSEGMENT::119=##3;:11THL7MESSAGE;2A.;ADDSEGMENT::120=##6;:11THL7MESSAGE11THL7SEGMENT;2A.;DELETESEGMENT::121=##6;:11THL7MESSAGE4STR34STR3;2A.;REPLACESEGMENT::122=##6;:11THL7MESSAGE4STR34STR311THL7SEGMENT;2A.;ALLOCSEGMENTS::123=##6;:11THL7MESSAGE10ANSISTRING;2A.;;~%17;",128,0,0,0
+	.stabs ":Tt5=*4",128,0,0,0
+	.stabs "vmt_HL7THL7MESSAGE:S14",38,0,0,_VMT_HL7_THL7MESSAGE
+	.stabs "STR5:Tt111=s6length:9,0,8;st:ar9;1;5;8,8,40;;",128,0,0,0
+# Defs - End unit HL7 has index 13
+# Defs - Begin unit PID has index 20
+	.stabs "STR4:Tt124=s5length:9,0,8;st:ar9;1;4;8,8,32;;",128,0,0,0
+	.stabs "STR250:Tt125=s251length:9,0,8;st:ar9;1;250;8,8,2000;;",128,0,0,0
+	.stabs "STR26:Tt126=s27length:9,0,8;st:ar9;1;26;8,8,208;;",128,0,0,0
+	.stabs "STR25:Tt127=s26length:9,0,8;st:ar9;1;25;8,8,200;;",128,0,0,0
+	.stabs "STR16:Tt128=s17length:9,0,8;st:ar9;1;16;8,8,128;;",128,0,0,0
+	.stabs ":Tt1=s5540SETID:124,0,40;PATIENTID:62,40,168;PATIENTIDLIST:125,208,2008;ALTPATID:62,2216,168;PATIENTNAME:125,2384,2008;MOTHERSMAIDENNAME:125,4392,2008;BIRTHDATETIME:126,6400,216;ADMINSEX:62,6616,168;PATIENTALIAS:125,6784,2008;RACE:125,8792,2008;PATIENTADDRESS:125,10800,2008;COUNTYCODE:62,12808,168;HOMEPHOE:125,12976,2008;BUSINESSPHONE:125,14984,2008;PRIMARYLANGUAGE:125,16992,2008;MARITALSTATUS:125,19000,2008;RELIGION:125,21008,2008;PATIENTACCOUNTNUMBER:125,23016,2008;SSNNUMBER:57,25024,32;DRIVERLICENSENUMBER:127,25056,208;MOTHERSID:125,25264,2008;ETHNICGROUP:125,27272,2008;BIRTHPLACE:125,29280,2008;MULTIPLEBIRTHID:57,31296,32;BIRTHORDER:128,31328,136;CITIZENSHIP:125,31464,2008;VETERANSMILITARYSTATUS:125,33472,2008;NATIONALITY:125,35480,2008;PATIENTDEATHDATETIME:126,37488,216;PATIENTDEATHINDICATOR:57,37728,32;IDUNKNOWNINDICATOR:57,37760,32;IDRELIABILITYINDICATOR:62,37792,168;LASTUPDATEDATETIME:126,37960,216;LASTUPDATEFACILITY:57,38176,32;SPECIESCODE:125,38208,2008;BREEDCODE:125,40216,2008;STRAIN:57,42240,32;PRODUCTIONCLASSCODE:125,42272,2008;TRIBALCITIZENSHIP:57,44288,32;",128,0,0,0
+# Defs - End unit PID has index 20
+# Defs - Begin Staticsymtable
+# Defs - End Staticsymtable
+	.stabs "HRESULT:t24=r24;-2147483648;2147483647;",128,0,0,0
+	.stabs "pvmt:t15=*14",128,0,0,0
+	.stabs "BOOLEAN:t34=-21;",128,0,0,0
+	.stabs "SHORTINT:t129=r129;-128;127;",128,0,0,0
+	.stabs "PSHORTSTRING:t130=*10",128,0,0,0
+	.stabs "TMSGSTRTABLE:Tt131=s8NAME:130,0,32;METHOD:12,32,32;",128,0,0,0
+	.stabs ":t132=ar129;0;0;131",128,0,0,0
+	.stabs "TSTRINGMESSAGETABLE:Tt133=s12COUNT:7,0,32;MSGSTRTABLE:132,32,64;",128,0,0,0
+	.stabs "PSTRINGMESSAGETABLE:t39=*133",128,0,0,0
+	.stabs "LONGWORD:t134=r134;0;-1;",128,0,0,0
+	.stabs "WORD:t135=r135;0;65535;",128,0,0,0
+	.stabs ":t136=ar129;0;7;9",128,0,0,0
+	.stabs ":t137=ar129;0;7;9",128,0,0,0
+	.stabs ":t138=ar129;0;5;9",128,0,0,0
+	.stabs "TGUID:Tt139=s16DATA1:134,0,32;DATA2:135,32,16;DATA3:135,48,16;DATA4:136,64,64;D1:134,0,32;D2:135,32,16;D3:135,48,16;D4:137,64,64;TIME_LOW:134,0,32;TIME_MID:135,32,16;TIME_HI_AND_VERSION:135,48,16;CLOCK_SEQ_HI_AND_RESERVED:9,64,8;CLOCK_SEQ_LOW:9,72,8;NODE:138,80,48;",128,0,0,0
+	.stabs "PGUID:t140=*139",128,0,0,0
+	.stabs "TINTERFACEENTRYTYPE:Tt141=eETSTANDARD:0,ETVIRTUALMETHODRESULT:1,ETSTATICMETHODRESULT:2,ETFIELDVALUE:3,ETVIRTUALMETHODCLASS:4,ETSTATICMETHODCLASS:5,ETFIELDVALUECLASS:6,;",128,0,0,0
+	.stabs "TINTERFACEENTRY:Tt142=s20IID:140,0,32;VTABLE:12,32,32;IOFFSET:134,64,32;IIDSTR:130,96,32;ITYPE:141,128,32;__PAD_DUMMY:12,128,32;",128,0,0,0
+	.stabs "PINTERFACEENTRY:t52=*142",128,0,0,0
+	.stabs ":t143=ar129;0;0;142",128,0,0,0
+	.stabs "TINTERFACETABLE:Tt144=s24ENTRYCOUNT:134,0,32;ENTRIES:143,32,160;",128,0,0,0
+	.stabs "PINTERFACETABLE:t55=*144",128,0,0,0
+# Syms - Begin unit PID has index 20
+	.stabs "PID_ID:c=s'PID';",36,0,37,0
+	.stabs "TPID:Tt1",128,0,40,0
+# Syms - End unit PID has index 20
+# Syms - Begin Staticsymtable
+# Syms - End Staticsymtable
+# End asmlist al_stabs
+# Begin asmlist al_procedures
+
+.text
+	.align 4
+	.stabs "PID_SEGMENT:F3",36,0,82,_PID_PID_SEGMENT$THL7MESSAGE$$THL7SEGMENT
+	.stabs "MESSAGE:R5",64,0,77,3
+	.stabs "MESSAGE:5",160,0,77,60
+	.stabs "result:3",160,0,82,64
+.globl	_PID_PID_SEGMENT$THL7MESSAGE$$THL7SEGMENT
+_PID_PID_SEGMENT$THL7MESSAGE$$THL7SEGMENT:
+	.stabs "/Volumes/G5 Dokumente/Projekte/PUMA Repository/code/trunk/HL7 support/pid.pas",132,0,0,Lf1
+Lf1:
+	.stabd 68,0,83
+	mflr	r0
+	stw	r0,8(r1)
+	stw	r31,-4(r1)
+	stwu	r1,-80(r1)
+	bcl	20,31,Lj4
+Lj4:
+	mfspr	r31,lr
+	stw	r3,60(r1)
+	.stabd 68,0,84
+	lwz	r2,60(r1)
+	cmplwi	r2,0
+	beq	cr0,Lj6
+	.stabd 68,0,85
+	lwz	r3,60(r1)
+	addis	r2,r31,ha16(L_$PID$_Ld1$non_lazy_ptr-Lj4)
+	lwz	r5,lo16(L_$PID$_Ld1$non_lazy_ptr-Lj4)(r2)
+	addis	r2,r31,ha16(L_$PID$_Ld2$non_lazy_ptr-Lj4)
+	lwz	r4,lo16(L_$PID$_Ld2$non_lazy_ptr-Lj4)(r2)
+	bl	L_HL7_THL7MESSAGE_$__FOUNDSEGMENT$STR3$STR3$$THL7SEGMENT$stub
+	stw	r3,64(r1)
+	b	Lj16
+Lj6:
+	.stabd 68,0,87
+	li	r2,0
+	stw	r2,64(r1)
+Lj16:
+	.stabd 68,0,88
+	lwz	r3,64(r1)
+	addi	r1,r1,80
+	lwz	r31,-4(r1)
+	lwz	r0,8(r1)
+	mtlr	r0
+	blr
+	.stabs "PID_SEGMENT:X3",160,0,0,64
+	.stabs "RESULT:X3",160,0,0,64
+	.stabn 192,0,0,_PID_PID_SEGMENT$THL7MESSAGE$$THL7SEGMENT
+	.stabn 224,0,0,Lt1
+Lt1:
+	.stabs "",36,0,0,Lt1-_PID_PID_SEGMENT$THL7MESSAGE$$THL7SEGMENT
+
+.text
+	.align 4
+	.stabs "GETPID:F6",36,0,90,_PID_GETPID$THL7MESSAGE$TPID
+	.stabs "MESSAGE:R5",64,0,78,3
+	.stabs "MESSAGE:5",160,0,78,24
+	.stabs "PIDRECORD:v1",160,0,78,28
+.globl	_PID_GETPID$THL7MESSAGE$TPID
+_PID_GETPID$THL7MESSAGE$TPID:
+	.stabs "/Volumes/G5 Dokumente/Projekte/PUMA Repository/code/trunk/HL7 support/pid.pas",132,0,0,Lf2
+Lf2:
+	.stabd 68,0,91
+	mflr	r0
+	stw	r0,8(r1)
+	stw	r31,-4(r1)
+	stwu	r1,-48(r1)
+	bcl	20,31,Lj20
+Lj20:
+	mfspr	r31,lr
+	stw	r3,24(r1)
+	stw	r4,28(r1)
+	lwz	r3,28(r1)
+	addis	r2,r31,ha16(L_INIT_PID_TPID$non_lazy_ptr-Lj20)
+	lwz	r2,lo16(L_INIT_PID_TPID$non_lazy_ptr-Lj20)(r2)
+	mr	r4,r2
+	bl	LFPC_INITIALIZE$stub
+	.stabd 68,0,93
+	addi	r1,r1,48
+	lwz	r31,-4(r1)
+	lwz	r0,8(r1)
+	mtlr	r0
+	blr
+	.stabn 192,0,0,_PID_GETPID$THL7MESSAGE$TPID
+	.stabn 224,0,0,Lt2
+Lt2:
+	.stabs "",36,0,0,Lt2-_PID_GETPID$THL7MESSAGE$TPID
+# End asmlist al_procedures
+# Begin asmlist al_globals
+
+.data
+	.align 2
+.globl	_THREADVARLIST_PID
+_THREADVARLIST_PID:
+	.long	0
+# End asmlist al_globals
+# Begin asmlist al_const
+# End asmlist al_const
+# Begin asmlist al_typedconsts
+
+.const
+	.align 2
+.globl	_$PID$_Ld1
+_$PID$_Ld1:
+	.ascii	"\0010\000"
+
+.const
+	.align 2
+.globl	_$PID$_Ld2
+_$PID$_Ld2:
+	.ascii	"\003PID\000"
+# End asmlist al_typedconsts
+# Begin asmlist al_rotypedconsts
+# End asmlist al_rotypedconsts
+# Begin asmlist al_threadvars
+# End asmlist al_threadvars
+# Begin asmlist al_imports
+
+.section __TEXT,__picsymbolstub1,symbol_stubs,pure_instructions,32
+
+	.align 5
+L_HL7_THL7MESSAGE_$__FOUNDSEGMENT$STR3$STR3$$THL7SEGMENT$stub:
+.indirect_symbol _HL7_THL7MESSAGE_$__FOUNDSEGMENT$STR3$STR3$$THL7SEGMENT
+	mflr	r0
+	bcl	20,31,Lj15
+Lj15:
+	mflr	r11
+	addis	r11,r11,ha16(L_HL7_THL7MESSAGE_$__FOUNDSEGMENT$STR3$STR3$$THL7SEGMENT$lazy_ptr-Lj15)
+	mtlr	r0
+	lwzu	r12,lo16(L_HL7_THL7MESSAGE_$__FOUNDSEGMENT$STR3$STR3$$THL7SEGMENT$lazy_ptr-Lj15)(r11)
+	mtctr	r12
+	bctr
+
+.section __DATA, __la_symbol_ptr,lazy_symbol_pointers
+	.align 2
+L_HL7_THL7MESSAGE_$__FOUNDSEGMENT$STR3$STR3$$THL7SEGMENT$lazy_ptr:
+.indirect_symbol _HL7_THL7MESSAGE_$__FOUNDSEGMENT$STR3$STR3$$THL7SEGMENT
+	.long	dyld_stub_binding_helper
+
+.section __TEXT,__picsymbolstub1,symbol_stubs,pure_instructions,32
+
+	.align 5
+LFPC_INITIALIZE$stub:
+.indirect_symbol FPC_INITIALIZE
+	mflr	r0
+	bcl	20,31,Lj21
+Lj21:
+	mflr	r11
+	addis	r11,r11,ha16(LFPC_INITIALIZE$lazy_ptr-Lj21)
+	mtlr	r0
+	lwzu	r12,lo16(LFPC_INITIALIZE$lazy_ptr-Lj21)(r11)
+	mtctr	r12
+	bctr
+
+.section __DATA, __la_symbol_ptr,lazy_symbol_pointers
+	.align 2
+LFPC_INITIALIZE$lazy_ptr:
+.indirect_symbol FPC_INITIALIZE
+	.long	dyld_stub_binding_helper
+# End asmlist al_imports
+# Begin asmlist al_exports
+# End asmlist al_exports
+# Begin asmlist al_resources
+# End asmlist al_resources
+# Begin asmlist al_rtti
+
+.const_data
+	.align 2
+.globl	_INIT_PID_TPID
+_INIT_PID_TPID:
+	.byte	13,4
+	.ascii	"tPID"
+	.long	5540,7
+	.long	_INIT_SYSTEM_ANSISTRING
+	.long	3128
+	.long	_INIT_SYSTEM_ANSISTRING
+	.long	3912
+	.long	_INIT_SYSTEM_ANSISTRING
+	.long	4716
+	.long	_INIT_SYSTEM_ANSISTRING
+	.long	4720
+	.long	_INIT_SYSTEM_ANSISTRING
+	.long	4772
+	.long	_INIT_SYSTEM_ANSISTRING
+	.long	5280
+	.long	_INIT_SYSTEM_ANSISTRING
+	.long	5536
+
+.const_data
+	.align 2
+.globl	_RTTI_PID_TPID
+_RTTI_PID_TPID:
+	.byte	13,4
+	.ascii	"tPID"
+	.long	5540,39
+	.long	_RTTI_HL7_STR4
+	.long	0
+	.long	_RTTI_HL7_STR20
+	.long	5
+	.long	_RTTI_HL7_STR250
+	.long	26
+	.long	_RTTI_HL7_STR20
+	.long	277
+	.long	_RTTI_HL7_STR250
+	.long	298
+	.long	_RTTI_HL7_STR250
+	.long	549
+	.long	_RTTI_HL7_STR26
+	.long	800
+	.long	_RTTI_HL7_STR20
+	.long	827
+	.long	_RTTI_HL7_STR250
+	.long	848
+	.long	_RTTI_HL7_STR250
+	.long	1099
+	.long	_RTTI_HL7_STR250
+	.long	1350
+	.long	_RTTI_HL7_STR20
+	.long	1601
+	.long	_RTTI_HL7_STR250
+	.long	1622
+	.long	_RTTI_HL7_STR250
+	.long	1873
+	.long	_RTTI_HL7_STR250
+	.long	2124
+	.long	_RTTI_HL7_STR250
+	.long	2375
+	.long	_RTTI_HL7_STR250
+	.long	2626
+	.long	_RTTI_HL7_STR250
+	.long	2877
+	.long	_RTTI_SYSTEM_ANSISTRING
+	.long	3128
+	.long	_RTTI_HL7_STR25
+	.long	3132
+	.long	_RTTI_HL7_STR250
+	.long	3158
+	.long	_RTTI_HL7_STR250
+	.long	3409
+	.long	_RTTI_HL7_STR250
+	.long	3660
+	.long	_RTTI_SYSTEM_ANSISTRING
+	.long	3912
+	.long	_RTTI_HL7_STR16
+	.long	3916
+	.long	_RTTI_HL7_STR250
+	.long	3933
+	.long	_RTTI_HL7_STR250
+	.long	4184
+	.long	_RTTI_HL7_STR250
+	.long	4435
+	.long	_RTTI_HL7_STR26
+	.long	4686
+	.long	_RTTI_SYSTEM_ANSISTRING
+	.long	4716
+	.long	_RTTI_SYSTEM_ANSISTRING
+	.long	4720
+	.long	_RTTI_HL7_STR20
+	.long	4724
+	.long	_RTTI_HL7_STR26
+	.long	4745
+	.long	_RTTI_SYSTEM_ANSISTRING
+	.long	4772
+	.long	_RTTI_HL7_STR250
+	.long	4776
+	.long	_RTTI_HL7_STR250
+	.long	5027
+	.long	_RTTI_SYSTEM_ANSISTRING
+	.long	5280
+	.long	_RTTI_HL7_STR250
+	.long	5284
+	.long	_RTTI_SYSTEM_ANSISTRING
+	.long	5536
+# End asmlist al_rtti
+# Begin asmlist al_dwarf_frame
+# End asmlist al_dwarf_frame
+# Begin asmlist al_dwarf_info
+# End asmlist al_dwarf_info
+# Begin asmlist al_dwarf_abbrev
+# End asmlist al_dwarf_abbrev
+# Begin asmlist al_dwarf_line
+# End asmlist al_dwarf_line
+# Begin asmlist al_picdata
+
+.section __DATA, __nl_symbol_ptr,non_lazy_symbol_pointers
+	.align 2
+L_$PID$_Ld1$non_lazy_ptr:
+.indirect_symbol _$PID$_Ld1
+	.long	0
+
+.section __DATA, __nl_symbol_ptr,non_lazy_symbol_pointers
+	.align 2
+L_$PID$_Ld2$non_lazy_ptr:
+.indirect_symbol _$PID$_Ld2
+	.long	0
+
+.section __DATA, __nl_symbol_ptr,non_lazy_symbol_pointers
+	.align 2
+L_INIT_PID_TPID$non_lazy_ptr:
+.indirect_symbol _INIT_PID_TPID
+	.long	0
+# End asmlist al_picdata
+# Begin asmlist al_resourcestrings
+# End asmlist al_resourcestrings
+# Begin asmlist al_objc_data
+# End asmlist al_objc_data
+# Begin asmlist al_objc_pools
+# End asmlist al_objc_pools
+# Begin asmlist al_end
+	.stabs "",102,0,0,0
+
+.text
+	.stabs "",100,0,0,Lf4
+Lf4:
+# End asmlist al_end
+	.subsections_via_symbols
+

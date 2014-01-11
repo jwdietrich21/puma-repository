@@ -38,7 +38,7 @@ const
 
 type
   tOBX = record
-    SetID: str4;
+    SetID: tSI;
     ValueType: str2;
     ObsID: str250;
     obsSubID: str20;
@@ -58,7 +58,7 @@ type
 
 function OBX_Segment(message: THL7Message): THL7Segment;
 procedure GetOBX(message: THL7Message; out OBXRecord: tOBX);
-procedure GetOBX(message: THL7Message; out SetID: str4; out ValueType: str2;
+procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: str2;
   out ObsID: str250; obsSubID: str20; out obsValue: ansistring;
   out Units: str250; out RefRange: str60; AbnormFlags, probability: str5;
   out Nature: str2; out status: char; out RRDate: tDTM; UDAC: str20;
@@ -66,7 +66,7 @@ procedure GetOBX(message: THL7Message; out SetID: str4; out ValueType: str2;
   EquipInstID: str22; out AnalysisDateTime: tDTM);
 procedure SetOBX(message: THL7Message; aSegment: THL7Segment);
 procedure SetOBX(message: THL7Message; OBXRecord: tOBX);
-procedure SetOBX(message: THL7Message; SetID: str4; ValueType: str2;
+procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: str2;
   ObsID: str250; obsSubID: str20; obsValue: ansistring; Units: str250;
   RefRange: str60; AbnormFlags, probability: str5; Nature: str2;
   status: char; RRDate: tDTM; UDAC: str20; ObsDateTime: tDTM;
@@ -119,7 +119,7 @@ begin
   end;
 end;
 
-procedure GetOBX(message: THL7Message; out SetID: str4; out ValueType: str2;
+procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: str2;
   out ObsID: str250; obsSubID: str20; out obsValue: ansistring;
   out Units: str250; out RefRange: str60; AbnormFlags, probability: str5;
   out Nature: str2; out status: char; out RRDate: tDTM; UDAC: str20;
@@ -177,7 +177,7 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure SetOBX(message: THL7Message; SetID: str4; ValueType: str2;
+procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: str2;
   ObsID: str250; obsSubID: str20; obsValue: ansistring; Units: str250;
   RefRange: str60; AbnormFlags, probability: str5; Nature: str2;
   status: char; RRDate: tDTM; UDAC: str20; ObsDateTime: tDTM;

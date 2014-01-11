@@ -32,7 +32,7 @@ uses
   Interfaces,
   Forms,
   GuiTestRunner,
-  HL7TestCases, obx, hl7, msa, msh, obr, nte, err, EVN;
+  HL7TestCases, obx, hl7, msa, msh, obr, nte, err, EVN, PID;
 
 {$R *.res}
 

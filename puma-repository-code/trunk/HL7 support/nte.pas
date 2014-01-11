@@ -38,7 +38,7 @@ const
 
 type
   tNTE = record
-    SetID: str4;
+    SetID: tSI;
     CommentSource: str8;
     comment: ansistring;
     commentType: str250;
@@ -46,11 +46,11 @@ type
 
 function NTE_Segment(message: THL7Message): THL7Segment;
 procedure GetNTE(message: THL7Message; out NTERecord: tNTE);
-procedure GetNTE(message: THL7Message; out SetID: str4; out CommentSource: str8;
+procedure GetNTE(message: THL7Message; out SetID: tSI; out CommentSource: str8;
   out comment: ansistring; out commentType: str250);
 procedure SetNTE(message: THL7Message; aSegment: THL7Segment);
 procedure SetNTE(message: THL7Message; NTERecord: tNTE);
-procedure SetNTE(message: THL7Message; SetID: str4; CommentSource: str8;
+procedure SetNTE(message: THL7Message; SetID: tSI; CommentSource: str8;
   comment: ansistring; commentType: str250);
 
 implementation
@@ -85,7 +85,7 @@ begin
   end;
 end;
 
-procedure GetNTE(message: THL7Message; out SetID: str4; out CommentSource: str8;
+procedure GetNTE(message: THL7Message; out SetID: tSI; out CommentSource: str8;
   out comment: ansistring; out commentType: str250);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic GetNTE }
@@ -119,7 +119,7 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure SetNTE(message: THL7Message; SetID: str4; CommentSource: str8;
+procedure SetNTE(message: THL7Message; SetID: tSI; CommentSource: str8;
   comment: ansistring; commentType: str250);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic SetNTE }
