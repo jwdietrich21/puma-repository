@@ -34,11 +34,15 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   StdCtrls, LCLType, ExtCtrls, Buttons, PairSplitter, Menus, HL7, MSH, types;
 
+const
+  FEEDBACK_TEXT = '  Status Code: ';
+
 type
 
   { TMainForm }
 
   TMainForm = class(TForm)
+    ImageList1: TImageList;
     MainMenu1: TMainMenu;
     FileMenu: TMenuItem;
     EditMenu: TMenuItem;
@@ -53,16 +57,18 @@ type
     Divider12: TMenuItem;
     QuitItem: TMenuItem;
     NewItem: TMenuItem;
+    NewButton: TToolButton;
+    OpenButton: TToolButton;
+    SaveButton: TToolButton;
+    SaveAsButton: TToolButton;
     UndoItem: TMenuItem;
     MessageGroupBox: TGroupBox;
     MessageMemo: TMemo;
     MessageFileSaveDialog: TSaveDialog;
-    OpenButton: TButton;
     MessageFileOpenDialog: TOpenDialog;
     PairSplitter1: TPairSplitter;
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
-    SaveButton: TButton;
     ScrollBox1: TScrollBox;
     SegmentsGroupBox: TGroupBox;
     FieldsGroupBox: TGroupBox;
@@ -77,9 +83,9 @@ type
     procedure ComponentsListBoxClick(Sender: TObject);
     procedure FieldsListBoxClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure OpenButtonClick(Sender: TObject);
+    procedure OpenItemClick(Sender: TObject);
     procedure QuitItemClick(Sender: TObject);
-    procedure SaveButtonClick(Sender: TObject);
+    procedure SaveItemClick(Sender: TObject);
     procedure SegmentsListBoxClick(Sender: TObject);
     procedure SegmentsListBoxDrawItem(Control: TWinControl; Index: integer;
       ARect: TRect; State: TOwnerDrawState);
@@ -99,7 +105,7 @@ implementation
 
 { TMainForm }
 
-procedure TMainForm.OpenButtonClick(Sender: TObject);
+procedure TMainForm.OpenItemClick(Sender: TObject);
 var
   theSegment: THL7Segment;
 begin
@@ -110,7 +116,8 @@ begin
     ComponentsListBox.Clear;
     SubComponentsListBox.Clear;
     ReadHL7File(gMessage, MessageFileOpenDialog.FileName);
-    MainForm.Caption := 'HL7 Message Viewer: ' + ExtractFileName(MessageFileOpenDialog.FileName);
+    MainForm.Caption := 'HL7 Message Viewer: ' +
+      ExtractFileName(MessageFileOpenDialog.FileName);
     MessageMemo.Lines.Clear;
     MessageMemo.Lines.Add(AdjustLineBreaks(gMessage.contentString));
     theSegment := gMessage.FirstSegment;
@@ -119,6 +126,7 @@ begin
       SegmentsListBox.Items.Add(theSegment.contentString);
       theSegment := theSegment.nextSibling;
     end;
+    Statusbar1.Panels[0].Text := FEEDBACK_TEXT + IntToStr(gMessage.StatusCode);
   end;
 end;
 
@@ -262,7 +270,10 @@ begin
       SubComponentsListBox.Items.Add(theSubComponent.contentString);
       theSubComponent := theSubComponent.nextSibling;
     end;
-  end;
+    Statusbar1.Panels[0].Text := FEEDBACK_TEXT + IntToStr(gMessage.StatusCode);
+  end
+  else
+    Statusbar1.Panels[0].Text := FEEDBACK_TEXT + '--';
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
@@ -270,7 +281,7 @@ begin
   //SetTextLineEnding(MessageMemo.Lines, tlbsCR);
 end;
 
-procedure TMainForm.SaveButtonClick(Sender: TObject);
+procedure TMainForm.SaveItemClick(Sender: TObject);
 begin
   if MessageFileSaveDialog.Execute then
   begin
@@ -279,4 +290,3 @@ begin
 end;
 
 end.
-
