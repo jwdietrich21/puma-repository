@@ -455,12 +455,12 @@ end;
 
 procedure TMSATestCases.MSASetCase1;
 var
-  AckCode, AckCode2: str2;
+  AckCode, AckCode2: tID;
   controlID: str20;
   textMessage: str80;
-  exSeqNum: Str15;
+  exSeqNum: tNM;
   delAckType: char;
-  ErrorCond: Str250;
+  ErrorCond: tCE;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then

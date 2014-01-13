@@ -38,23 +38,23 @@ const
 
 type
   tMSA = record
-    AckCode: str2;
+    AckCode: tID;
     controlID: str20;
     textMessage: str80;
-    exSeqNum: Str15;
+    exSeqNum: tNM;
     delAckType: char;
-    ErrorCond: Str250;
+    ErrorCond: tCE;
   end;
 
 function MSA_Segment(message: THL7Message): THL7Segment;
 procedure GetMSA(message: THL7Message; out MSARecord: tMSA);
-procedure GetMSA(message: THL7Message; out AckCode: str2; out controlID: str20;
-  out textMessage: str80; out exSeqNum: Str15; out delAckType: char;
-  out ErrorCond: Str250);
+procedure GetMSA(message: THL7Message; out AckCode: tID; out controlID: str20;
+  out textMessage: str80; out exSeqNum: tNM; out delAckType: char;
+  out ErrorCond: tCE);
 procedure SetMSA(message: THL7Message; aSegment: THL7Segment);
 procedure SetMSA(message: THL7Message; MSARecord: tMSA);
-procedure SetMSA(message: THL7Message; AckCode: str2; controlID: str20;
-  textMessage: str80; exSeqNum: Str15; delAckType: char; ErrorCond: Str250);
+procedure SetMSA(message: THL7Message; AckCode: tID; controlID: str20;
+  textMessage: str80; exSeqNum: tNM; delAckType: char; ErrorCond: tCE);
 
 implementation
 
@@ -90,9 +90,9 @@ begin
   end;
 end;
 
-procedure GetMSA(message: THL7Message; out AckCode: str2; out controlID: str20;
-  out textMessage: str80; out exSeqNum: Str15; out delAckType: char;
-  out ErrorCond: Str250);
+procedure GetMSA(message: THL7Message; out AckCode: tID; out controlID: str20;
+  out textMessage: str80; out exSeqNum: tNM; out delAckType: char;
+  out ErrorCond: tCE);
 { deprecated method, maintained for backward-compatibility, capsules }
 { new version of polymorphic GetMSA }
 var
@@ -128,8 +128,8 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure SetMSA(message: THL7Message; AckCode: str2; controlID: str20;
-  textMessage: str80; exSeqNum: Str15; delAckType: char; ErrorCond: Str250);
+procedure SetMSA(message: THL7Message; AckCode: tID; controlID: str20;
+  textMessage: str80; exSeqNum: tNM; delAckType: char; ErrorCond: tCE);
 { deprecated method, maintained for backward-compatibility, capsules }
 { new version of polymorphic SetMSA }
 var
