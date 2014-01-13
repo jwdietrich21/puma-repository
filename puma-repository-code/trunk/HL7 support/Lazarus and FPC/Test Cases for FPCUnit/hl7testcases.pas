@@ -486,10 +486,16 @@ end;
 
 procedure TERRTestCases.ERRSetCase1;
 var
-  ErrCodeLoc, ErrLoc, ErrLoc2, ErrCode, Errcode2: string;
-  severity: char;
-  appErrCode, appErrPar, DiagInfo, UserMessage, InformPersIndic,
-  OverrideType, OverrideReason, HelpDeskContact: string;
+  ErrCodeLoc: tELD;
+  ErrLoc, ErrLoc2: tERL;
+  ErrCode, ErrCode2: tCWE;
+  severity: tID;
+  appErrCode: tCWE;
+  appErrPar: str80;
+  DiagInfo, UserMessage: ansistring;
+  InformPersIndic: tIS;
+  OverrideType, OverrideReason: tCWE;
+  HelpDeskContact: tXTN;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -499,7 +505,7 @@ begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     ErrCodeLoc := '';
     ErrLoc := 'PID^1^11^^9';
-    ErrCode := E_TBL_VAL_NFD;
+    ErrCode := ERROR_COND_TBL_VAL_NOT_FND;
     severity := SEV_ERROR;
     appErrCode := '';
     appErrPar := '';

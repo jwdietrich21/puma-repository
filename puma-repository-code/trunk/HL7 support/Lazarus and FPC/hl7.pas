@@ -26,7 +26,8 @@ unit HL7;
 { but WITHOUT ANY WARRANTY; without even the implied warranty of }
 { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
-{Status code of HL7 message:
+{
+Status code of HL7 message:
  0: No Error.
  4: This HL7 version is not supported.
  6: Error saving file.
@@ -65,7 +66,7 @@ const
   ESCAPE_REPETITION = '\R\';
   ESCAPE_ESCAPE = '\E\';
 
-  ESCAPE_ISO_IR6_G0 = '\C2842\';    {ISO 646 : ASCII}
+  ESCAPE_ISO_IR6_G0 = '\C2842\';   {ISO 646 : ASCII}
   ESCAPE_ISO_IR100 = '\C2D41\';    {ISO 8859 : Latin Alphabet 1}
   ESCAPE_ISO_IR101 = '\C2D42\';    {ISO 8859 : Latin Alphabet 2}
   ESCAPE_ISO_IR109 = '\C2D43\';    {ISO 8859 : Latin Alphabet 3}
@@ -79,6 +80,20 @@ const
   ESCAPE_ISO_IR13  = '\C2949\';    {JIS X 0201 : Katakana}
   ESCAPE_ISO_IR87  = '\M2442\';    {JIS X 0208 : Kanji, hiragana and katakana}
   ESCAPE_ISO_IR159 = '\M242844\';  {JIS X 0212 : Supplementary Kanji}
+
+  ERROR_COND_MSG_ACC = '0';           {Message accepted}
+  ERROR_COND_SEG_SEQ_ERR = '100';     {Segment sequence error}
+  ERROR_COND_REQ_FLD_MISS = '101';    {Required field missing}
+  ERROR_COND_DATA_TYPE_ERR = '102';   {Data type error}
+  ERROR_COND_TBL_VAL_NOT_FND = '103'; {Table value not found}
+  ERROR_COND_UNSUPP_MSG_TYPE = '200'; {Unsupported message type}
+  ERROR_COND_UNSUPP_EVT_CODE = '201'; {Unsupported event code}
+  ERROR_COND_UNSUPP_PROC_ID = '202';  {Unsupported processing id}
+  ERROR_COND_UNSUPP_VERS_ID = '200';  {Unsupported version id}
+  ERROR_COND_UNKNOWN_KEY_ID = '204';  {Unknown key identifier}
+  ERROR_COND_DUPL_KEY_ID = '205';     {Duplicate key identifier}
+  ERROR_COND_APPL_REC_LOCK = '206';   {Application record locked}
+  ERROR_COND_INT_ERR = '207';         {Internal error}
 
   MSH_ID = 'MSH';
 
@@ -114,6 +129,8 @@ type
   tDTM = str26;      { HL7 2.7 DTM type (Date/time) }
   tDT = str8;        { HL7 DT type (Date) }
   tEI = str427;      { HL7 EI type (Entity identifier) }
+  tELD = AnsiString; { HL7 ELD type (Error location and description, deprecated as of HL7 v2.5) }
+  tERL = str180;     { HL7 ERL type (Error location) }
   tFC = str50;       { HL7 FC type (Financial class) }
   tHD = AnsiString;  { HL7 HD type (Hierarchic designator) }
   tID = AnsiString;  { HL7 ID type (Coded value for HL7 defined tables) }
@@ -264,6 +281,7 @@ type
     HL7_version: string;
     HL7Delimiters: THL7Delimiters;
     Status: integer;
+    ErrorCond: string;
   protected
     HL7Text: ansistring;
     procedure SetHL7Version(const aValue: string);
@@ -296,6 +314,7 @@ type
     property contentString: ansistring read CompiledMessageString
       write ParseMessageString;
     property StatusCode: integer read status;
+    property ErrorCondition: string read ErrorCond write ErrorCond;
   end;
 
 procedure ReadHL7File(out HL7Doc: THL7Message; const aFileName: ansistring); overload;
@@ -326,13 +345,17 @@ begin
         if theStream <> nil then
           theStream.Free
         else
-          HL7Doc.Status := 7;
+          begin
+            HL7Doc.Status := 7;
+            HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
+          end;
       end;
     end
   else
     begin
       HL7Doc := THL7Message.Create('2.0');
       HL7Doc.Status := 7;          { create empty message with status code 7 }
+      HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
     end;
 end;
 
@@ -362,6 +385,7 @@ begin
     begin
       HL7Doc := THL7Message.Create('2.0');
       HL7Doc.Status := 7;          { create empty message with status code 7 }
+      HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
     end;
 end;
 
@@ -391,12 +415,14 @@ begin
       begin
         HL7Doc := THL7Message.Create('2.0');
         HL7Doc.Status := 7;          { create empty message with status code 7 }
+        HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
       end;
   end
   else
     begin
       HL7Doc := THL7Message.Create('2.0');
       HL7Doc.Status := 7;          { create empty message with status code 7 }
+      HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
     end;
 end;
 
@@ -412,7 +438,10 @@ begin
     if theStream <> nil then
       theStream.Free
     else
-      HL7Doc.Status := 6;
+      begin
+        HL7Doc.Status := 6;
+        HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
+      end;
   end;
 end;
 
@@ -431,7 +460,10 @@ begin
     CloseFile(aFile);
   end;
   if IOResult <> 0 then
-    HL7Doc.Status := 6;
+    begin
+      HL7Doc.Status := 6;
+      HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
+    end;
 end;
 
 procedure WriteHL7File(HL7Doc: THL7Message; aStream: TStream);
@@ -445,7 +477,10 @@ begin
   try
     aStream.WriteBuffer(theString[1], textLength);
   except
-    HL7Doc.Status := 6;
+    begin
+      HL7Doc.Status := 6;
+      HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
+    end;
   end;
 end;
 
@@ -918,7 +953,11 @@ end;
 procedure THL7Message.SetHL7Version(const aValue: string);
 begin
   HL7_version := aValue;
-  if LeftStr(HL7_version, 1) <> '2' then Status := 4;
+  if LeftStr(HL7_version, 1) <> '2' then
+  begin
+    Status := 4;
+    ErrorCondition := ERROR_COND_UNSUPP_VERS_ID;
+  end;
 end;
 
 procedure THL7Message.ParseMessageString(const aString: ansistring);
@@ -1030,6 +1069,7 @@ begin
   inherited Create;
   ParseDelimiters(STANDARD_DELIMITERS);  {Default delimiter definition}
   Status := 0;
+  ErrorCondition := ERROR_COND_MSG_ACC;
   HL7_Version := version;
   FirstSegment := nil;
 end;
@@ -1103,6 +1143,7 @@ begin
     begin
       found := True;
       Status := 0;
+      ErrorCondition := ERROR_COND_MSG_ACC;
       Result := currSegment;
     end
     else
@@ -1113,7 +1154,10 @@ begin
       end;
   until (found = True) or (currSegment = nil);
   if not found then
-    Status := 8;
+    begin
+      Status := 8;
+      ErrorCondition := ERROR_COND_SEG_SEQ_ERR;
+    end;
 end;
 
 function THL7Message.NewSegment: THL7Segment;

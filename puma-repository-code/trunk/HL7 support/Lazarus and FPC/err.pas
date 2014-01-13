@@ -36,21 +36,6 @@ uses
 const
   ERR_ID = 'ERR';
 
-  E_MESS_ACC = '0';
-  E_SEG_SEQ_ERR = '100';
-  E_REQ_FLD_MIS = '101';
-  E_DTA_TYP_ERR = '102';
-  E_TBL_VAL_NFD = '103';
-  E_VAL_TOO_LNG = '104';
-  E_UNS_MSG_TYP = '200';
-  E_UNS_EVT_COD = '201';
-  E_UNS_PRC_ID = '202';
-  E_UNS_VER_ID = '203';
-  E_UNK_KEY_ID = '204';
-  E_DUP_KEY_ID = '205';
-  E_AOO_REC_LCK = '206';
-  E_APP_INT_ERR = '207';
-
   SEV_WARNING = 'W';
   SEV_INFO = 'I';
   SEV_ERROR = 'E';
@@ -58,22 +43,30 @@ const
 
 type
   tERR = record
-    ErrCodeLoc, ErrLoc, ErrCode: string;
-    severity: char;
-    appErrCode, appErrPar, DiagInfo, UserMessage: string;
-    InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string;
+    ErrCodeLoc: tELD;
+    ErrLoc: tERL;
+    ErrCode: tCWE;
+    severity: tID;
+    appErrCode: tCWE;
+    appErrPar: str80;
+    DiagInfo, UserMessage: ansistring;
+    InformPersIndic: tIS;
+    OverrideType, OverrideReason: tCWE;
+    HelpDeskContact: tXTN;
   end;
 
 function ERR_Segment(message: THL7Message): THL7Segment;
 procedure GetERR(message: THL7Message; out ERRRecord: tERR);
-procedure GetERR(message: THL7Message; out ErrCodeLoc, ErrLoc, ErrCode: string;
-  out severity: char; out appErrCode, appErrPar, DiagInfo, UserMessage,
-  InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
+procedure GetERR(message: THL7Message; out ErrCodeLoc: tELD; out ErrLoc: tERL;
+  out ErrCode: tCWE; out severity: tID; out appErrCode: tCWE;
+  out appErrPar: str80; DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
+  OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
 procedure SetERR(message: THL7Message; aSegment: THL7Segment);
 procedure SetERR(message: THL7Message; ERRRecord: tERR);
-procedure SetERR(message: THL7Message; ErrCodeLoc, ErrLoc, ErrCode: string;
-  severity: char; appErrCode, appErrPar, DiagInfo, UserMessage,
-  InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
+procedure SetERR(message: THL7Message; ErrCodeLoc: tELD; ErrLoc: tERL;
+  ErrCode: tCWE; severity: tID; appErrCode: tCWE; appErrPar: str80;
+  DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
+  OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
 
 implementation
 
@@ -116,9 +109,10 @@ begin
 
 end;
 
-procedure GetERR(message: THL7Message; out ErrCodeLoc, ErrLoc, ErrCode: string;
-  out severity: char; out appErrCode, appErrPar, DiagInfo, UserMessage,
-  InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
+procedure GetERR(message: THL7Message; out ErrCodeLoc: tELD; out ErrLoc: tERL;
+  out ErrCode: tCWE; out severity: tID; out appErrCode: tCWE;
+  out appErrPar: str80; DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
+  OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic GetERR }
 var
@@ -162,9 +156,10 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure SetERR(message: THL7Message; ErrCodeLoc, ErrLoc, ErrCode: string;
-  severity: char; appErrCode, appErrPar, DiagInfo, UserMessage,
-  InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
+procedure SetERR(message: THL7Message; ErrCodeLoc: tELD; ErrLoc: tERL;
+  ErrCode: tCWE; severity: tID; appErrCode: tCWE; appErrPar: str80;
+  DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
+  OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic SetERR }
 var
