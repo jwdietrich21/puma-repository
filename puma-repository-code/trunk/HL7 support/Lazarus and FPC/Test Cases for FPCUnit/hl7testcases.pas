@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA,
-  ERR, OBR, OBX, NTE, EVN, PID;
+  ERR, OBR, OBX, NTE, EVN, PID, PV1;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -136,6 +136,13 @@ type
   TPIDTestCases = class(TTestCase)
   published
     procedure TPIDTestCase1;
+  end;
+
+  { tPV1TestCases }
+
+  TPV1TestCases = class(TTestCase)
+  published
+    procedure TPV1TestCase1;
   end;
 
   { TMessageTestCases }
@@ -667,7 +674,6 @@ procedure TPIDTestCases.TPIDTestCase1;
 const
   TestPatientAccountNumber = '400003403~1129086';
 var
-  PatientAccountNumber, PatientAccountNumber2: tCE;
   PIDRecord: tPID;
 begin
   TestHL7Message := THL7Message.Create('2.5');
@@ -678,6 +684,25 @@ begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
     GetPID(TestHL7Message, PIDRecord);
     AssertEquals(TestPatientAccountNumber, PIDRecord.PatientAccountNumber);
+  end;
+end;
+
+{ TPV1TestCases }
+
+procedure TPV1TestCases.TPV1TestCase1;
+const
+  TestAlternateVisitID = '002376853';
+var
+  PV1Record: tPV1;
+begin
+  TestHL7Message := THL7Message.Create('2.7');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE4;
+    GetPV1(TestHL7Message, PV1Record);
+    AssertEquals(TestAlternateVisitID, PV1Record.AlternateVisitID);
   end;
 end;
 
@@ -1639,6 +1664,7 @@ initialization
   RegisterTest(TNTETestCases);
   RegisterTest(TEVNTestCase);
   RegisterTest(TPIDTestCases);
+  RegisterTest(TPV1TestCases);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);
