@@ -20,7 +20,7 @@ unit HL7;
 { See the file "license.txt", included in this distribution, }
 { for details about the copyright. }
 { Current versions and additional information are available from }
-{ http://puma-repository.sf.net }
+{ http://puma-repository.sf.net }
 
 { This program is distributed in the hope that it will be useful, }
 { but WITHOUT ANY WARRANTY; without even the implied warranty of }
@@ -115,7 +115,7 @@ type
   tDT = str8;        { HL7 DT type (Date) }
   tFC = str50;       { HL7 FC type (Financial class) }
   tHD = AnsiString;  { HL7 HD type (Hierarchic designator) }
-  tID = AnsiString;  { HL7 ID type (Coded value for HL7 defined tables) }
+  tID = AnsiString;  { HL7 ID type (Coded value for HL7 defined tables) }
   tIS = str20;       { HL7 2.5 IS type (Coded value for user-defined tables) }
   tJCC = AnsiString; { HL7 JCC type (Job code/class) }
   tMSG = str15;      { HL7 MSG type (Message type) }
