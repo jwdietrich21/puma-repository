@@ -532,9 +532,9 @@ end;
 procedure TOBRTestCases.OBRSetCase1;
 var
   SetID: tSI;
-  PlacOrdNumb, FillOrdNumb: str22;
-  USI: str250;
-  Priority: Str2;
+  PlacOrdNumb, FillOrdNumb: tEI;
+  USI: tCE;
+  Priority: tID;
   ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM;
   ReqDateTime2: tDTM;
 begin
