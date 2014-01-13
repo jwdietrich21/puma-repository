@@ -117,6 +117,7 @@ type
   tHD = AnsiString;  { HL7 HD type (Hierarchic designator) }
   tID = AnsiString;  { HL7 ID type (Coded value for HL7 defined tables) }
   tIS = str20;       { HL7 2.5 IS type (Coded value for user-defined tables) }
+  tJCC = AnsiString; { HL7 JCC type (Job code/class) }
   tMSG = str15;      { HL7 MSG type (Message type) }
   tNM = str16;       { HL7 NM type (ASCII-represented number) }
   tPL = str80;       { HL7 PL type (Person location) }
@@ -124,7 +125,8 @@ type
   tST = AnsiString;  { HL7 ST type (Dtring data ) }
   tTS = str26;       { HL7 2.5 TS type (Time stamp, deprecated as of HL7 v2.6) }
   tXAD = str250;     { HL7 XAD type (Extended address) }
-  tXCN = str250;     { HL7 XCN type (extended composite ID number and name for persons) }
+  tXCN = str250;     { HL7 XCN type (Extended composite ID number and name for persons) }
+  tXON = AnsiString; { HL7 XON type (Extended composite name and identification number for organizations) }
   tXPN = str250;     { HL7 XPN type (Extended person name) }
   tXTN = str250;     { HL7 XAD type (Extended telecommunications number) }
 

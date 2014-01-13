@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA,
-  ERR, OBR, OBX, NTE, EVN, PID, PV1;
+  ERR, OBR, OBX, NTE, EVN, PID, PV1, NK1;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -143,6 +143,13 @@ type
   TPV1TestCases = class(TTestCase)
   published
     procedure TPV1TestCase1;
+  end;
+
+  { tNK1TestCases }
+
+  TNK1TestCases = class(TTestCase)
+  published
+    procedure TNK1TestCase1;
   end;
 
   { TMessageTestCases }
@@ -703,6 +710,27 @@ begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE4;
     GetPV1(TestHL7Message, PV1Record);
     AssertEquals(TestAlternateVisitID, PV1Record.AlternateVisitID);
+  end;
+end;
+
+{ TNK1TestCases }
+
+procedure TNK1TestCases.TNK1TestCase1;
+const
+  TestPhoneNumber = '(216)123-4567';
+  TestContactRole = 'EC';
+var
+  NK1Record: tNK1;
+begin
+  TestHL7Message := THL7Message.Create('2.7');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    GetNK1(TestHL7Message, NK1Record);
+    AssertEquals(TestPhoneNumber, NK1Record.PhoneNumber);
+    AssertEquals(TestContactRole, NK1Record.ContactRole);
   end;
 end;
 
@@ -1665,6 +1693,7 @@ initialization
   RegisterTest(TEVNTestCase);
   RegisterTest(TPIDTestCases);
   RegisterTest(TPV1TestCases);
+  RegisterTest(TNK1TestCases);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);
   RegisterTest(TSegmentsTestCases);
