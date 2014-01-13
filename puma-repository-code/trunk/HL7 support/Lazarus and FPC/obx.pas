@@ -39,38 +39,40 @@ const
 type
   tOBX = record
     SetID: tSI;
-    ValueType: str2;
-    ObsID: str250;
-    obsSubID: str20;
+    ValueType: tID;
+    ObsID: tCE;
+    obsSubID: tST;
     obsValue: ansistring;
-    Units: str250;
-    RefRange: str60;
-    AbnormFlags, probability: str5;
-    Nature: str2;
-    status: char;
+    Units: tCE;
+    RefRange: tST;
+    AbnormFlags: tIS;
+    probability: tNM;
+    Nature, status: tID;
     RRDate: tDTM;
-    UDAC: str20;
+    UDAC: tST;
     ObsDateTime: tDTM;
-    prodID, respObs, observMethod: str250;
-    EquipInstID: str22;
+    prodID: tCE;
+    respObs: tXCN;
+    observMethod: tCE;
+    EquipInstID: tEI;
     AnalysisDateTime: tDTM;
   end;
 
 function OBX_Segment(message: THL7Message): THL7Segment;
 procedure GetOBX(message: THL7Message; out OBXRecord: tOBX);
-procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: str2;
-  out ObsID: str250; obsSubID: str20; out obsValue: ansistring;
-  out Units: str250; out RefRange: str60; AbnormFlags, probability: str5;
-  out Nature: str2; out status: char; out RRDate: tDTM; UDAC: str20;
-  out ObsDateTime: tDTM; out prodID, respObs, observMethod: str250;
-  EquipInstID: str22; out AnalysisDateTime: tDTM);
+procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: tID;
+  out ObsID: tCE; obsSubID: tST; out obsValue: ansistring; out Units: tCE;
+  out RefRange: tST; AbnormFlags: tIS; out probability: tNM;
+  out Nature, status: tID; out RRDate: tDTM; UDAC: tST; out ObsDateTime: tDTM;
+  out prodID: tCE; respObs: tXCN; observMethod: tCE; EquipInstID: tEI;
+  out AnalysisDateTime: tDTM);
 procedure SetOBX(message: THL7Message; aSegment: THL7Segment);
 procedure SetOBX(message: THL7Message; OBXRecord: tOBX);
-procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: str2;
-  ObsID: str250; obsSubID: str20; obsValue: ansistring; Units: str250;
-  RefRange: str60; AbnormFlags, probability: str5; Nature: str2;
-  status: char; RRDate: tDTM; UDAC: str20; ObsDateTime: tDTM;
-  prodID, respObs, observMethod: str250; EquipInstID: str22; AnalysisDateTime: tDTM);
+procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: tID;
+  ObsID: tCE; obsSubID: tST; obsValue: ansistring; Units: tCE;
+  RefRange: tST; AbnormFlags: tIS; probability: tNM; Nature, status: tID;
+  RRDate: tDTM; UDAC: tST; ObsDateTime: tDTM; prodID: tCE; respObs: tXCN;
+  observMethod: tCE; EquipInstID: tEI; AnalysisDateTime: tDTM);
 
 implementation
 
@@ -119,12 +121,12 @@ begin
   end;
 end;
 
-procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: str2;
-  out ObsID: str250; obsSubID: str20; out obsValue: ansistring;
-  out Units: str250; out RefRange: str60; AbnormFlags, probability: str5;
-  out Nature: str2; out status: char; out RRDate: tDTM; UDAC: str20;
-  out ObsDateTime: tDTM; out prodID, respObs, observMethod: str250;
-  EquipInstID: str22; out AnalysisDateTime: tDTM);
+procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: tID;
+  out ObsID: tCE; obsSubID: tST; out obsValue: ansistring; out Units: tCE;
+  out RefRange: tST; AbnormFlags: tIS; out probability: tNM;
+  out Nature, status: tID; out RRDate: tDTM; UDAC: tST; out ObsDateTime: tDTM;
+  out prodID: tCE; respObs: tXCN; observMethod: tCE; EquipInstID: tEI;
+  out AnalysisDateTime: tDTM);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic GetOBX }
 var
@@ -177,11 +179,11 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: str2;
-  ObsID: str250; obsSubID: str20; obsValue: ansistring; Units: str250;
-  RefRange: str60; AbnormFlags, probability: str5; Nature: str2;
-  status: char; RRDate: tDTM; UDAC: str20; ObsDateTime: tDTM;
-  prodID, respObs, observMethod: str250; EquipInstID: str22; AnalysisDateTime: tDTM);
+procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: tID;
+  ObsID: tCE; obsSubID: tST; obsValue: ansistring; Units: tCE;
+  RefRange: tST; AbnormFlags: tIS; probability: tNM; Nature, status: tID;
+  RRDate: tDTM; UDAC: tST; ObsDateTime: tDTM; prodID: tCE; respObs: tXCN;
+  observMethod: tCE; EquipInstID: tEI; AnalysisDateTime: tDTM);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic SetOBX }
 var
