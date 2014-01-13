@@ -132,6 +132,7 @@ type
   tELD = AnsiString; { HL7 ELD type (Error location and description, deprecated as of HL7 v2.5) }
   tERL = str180;     { HL7 ERL type (Error location) }
   tFC = str50;       { HL7 FC type (Financial class) }
+  tFT = AnsiString;  { HL7 FT type (Formatted text data) }
   tHD = AnsiString;  { HL7 HD type (Hierarchic designator) }
   tID = AnsiString;  { HL7 ID type (Coded value for HL7 defined tables) }
   tIS = str20;       { HL7 2.5 IS type (Coded value for user-defined tables) }

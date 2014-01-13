@@ -659,9 +659,9 @@ end;
 procedure TNTETestCases.NTESetCase1;
 var
   SetID, SetID2: tSI;
-  CommentSource, CommentSource2: str8;
-  comment, comment2: ansistring;
-  commentType, commentType2: str250;
+  CommentSource, CommentSource2: tID;
+  comment, comment2: tFT;
+  commentType, commentType2: tCE;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
