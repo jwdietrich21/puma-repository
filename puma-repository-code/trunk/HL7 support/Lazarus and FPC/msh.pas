@@ -41,16 +41,16 @@ type
     security: str40;
     messageType: tMSG;
     controlID: str20;
-    processingID: str3;
-    versionID: str60;
-    sequenceNumber: str15;
+    processingID: tPT;
+    versionID: tVID;
+    sequenceNumber: tNM;
     continuationPointer: str180;
-    AccAckType, AppAckType: Str2;
-    countryCode: str3;
-    charSet: str16;
-    messageLanguage: str250;
-    altCharHandlScheme: str20;
-    profileID: str427;
+    AccAckType, AppAckType: tID;
+    countryCode: tID;
+    charSet: tID;
+    messageLanguage: tCE;
+    altCharHandlScheme: tID;
+    profileID: tEI;
   end;
 
 function MSH_Segment(message: THL7Message): THL7Segment;
@@ -58,24 +58,24 @@ procedure GetMSH(message: THL7Message; out MSHRecord: tMSH);
 procedure GetMSH(message: THL7Message; out delimiters: str5;
   out sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   out dateTime: tDTM; out security: str40; out messageType: tMSG;
-  out controlID: str20; out processingID: str3; out versionID: str60;
-  sequenceNumber: str15; out continuationPointer: str180;
-  out AccAckType, AppAckType: Str2; out countryCode: str3; out charSet: str16;
-  out messageLanguage: str250; out altCharHandlScheme: str20; out profileID: str427);
+  out controlID: str20; out processingID: tPT; out versionID: tVID;
+  sequenceNumber: tNM; out continuationPointer: str180;
+  out AccAckType, AppAckType: tID; out countryCode: tID; out charSet: tID;
+  out messageLanguage: tCE; out altCharHandlScheme: tID; out profileID: tEI);
 procedure SetMSH(message: THL7Message; aSegment: THL7Segment);
 procedure SetMSH(message: THL7Message; MSHRecord: tMSH; autoDate: boolean);
 procedure SetMSH(message: THL7Message; delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: tHD; security: str40;
-  messageType: tMSG; processingID: str3; sequenceNumber: str15;
-  continuationPointer: str180; AccAckType, AppAckType: Str2;
-  countryCode: str3; charSet: str16; messageLanguage: str250;
-  altCharHandlScheme: str20; profileID: str427);
+  messageType: tMSG; processingID: tPT; sequenceNumber: tNM;
+  continuationPointer: str180; AccAckType, AppAckType: tID;
+  countryCode: tID; charSet: tID; messageLanguage: tCE;
+  altCharHandlScheme: tID; profileID: tEI);
 procedure SetMSH(message: THL7Message; delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: tHD; dateTime: tDTM;
-  security: str40; messageType: tMSG; controlID: str20; processingID: str3;
-  versionID: str60; sequenceNumber: str15; continuationPointer: str180;
-  AccAckType, AppAckType: Str2; countryCode: str3; charSet: str16;
-  messageLanguage: str250; altCharHandlScheme: str20; profileID: str427);
+  security: str40; messageType: tMSG; controlID: str20; processingID: tPT;
+  versionID: tVID; sequenceNumber: tNM; continuationPointer: str180;
+  AccAckType, AppAckType: tID; countryCode: tID; charSet: tID;
+  messageLanguage: tCE; altCharHandlScheme: tID; profileID: tEI);
 
 
 implementation
@@ -129,10 +129,10 @@ end;
 procedure GetMSH(message: THL7Message; out delimiters: str5;
   out sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   out dateTime: tDTM; out security: str40; out messageType: tMSG;
-  out controlID: str20; out processingID: str3; out versionID: str60;
-  sequenceNumber: str15; out continuationPointer: str180;
-  out AccAckType, AppAckType: Str2; out countryCode: str3; out charSet: str16;
-  out messageLanguage: str250; out altCharHandlScheme: str20; out profileID: str427);
+  out controlID: str20; out processingID: tPT; out versionID: tVID;
+  sequenceNumber: tNM; out continuationPointer: str180;
+  out AccAckType, AppAckType: tID; out countryCode: tID; out charSet: tID;
+  out messageLanguage: tCE; out altCharHandlScheme: tID; out profileID: tEI);
 { deprecated method, maintained for backward-compatibility only, }
 { capsules new version of polymorphic GetMSH }
 var
@@ -199,10 +199,10 @@ end;
 
 procedure SetMSH(message: THL7Message; delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: tHD; security: str40;
-  messageType: tMSG; processingID: str3; sequenceNumber: str15;
-  continuationPointer: str180; AccAckType, AppAckType: Str2;
-  countryCode: str3; charSet: str16; messageLanguage: str250;
-  altCharHandlScheme: str20; profileID: str427);
+  messageType: tMSG; processingID: tPT; sequenceNumber: tNM;
+  continuationPointer: str180; AccAckType, AppAckType: tID;
+  countryCode: tID; charSet: tID; messageLanguage: tCE;
+  altCharHandlScheme: tID; profileID: tEI);
 { deprecated method, maintained for backward-compatibility only, }
 { capsules new version of polymorphic SetMSH }
 var
@@ -233,10 +233,10 @@ end;
 
 procedure SetMSH(message: THL7Message; delimiters: str5;
   sendingApp, sendingFac, receivingApp, receivingFac: tHD; dateTime: tDTM;
-  security: str40; messageType: tMSG; controlID: str20; processingID: str3;
-  versionID: str60; sequenceNumber: str15; continuationPointer: str180;
-  AccAckType, AppAckType: Str2; countryCode: str3; charSet: str16;
-  messageLanguage: str250; altCharHandlScheme: str20; profileID: str427);
+  security: str40; messageType: tMSG; controlID: str20; processingID: tPT;
+  versionID: tVID; sequenceNumber: tNM; continuationPointer: str180;
+  AccAckType, AppAckType: tID; countryCode: tID; charSet: tID;
+  messageLanguage: tCE; altCharHandlScheme: tID; profileID: tEI);
 { deprecated method, maintained for backward-compatibility only, }
 { capsules new version of polymorphic SetMSH }
 var

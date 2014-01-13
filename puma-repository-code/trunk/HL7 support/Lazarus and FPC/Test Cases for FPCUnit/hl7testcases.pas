@@ -261,18 +261,18 @@ var
   sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   dateTime: tDTM;
   security: str40;
-  messageType: str15;
+  messageType: tMSG;
   controlID: str20;
-  processingID: str3;
-  versionID: str60;
-  sequenceNumber: str15;
+  processingID: tPT;
+  versionID: tVID;
+  sequenceNumber: tNM;
   continuationPointer: str180;
-  AccAckType, AppAckType: Str2;
-  countryCode: str3;
-  charSet: str16;
-  messageLanguage: str250;
-  altCharHandlScheme: str20;
-  profileID: str427;
+  AccAckType, AppAckType: tID;
+  countryCode: tID;
+  charSet: tID;
+  messageLanguage: tCE;
+  altCharHandlScheme: tID;
+  profileID: tEI;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -297,18 +297,18 @@ var
   sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   dateTime: tDTM;
   security: str40;
-  messageType: str15;
+  messageType: tMSG;
   controlID: str20;
-  processingID: str3;
-  versionID: str60;
-  sequenceNumber: str15;
+  processingID: tPT;
+  versionID: tVID;
+  sequenceNumber: tNM;
   continuationPointer: str180;
-  AccAckType, AppAckType: Str2;
-  countryCode: str3;
-  charSet: str16;
-  messageLanguage: str250;
-  altCharHandlScheme: str20;
-  profileID: str427;
+  AccAckType, AppAckType: tID;
+  countryCode: tID;
+  charSet: tID;
+  messageLanguage: tCE;
+  altCharHandlScheme: tID;
+  profileID: tEI;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -336,18 +336,18 @@ var
   sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   dateTime: tDTM;
   security: str40;
-  messageType: str15;
+  messageType: tMSG;
   controlID: str20;
-  processingID: str3;
-  versionID: str60;
-  sequenceNumber: str15;
+  processingID: tPT;
+  versionID: tVID;
+  sequenceNumber: tNM;
   continuationPointer: str180;
-  AccAckType, AppAckType: Str2;
-  countryCode, countryCode2: str3;
-  charSet: str16;
-  messageLanguage: str250;
-  altCharHandlScheme: str20;
-  profileID: str427;
+  AccAckType, AppAckType: tID;
+  countryCode, countryCode2: tID;
+  charSet: tID;
+  messageLanguage: tCE;
+  altCharHandlScheme: tID;
+  profileID: tEI;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -399,18 +399,18 @@ var
   sendingApp, sendingFac, receivingApp, receivingFac: tHD;
   dateTime: tDTM;
   security: str40;
-  messageType: str15;
+  messageType: tMSG;
   controlID: str20;
-  processingID: str3;
-  versionID, versionID2: str60;
-  sequenceNumber: str15;
+  processingID: tPT;
+  versionID, versionID2: tVID;
+  sequenceNumber: tNM;
   continuationPointer: str180;
-  AccAckType, AppAckType: Str2;
-  countryCode: str3;
-  charSet: str16;
-  messageLanguage: str250;
-  altCharHandlScheme: str20;
-  profileID: str427;
+  AccAckType, AppAckType: tID;
+  countryCode: tID;
+  charSet: tID;
+  messageLanguage: tCE;
+  altCharHandlScheme: tID;
+  profileID: tEI;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then

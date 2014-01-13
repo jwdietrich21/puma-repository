@@ -113,6 +113,7 @@ type
   tDLN = str25;      { HL7 DLN type (Driver's license number) }
   tDTM = str26;      { HL7 2.7 DTM type (Date/time) }
   tDT = str8;        { HL7 DT type (Date) }
+  tEI = str427;      { HL7 EI type (Entity identifier) }
   tFC = str50;       { HL7 FC type (Financial class) }
   tHD = AnsiString;  { HL7 HD type (Hierarchic designator) }
   tID = AnsiString;  { HL7 ID type (Coded value for HL7 defined tables) }
@@ -121,9 +122,11 @@ type
   tMSG = str15;      { HL7 MSG type (Message type) }
   tNM = str16;       { HL7 NM type (ASCII-represented number) }
   tPL = str80;       { HL7 PL type (Person location) }
+  tPT = str3;        { HL7 PT type (Processing type) }
   tSI = str4;        { HL7 SI type (Sequence ID) }
   tST = AnsiString;  { HL7 ST type (Dtring data ) }
   tTS = str26;       { HL7 2.5 TS type (Time stamp, deprecated as of HL7 v2.6) }
+  tVID = str60;      { HL7 VID type (Version identifier) }
   tXAD = str250;     { HL7 XAD type (Extended address) }
   tXCN = str250;     { HL7 XCN type (Extended composite ID number and name for persons) }
   tXON = AnsiString; { HL7 XON type (Extended composite name and identification number for organizations) }
