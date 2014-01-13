@@ -66,6 +66,11 @@ procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: tID;
   out Nature, status: tID; out RRDate: tDTM; UDAC: tST; out ObsDateTime: tDTM;
   out prodID: tCE; respObs: tXCN; observMethod: tCE; EquipInstID: tEI;
   out AnalysisDateTime: tDTM);
+procedure GetOBX(message: THL7Message; out SetID: str4; out ValueType: str2; out ObsID: str250;
+  obsSubID: str20; out obsValue: AnsiString; out Units: str250; out RefRange: str60;
+  AbnormFlags, probability: str5; out Nature: str2; out status: char; out RRDate: str26;
+  UDAC: str20; out ObsDateTime: str26; out prodID, respObs, observMethod: str250;
+  EquipInstID: str22; out AnalysisDateTime: str26);
 procedure SetOBX(message: THL7Message; aSegment: THL7Segment);
 procedure SetOBX(message: THL7Message; OBXRecord: tOBX);
 procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: tID;
@@ -73,6 +78,11 @@ procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: tID;
   RefRange: tST; AbnormFlags: tIS; probability: tNM; Nature, status: tID;
   RRDate: tDTM; UDAC: tST; ObsDateTime: tDTM; prodID: tCE; respObs: tXCN;
   observMethod: tCE; EquipInstID: tEI; AnalysisDateTime: tDTM);
+procedure SetOBX(message: THL7Message; SetID: str4; ValueType: str2; ObsID: str250;
+  obsSubID: str20; obsValue: AnsiString; Units: str250; RefRange: str60;
+  AbnormFlags, probability: str5; Nature: str2; status: char; RRDate: str26;
+  UDAC: str20; ObsDateTime: str26; prodID, respObs, observMethod: str250;
+  EquipInstID: str22; AnalysisDateTime: str26);
 
 implementation
 
@@ -154,6 +164,39 @@ begin
   AnalysisDateTime := OBXRecord.AnalysisDateTime;
 end;
 
+procedure GetOBX(message: THL7Message; out SetID: str4; out ValueType: str2;
+  out ObsID: str250; obsSubID: str20; out obsValue: AnsiString; out
+  Units: str250; out RefRange: str60; AbnormFlags, probability: str5; out
+  Nature: str2; out status: char; out RRDate: str26; UDAC: str20; out
+  ObsDateTime: str26; out prodID, respObs, observMethod: str250;
+  EquipInstID: str22; out AnalysisDateTime: str26);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic GetOBX }
+var
+  OBXRecord: tOBX;
+begin
+  GetOBX(message, OBXRecord);
+  SetID := OBXRecord.SetID;
+  ValueType := OBXRecord.ValueType;
+  ObsID := OBXRecord.ObsID;
+  obsSubID := OBXRecord.obsSubID;
+  obsValue := OBXRecord.obsValue;
+  Units := OBXRecord.Units;
+  RefRange := OBXRecord.RefRange;
+  AbnormFlags := OBXRecord.AbnormFlags;
+  probability := OBXRecord.probability;
+  Nature := OBXRecord.Nature;
+  status := OBXRecord.status[1];
+  RRDate := OBXRecord.RRDate;
+  UDAC := OBXRecord.UDAC;
+  ObsDateTime := OBXRecord.ObsDateTime;
+  prodID := OBXRecord.prodID;
+  respObs := OBXRecord.respObs;
+  observMethod := OBXRecord.observMethod;
+  EquipInstID := OBXRecord.EquipInstID;
+  AnalysisDateTime := OBXRecord.AnalysisDateTime;
+end;
+
 procedure SetOBX(message: THL7Message; aSegment: THL7Segment);
 begin
   message.AddSegment(aSegment);
@@ -184,6 +227,38 @@ procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: tID;
   RefRange: tST; AbnormFlags: tIS; probability: tNM; Nature, status: tID;
   RRDate: tDTM; UDAC: tST; ObsDateTime: tDTM; prodID: tCE; respObs: tXCN;
   observMethod: tCE; EquipInstID: tEI; AnalysisDateTime: tDTM);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic SetOBX }
+var
+  OBXRecord: tOBX;
+begin
+  OBXRecord.SetID := SetID;
+  OBXRecord.ValueType := ValueType;
+  OBXRecord.ObsID := ObsID;
+  OBXRecord.obsSubID := obsSubID;
+  OBXRecord.obsValue := obsValue;
+  OBXRecord.Units := Units;
+  OBXRecord.RefRange := RefRange;
+  OBXRecord.AbnormFlags := AbnormFlags;
+  OBXRecord.probability := probability;
+  OBXRecord.Nature := Nature;
+  OBXRecord.status := status;
+  OBXRecord.RRDate := RRDate;
+  OBXRecord.UDAC := UDAC;
+  OBXRecord.ObsDateTime := ObsDateTime;
+  OBXRecord.prodID := prodID;
+  OBXRecord.respObs := respObs;
+  OBXRecord.observMethod := observMethod;
+  OBXRecord.EquipInstID := EquipInstID;
+  OBXRecord.AnalysisDateTime := AnalysisDateTime;
+  SetOBX(message, OBXRecord);
+end;
+
+procedure SetOBX(message: THL7Message; SetID: str4; ValueType: str2;
+  ObsID: str250; obsSubID: str20; obsValue: AnsiString; Units: str250;
+  RefRange: str60; AbnormFlags, probability: str5; Nature: str2; status: char;
+  RRDate: str26; UDAC: str20; ObsDateTime: str26; prodID, respObs,
+  observMethod: str250; EquipInstID: str22; AnalysisDateTime: str26);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic SetOBX }
 var

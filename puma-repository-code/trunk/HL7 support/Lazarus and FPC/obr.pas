@@ -73,10 +73,15 @@ procedure GetOBR(message: THL7Message; out OBRRecord: tOBR);
 procedure GetOBR(message: THL7Message; out SetID: tSI;
   out PlacOrdNumb, FillOrdNumb: tEI; out USI: tCE; out Priority: tID;
   out ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
+procedure GetOBR(message: THL7Message; out SetID: str4;
+  out PlacOrdNumb, FillOrdNumb: str22; out USI: str250; out Priority: Str2;
+  out ReqDateTime, ObsDateTime, ObsEndDateTime: str26);
 procedure SetOBR(message: THL7Message; aSegment: THL7Segment);
 procedure SetOBR(message: THL7Message; OBRRecord: tOBR);
 procedure SetOBR(message: THL7Message; SetID: tSI; PlacOrdNumb, FillOrdNumb: tEI;
   USI: tCE; Priority: tID; ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
+procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb, FillOrdNumb: str22;
+  USI: str250; Priority: Str2; ReqDateTime, ObsDateTime, ObsEndDateTime: str26);
 
 implementation
 
@@ -168,6 +173,25 @@ begin
   ObsEndDateTime := OBRRecord.ObsEndDateTime;
 end;
 
+procedure GetOBR(message: THL7Message; out SetID: str4; out PlacOrdNumb,
+  FillOrdNumb: str22; out USI: str250; out Priority: Str2; out ReqDateTime,
+  ObsDateTime, ObsEndDateTime: str26);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic GetOBR }
+var
+  OBRRecord: tOBR;
+begin
+  GetOBR(message, OBRRecord);
+  SetID := OBRRecord.SetID;
+  PlacOrdNumb := OBRRecord.PlacOrdNumb;
+  FillOrdNumb := OBRRecord.FillOrdNumb;
+  USI := OBRRecord.USI;
+  Priority := OBRRecord.Priority;
+  ReqDateTime := OBRRecord.ReqDateTime;
+  ObsDateTime := OBRRecord.ObsDateTime;
+  ObsEndDateTime := OBRRecord.ObsEndDateTime;
+end;
+
 procedure SetOBR(message: THL7Message; aSegment: THL7Segment);
 begin
   message.AddSegment(aSegment);
@@ -208,6 +232,53 @@ end;
 
 procedure SetOBR(message: THL7Message; SetID: tSI; PlacOrdNumb, FillOrdNumb: tEI;
   USI: tCE; Priority: tID; ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic SetOBR }
+var
+  OBRRecord: tOBR;
+begin
+  OBRRecord.SetID := SetID;
+  OBRRecord.PlacOrdNumb := PlacOrdNumb;
+  OBRRecord.FillOrdNumb := FillOrdNumb;
+  OBRRecord.USI := USI;
+  OBRRecord.Priority := Priority;
+  OBRRecord.ReqDateTime := ReqDateTime;
+  OBRRecord.ObsDateTime := ObsDateTime;
+  OBRRecord.ObsEndDateTime := ObsEndDateTime;
+  OBRRecord.CollectionVolume := '';
+  OBRRecord.CollectorIdentifier := '';
+  OBRRecord.SpecimenActionCode := '';
+  OBRRecord.DangerCode := '';
+  OBRRecord.RelevantClinicalInfo := '';
+  OBRRecord.SpecimenReceivedDateTime := '';
+  OBRRecord.SpecimenSource := '';
+  OBRRecord.OrderingProvider := '';
+  OBRRecord.OrderCallbackPhoneNumber := '';
+  OBRRecord.PlacerField1 := '';
+  OBRRecord.PlacerField2 := '';
+  OBRRecord.FillerField1 := '';
+  OBRRecord.FillerField2 := '';
+  OBRRecord.ResultsRptStatusChng := '';
+  OBRRecord.ChargeToPractice := '';
+  OBRRecord.DiagnosticServSectID := '';
+  OBRRecord.ResultStatus := '';
+  OBRRecord.ParentResult := '';
+  OBRRecord.QuantityTiming := '';
+  OBRRecord.ResultCopiesTo := '';
+  OBRRecord.Parent := '';
+  OBRRecord.TransportationMode := '';
+  OBRRecord.ReasonForStudy := '';
+  OBRRecord.PrincipalResultInterpreter := '';
+  OBRRecord.AssistantResultInterpreter := '';
+  OBRRecord.Technician := '';
+  OBRRecord.Transcriptionist := '';
+  OBRRecord.ScheduledDateTime := '';
+  SetOBR(message, OBRRecord);
+end;
+
+procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb,
+  FillOrdNumb: str22; USI: str250; Priority: Str2; ReqDateTime, ObsDateTime,
+  ObsEndDateTime: str26);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic SetOBR }
 var

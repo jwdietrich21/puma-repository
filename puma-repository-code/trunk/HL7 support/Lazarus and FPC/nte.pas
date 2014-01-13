@@ -48,10 +48,14 @@ function NTE_Segment(message: THL7Message): THL7Segment;
 procedure GetNTE(message: THL7Message; out NTERecord: tNTE);
 procedure GetNTE(message: THL7Message; out SetID: tSI; out CommentSource: tID;
   out comment: tFT; out commentType: tCE);
+procedure GetNTE(message: THL7Message; out SetID: str4; out CommentSource: str8;
+  out comment: ansistring; out commentType: str250);
 procedure SetNTE(message: THL7Message; aSegment: THL7Segment);
 procedure SetNTE(message: THL7Message; NTERecord: tNTE);
 procedure SetNTE(message: THL7Message; SetID: tSI; CommentSource: tID;
   comment: tFT; commentType: tCE);
+procedure SetNTE(message: THL7Message; SetID: str4; CommentSource: str8;
+  comment: ansistring; commentType: str250);
 
 implementation
 
@@ -99,6 +103,20 @@ begin
   commentType := NTERecord.commentType;
 end;
 
+procedure GetNTE(message: THL7Message; out SetID: str4; out
+  CommentSource: str8; out comment: ansistring; out commentType: str250);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic GetNTE }
+var
+  NTERecord: tNTE;
+begin
+  GetNTE(message, NTERecord);
+  SetID := NTERecord.SetID;
+  CommentSource := NTERecord.CommentSource;
+  comment := NTERecord.comment;
+  commentType := NTERecord.commentType;
+end;
+
 procedure SetNTE(message: THL7Message; aSegment: THL7Segment);
 begin
   message.AddSegment(aSegment);
@@ -133,6 +151,19 @@ begin
   SetNTE(message, NTERecord);
 end;
 
+procedure SetNTE(message: THL7Message; SetID: str4; CommentSource: str8;
+  comment: ansistring; commentType: str250);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic SetNTE }
+var
+  NTERecord: tNTE;
+begin
+  NTERecord.SetID := SetID;
+  NTERecord.CommentSource := CommentSource;
+  NTERecord.comment := comment;
+  NTERecord.commentType := commentType;
+  SetNTE(message, NTERecord);
+end;
 
 end.
 

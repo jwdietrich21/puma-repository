@@ -8,18 +8,18 @@
         <Filename Value="hl7tests.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="hl7tests"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="114"/>
+        <UsageCount Value="115"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="hl7testcases.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7TestCases"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -33,7 +33,7 @@
           <TopLine Value="32"/>
           <CursorPos X="86" Y="43"/>
         </ExtraEditor2>
-        <UsageCount Value="114"/>
+        <UsageCount Value="115"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -44,7 +44,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -57,12 +57,10 @@
         <CursorPos X="1" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
-          <IsVisibleTab Value="True"/>
-          <WindowIndex Value="1"/>
           <TopLine Value="122"/>
           <CursorPos X="19" Y="131"/>
         </ExtraEditor1>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -73,7 +71,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -90,7 +88,7 @@
           <TopLine Value="129"/>
           <CursorPos X="1" Y="162"/>
         </ExtraEditor1>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -101,7 +99,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -112,7 +110,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -123,7 +121,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="44"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -138,7 +136,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="41"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -155,7 +153,7 @@
           <TopLine Value="38"/>
           <CursorPos X="1" Y="75"/>
         </ExtraEditor1>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -170,7 +168,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="27"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -181,7 +179,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -378,124 +376,124 @@
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="215" Column="1" TopLine="192"/>
+        <Filename Value="../obx.pas"/>
+        <Caret Line="129" Column="29" TopLine="124"/>
       </Position1>
       <Position2>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="216" Column="1" TopLine="192"/>
+        <Filename Value="../obx.pas"/>
+        <Caret Line="71" Column="17" TopLine="48"/>
       </Position2>
       <Position3>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="217" Column="1" TopLine="192"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="13" Column="26" TopLine="1"/>
       </Position3>
       <Position4>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="218" Column="1" TopLine="192"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="585" Column="1" TopLine="558"/>
       </Position4>
       <Position5>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="219" Column="1" TopLine="192"/>
+        <Filename Value="../obx.pas"/>
+        <Caret Line="60" Column="2" TopLine="34"/>
       </Position5>
       <Position6>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="220" Column="1" TopLine="192"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="564" Column="40" TopLine="559"/>
       </Position6>
       <Position7>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="221" Column="1" TopLine="192"/>
+        <Filename Value="../msh.pas"/>
+        <Caret Line="65" Column="17" TopLine="51"/>
       </Position7>
       <Position8>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="222" Column="1" TopLine="192"/>
+        <Filename Value="../msh.pas"/>
+        <Caret Line="86" Column="17" TopLine="67"/>
       </Position8>
       <Position9>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="223" Column="1" TopLine="192"/>
+        <Filename Value="../msh.pas"/>
+        <Caret Line="392" Column="1" TopLine="349"/>
       </Position9>
       <Position10>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="224" Column="1" TopLine="192"/>
+        <Filename Value="../msa.pas"/>
+        <Caret Line="54" Column="17" TopLine="34"/>
       </Position10>
       <Position11>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="181" Column="1" TopLine="163"/>
+        <Filename Value="../msa.pas"/>
+        <Caret Line="131" Column="1" TopLine="101"/>
       </Position11>
       <Position12>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="182" Column="1" TopLine="163"/>
+        <Filename Value="../msa.pas"/>
+        <Caret Line="61" Column="17" TopLine="37"/>
       </Position12>
       <Position13>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="183" Column="1" TopLine="163"/>
+        <Filename Value="../msa.pas"/>
+        <Caret Line="176" Column="10" TopLine="147"/>
       </Position13>
       <Position14>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="251" Column="37" TopLine="218"/>
+        <Filename Value="../nte.pas"/>
+        <Caret Line="51" Column="17" TopLine="28"/>
       </Position14>
       <Position15>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="555" Column="1" TopLine="531"/>
+        <Filename Value="../nte.pas"/>
+        <Caret Line="57" Column="17" TopLine="40"/>
       </Position15>
       <Position16>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="186" Column="1" TopLine="168"/>
+        <Filename Value="../nte.pas"/>
+        <Caret Line="166" Column="5" TopLine="134"/>
       </Position16>
       <Position17>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="188" Column="1" TopLine="168"/>
+        <Filename Value="../nte.pas"/>
+        <Caret Line="2" Column="1" TopLine="36"/>
       </Position17>
       <Position18>
         <Filename Value="../obr.pas"/>
-        <Caret Line="193" Column="1" TopLine="168"/>
+        <Caret Line="76" Column="17" TopLine="54"/>
       </Position18>
       <Position19>
         <Filename Value="../obr.pas"/>
-        <Caret Line="198" Column="1" TopLine="169"/>
+        <Caret Line="194" Column="1" TopLine="159"/>
       </Position19>
       <Position20>
         <Filename Value="../obr.pas"/>
-        <Caret Line="203" Column="1" TopLine="174"/>
+        <Caret Line="83" Column="17" TopLine="55"/>
       </Position20>
       <Position21>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="559" Column="1" TopLine="531"/>
+        <Filename Value="../obr.pas"/>
+        <Caret Line="325" Column="1" TopLine="291"/>
       </Position21>
       <Position22>
         <Filename Value="../obx.pas"/>
-        <Caret Line="71" Column="39" TopLine="48"/>
+        <Caret Line="69" Column="17" TopLine="61"/>
       </Position22>
       <Position23>
         <Filename Value="../obx.pas"/>
-        <Caret Line="67" Column="56" TopLine="49"/>
+        <Caret Line="199" Column="1" TopLine="164"/>
       </Position23>
       <Position24>
         <Filename Value="../obx.pas"/>
-        <Caret Line="63" Column="17" TopLine="53"/>
+        <Caret Line="81" Column="17" TopLine="61"/>
       </Position24>
       <Position25>
         <Filename Value="../obx.pas"/>
-        <Caret Line="129" Column="29" TopLine="124"/>
+        <Caret Line="288" Column="1" TopLine="253"/>
       </Position25>
       <Position26>
-        <Filename Value="../obx.pas"/>
-        <Caret Line="71" Column="17" TopLine="48"/>
+        <Filename Value="../err.pas"/>
+        <Caret Line="64" Column="17" TopLine="45"/>
       </Position26>
       <Position27>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="13" Column="26" TopLine="1"/>
+        <Filename Value="../err.pas"/>
+        <Caret Line="73" Column="17" TopLine="40"/>
       </Position27>
       <Position28>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="585" Column="1" TopLine="558"/>
+        <Filename Value="../err.pas"/>
+        <Caret Line="234" Column="1" TopLine="200"/>
       </Position28>
       <Position29>
-        <Filename Value="../obx.pas"/>
-        <Caret Line="60" Column="2" TopLine="34"/>
+        <Filename Value="../err.pas"/>
+        <Caret Line="170" Column="70" TopLine="136"/>
       </Position29>
       <Position30>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="564" Column="40" TopLine="559"/>
+        <Filename Value="../obx.pas"/>
+        <Caret Line="189" Column="32" TopLine="172"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

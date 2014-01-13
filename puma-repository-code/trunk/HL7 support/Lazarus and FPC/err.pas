@@ -61,12 +61,18 @@ procedure GetERR(message: THL7Message; out ErrCodeLoc: tELD; out ErrLoc: tERL;
   out ErrCode: tCWE; out severity: tID; out appErrCode: tCWE;
   out appErrPar: str80; DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
   OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
+procedure GetERR(message: THL7Message; out ErrCodeLoc, ErrLoc, ErrCode: string;
+  out severity: char; out appErrCode, appErrPar, DiagInfo, UserMessage,
+  InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
 procedure SetERR(message: THL7Message; aSegment: THL7Segment);
 procedure SetERR(message: THL7Message; ERRRecord: tERR);
 procedure SetERR(message: THL7Message; ErrCodeLoc: tELD; ErrLoc: tERL;
   ErrCode: tCWE; severity: tID; appErrCode: tCWE; appErrPar: str80;
   DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
   OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
+procedure SetERR(message: THL7Message; ErrCodeLoc, ErrLoc, ErrCode: string;
+  severity: char; appErrCode, appErrPar, DiagInfo, UserMessage,
+  InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
 
 implementation
 
@@ -133,6 +139,29 @@ begin
   HelpDeskContact := ERRRecord.HelpDeskContact;
 end;
 
+procedure GetERR(message: THL7Message; out ErrCodeLoc, ErrLoc, ErrCode: string;
+  out severity: char; out appErrCode, appErrPar, DiagInfo, UserMessage,
+  InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic GetERR }
+var
+  ERRRecord: tERR;
+begin
+  GetERR(message, ERRRecord);
+  ErrCodeLoc := ERRRecord.ErrCodeLoc;
+  ErrLoc := ERRRecord.ErrLoc;
+  ErrCode := ERRRecord.ErrCode;
+  severity := ERRRecord.severity[1];
+  appErrCode := ERRRecord.appErrCode;
+  appErrPar := ERRRecord.appErrPar;
+  DiagInfo := ERRRecord.DiagInfo;
+  UserMessage := ERRRecord.UserMessage;
+  InformPersIndic := ERRRecord.InformPersIndic;
+  OverrideType := ERRRecord.OverrideType;
+  OverrideReason := ERRRecord.OverrideReason;
+  HelpDeskContact := ERRRecord.HelpDeskContact;
+end;
+
 procedure SetERR(message: THL7Message; aSegment: THL7Segment);
 begin
   message.AddSegment(aSegment);
@@ -160,6 +189,29 @@ procedure SetERR(message: THL7Message; ErrCodeLoc: tELD; ErrLoc: tERL;
   ErrCode: tCWE; severity: tID; appErrCode: tCWE; appErrPar: str80;
   DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
   OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
+{ deprecated method, retained for backward-compatibility only, }
+{ capsules new version of polymorphic SetERR }
+var
+  ERRRecord: tERR;
+begin
+  ERRRecord.ErrCodeLoc := ErrCodeLoc;
+  ERRRecord.ErrLoc := ErrLoc;
+  ERRRecord.ErrCode := ErrCode;
+  ERRRecord.severity := severity;
+  ERRRecord.appErrCode := appErrCode;
+  ERRRecord.appErrPar := appErrPar;
+  ERRRecord.DiagInfo := DiagInfo;
+  ERRRecord.UserMessage := UserMessage;
+  ERRRecord.InformPersIndic := InformPersIndic;
+  ERRRecord.OverrideType := OverrideType;
+  ERRRecord.OverrideReason := OverrideReason;
+  ERRRecord.HelpDeskContact := HelpDeskContact;
+  SetErr(message, ERRRecord);
+end;
+
+procedure SetERR(message: THL7Message; ErrCodeLoc, ErrLoc, ErrCode: string;
+  severity: char; appErrCode, appErrPar, DiagInfo, UserMessage,
+  InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
 { deprecated method, retained for backward-compatibility only, }
 { capsules new version of polymorphic SetERR }
 var
