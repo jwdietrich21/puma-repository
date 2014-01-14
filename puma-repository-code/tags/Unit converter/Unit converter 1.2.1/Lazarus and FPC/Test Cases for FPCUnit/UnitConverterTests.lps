@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="7">
+      <Unit0>
+        <Filename Value="UnitConverterTests.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UnitConverterTests"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="2"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UnitConverterTestCase"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="2"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="unitconverter.pas"/>
+        <UnitName Value="UnitConverter"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <UsageCount Value="24"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="/Developer/lazarus/components/fpcunit/guitestrunner.pas"/>
+        <UnitName Value="GuiTestRunner"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="72"/>
+        <CursorPos X="1" Y="72"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="/usr/local/share/fpcsrc/packages/fcl-fpcunit/src/fpcunit.pp"/>
+        <UnitName Value="fpcunit"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="80"/>
+        <CursorPos X="21" Y="98"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/sysutils/sysstrh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8"/>
+        <CursorPos X="52" Y="25"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../unitconverter.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UnitConverter"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="2"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit6>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="6" HistoryIndex="5">
+      <Position1>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="417" Column="1" TopLine="395"/>
+      </Position1>
+      <Position2>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="418" Column="54" TopLine="395"/>
+      </Position2>
+      <Position3>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="419" Column="18" TopLine="395"/>
+      </Position3>
+      <Position4>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="418" Column="1" TopLine="395"/>
+      </Position4>
+      <Position5>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="419" Column="50" TopLine="395"/>
+      </Position5>
+      <Position6>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="418" Column="57" TopLine="394"/>
+      </Position6>
+    </JumpHistory>
+  </ProjectSession>
+  <Debugging>
+    <Watches Count="9">
+      <Item1>
+        <Expression Value="fromUnitElements.MassPrefix"/>
+      </Item1>
+      <Item2>
+        <Expression Value="fromUnitElements.MassUnit"/>
+      </Item2>
+      <Item3>
+        <Expression Value="fromUnitElements.VolumePrefix"/>
+      </Item3>
+      <Item4>
+        <Expression Value="fromUnitElements.VolumeUnit"/>
+      </Item4>
+      <Item5>
+        <Expression Value="toUnitElements.MassPrefix"/>
+      </Item5>
+      <Item6>
+        <Expression Value="toUnitElements.MassUnit"/>
+      </Item6>
+      <Item7>
+        <Expression Value="toUnitElements.VolumePrefix"/>
+      </Item7>
+      <Item8>
+        <Expression Value="toUnitElements.VolumeUnit"/>
+      </Item8>
+      <Item9>
+        <Expression Value="ConvertedUnitF"/>
+        <DisplayStyle Value="wdfString"/>
+      </Item9>
+    </Watches>
+  </Debugging>
+</CONFIG>
