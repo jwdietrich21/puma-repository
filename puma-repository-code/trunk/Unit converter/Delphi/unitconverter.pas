@@ -52,6 +52,7 @@ var
   PrefixFactor: array[0..MAXFACTORS - 1] of real;
   UnitLabel: array[0..MAXFACTORS - 1] of string;
 
+function isNaN(const d : Extended): boolean;
 function DecodeGreek(theString: string): string;
 function EncodeGreek(theString: string): string;
 function ParsedUnitString(theString: String): TUnitElements;
@@ -73,6 +74,9 @@ const
   DEC_POINT = '.';
   DEC_COMMA = ',';
 
+{ -- FPC adapter functions -- }
+{ -- Emulate functionality of Free Pascal in Delphi -- }
+
 function RightStr
     (Const Str: String; Size: Word): String;
 begin
@@ -80,9 +84,9 @@ begin
   RightStr := Copy(Str, Length(Str)-Size+1, Size)
 end;
 
-function isNaN(value: real): boolean;
+function isNaN(const d : Extended): boolean;
 begin
-  result := value = NaN;
+  result := (d = NaN);
 end;
 
 procedure InitConversionFactors;
@@ -304,7 +308,7 @@ var
         begin
           if wholes then
           begin
-            if (d < 10) and ((maxlongint - d) div 10 >= k) then
+            if (d < 10) {and ((maxlongint - d) div 10 >= k)} then
               k := k * 10 + d;
           end
           else

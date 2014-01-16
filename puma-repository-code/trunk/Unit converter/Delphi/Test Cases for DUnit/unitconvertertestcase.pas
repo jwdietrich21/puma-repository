@@ -65,6 +65,27 @@ type
     procedure TestCase7;
   end;
 
+  {TconverterTestCases = class(TTestCase)
+  published
+    procedure TestCase1;
+    procedure TestCase2;
+    procedure TestCase3;
+    procedure TestCase4;
+    procedure TestCase5;
+    procedure TestCase6;
+    procedure TestCase7;
+    procedure TestCase8;
+    procedure TestCase9;
+    procedure TestCase10;
+    procedure TestCase11;
+    procedure TestCase12;
+    procedure TestCase13;
+    procedure TestCase14;
+    procedure TestCase15;
+    procedure TestCase16;
+    procedure TestCase101;
+  end;  }
+
 implementation
 
 { -- FPC adapter functions -- }
@@ -73,11 +94,6 @@ implementation
 function AssertTrue(ACondition: boolean): boolean;
 begin
   result := ACondition;
-end;
-
-function isNaN(const d : Extended): boolean;
-begin
-  result := (d = NaN);
 end;
 
 { -- Base functionality test -- }
@@ -250,4 +266,6 @@ initialization
 
 TestFramework.RegisterTest(TControlTestCases.Suite);
 TestFramework.RegisterTest(TUnitParserTestCases.Suite);
+TestFramework.RegisterTest(TMeasurementParserTestCases.Suite);
+
 end.
