@@ -3,16 +3,16 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="36">
+    <Units Count="35">
       <Unit0>
         <Filename Value="hl7tests.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="hl7tests"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="115"/>
+        <UsageCount Value="118"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -32,7 +32,7 @@
           <TopLine Value="32"/>
           <CursorPos X="86" Y="43"/>
         </ExtraEditor2>
-        <UsageCount Value="115"/>
+        <UsageCount Value="118"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -41,9 +41,9 @@
         <UnitName Value="OBX"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
-        <UsageCount Value="49"/>
+        <TopLine Value="65"/>
+        <CursorPos X="1" Y="81"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -52,14 +52,14 @@
         <UnitName Value="HL7"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <TopLine Value="522"/>
+        <CursorPos X="1" Y="160"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <TopLine Value="122"/>
           <CursorPos X="19" Y="131"/>
         </ExtraEditor1>
-        <UsageCount Value="49"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -68,9 +68,9 @@
         <UnitName Value="MSA"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
-        <UsageCount Value="49"/>
+        <TopLine Value="33"/>
+        <CursorPos X="23" Y="63"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -79,15 +79,15 @@
         <UnitName Value="MSH"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <TopLine Value="42"/>
+        <CursorPos X="1" Y="86"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="1"/>
           <TopLine Value="129"/>
           <CursorPos X="1" Y="162"/>
         </ExtraEditor1>
-        <UsageCount Value="49"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -96,9 +96,9 @@
         <UnitName Value="OBR"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
-        <UsageCount Value="49"/>
+        <TopLine Value="56"/>
+        <CursorPos X="1" Y="83"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -107,9 +107,9 @@
         <UnitName Value="NTE"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="35"/>
+        <CursorPos X="1" Y="57"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -118,9 +118,9 @@
         <UnitName Value="ERR"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
-        <UsageCount Value="45"/>
+        <TopLine Value="46"/>
+        <CursorPos X="1" Y="73"/>
+        <UsageCount Value="48"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -129,13 +129,13 @@
         <UnitName Value="EVN"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <TopLine Value="22"/>
+        <CursorPos X="61" Y="41"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="42"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -144,15 +144,15 @@
         <UnitName Value="PID"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <TopLine Value="55"/>
+        <CursorPos X="57" Y="80"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="1"/>
           <TopLine Value="38"/>
           <CursorPos X="1" Y="75"/>
         </ExtraEditor1>
-        <UsageCount Value="31"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -161,24 +161,25 @@
         <UnitName Value="PV1"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <TopLine Value="58"/>
+        <CursorPos X="57" Y="82"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="28"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="../nk1.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NK1"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="53"/>
+        <CursorPos X="57" Y="78"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -369,17 +370,6 @@
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
       </Unit34>
-      <Unit35>
-        <Filename Value="../../../Unit converter/Delphi/Test Cases for DUnit/unitconvertertestcase_alt.pas"/>
-        <UnitName Value="UnitConverterTestCase"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="12"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit35>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
