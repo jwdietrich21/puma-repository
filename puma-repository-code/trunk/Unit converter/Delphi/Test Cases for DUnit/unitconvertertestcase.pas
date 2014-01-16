@@ -54,7 +54,31 @@ type
    procedure TestCase101;
  end;
 
+ TMeasurementParserTestCases = class(TTestCase)
+  published
+    procedure TestCase1;
+    procedure TestCase2;
+    procedure TestCase3;
+    procedure TestCase4;
+    procedure TestCase5;
+    procedure TestCase6;
+    procedure TestCase7;
+  end;
+
 implementation
+
+{ -- FPC adapter functions -- }
+{ -- Emulate functionality of Free Pascal in Delphi -- }
+
+function AssertTrue(ACondition: boolean): boolean;
+begin
+  result := ACondition;
+end;
+
+function isNaN(const d : Extended): boolean;
+begin
+  result := (d = NaN);
+end;
 
 { -- Base functionality test -- }
 
@@ -148,6 +172,78 @@ begin
   Check(theUnitElements.MassUnit = 'NA');
   Check(theUnitElements.VolumePrefix = 'n');
   Check(theUnitElements.VolumeUnit = 'l');
+end;
+
+{ -- Measurement parser tests -- }
+
+procedure TMeasurementParserTestCases.TestCase1;
+{ Empty string }
+var
+  theMeasurement: tMeasurement;
+begin
+  theMeasurement := ParsedMeasurement('');
+  AssertTrue(isNaN(theMeasurement.Value));
+  Check(theMeasurement.uom = '');
+end;
+
+procedure TMeasurementParserTestCases.TestCase2;
+{ Zero value }
+var
+  theMeasurement: tMeasurement;
+begin
+  theMeasurement := ParsedMeasurement('0');
+  Check(theMeasurement.Value = 0);
+  Check(theMeasurement.uom = '');
+end;
+
+procedure TMeasurementParserTestCases.TestCase3;
+{ Typical measurement result }
+var
+  theMeasurement: tMeasurement;
+begin
+  theMeasurement := ParsedMeasurement('1 mU/l');
+  Check(theMeasurement.Value = 1);
+  Check(theMeasurement.uom = 'mU/l');
+end;
+
+procedure TMeasurementParserTestCases.TestCase4;
+{ Typical measurement result }
+var
+  theMeasurement: tMeasurement;
+begin
+  theMeasurement := ParsedMeasurement('1,3 ng/dl');
+  Check(theMeasurement.Value = 1.3);
+  Check(theMeasurement.uom = 'ng/dl');
+end;
+
+procedure TMeasurementParserTestCases.TestCase5;
+{ Typical measurement result }
+var
+  theMeasurement: tMeasurement;
+begin
+  theMeasurement := ParsedMeasurement('4 pg/ml');
+  Check(theMeasurement.Value = 4);
+  Check(theMeasurement.uom = 'pg/ml');
+end;
+
+procedure TMeasurementParserTestCases.TestCase6;
+{ Typical measurement result }
+var
+  theMeasurement: tMeasurement;
+begin
+  theMeasurement := ParsedMeasurement('1.6 ng/dl');
+  Check(theMeasurement.Value = 1.6);
+  Check(theMeasurement.uom = 'ng/dl');
+end;
+
+procedure TMeasurementParserTestCases.TestCase7;
+{ Typical measurement result }
+var
+  theMeasurement: tMeasurement;
+begin
+  theMeasurement := ParsedMeasurement('0.01 mU/l');
+  Check(theMeasurement.Value = 0.01);
+  Check(theMeasurement.uom ='mU/l' );
 end;
 
 initialization

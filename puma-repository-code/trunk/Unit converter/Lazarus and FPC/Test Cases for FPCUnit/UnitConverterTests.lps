@@ -3,12 +3,12 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="7">
+    <Units Count="9">
       <Unit0>
         <Filename Value="UnitConverterTests.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverterTests"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
@@ -21,8 +21,8 @@
         <UnitName Value="UnitConverterTestCase"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <TopLine Value="175"/>
+        <CursorPos X="15" Y="196"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -30,10 +30,9 @@
         <Filename Value="../unitconverter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverter"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="127"/>
         <CursorPos X="1" Y="2"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -70,11 +69,32 @@
         <CursorPos X="52" Y="25"/>
         <UsageCount Value="10"/>
       </Unit6>
+      <Unit7>
+        <Filename Value="../../../../../../../../../../lazarus/fpc/2.6.2/source/packages/fcl-fpcunit/src/fpcunit.pp"/>
+        <UnitName Value="fpcunit"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="73"/>
+        <CursorPos X="60" Y="88"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="../../../../../../../../../../lazarus/fpc/2.6.2/source/rtl/objpas/math.pp"/>
+        <UnitName Value="math"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="196"/>
+        <CursorPos X="34" Y="212"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit8>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="unitconvertertestcase.pas"/>
         <Caret Line="417" Column="1" TopLine="395"/>
@@ -99,6 +119,18 @@
         <Filename Value="unitconvertertestcase.pas"/>
         <Caret Line="418" Column="57" TopLine="394"/>
       </Position6>
+      <Position7>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="146" Column="15" TopLine="127"/>
+      </Position7>
+      <Position8>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="195" Column="19" TopLine="175"/>
+      </Position8>
+      <Position9>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="196" Column="15" TopLine="175"/>
+      </Position9>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
