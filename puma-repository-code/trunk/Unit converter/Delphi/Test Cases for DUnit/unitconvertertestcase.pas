@@ -46,14 +46,13 @@ type
  TUnitParserTestCases = class(TTestCase)
  published
    procedure TestCase1;
-   {procedure TestCase2;
+   procedure TestCase2;
    procedure TestCase3;
    procedure TestCase4;
    procedure TestCase5;
    procedure TestCase11;
-   procedure TestCase101;  }
+   procedure TestCase101;
  end;
-
 
 implementation
 
@@ -77,6 +76,78 @@ begin
   Check(theUnitElements.MassUnit = 'NA');
   Check(theUnitElements.VolumePrefix = 'NA');
   Check(theUnitElements.VolumeUnit = 'NA');
+end;
+
+procedure TUnitParserTestCases.TestCase2;
+{ empty string }
+var
+  theUnitElements: tUnitElements;
+begin
+  theUnitElements := ParsedUnitString('');
+  Check(theUnitElements.MassPrefix = '');
+  Check(theUnitElements.MassUnit = '');
+  Check(theUnitElements.VolumePrefix = '');
+  Check(theUnitElements.VolumeUnit = '');
+end;
+
+procedure TUnitParserTestCases.TestCase3;
+{ Typical example }
+var
+  theUnitElements: tUnitElements;
+begin
+  theUnitElements := ParsedUnitString('mU/l');
+  Check(theUnitElements.MassPrefix = 'm');
+  Check(theUnitElements.MassUnit = 'U');
+  Check(theUnitElements.VolumePrefix = '');
+  Check(theUnitElements.VolumeUnit = 'l');
+end;
+
+procedure TUnitParserTestCases.TestCase4;
+{ Typical example }
+var
+  theUnitElements: tUnitElements;
+begin
+  theUnitElements := ParsedUnitString('ng/dl');
+  Check(theUnitElements.MassPrefix = 'n');
+  Check(theUnitElements.MassUnit = 'g');
+  Check(theUnitElements.VolumePrefix = 'd');
+  Check(theUnitElements.VolumeUnit = 'l');
+end;
+
+procedure TUnitParserTestCases.TestCase5;
+{ Typical example }
+var
+  theUnitElements: tUnitElements;
+begin
+  theUnitElements := ParsedUnitString('pg/ml');
+  Check(theUnitElements.MassPrefix = 'p');
+  Check(theUnitElements.MassUnit = 'g');
+  Check(theUnitElements.VolumePrefix = 'm');
+  Check(theUnitElements.VolumeUnit = 'l');
+end;
+
+procedure TUnitParserTestCases.TestCase11;
+{ Typical example }
+var
+  theUnitElements: tUnitElements;
+begin
+  theUnitElements := ParsedUnitString('pmol/l');
+  Check(theUnitElements.MassPrefix = 'p');
+  Check(theUnitElements.MassUnit = 'mol');
+  Check(theUnitElements.VolumePrefix = '');
+  Check(theUnitElements.VolumeUnit = 'l');
+end;
+
+procedure TUnitParserTestCases.TestCase101;
+{ Typical example }
+var
+  theUnitElements: tUnitElements;
+begin
+  theUnitElements := ParsedUnitString('/nl');
+  Check(theUnitElements.MassPrefix = 'NA');
+  Check(theUnitElements.MassUnit = 'NA');
+  Check(theUnitElements.VolumePrefix = 'n');
+  Check(theUnitElements.VolumeUnit = 'l');
 end;
 
 initialization

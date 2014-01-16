@@ -27,38 +27,6 @@
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="unitconverter.pas"/>
-        <UnitName Value="UnitConverter"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
-        <ExtraEditorCount Value="1"/>
-        <UsageCount Value="24"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="/Developer/lazarus/components/fpcunit/guitestrunner.pas"/>
-        <UnitName Value="GuiTestRunner"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="72"/>
-        <CursorPos X="1" Y="72"/>
-        <UsageCount Value="10"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="/usr/local/share/fpcsrc/packages/fcl-fpcunit/src/fpcunit.pp"/>
-        <UnitName Value="fpcunit"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="80"/>
-        <CursorPos X="21" Y="98"/>
-        <UsageCount Value="10"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/sysutils/sysstrh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="8"/>
-        <CursorPos X="52" Y="25"/>
-        <UsageCount Value="10"/>
-      </Unit5>
-      <Unit6>
         <Filename Value="../unitconverter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverter"/>
@@ -69,6 +37,38 @@
         <CursorPos X="1" Y="2"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="unitconverter.pas"/>
+        <UnitName Value="UnitConverter"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <UsageCount Value="24"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="/Developer/lazarus/components/fpcunit/guitestrunner.pas"/>
+        <UnitName Value="GuiTestRunner"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="72"/>
+        <CursorPos X="1" Y="72"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="/usr/local/share/fpcsrc/packages/fcl-fpcunit/src/fpcunit.pp"/>
+        <UnitName Value="fpcunit"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="80"/>
+        <CursorPos X="21" Y="98"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/sysutils/sysstrh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8"/>
+        <CursorPos X="52" Y="25"/>
+        <UsageCount Value="10"/>
       </Unit6>
     </Units>
     <General>

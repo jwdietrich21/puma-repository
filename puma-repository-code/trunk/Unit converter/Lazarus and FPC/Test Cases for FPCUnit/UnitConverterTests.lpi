@@ -20,7 +20,7 @@
       <MinorVersionNr Value="2"/>
       <RevisionNr Value="1"/>
       <BuildNr Value="21"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS " ProductVersion="PUMA Repository"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS " ProductName="PUMA Repository" ProductVersion="1.2.1"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
