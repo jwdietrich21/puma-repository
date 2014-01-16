@@ -77,6 +77,8 @@ const
 { -- FPC adapter functions -- }
 { -- Emulate functionality of Free Pascal in Delphi -- }
 
+{$IFNDEF FPC}
+
 function RightStr
     (Const Str: String; Size: Word): String;
 begin
@@ -88,6 +90,8 @@ function isNaN(const d : Extended): boolean;
 begin
   result := (d = NaN);
 end;
+
+{$ENDIF}
 
 procedure InitConversionFactors;
 {sets labels and appropriate conversion factors for the elements of measurement units}
