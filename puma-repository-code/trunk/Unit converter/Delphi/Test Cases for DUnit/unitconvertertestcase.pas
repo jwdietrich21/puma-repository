@@ -6,7 +6,7 @@ unit unitconvertertestcase;
 
 { Unit Converter }
 
-{ Version 1.2.1 }
+{ Version 1.2.2 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }

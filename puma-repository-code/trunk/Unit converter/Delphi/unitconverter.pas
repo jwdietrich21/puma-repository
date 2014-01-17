@@ -6,7 +6,7 @@ unit UnitConverter;
 
 { Unit Converter }
 
-{ Version 1.2.1 }
+{ Version 1.2.2 }
 
 { (c) J. W. Dietrich, 1994 - 2013 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -27,6 +27,95 @@ unit UnitConverter;
 { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
 {$H+}
+
+{$IFDEF VER10}   {Turbo Pascal 1}
+{$DEFINE TURBOPASCAL}
+{$ENDIF}
+
+{$IFDEF VER20}   {Turbo Pascal 2}
+{$DEFINE TURBOPASCAL}
+{$ENDIF}
+
+{$IFDEF VER30}   {Turbo Pascal 3}
+{$DEFINE TURBOPASCAL}
+{$ENDIF}
+
+{$IFDEF VER40}   {Turbo Pascal 4}
+{$DEFINE TURBOPASCAL}
+{$ENDIF}
+
+{$IFDEF VER50}   {Turbo Pascal 5}
+{$DEFINE TURBOPASCAL}
+{$ENDIF}
+
+{$IFDEF VER60}   {Turbo Pascal 6}
+{$DEFINE TURBOPASCAL}
+{$ENDIF}
+
+{$IFDEF VER70}   {Turbo Pascal 7}
+{$DEFINE TURBOPASCAL}
+{$ENDIF}
+
+{$IFDEF VER80}   {Delphi 1}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER90}   {Delphi 2}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER100}   {Delphi 3}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER120}   {Delphi 4}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER130}   {Delphi 5}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER140}   {Delphi 6}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER150}   {Delphi 7}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER160}   {Delphi 8}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER170}   {Delphi 9}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER180}   {Delphi 10}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER185}   {Delphi 11 - Spacely}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER190}   {Delphi 11 - Highlander and Delphi 12}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER200}   {Delphi 12}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF VER210}   {Delphi 2010}
+{$DEFINE DELPHI}
+{$ENDIF}
+
+{$IFDEF DCC}   {Delphi XE and newer versions}
+{$DEFINE DELPHI}
+{$ENDIF}
+
 
 interface
 
