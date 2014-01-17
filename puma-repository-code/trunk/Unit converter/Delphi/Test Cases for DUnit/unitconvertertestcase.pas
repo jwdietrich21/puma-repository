@@ -65,11 +65,11 @@ type
     procedure TestCase7;
   end;
 
- {TconverterTestCases = class(TTestCase)
+ TconverterTestCases = class(TTestCase)
   published
     procedure TestCase1;
     procedure TestCase2;
-    procedure TestCase3;
+ {   procedure TestCase3;
     procedure TestCase4;
     procedure TestCase5;
     procedure TestCase6;
@@ -83,8 +83,8 @@ type
     procedure TestCase14;
     procedure TestCase15;
     procedure TestCase16;
-    procedure TestCase101;
-  end;  }
+    procedure TestCase101;  }
+  end;
 
 implementation
 
@@ -259,19 +259,18 @@ var
 begin
   theMeasurement := ParsedMeasurement('0.01 mU/l');
   Check(theMeasurement.Value = 0.01);
-  Check(theMeasurement.uom ='mU/l' );
+  Check(theMeasurement.uom = 'mU/l' );
 end;
 
 { -- Unit converter tests -- }
 
-{$IFDEF CONVERSIONREADY}
 procedure TconverterTestCases.TestCase1;
 {empty value}
 var
   theResultString: String;
 begin
   theResultString := ConvertedUnit('', 1, 'ng/dl');
-  AssertEquals('', theResultString);
+  Check(theResultString = '');
 end;
 
 procedure TconverterTestCases.TestCase2;
@@ -280,10 +279,10 @@ var
   theResultString: String;
 begin
   theResultString := ConvertedUnit('20 pmol/l', T4_MOLAR_MASS, 'ng/dl');
-  AssertEquals('1.55', LeftStr(theResultString, 4));
-  AssertEquals('ng/dl', RightStr(theResultString, 5));
+  Check(LeftStr(theResultString, 4) = '1.55');
+  Check(RightStr(theResultString, 5) = 'ng/dl');
 end;
-
+{$IFDEF CONVERSIONREADY}
 procedure TconverterTestCases.TestCase3;
 {T4: pmol/l to ng/l}
 var
@@ -440,6 +439,6 @@ initialization
 TestFramework.RegisterTest(TControlTestCases.Suite);
 TestFramework.RegisterTest(TUnitParserTestCases.Suite);
 TestFramework.RegisterTest(TMeasurementParserTestCases.Suite);
-{TestFramework.RegisterTest(TconverterTestCases.Suite);}
+TestFramework.RegisterTest(TconverterTestCases.Suite);
 
 end.

@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="10">
+    <Units Count="12">
       <Unit0>
         <Filename Value="UnitConverterTests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -22,8 +22,8 @@
         <UnitName Value="UnitConverterTestCase"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="118"/>
-        <CursorPos X="15" Y="134"/>
+        <TopLine Value="256"/>
+        <CursorPos X="31" Y="276"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -94,11 +94,25 @@
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
       </Unit9>
+      <Unit10>
+        <Filename Value="../../../../../../../../../../lazarus/fpc/2.6.2/source/rtl/objpas/sysutils/sysstrh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="231"/>
+        <CursorPos X="17" Y="259"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../../../../../../../../../../lazarus/fpc/2.6.2/source/rtl/objpas/sysutils/sysstr.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2560"/>
+        <CursorPos X="1" Y="2566"/>
+        <UsageCount Value="10"/>
+      </Unit11>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="10" HistoryIndex="9">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="unitconvertertestcase.pas"/>
         <Caret Line="417" Column="1" TopLine="395"/>
@@ -139,6 +153,10 @@
         <Filename Value="unitconvertertestcase.pas"/>
         <Caret Line="134" Column="15" TopLine="118"/>
       </Position10>
+      <Position11>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="276" Column="31" TopLine="256"/>
+      </Position11>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

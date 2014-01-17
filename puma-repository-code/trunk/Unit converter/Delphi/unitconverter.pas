@@ -162,7 +162,11 @@ var
   PrefixFactor: array[0..MAXFACTORS - 1] of real;
   UnitLabel: array[0..MAXFACTORS - 1] of string;
 
+{$IFNDEF FPC}
+function RightStr(const S: string; count: Word): string;
+function LeftStr(const S: string; Count: integer): string;
 function isNaN(const d : Extended): boolean;
+{$ENDIF}
 function DecodeGreek(theString: string): string;
 function EncodeGreek(theString: string): string;
 function ParsedUnitString(theString: String): TUnitElements;
@@ -190,47 +194,56 @@ const
 {$IFDEF TURBOPASCAL}
 
 function IntToStr(value : integer): string;
-var theString : string;
+var
+  theString : string;
 begin
-str(value, theString);
-IntToStr := theString;
+  str(value, theString);
+  IntToStr := theString;
 end;
 
-function FloatToStr(value: Real; precision, digits : Byte): string;
-var theString : string;
+function FloatToStr(value: Real): string;
+var
+  theString : string;
 begin
-Str(value:precision:digits, theString);
-FloatToStr := theString;
+  Str(value, theString);
+  FloatToStr := theString;
 end;
 
 function StrToInt(s: string): integer;
-var theNumber:integer;
+var
+  theNumber, theCode: integer;
 begin
-val(s, theNumber);
-StrToInt:= theNumber;
+  val(s, theNumber, theCode);
+  StrToInt:= theNumber;
 end;
 
 function StrToFloat(s: string): real;
-var theNumber: real;
+var
+  theNumber: real;
+  theCode: integer;
 begin
-val(s, theNumber);
-StrToFloat:= theNumber;
+  val(s, theNumber, theCode);
+  StrToFloat:= theNumber;
 end;
 
 {$ENDIF}
 
 {$IFNDEF FPC}
 
-function RightStr
-    (Const Str: string; Size: Word): string;
+function RightStr(const S: string; count: Word): string;
 begin
-  if Size > Length(Str) then Size := Length(Str) ;
-  RightStr := Copy(Str, Length(Str)-Size+1, Size)
+  if count > Length(S) then count := Length(S) ;
+  RightStr := copy(S, Length(S) - count + 1, count)
+end;
+
+function LeftStr(const S: string; count: integer): string;
+begin
+  result := copy(S, 1, count);
 end;
 
 function isNaN(const d : Extended): boolean;
 begin
-  result := (d = NaN);
+  result := (d = -NaN);
 end;
 
 {$ENDIF}
