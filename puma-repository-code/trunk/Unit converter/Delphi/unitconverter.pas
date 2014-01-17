@@ -58,64 +58,82 @@ unit UnitConverter;
 
 {$IFDEF VER80}   {Delphi 1}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER90}   {Delphi 2}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER100}   {Delphi 3}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER120}   {Delphi 4}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER130}   {Delphi 5}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER140}   {Delphi 6}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER150}   {Delphi 7}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER160}   {Delphi 8}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER170}   {Delphi 9}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER180}   {Delphi 10}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER185}   {Delphi 11 - Spacely}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER190}   {Delphi 11 - Highlander and Delphi 12}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER200}   {Delphi 12}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF VER210}   {Delphi 2010}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
 {$IFDEF DCC}   {Delphi XE and newer versions}
 {$DEFINE DELPHI}
+{$DEFINE ADVANCEDPASCAL}
 {$ENDIF}
 
+{$IFDEF FPC]   {Lazarus and Free Pascal}
+{$DEFINE ADVANCEDPASCAL}
+{$ENDIF}
 
 interface
 
@@ -124,13 +142,16 @@ uses
 
 const
   MAXFACTORS = 10; {number of supported prefixes for measurement units}
+  {$IFNDEF FPC}
   NaN = 0/0;
+  {$ENDIF}
 
 type
   tMeasurement = record
     Value: extended;
     uom: string;
   end;
+
   tUnitElements = record
        MassPrefix, MassUnit, VolumePrefix, VolumeUnit: String;
 end;
@@ -164,12 +185,44 @@ const
   DEC_COMMA = ',';
 
 { -- FPC adapter functions -- }
-{ -- Emulate functionality of Free Pascal in Delphi -- }
+{ -- Emulate functionality of Free Pascal in TurboPascal and/or Delphi -- }
+
+{$IFDEF TURBOPASCAL}
+
+function IntToStr(value : integer): string;
+var theString : string;
+begin
+str(value, theString);
+IntToStr := theString;
+end;
+
+function FloatToStr(value: Real; precision, digits : Byte): string;
+var theString : string;
+begin
+Str(value:precision:digits, theString);
+FloatToStr := theString;
+end;
+
+function StrToInt(s: string): integer;
+var theNumber:integer;
+begin
+val(s, theNumber);
+StrToInt:= theNumber;
+end;
+
+function StrToFloat(s: string): real;
+var theNumber: real;
+begin
+val(s, theNumber);
+StrToFloat:= theNumber;
+end;
+
+{$ENDIF}
 
 {$IFNDEF FPC}
 
 function RightStr
-    (Const Str: String; Size: Word): String;
+    (Const Str: string; Size: Word): string;
 begin
   if Size > Length(Str) then Size := Length(Str) ;
   RightStr := Copy(Str, Length(Str)-Size+1, Size)
@@ -247,7 +300,7 @@ var
   theFlags: TReplaceFlags;
 begin
   theFlags := [rfReplaceAll, rfIgnoreCase];
-  Result := StringReplace(theString, #194#181, 'mc', theFlags);
+  Result := stringReplace(theString, #194#181, 'mc', theFlags);
 end;
 
 function DecodeGreek(theString: string): string;
@@ -256,10 +309,10 @@ var
   theFlags: TReplaceFlags;
 begin
   theFlags := [rfReplaceAll, rfIgnoreCase];
-  result := StringReplace(theString, 'mc', #194#181, theFlags);
+  result := stringReplace(theString, 'mc', #194#181, theFlags);
 end;
 
-function ParsedUnitString(theString: string): TUnitElements;
+function ParsedUnitstring(theString: string): TUnitElements;
   {parses a string for measurement unit and breaks it up in single components of a TUnitElements record}
 var
   theElements: TUnitElements;
@@ -335,7 +388,7 @@ begin
           VolumePrefix := '';  {no prefix set}
       end;
   end;
-  ParsedUnitString := theElements;
+  ParsedUnitstring := theElements;
 end;
 
 function ParsedMeasurement(measurement: string): tMeasurement;
@@ -344,12 +397,12 @@ var
   ch: char;
 
   function Number: extended;
-  {$IFDEF FPC}  {version for FPC}
+  {$IFDEF ADVANCEDPASCAL}  {version for FPC, Lazarus and Delphi}
   var
     i, n: integer;
-    valString: string;
+    valstring: string;
   begin
-    valString := '';
+    valstring := '';
     n := length(measurement);
     number := NaN;
     if n > 0 then
@@ -358,15 +411,15 @@ var
       ch := measurement[i];
       while (ValidChar(ch)) and (i <= n) do
       begin
-        valString := valString + ch;
+        valstring := valstring + ch;
         inc(i);
         ch := measurement[i];
       end;
-      if pos(DEC_COMMA, valString) > 0 then
+      if pos(DEC_COMMA, valstring) > 0 then
         decimalSeparator := DEC_COMMA
       else
         decimalSeparator := DEC_POINT;
-      number := StrToFloat(valString);
+      number := StrToFloat(valstring);
       gPosition := i + 1;
     end;
   end;
@@ -476,8 +529,8 @@ begin
       toMpIndex := 0;    {Index for mass prefix}
       toMuIndex := 0;    {index for mass unit}
       toVpIndex := 0;    {index for volume prefix}
-      fromUnitElements := ParsedUnitString(EncodeGreek(fromUnit));
-      toUnitElements := ParsedUnitString(EncodeGreek(toUnit));
+      fromUnitElements := ParsedUnitstring(EncodeGreek(fromUnit));
+      toUnitElements := ParsedUnitstring(EncodeGreek(toUnit));
       for i := MAXFACTORS - 1 downto 0 do
         begin
           if fromUnitElements.MassPrefix = PrefixLabel[i] then fromMpIndex := i;
