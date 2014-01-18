@@ -89,50 +89,60 @@ unit UnitConverter;
 {$IFDEF VER150}   {Delphi 7}
 {$DEFINE DELPHI}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 {$IFDEF VER160}   {Delphi 8}
 {$DEFINE DELPHI}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 {$IFDEF VER170}   {Delphi 9}
 {$DEFINE DELPHI}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 {$IFDEF VER180}   {Delphi 10}
 {$DEFINE DELPHI}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 {$IFDEF VER185}   {Delphi 11 - Spacely}
 {$DEFINE DELPHI}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 {$IFDEF VER190}   {Delphi 11 - Highlander and Delphi 12}
 {$DEFINE DELPHI}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 {$IFDEF VER200}   {Delphi 12}
 {$DEFINE DELPHI}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 {$IFDEF VER210}   {Delphi 2010}
 {$DEFINE DELPHI}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 {$IFDEF DCC}   {Delphi XE and newer versions}
 {$DEFINE DELPHI}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 {$IFDEF FPC]   {Lazarus and Free Pascal}
 {$DEFINE ADVANCEDPASCAL}
+{$DEFINE MATHAVAILABLE}
 {$ENDIF}
 
 interface
@@ -142,7 +152,7 @@ uses
 
 const
   MAXFACTORS = 10; {number of supported prefixes for measurement units}
-  {$IFNDEF FPC}
+  {$IFNDEF MATHAVAILABLE}
   NaN = 0/0;
   {$ENDIF}
 
@@ -417,7 +427,7 @@ var
   begin
     valstring := '';
     n := length(measurement);
-    number := NaN;
+    Number := NaN;
     if n > 0 then
     begin
       i := 1;
@@ -432,7 +442,7 @@ var
         decimalSeparator := DEC_COMMA
       else
         decimalSeparator := DEC_POINT;
-      number := StrToFloat(valstring);
+      Number := StrToFloatDef(valstring, NaN);
       gPosition := i + 1;
     end;
   end;
