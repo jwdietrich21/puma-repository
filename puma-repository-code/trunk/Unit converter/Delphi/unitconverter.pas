@@ -422,29 +422,21 @@ var
   function Number: extended;
   {$IFDEF ADVANCEDPASCAL}  {version for FPC, Lazarus and Delphi}
   var
-    i, n: integer;
     valstring: string;
   begin
     valstring := '';
-    n := length(measurement);
     Number := NaN;
-    if n > 0 then
+    while (ValidChar(ch)) do
     begin
-      i := 1;
-      ch := measurement[i];
-      while (ValidChar(ch)) and (i <= n) do
-      begin
-        valstring := valstring + ch;
-        inc(i);
-        ch := measurement[i];
-      end;
-      if pos(DEC_COMMA, valstring) > 0 then
-        decimalSeparator := DEC_COMMA
-      else
-        decimalSeparator := DEC_POINT;
-      Number := StrToFloatDef(valstring, NaN);
-      gPosition := i + 1;
+      valstring := valstring + ch;
+      ch := NextChar(measurement);
     end;
+    if pos(DEC_COMMA, valstring) > 0 then
+      decimalSeparator := DEC_COMMA
+    else
+      decimalSeparator := DEC_POINT;
+    valstring := valstring + #0;
+    Number := StrToFloatDef(valstring, NaN);
   end;
   {$ELSE}  {version for other compilers}
   var
