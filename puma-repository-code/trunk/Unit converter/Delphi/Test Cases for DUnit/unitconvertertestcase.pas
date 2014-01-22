@@ -69,14 +69,14 @@ type
   published
     procedure TestCase1;
     procedure TestCase2;
- {   procedure TestCase3;
+    procedure TestCase3;
     procedure TestCase4;
     procedure TestCase5;
     procedure TestCase6;
     procedure TestCase7;
     procedure TestCase8;
     procedure TestCase9;
-    procedure TestCase10;
+{    procedure TestCase10;
     procedure TestCase11;
     procedure TestCase12;
     procedure TestCase13;
@@ -282,15 +282,15 @@ begin
   Check(LeftStr(theResultString, 4) = '1.55');
   Check(RightStr(theResultString, 5) = 'ng/dl');
 end;
-{$IFDEF CONVERSIONREADY}
+
 procedure TconverterTestCases.TestCase3;
 {T4: pmol/l to ng/l}
 var
   theResultString: String;
 begin
   theResultString := ConvertedUnit('20 pmol/l', T4_MOLAR_MASS, 'ng/l');
-  AssertEquals('15.5', LeftStr(theResultString, 4));
-  AssertEquals('ng/l', RightStr(theResultString, 4));
+  Check(LeftStr(theResultString, 4) = '15.5');
+  Check(RightStr(theResultString, 4) = 'ng/l');
 end;
 
 procedure TconverterTestCases.TestCase4;
@@ -299,8 +299,8 @@ var
   theResultString: String;
 begin
   theResultString := ConvertedUnit('18 ng/l', T4_MOLAR_MASS, 'pmol/l');
-  AssertEquals('23.1', LeftStr(theResultString, 4));
-  AssertEquals('pmol/l', RightStr(theResultString, 6));
+  Check(LeftStr(theResultString, 4) = '23.1');
+  Check(RightStr(theResultString, 6) = 'pmol/l');
 end;
 
 procedure TconverterTestCases.TestCase5;
@@ -309,8 +309,8 @@ var
   theResultString: String;
 begin
   theResultString := ConvertedUnit('1.8 ng/dl', T4_MOLAR_MASS, 'pmol/l');
-  AssertEquals('23.1', LeftStr(theResultString, 4));
-  AssertEquals('pmol/l', RightStr(theResultString, 6));
+  Check(LeftStr(theResultString, 4) = '23.1');
+  Check(RightStr(theResultString, 6) = 'pmol/l');
 end;
 
 procedure TconverterTestCases.TestCase6;
@@ -319,8 +319,8 @@ var
   theResultString: String;
 begin
   theResultString := ConvertedUnit('18 ng/l', T4_MOLAR_MASS, 'ng/l');
-  AssertEquals('18', LeftStr(theResultString, 2));
-  AssertEquals('ng/l', RightStr(theResultString, 4));
+  Check(LeftStr(theResultString, 2) = '18');
+  Check(RightStr(theResultString, 4) = 'ng/l');
 end;
 
 procedure TconverterTestCases.TestCase7;
@@ -329,8 +329,8 @@ var
   theResultString: String;
 begin
   theResultString := ConvertedUnit('3.2 ng/l', T3_MOLAR_MASS, 'pmol/l');
-  AssertEquals('4.9', LeftStr(theResultString, 3));
-  AssertEquals('pmol/l', RightStr(theResultString, 6));
+  Check(LeftStr(theResultString, 3) = '4.9');
+  Check(RightStr(theResultString, 6) = 'pmol/l');
 end;
 
 procedure TconverterTestCases.TestCase8;
@@ -339,8 +339,8 @@ var
   theResultString: String;
 begin
   theResultString := ConvertedUnit('5 pmol/l', T3_MOLAR_MASS, 'ng/l');
-  AssertEquals('3.2', LeftStr(theResultString, 3));
-  AssertEquals('ng/l', RightStr(theResultString, 4));
+  Check(LeftStr(theResultString, 3) = '3.2');
+  Check(RightStr(theResultString, 4) = 'ng/l');
 end;
 
 procedure TconverterTestCases.TestCase9;
@@ -349,10 +349,10 @@ var
   theResultString: String;
 begin
   theResultString := ConvertedUnit('5 pmol/l', T3_MOLAR_MASS, 'pg/ml');
-  AssertEquals('3.2', LeftStr(theResultString, 3));
-  AssertEquals('pg/ml', RightStr(theResultString, 5));
+  Check(LeftStr(theResultString, 3) = '3.2');
+  Check(RightStr(theResultString, 5) = 'pg/ml');
 end;
-
+{$IFDEF CONVERSIONREADY}
 procedure TconverterTestCases.TestCase10;
 {T4: ng/l to mol/l}
 var

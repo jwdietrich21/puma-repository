@@ -175,6 +175,8 @@ var
 {$IFNDEF FPC}
 function RightStr(const S: string; count: Word): string;
 function LeftStr(const S: string; Count: integer): string;
+{$ENDIF}
+{$IFNDEF MATHAVAILABLE}
 function isNaN(const d : Extended): boolean;
 {$ENDIF}
 function DecodeGreek(theString: string): string;
@@ -191,6 +193,7 @@ function ConvertedUnitF(fromValue: string; molarMass: real; toUnit: string; form
 implementation
 
 const
+  kNUL = chr(0);
   kTAB = chr(9);
   kLF = chr(10);
   kCR = chr(13);
@@ -251,11 +254,16 @@ begin
   result := copy(S, 1, count);
 end;
 
+{$ENDIF}
+
+{$IFNDEF MATHAVAILABLE}
 function isNaN(const d : Extended): boolean;
 begin
-  result := (d = -NaN);
+  if (d = NaN) or (d = -NaN) then
+    result := true
+  else
+    result := false;
 end;
-
 {$ENDIF}
 
 procedure InitConversionFactors;
@@ -314,7 +322,7 @@ begin
     gPosition := gPosition + 1;
   end
   else
-    NextChar := kETB;
+    NextChar := kNUL;
 end;
 
 function EncodeGreek(theString: string): string;
@@ -435,7 +443,6 @@ var
       decimalSeparator := DEC_COMMA
     else
       decimalSeparator := DEC_POINT;
-    valstring := valstring + #0;
     Number := StrToFloatDef(valstring, NaN);
   end;
   {$ELSE}  {version for other compilers}
@@ -535,7 +542,7 @@ var
   conversionFactor: real;
 begin
   if isNaN(value) then
-  ConvertedValue := NaN
+  ConvertedValue := -NaN
   else
     begin
       fromMpIndex := 0;    {Index for mass prefix}
