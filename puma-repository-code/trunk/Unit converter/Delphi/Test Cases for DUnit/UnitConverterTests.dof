@@ -57,7 +57,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=2
 Release=1
-Build=15
+Build=16
 Debug=0
 PreRelease=1
 Special=0
@@ -68,7 +68,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=FORMATIO RETICULARIS
 FileDescription=
-FileVersion=1.2.1.15
+FileVersion=1.2.1.16
 InternalName=
 LegalCopyright=
 LegalTrademarks=

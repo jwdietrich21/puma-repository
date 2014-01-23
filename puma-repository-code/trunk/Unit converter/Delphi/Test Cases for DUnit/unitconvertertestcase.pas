@@ -80,10 +80,10 @@ type
     procedure TestCase11;
     procedure TestCase12;
     procedure TestCase13;
-{    procedure TestCase14;
+    procedure TestCase14;
     procedure TestCase15;
     procedure TestCase16;
-    procedure TestCase101;  }
+    procedure TestCase101;  
   end;
 
 implementation
@@ -392,16 +392,15 @@ begin
   Check(RightStr(theResultString, 4) = 'ng/l');
 end;
 
-{$IFDEF CONVERSIONREADY}
 procedure TconverterTestCases.TestCase14;
 {T4: ng/l to pmol/l}
 var
   theResultString: String;
 begin
   theResultString := UnitFromValue(18, T4_MOLAR_MASS, 'ng/l', 'pmol/l');
-  theResultString := UnitFromValueF(18, T4_MOLAR_MASS, 'ng/l', 'pmol/l', ffNumber, 2, 2);
-  AssertEquals('23.1', LeftStr(theResultString, 4));
-  AssertEquals('pmol/l', RightStr(theResultString, 6));
+  theResultString := UnitFromValueF(18, T4_MOLAR_MASS, 'ng/l', 'pmol/l', ffNumber, 4, 2);
+  Check(LeftStr(theResultString, 4) = '23.1');
+  Check(RightStr(theResultString, 6) = 'pmol/l');
 end;
 
 procedure TconverterTestCases.TestCase15;
@@ -409,9 +408,9 @@ procedure TconverterTestCases.TestCase15;
 var
   theResultString: String;
 begin
-  theResultString := ConvertedUnitF('3.2 ng/l', T3_MOLAR_MASS, 'pmol/l', ffNumber, 2, 2);
-  AssertEquals('4.9', LeftStr(theResultString, 3));
-  AssertEquals('pmol/l', RightStr(theResultString, 6));
+  theResultString := ConvertedUnitF('3.2 ng/l', T3_MOLAR_MASS, 'pmol/l', ffNumber, 4, 2);
+  Check(LeftStr(theResultString, 3) = '4.9');
+  Check(RightStr(theResultString, 6) = 'pmol/l');
 end;
 
 procedure TconverterTestCases.TestCase16;
@@ -419,9 +418,9 @@ procedure TconverterTestCases.TestCase16;
 var
   theResultString: String;
 begin
-  theResultString := ConvertedUnitF('5 pmol/l', T3_MOLAR_MASS, 'ng/l', ffNumber, 2, 2);
-  AssertEquals('3.2', LeftStr(theResultString, 3));
-  AssertEquals('ng/l', RightStr(theResultString, 4));
+  theResultString := ConvertedUnitF('5 pmol/l', T3_MOLAR_MASS, 'ng/l', ffNumber, 4, 2);
+  Check(LeftStr(theResultString, 3) = '3.2');
+  Check(RightStr(theResultString, 4) = 'ng/l');
 end;
 
 procedure TconverterTestCases.TestCase101;
@@ -429,11 +428,10 @@ procedure TconverterTestCases.TestCase101;
 var
   theResultString: String;
 begin
-  theResultString := ConvertedUnitF('5 /nl', 1, '/µl', ffNumber, 2, 2);
-  AssertEquals('5,000.00', LeftStr(theResultString, 8));
+  theResultString := ConvertedUnitF('5 /nl', 1, '/µl', ffNumber, 7, 2);
+  Check((LeftStr(theResultString, 5) = '5,000') or (LeftStr(theResultString, 5) = '5.000'));
+  Check(RightStr(theResultString, 2) = 'µl');
 end;
-
-{$ENDIF}
 
 initialization
 
