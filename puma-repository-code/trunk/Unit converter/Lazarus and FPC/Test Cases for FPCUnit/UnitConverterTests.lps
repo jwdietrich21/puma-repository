@@ -13,7 +13,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,9 +22,9 @@
         <UnitName Value="UnitConverterTestCase"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="256"/>
-        <CursorPos X="31" Y="276"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="2"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -34,8 +34,8 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="20"/>
+        <CursorPos X="1" Y="2"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -112,7 +112,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="11" HistoryIndex="10">
+    <JumpHistory Count="18" HistoryIndex="17">
       <Position1>
         <Filename Value="unitconvertertestcase.pas"/>
         <Caret Line="417" Column="1" TopLine="395"/>
@@ -157,6 +157,34 @@
         <Filename Value="unitconvertertestcase.pas"/>
         <Caret Line="276" Column="31" TopLine="256"/>
       </Position11>
+      <Position12>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="147" Column="17" TopLine="130"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="213" Column="50" TopLine="197"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="452" Column="31" TopLine="425"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="673" Column="33" TopLine="642"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="187" Column="21" TopLine="174"/>
+      </Position17>
+      <Position18>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="425" Column="57" TopLine="406"/>
+      </Position18>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

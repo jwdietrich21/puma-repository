@@ -26,6 +26,10 @@ unit UnitConverter;
 { but WITHOUT ANY WARRANTY; without even the implied warranty of }
 { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
+{$IFDEF FPC}   {Lazarus and Free Pascal}
+{$mode objfpc}
+{$ENDIF}
+
 {$H+}
 
 {$IFDEF VER10}   {Turbo Pascal 1}
@@ -140,7 +144,7 @@ unit UnitConverter;
 {$DEFINE FULLMATHAVAILABLE}
 {$ENDIF}
 
-{$IFDEF FPC]   {Lazarus and Free Pascal}
+{$IFDEF FPC}   {Lazarus and Free Pascal}
 {$DEFINE ADVANCEDOBJECTPASCAL}
 {$DEFINE FULLMATHAVAILABLE}
 {$ENDIF}
@@ -344,7 +348,11 @@ var
   theFlags: TReplaceFlags;
 begin
   theFlags := [rfReplaceAll, rfIgnoreCase];
+  {$IFDEF FPC}
+  result := UTF8Decode(StringReplace(theString, 'mc', #194#181, theFlags));
+  {$ELSE}
   result := stringReplace(theString, 'mc', #194#181, theFlags);
+  {$ENDIF}
 end;
 
 function ParsedUnitstring(theString: string): TUnitElements;
@@ -443,10 +451,13 @@ var
       valstring := valstring + ch;
       ch := NextChar(measurement);
     end;
+    {$IFDEF FPC}
+    with DefaultFormatSettings do
+    {$ENDIF}
     if pos(DEC_COMMA, valstring) > 0 then
-      decimalSeparator := DEC_COMMA
+      DecimalSeparator := DEC_COMMA
     else
-      decimalSeparator := DEC_POINT;
+      DecimalSeparator := DEC_POINT;
     try
       Number := StrToFloat(valstring)
     except

@@ -6,12 +6,12 @@ unit UnitConverterTestCase;
 
 { Unit Converter }
 
-{ Version 1.2.1 }
+{ Version 1.2.2 }
 
-{ (c) J. W. Dietrich, 1994 - 2013 }
+{ (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2013 }
+{ (c) Ruhr University of Bochum 2005 - 2014 }
 
 { Parser and converter for measurement units }
 
@@ -423,7 +423,7 @@ var
   theResultString: String;
 begin
   theResultString := ConvertedUnitF('5 /nl', 1, '/µl', ffNumber, 2, 2);
-  AssertEquals('5,000.00', LeftStr(theResultString, 8));
+  AssertTrue((LeftStr(theResultString, 5) = '5,000') or (LeftStr(theResultString, 5) = '5.000'));
 end;
 
 initialization
