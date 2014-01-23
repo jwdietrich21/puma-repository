@@ -8,11 +8,10 @@
         <Filename Value="UnitConverterTests.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverterTests"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <CursorPos X="78" Y="15"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -31,6 +30,7 @@
         <Filename Value="../unitconverter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverter"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -71,7 +71,7 @@
         <UsageCount Value="10"/>
       </Unit6>
       <Unit7>
-        <Filename Value="../../../../../../../../../../lazarus/fpc/2.6.2/source/packages/fcl-fpcunit/src/fpcunit.pp"/>
+        <Filename Value="/lazarus/fpc/2.6.2/source/packages/fcl-fpcunit/src/fpcunit.pp"/>
         <UnitName Value="fpcunit"/>
         <WindowIndex Value="0"/>
         <TopLine Value="72"/>
@@ -79,7 +79,7 @@
         <UsageCount Value="10"/>
       </Unit7>
       <Unit8>
-        <Filename Value="../../../../../../../../../../lazarus/fpc/2.6.2/source/rtl/objpas/math.pp"/>
+        <Filename Value="/lazarus/fpc/2.6.2/source/rtl/objpas/math.pp"/>
         <UnitName Value="math"/>
         <WindowIndex Value="0"/>
         <TopLine Value="196"/>
@@ -95,14 +95,14 @@
         <UsageCount Value="10"/>
       </Unit9>
       <Unit10>
-        <Filename Value="../../../../../../../../../../lazarus/fpc/2.6.2/source/rtl/objpas/sysutils/sysstrh.inc"/>
+        <Filename Value="/lazarus/fpc/2.6.2/source/rtl/objpas/sysutils/sysstrh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="231"/>
         <CursorPos X="17" Y="259"/>
         <UsageCount Value="10"/>
       </Unit10>
       <Unit11>
-        <Filename Value="../../../../../../../../../../lazarus/fpc/2.6.2/source/rtl/objpas/sysutils/sysstr.inc"/>
+        <Filename Value="/lazarus/fpc/2.6.2/source/rtl/objpas/sysutils/sysstr.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2560"/>
         <CursorPos X="1" Y="2566"/>
