@@ -11,7 +11,7 @@ necessary for normal use, except for the case that you want to improve and test
 the Unit Converter.
 
 The PUMA Unit Converter is compatible with Free Pascal 2.6.0 or newer, Lazarus 
-1.0.10 or newer and Delphi 7 or newer.
+1.0.10 or newer and Delphi 5 or newer.
 
 
 About the PUMA repository

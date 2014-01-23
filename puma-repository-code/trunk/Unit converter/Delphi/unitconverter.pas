@@ -153,7 +153,7 @@ uses
 const
   MAXFACTORS = 10; {number of supported prefixes for measurement units}
   {$IFNDEF MATHAVAILABLE}
-  NaN = 0/0;
+  NaN = 0.0 / 0.0;
   {$ENDIF}
 
 type
@@ -258,11 +258,15 @@ end;
 
 {$IFNDEF MATHAVAILABLE}
 function isNaN(const d : Extended): boolean;
+{isNan support for old Pascal compilers}
+{adapted from E. F. Glynn (1998) Mathematics Tech Note}
+{Exploring Numbers, Not-A-Number, and Infinity}
+{Delphi Developer, 9-14}
+VAR
+  Overlay: Int64 absolute d;
 begin
-  if (d = NaN) or (d = -NaN) then
-    result := true
-  else
-    result := false;
+  result := ((Overlay and $7FF0000000000000) = $7FF0000000000000) and
+    ((Overlay and $000FFFFFFFFFFFFF) <> $0000000000000000);
 end;
 {$ENDIF}
 
@@ -443,7 +447,11 @@ var
       decimalSeparator := DEC_COMMA
     else
       decimalSeparator := DEC_POINT;
-    Number := StrToFloatDef(valstring, NaN);
+    try
+      Number := StrToFloat(valstring)
+    except
+      Number := NaN;
+    end;
   end;
   {$ELSE}  {version for other compilers}
   var
