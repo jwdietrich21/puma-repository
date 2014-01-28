@@ -6,7 +6,7 @@ unit UnitConverter;
 
 { Unit Converter }
 
-{ Version 1.2.2 }
+{ Version 1.2.3 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -140,6 +140,7 @@ unit UnitConverter;
 
 {$IFDEF DCC}   {Delphi XE and newer versions}
 {$DEFINE DELPHI}
+{$DEFINE DELPHIXE}
 {$DEFINE ADVANCEDOBJECTPASCAL}
 {$DEFINE FULLMATHAVAILABLE}
 {$ENDIF}
@@ -453,6 +454,9 @@ var
     end;
     {$IFDEF FPC}
     with DefaultFormatSettings do
+    {$ENDIF}
+    {$IFDEF DELPHIXE}
+    with FormatSettings do
     {$ENDIF}
     if pos(DEC_COMMA, valstring) > 0 then
       DecimalSeparator := DEC_COMMA
