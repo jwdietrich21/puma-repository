@@ -6,7 +6,7 @@ program MessageViewer;
 
 { Demo implementation: Viewer for HL7 messages }
 
-{ Version 1.0.1 }
+{ Version 1.1.0 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }

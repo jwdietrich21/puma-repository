@@ -6,7 +6,7 @@ unit OBX;
 
 { HL7 support unit for observation / result segments }
 
-{ Version 1.3 }
+{ Version 1.4 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }

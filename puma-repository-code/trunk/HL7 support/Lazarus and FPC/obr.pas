@@ -6,7 +6,7 @@ unit OBR;
 
 { HL7 support unit for observation request segments }
 
-{ Version 1.3 }
+{ Version 1.4 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -40,7 +40,7 @@ type
   tOBR = record
     SetID: tSI;
     PlacOrdNumb, FillOrdNumb: tEI;
-    USI: tCE;
+    USI: tCE;  { Universal Service Identifier }
     Priority: tID;
     ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM;
     CollectionVolume: tCQ;
@@ -66,6 +66,15 @@ type
     PrincipalResultInterpreter, AssistantResultInterpreter: tNDL;
     Technician, Transcriptionist: tNDL;
     ScheduledDateTime: tTS;
+    NumberOfSampleContainers: tNM;
+    TransportLogisticsOfCollSampl, CollectorsComment: tCE;
+    TransportArrangementResponsibility: tCE;
+    TransportArranged, EscortRequired: tID;
+    PlannedPatientTransportComment: tCE;
+    ProcedureCode, ProcedureCodeModifier: tCE;
+    PlacerSupplServiceInfo, FillerSupplServiceInfo: tCE;
+    MedicallyNecessaryDuplProcReason: tCWE;
+    ResultHandling: tIS;
   end;
 
 function OBR_Segment(message: THL7Message): THL7Segment;

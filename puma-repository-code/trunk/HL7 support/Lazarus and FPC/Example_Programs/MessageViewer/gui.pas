@@ -6,7 +6,7 @@ unit GUI;
 
 { Demo implementation: Viewer for HL7 messages }
 
-{ Version 1.0.1 }
+{ Version 1.1.0 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -47,21 +47,26 @@ type
     FileMenu: TMenuItem;
     EditMenu: TMenuItem;
     Divider11: TMenuItem;
-    RedoItem: TMenuItem;
+    HelpMenu: TMenuItem;
+    AppleMenu: TMenuItem;
+    MacAboutItem: TMenuItem;
+    CloseMenuItem: TMenuItem;
+    WinAboutItem: TMenuItem;
+    RedoMenuItem: TMenuItem;
     Divider21: TMenuItem;
-    CutItem: TMenuItem;
-    CopyItem: TMenuItem;
-    PasteItem: TMenuItem;
-    OpenItem: TMenuItem;
-    SaveItem: TMenuItem;
+    CutMenuItem: TMenuItem;
+    CopyMenuItem: TMenuItem;
+    PasteMenuItem: TMenuItem;
+    OpenMenuItem: TMenuItem;
+    SaveMenuItem: TMenuItem;
     Divider12: TMenuItem;
-    QuitItem: TMenuItem;
-    NewItem: TMenuItem;
+    QuitMenuItem: TMenuItem;
+    NewMenuItem: TMenuItem;
     NewButton: TToolButton;
     OpenButton: TToolButton;
     SaveButton: TToolButton;
     SaveAsButton: TToolButton;
-    UndoItem: TMenuItem;
+    UndoMenuItem: TMenuItem;
     MessageGroupBox: TGroupBox;
     MessageMemo: TMemo;
     MessageFileSaveDialog: TSaveDialog;
@@ -80,15 +85,21 @@ type
     SubComponentsGroupBox: TGroupBox;
     StatusBar1: TStatusBar;
     ToolBar1: TToolBar;
+    procedure ShowAboutWindow(Sender: TObject);
+    procedure CloseMenuItemClick(Sender: TObject);
     procedure ComponentsListBoxClick(Sender: TObject);
     procedure FieldsListBoxClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure OpenItemClick(Sender: TObject);
-    procedure QuitItemClick(Sender: TObject);
-    procedure SaveItemClick(Sender: TObject);
+    procedure MacAboutItemClick(Sender: TObject);
+    procedure OpenMenuItemClick(Sender: TObject);
+    procedure QuitMenuItemClick(Sender: TObject);
+    procedure SaveMenuItemClick(Sender: TObject);
     procedure SegmentsListBoxClick(Sender: TObject);
     procedure SegmentsListBoxDrawItem(Control: TWinControl; Index: integer;
       ARect: TRect; State: TOwnerDrawState);
+    procedure ToolBar1Click(Sender: TObject);
+    procedure WinAboutItemClick(Sender: TObject);
   private
     { private declarations }
   public
@@ -105,7 +116,34 @@ implementation
 
 { TMainForm }
 
-procedure TMainForm.OpenItemClick(Sender: TObject);
+procedure AdaptMenus;
+{ Adapts Menus and Shortcuts to the interface style guidelines
+  of the respective operating system }
+var
+  modifierKey: TShiftState;
+begin
+  {$IFDEF LCLcarbon}
+  modifierKey := [ssMeta];
+  MainForm.WinAboutItem.Visible := False;
+  MainForm.AppleMenu.Visible := True;
+  {$ELSE}
+  modifierKey := [ssCtrl];
+  MainForm.WinAboutItem.Visible := True;
+  MainForm.AppleMenu.Visible := False;
+  {$ENDIF}
+  MainForm.NewMenuItem.ShortCut := ShortCut(VK_N, modifierKey);
+  MainForm.OpenMenuItem.ShortCut := ShortCut(VK_O, modifierKey);
+  MainForm.CloseMenuItem.ShortCut := ShortCut(VK_W, modifierKey);
+  MainForm.SaveMenuItem.ShortCut := ShortCut(VK_S, modifierKey);
+  MainForm.QuitMenuItem.ShortCut := ShortCut(VK_Q, modifierKey);
+  MainForm.UndoMenuItem.ShortCut := ShortCut(VK_Z, modifierKey);
+  MainForm.RedoMenuItem.ShortCut := ShortCut(VK_Z, modifierKey + [ssShift]);
+  MainForm.CutMenuItem.ShortCut := ShortCut(VK_X, modifierKey);
+  MainForm.CopyMenuItem.ShortCut := ShortCut(VK_C, modifierKey);
+  MainForm.PasteMenuItem.ShortCut := ShortCut(VK_V, modifierKey);
+end;
+
+procedure TMainForm.OpenMenuItemClick(Sender: TObject);
 var
   theSegment: THL7Segment;
 begin
@@ -130,13 +168,13 @@ begin
   end;
 end;
 
-procedure TMainForm.QuitItemClick(Sender: TObject);
+procedure TMainForm.QuitMenuItemClick(Sender: TObject);
 begin
   application.Terminate;
 end;
 
 procedure TMainForm.SegmentsListBoxDrawItem(Control: TWinControl;
-  Index: integer; aRect: TRect; State: TOwnerDrawState);
+  Index: integer; ARect: TRect; State: TOwnerDrawState);
 var
   listColor: TColor;
 begin
@@ -155,6 +193,16 @@ begin
     Brush.Style := bsClear;
     TextOut(aRect.Left, aRect.Top, (Control as TListBox).Items[index]);
   end;
+end;
+
+procedure TMainForm.ToolBar1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TMainForm.WinAboutItemClick(Sender: TObject);
+begin
+  ShowAboutWindow(Sender);
 end;
 
 procedure TMainForm.SegmentsListBoxClick(Sender: TObject);
@@ -226,6 +274,11 @@ begin
   end;
 end;
 
+procedure TMainForm.FormCreate(Sender: TObject);
+begin
+  AdaptMenus;
+end;
+
 procedure TMainForm.ComponentsListBoxClick(Sender: TObject);
 var
   Count, index: integer;
@@ -276,12 +329,27 @@ begin
     Statusbar1.Panels[0].Text := FEEDBACK_TEXT + '--';
 end;
 
+procedure TMainForm.ShowAboutWindow(Sender: TObject);
+begin
+  ShowMessage('HL7 Message Viewer, a demo program for PUMA HL7 Engine');
+end;
+
+procedure TMainForm.CloseMenuItemClick(Sender: TObject);
+begin
+  QuitMenuItemClick(Sender);
+end;
+
 procedure TMainForm.FormShow(Sender: TObject);
 begin
   //SetTextLineEnding(MessageMemo.Lines, tlbsCR);
 end;
 
-procedure TMainForm.SaveItemClick(Sender: TObject);
+procedure TMainForm.MacAboutItemClick(Sender: TObject);
+begin
+  ShowAboutWindow(Sender);
+end;
+
+procedure TMainForm.SaveMenuItemClick(Sender: TObject);
 begin
   if MessageFileSaveDialog.Execute then
   begin

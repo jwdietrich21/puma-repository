@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -17,8 +17,8 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="3"/>
-      <BuildNr Value="147"/>
+      <MinorVersionNr Value="4"/>
+      <BuildNr Value="149"/>
       <StringTable CompanyName="FORMATIO RETICULARIS " FileDescription="Unit Tests for HL7 engine" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">

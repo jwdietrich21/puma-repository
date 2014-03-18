@@ -8,8 +8,9 @@ object MainForm: TMainForm
   ClientHeight = 570
   ClientWidth = 834
   Menu = MainMenu1
+  OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.0.14.0'
+  LCLVersion = '1.2.0.3'
   object StatusBar1: TStatusBar
     Left = 0
     Height = 15
@@ -33,6 +34,7 @@ object MainForm: TMainForm
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 1
+    OnClick = ToolBar1Click
     object NewButton: TToolButton
       Left = 1
       Hint = 'New message...'
@@ -49,7 +51,7 @@ object MainForm: TMainForm
       Top = 2
       Caption = 'OpenButton'
       ImageIndex = 1
-      OnClick = OpenItemClick
+      OnClick = OpenMenuItemClick
       ParentShowHint = False
       ShowHint = True
     end
@@ -60,7 +62,7 @@ object MainForm: TMainForm
       Caption = 'SaveButton'
       Enabled = False
       ImageIndex = 2
-      OnClick = SaveItemClick
+      OnClick = SaveMenuItemClick
       ParentShowHint = False
       ShowHint = True
     end
@@ -70,7 +72,7 @@ object MainForm: TMainForm
       Top = 2
       Caption = 'SaveAsButton'
       ImageIndex = 3
-      OnClick = SaveItemClick
+      OnClick = SaveMenuItemClick
       ParentShowHint = False
       ShowHint = True
     end
@@ -252,55 +254,83 @@ object MainForm: TMainForm
   object MainMenu1: TMainMenu
     left = 729
     top = 16
+    object AppleMenu: TMenuItem
+      Caption = ''
+      object MacAboutItem: TMenuItem
+        Caption = 'About HL7 Message Viewer'
+        OnClick = MacAboutItemClick
+      end
+    end
     object FileMenu: TMenuItem
       Caption = 'File'
-      object NewItem: TMenuItem
+      object NewMenuItem: TMenuItem
         Caption = 'New'
         Enabled = False
+        ShortCut = 16462
       end
       object Divider11: TMenuItem
         Caption = '-'
       end
-      object OpenItem: TMenuItem
+      object OpenMenuItem: TMenuItem
         Caption = 'Open'
-        OnClick = OpenItemClick
+        ShortCut = 16463
+        OnClick = OpenMenuItemClick
       end
-      object SaveItem: TMenuItem
+      object SaveMenuItem: TMenuItem
         Caption = 'Save'
-        OnClick = SaveItemClick
+        ShortCut = 16467
+        OnClick = SaveMenuItemClick
+      end
+      object CloseMenuItem: TMenuItem
+        Caption = 'Close'
+        ShortCut = 16471
+        OnClick = CloseMenuItemClick
       end
       object Divider12: TMenuItem
         Caption = '-'
       end
-      object QuitItem: TMenuItem
+      object QuitMenuItem: TMenuItem
         Caption = 'Quit'
-        OnClick = QuitItemClick
+        ShortCut = 16465
+        OnClick = QuitMenuItemClick
       end
     end
     object EditMenu: TMenuItem
       Caption = 'Edit'
-      object UndoItem: TMenuItem
+      object UndoMenuItem: TMenuItem
         Caption = 'Undo'
         Enabled = False
+        ShortCut = 16474
       end
-      object RedoItem: TMenuItem
+      object RedoMenuItem: TMenuItem
         Caption = 'Redo'
         Enabled = False
+        ShortCut = 24666
       end
       object Divider21: TMenuItem
         Caption = '-'
       end
-      object CutItem: TMenuItem
+      object CutMenuItem: TMenuItem
         Caption = 'Cut'
         Enabled = False
+        ShortCut = 16451
       end
-      object CopyItem: TMenuItem
+      object CopyMenuItem: TMenuItem
         Caption = 'Copy'
         Enabled = False
+        ShortCut = 16451
       end
-      object PasteItem: TMenuItem
+      object PasteMenuItem: TMenuItem
         Caption = 'Paste'
         Enabled = False
+        ShortCut = 16470
+      end
+    end
+    object HelpMenu: TMenuItem
+      Caption = 'Help'
+      object WinAboutItem: TMenuItem
+        Caption = 'About HL7 Message Viewer'
+        OnClick = WinAboutItemClick
       end
     end
   end
