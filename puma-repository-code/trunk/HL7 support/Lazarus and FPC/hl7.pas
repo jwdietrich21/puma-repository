@@ -6,7 +6,7 @@ unit HL7;
 
 { HL7 base unit }
 
-{ Version 1.4 }
+{ Version 1.5 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }

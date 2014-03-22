@@ -6,7 +6,7 @@ unit NTE;
 
 { HL7 support unit for notes and comments segment }
 
-{ Version 1.4 }
+{ Version 1.5 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -42,6 +42,8 @@ type
     CommentSource: tID;
     comment: tFT;
     commentType: tCE;
+    EnteredBy: tXCN; // Defined in HL7 2.7
+    EnteredDateTime, EffectiveStartDate, ExpirationDate: tDTM; // Defined in HL7 2.7
   end;
 
 function NTE_Segment(message: THL7Message): THL7Segment;

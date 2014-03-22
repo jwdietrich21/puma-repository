@@ -6,7 +6,7 @@ unit MSA;
 
 { HL7 support unit for message acknowledgement segments }
 
-{ Version 1.4 }
+{ Version 1.5 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -44,6 +44,8 @@ type
     exSeqNum: tNM;
     delAckType: char;
     ErrorCond: tCE;
+    MessageWaitingNumber: tNM; // Defined in HL7 2.7
+    MessageWaitingPriority: tID; // Defined in HL7 2.7
   end;
 
 function MSA_Segment(message: THL7Message): THL7Segment;

@@ -6,7 +6,7 @@ unit MSH;
 
 { HL7 support unit for message headers }
 
-{ Version 1.4 }
+{ Version 1.5 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -51,6 +51,8 @@ type
     messageLanguage: tCE;
     altCharHandlScheme: tID;
     profileID: tEI;
+    SendingRespOrg, ReceivingRespOrt: tXON;  // defined in HL7 2.7
+    SendingNetworkAddr, ReceivingNetworkAddr: tHD; // defined in HL7 2.7
   end;
 
 function MSH_Segment(message: THL7Message): THL7Segment;
