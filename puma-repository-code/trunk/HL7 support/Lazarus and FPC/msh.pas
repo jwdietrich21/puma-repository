@@ -51,8 +51,8 @@ type
     messageLanguage: tCE;
     altCharHandlScheme: tID;
     profileID: tEI;
-    SendingRespOrg, ReceivingRespOrt: tXON;  // defined in HL7 2.7
-    SendingNetworkAddr, ReceivingNetworkAddr: tHD; // defined in HL7 2.7
+    SendingRespOrg, ReceivingRespOrt: tXON;  // Introduced in HL7 2.7
+    SendingNetworkAddr, ReceivingNetworkAddr: tHD; // Introduced in HL7 2.7
   end;
 
 function MSH_Segment(message: THL7Message): THL7Segment;

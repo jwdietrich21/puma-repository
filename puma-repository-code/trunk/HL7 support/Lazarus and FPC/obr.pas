@@ -74,7 +74,10 @@ type
     ProcedureCode, ProcedureCodeModifier: tCE;
     PlacerSupplServiceInfo, FillerSupplServiceInfo: tCE;
     MedicallyNecessaryDuplProcReason: tCWE;
-    ResultHandling: tIS;
+    ResultHandling: tIS;  // Introduced in HL7 2.7
+    ParentUniversalServiceID: tCWE; // Introduced in HL7 2.7
+    ObservationGroupID, ParentObservationGroupID: tEI; // Introduced in HL7 2.7
+    AltPlacerOrderNumber: tCX; // Introduced in HL7 2.7
   end;
 
 function OBR_Segment(message: THL7Message): THL7Segment;

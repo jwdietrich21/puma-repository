@@ -44,8 +44,8 @@ type
     exSeqNum: tNM;
     delAckType: char;
     ErrorCond: tCE;
-    MessageWaitingNumber: tNM; // Defined in HL7 2.7
-    MessageWaitingPriority: tID; // Defined in HL7 2.7
+    MessageWaitingNumber: tNM; // Introduced in HL7 2.7
+    MessageWaitingPriority: tID; // Introduced in HL7 2.7
   end;
 
 function MSA_Segment(message: THL7Message): THL7Segment;

@@ -112,6 +112,7 @@ type
   str26 = string[26];
   str40 = string[40];
   str50 = string[50];
+  str53 = string[53];
   str60 = string[60];
   str80 = string[80];
   str180 = string[180];
@@ -127,6 +128,7 @@ type
   tCQ = AnsiString;  { HL7 CQ type (Composite quantity with units) }
   tDLD = AnsiString; { HL7 DLD type (Discharge to location and date) }
   tDLN = str25;      { HL7 DLN type (Driver's license number) }
+  tDR = str53;       { HL7 DR type (date/time range) }
   tDTM = str26;      { HL7 2.7 DTM type (Date/time) }
   tDT = str8;        { HL7 DT type (Date) }
   tEI = str427;      { HL7 EI type (Entity identifier) }

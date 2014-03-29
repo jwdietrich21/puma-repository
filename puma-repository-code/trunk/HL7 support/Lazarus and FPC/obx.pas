@@ -45,7 +45,7 @@ type
     obsValue: ansistring;
     Units: tCE;
     RefRange: tST;
-    AbnormFlags: tIS;
+    AbnormFlags: tIS;  // referred to as Interpretation Codes in HL7 2.7
     probability: tNM;
     Nature, status: tID;
     RRDate: tDTM;
@@ -56,6 +56,13 @@ type
     observMethod: tCE;
     EquipInstID: tEI;
     AnalysisDateTime: tDTM;
+    ObservationSite: tCWE;  // Introduced in HL7 2.7
+    ObservationInstanceID: tEI;  // Introduced in HL7 2.7
+    MoodCode: tCNE;  // Introduced in HL7 2.7
+    PerformingOrgName: tXON;  // Introduced in HL7 2.7
+    PerformingOrgAddr: tXAD;  // Introduced in HL7 2.7
+    PerformingOrgMedicalDirector: tXCN;  // Introduced in HL7 2.7
+    PatientResultsReleaseCat: tID;  // Introduced in HL7 2.7
   end;
 
 function OBX_Segment(message: THL7Message): THL7Segment;

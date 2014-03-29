@@ -42,8 +42,8 @@ type
     CommentSource: tID;
     comment: tFT;
     commentType: tCE;
-    EnteredBy: tXCN; // Defined in HL7 2.7
-    EnteredDateTime, EffectiveStartDate, ExpirationDate: tDTM; // Defined in HL7 2.7
+    EnteredBy: tXCN; // Introduced in HL7 2.7
+    EnteredDateTime, EffectiveStartDate, ExpirationDate: tDTM; // Introduced in HL7 2.7
   end;
 
 function NTE_Segment(message: THL7Message): THL7Segment;

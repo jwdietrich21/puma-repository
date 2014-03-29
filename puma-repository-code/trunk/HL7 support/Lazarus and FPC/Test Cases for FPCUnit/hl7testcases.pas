@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA,
-  ERR, OBR, OBX, NTE, EVN, PID, PV1, NK1;
+  ERR, OBR, OBX, SPM, NTE, EVN, PID, PV1, NK1;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -54,8 +54,12 @@ const
   EXAMPLE_MSA_SEGMENT = 'MSA|AA|CDB22222|P|';
   EXAMPLE_ERR_SEGMENT = 'ERR| |PID^1^11^^9|103|E';
   EXAMPLE_EVN_SEGMENT = 'EVN||200605290901||||200605290900';
+  EXAMPLE_NTE_SEGMENT = 'NTE|1||Blood in tube was clotted, resulting in a rejection of the specimen and leaving the lab unable to perform this test. Please resubmit a new specimen, if test is still desired.|';
   EXAMPLE_OBR_SEGMENT =
     'OBR|1|43215^OE|98765^EKG|93000^EKG REPORT|||198801111330|||1235^TAYLOR^ROBERT^M||||198801111330||P030||||||198801120930||||||P011^PRESLEY^ELVIS^AARON^^^MD|43214^OE|';
+  EXAMPLE_OBR_SEGMENT2 =
+    'OBR|1|15810^H_Dx_2_0|16699480030^MB|123^Erythrocyte sedimentation rate^L|||20110331150551-0800|||||||||^Smith^John||15810||008847||20110615102200|||F||||OBX|1|ST|30341-2^Erythrocyte sedimentation rate^LN||test not performed||||||X|||20110331140551-0800||33445566^Levin^Henry^^^^^^&2.16.840.1.113883.3.72.5.30.1&ISO^L^^^EN|||20110331150551-0800||||Century Hospital^^^^^&2.16.840.1.113883.3.72.5.30.1&ISO^XX^^^987|2070 Test Park^^Los Angeles^CA^90067^^B|2343242^Knowsalot^Phil^J.^III^Dr.^^^&2.16.840.1.113883.3.72.5.30.1&ISO^L^^^DN‘';
+    EXAMPLE_SPM_SEGMENT = 'SPM|1|||119297000^BLD^SCT^BldSpc^Blood^99USA^^^Blood Specimen|||||||||||||20110103143428||||RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube|||CLOT^Clotted^HL70493^CLT^Clotted^99USA^^^clotted blood';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
   EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
@@ -69,6 +73,9 @@ const
   EXAMPLE_MESSAGE3 = EXAMPLE_MESSAGE1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT8;
   EXAMPLE_MESSAGE4 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
     SEGMENT_DELIMITER + EXAMPLE_SEGMENT9 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT4;
+  EXAMPLE_MESSAGE5 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
+    SEGMENT_DELIMITER + EXAMPLE_OBR_SEGMENT2 + SEGMENT_DELIMITER +
+    EXAMPLE_NTE_SEGMENT + SEGMENT_DELIMITER + EXAMPLE_SPM_SEGMENT;
 
 
 type
@@ -115,6 +122,13 @@ type
   TOBXTestCases = class(TTestCase)
   published
     procedure OBXSetCase1;
+  end;
+
+  { TSPMTestCases }
+
+  TSPMTestCases = class(TTestCase)
+  published
+    procedure SPMSetCase1;
   end;
 
   { TEVNTestCases }
@@ -621,6 +635,26 @@ begin
     AssertEquals(obsValue, obsValue2);
   end;
 end;
+
+{ TSPMTestCases }
+
+procedure TSPMTestCases.SPMSetCase1;
+const
+  TestSpecimenRejectReason = 'RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube';
+var
+  SPMRecord: tSPM;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE5;
+    GetSPM(TestHL7Message, SPMRecord);
+    AssertEquals(TestSpecimenRejectReason, SPMRecord.SpecimenRejectReason);
+  end;
+end;
+
 
 { TEVNTestCase }
 
@@ -1697,6 +1731,7 @@ initialization
   RegisterTest(TERRTestCases);
   RegisterTest(TOBRTestCases);
   RegisterTest(TOBXTestCases);
+  RegisterTest(TSPMTestCases);
   RegisterTest(TNTETestCases);
   RegisterTest(TEVNTestCase);
   RegisterTest(TPIDTestCases);
