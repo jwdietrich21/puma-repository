@@ -269,6 +269,13 @@ begin
   OBXRecord.observMethod := observMethod;
   OBXRecord.EquipInstID := EquipInstID;
   OBXRecord.AnalysisDateTime := AnalysisDateTime;
+  OBXRecord.ObservationSite := '';
+  OBXRecord.ObservationInstanceID := '';
+  OBXRecord.MoodCode := '';
+  OBXRecord.PerformingOrgName := '';
+  OBXRecord.PerformingOrgAddr := '';
+  OBXRecord.PerformingOrgMedicalDirector := '';
+  OBXRecord.PatientResultsReleaseCat := '';
   SetOBX(message, OBXRecord);
 end;
 
@@ -301,6 +308,13 @@ begin
   OBXRecord.observMethod := observMethod;
   OBXRecord.EquipInstID := EquipInstID;
   OBXRecord.AnalysisDateTime := AnalysisDateTime;
+  OBXRecord.ObservationSite := '';
+  OBXRecord.ObservationInstanceID := '';
+  OBXRecord.MoodCode := '';
+  OBXRecord.PerformingOrgName := '';
+  OBXRecord.PerformingOrgAddr := '';
+  OBXRecord.PerformingOrgMedicalDirector := '';
+  OBXRecord.PatientResultsReleaseCat := '';
   SetOBX(message, OBXRecord);
 end;
 

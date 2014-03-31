@@ -156,6 +156,10 @@ begin
   NTERecord.CommentSource := CommentSource;
   NTERecord.comment := comment;
   NTERecord.commentType := commentType;
+  NTERecord.EnteredBy := '';
+  NTERecord.EnteredDateTime := '';
+  NTERecord.EffectiveStartDate := '';
+  NTERecord.ExpirationDate := '';
   SetNTE(message, NTERecord);
 end;
 
@@ -170,6 +174,10 @@ begin
   NTERecord.CommentSource := CommentSource;
   NTERecord.comment := comment;
   NTERecord.commentType := commentType;
+  NTERecord.EnteredBy := '';
+  NTERecord.EnteredDateTime := '';
+  NTERecord.EffectiveStartDate := '';
+  NTERecord.ExpirationDate := '';
   SetNTE(message, NTERecord);
 end;
 

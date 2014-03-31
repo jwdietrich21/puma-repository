@@ -291,6 +291,10 @@ begin
   MSHRecord.messageLanguage := messageLanguage;
   MSHRecord.altCharHandlScheme := altCharHandlScheme;
   MSHRecord.profileID := profileID;
+  MSHRecord.SendingRespOrg := '';
+  MSHRecord.ReceivingRespOrt := '';
+  MSHRecord.SendingNetworkAddr := '';
+  MSHRecord.ReceivingNetworkAddr := '';
   SetMSH(message, MSHRecord, true);
 end;
 
@@ -325,6 +329,10 @@ begin
   MSHRecord.messageLanguage := messageLanguage;
   MSHRecord.altCharHandlScheme := altCharHandlScheme;
   MSHRecord.profileID := profileID;
+  MSHRecord.SendingRespOrg := '';
+  MSHRecord.ReceivingRespOrt := '';
+  MSHRecord.SendingNetworkAddr := '';
+  MSHRecord.ReceivingNetworkAddr := '';
   SetMSH(message, MSHRecord, false);
 end;
 
@@ -359,6 +367,10 @@ begin
   MSHRecord.messageLanguage := messageLanguage;
   MSHRecord.altCharHandlScheme := altCharHandlScheme;
   MSHRecord.profileID := profileID;
+  MSHRecord.SendingRespOrg := '';
+  MSHRecord.ReceivingRespOrt := '';
+  MSHRecord.SendingNetworkAddr := '';
+  MSHRecord.ReceivingNetworkAddr := '';
   SetMSH(message, MSHRecord, true);
 end;
 
@@ -393,6 +405,10 @@ begin
   MSHRecord.messageLanguage := messageLanguage;
   MSHRecord.altCharHandlScheme := altCharHandlScheme;
   MSHRecord.profileID := profileID;
+  MSHRecord.SendingRespOrg := '';
+  MSHRecord.ReceivingRespOrt := '';
+  MSHRecord.SendingNetworkAddr := '';
+  MSHRecord.ReceivingNetworkAddr := '';
   SetMSH(message, MSHRecord, false);
 end;
 

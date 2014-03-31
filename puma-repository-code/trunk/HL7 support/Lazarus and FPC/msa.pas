@@ -168,6 +168,8 @@ begin
   MSARecord.exSeqNum := exSeqNum;
   MSARecord.delAckType := delAckType;
   MSARecord.ErrorCond := ErrorCond;
+  MSARecord.MessageWaitingNumber := '';
+  MSARecord.MessageWaitingPriority := '';
   SetMSA(message, MSARecord);
 end;
 
@@ -184,6 +186,8 @@ begin
   MSARecord.exSeqNum := exSeqNum;
   MSARecord.delAckType := delAckType;
   MSARecord.ErrorCond := ErrorCond;
+  MSARecord.MessageWaitingNumber := '';
+  MSARecord.MessageWaitingPriority := '';
   SetMSA(message, MSARecord);
 end;
 
