@@ -134,6 +134,13 @@ begin
         observMethod := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         EquipInstID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         AnalysisDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObservationSite := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObservationInstanceID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MoodCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PerformingOrgName := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PerformingOrgAddr := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PerformingOrgMedicalDirector := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientResultsReleaseCat := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
   end;
 end;
@@ -224,7 +231,11 @@ begin
       FieldSep + probability + FieldSep + Nature + FieldSep + status +
       FieldSep + RRDate + FieldSep + UDAC + FieldSep + ObsDateTime +
       FieldSep + prodID + FieldSep + respObs + FieldSep + observMethod +
-      FieldSep + EquipInstID + FieldSep + AnalysisDateTime + FieldSep;
+      FieldSep + EquipInstID + FieldSep + AnalysisDateTime + FieldSep +
+      ObservationSite + FieldSep + ObservationInstanceID + FieldSep +
+      MoodCode + FieldSep + PerformingOrgName + FieldSep + PerformingOrgAddr +
+      FieldSep + PerformingOrgMedicalDirector + FieldSep +
+      PatientResultsReleaseCat + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;

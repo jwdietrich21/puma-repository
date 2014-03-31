@@ -144,6 +144,10 @@ begin
         messageLanguage := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         altCharHandlScheme := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         profileID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        SendingRespOrg := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ReceivingRespOrt := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        SendingNetworkAddr := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ReceivingNetworkAddr := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
   end;
 end;
@@ -249,7 +253,9 @@ begin
       continuationPointer + FieldSep + AccAckType + FieldSep + AppAckType +
       FieldSep + countryCode + FieldSep + charSet + FieldSep +
       messageLanguage + FieldSep + altCharHandlScheme + FieldSep +
-      profileID + FieldSep;
+      profileID + FieldSep + SendingRespOrg + FieldSep + ReceivingRespOrt +
+      FieldSep + SendingNetworkAddr + FieldSep + ReceivingNetworkAddr +
+      FieldSep;
   newSegment.contentString := theString;
   message.ReplaceSegment(MSH_ID, '0', newSegment, True);
 end;

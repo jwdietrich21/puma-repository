@@ -87,6 +87,10 @@ begin
         CommentSource := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         comment := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         commentType := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        EnteredBy := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        EnteredDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        EffectiveStartDate := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ExpirationDate := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
   end;
 end;
@@ -134,7 +138,9 @@ begin
   newSegment := THL7Segment.Create(message, '');
   with NTERecord do
     theString := NTE_ID + FieldSep + SetID + FieldSep + CommentSource +
-      FieldSep + comment + FieldSep + commentType + FieldSep;
+      FieldSep + comment + FieldSep + commentType + FieldSep +
+      EnteredBy + FieldSep + EnteredDateTime + FieldSep + EffectiveStartDate +
+      FieldSep + ExpirationDate + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;

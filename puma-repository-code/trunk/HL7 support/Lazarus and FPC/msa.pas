@@ -93,6 +93,8 @@ begin
         exSeqNum := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         delAckType := char(0); // deprecated field
         ErrorCond := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MessageWaitingNumber := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MessageWaitingPriority := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
   end;
 end;
@@ -147,7 +149,8 @@ begin
   with MSArecord do
     theString := MSA_ID + FieldSep + AckCode + FieldSep + controlID +
     FieldSep + textMessage + FieldSep + exSeqNum + FieldSep +
-    delAckType + FieldSep + ErrorCond + FieldSep;
+    delAckType + FieldSep + ErrorCond + FieldSep + MessageWaitingNumber +
+    FieldSep + MessageWaitingPriority + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;
