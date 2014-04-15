@@ -50,7 +50,7 @@ type
     Race: tCE;
     PatientAddress: tXAD;
     CountyCode: tIS;
-    HomePhoe: tXTN;
+    HomePhoe: tXTN;  // Should be HomePhone; retained for backwards compatibility
     BusinessPhone: tXTN;
     PrimaryLanguage, MaritalStatus: tCE;
     Religion, PatientAccountNumber: tCE;
@@ -66,12 +66,14 @@ type
     PatientDeathDateTime: tDTM;
     PatientDeathIndicator, IDUnknownIndicator: tID;
     IDReliabilityIndicator: tIS;
+    IDReliabilityCode: tCWE;
     LastUpdateDateTime: tDTM;
     LastUpdateFacility: tHD;
     SpeciesCode, BreedCode: tCE;
     Strain: tST;
     ProductionClassCode: tCE;
     TribalCitizenship: tCWE;
+    PatientTelecomInformation: tXTN;  // Introduced in HL7 2.7
   end;
 
 function PID_Segment(message: THL7Message): THL7Segment;
@@ -140,6 +142,8 @@ begin
         IDUnknownIndicator := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         IDReliabilityIndicator :=
           curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        IDReliabilityCode :=
+          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         LastUpdateDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         LastUpdateFacility := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         SpeciesCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
@@ -147,6 +151,7 @@ begin
         Strain := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ProductionClassCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
         TribalCitizenship := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientTelecomInformation := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
   end;
 end;
@@ -180,10 +185,11 @@ begin
       VeteransMilitaryStatus + FieldSep + Nationality + FieldSep +
       PatientDeathDateTime + FieldSep + PatientDeathIndicator +
       FieldSep + IDUnknownIndicator + FieldSep + IDReliabilityIndicator +
-      FieldSep + LastUpdateDateTime + FieldSep + LastUpdateFacility +
-      FieldSep + SpeciesCode + FieldSep + BreedCode + FieldSep +
-      Strain + FieldSep + ProductionClassCode + FieldSep +
-      TribalCitizenship + FieldSep;
+      FieldSep + IDReliabilityCode + FieldSep + LastUpdateDateTime +
+      FieldSep + LastUpdateFacility + FieldSep + SpeciesCode + FieldSep +
+      BreedCode + FieldSep + Strain + FieldSep + ProductionClassCode +
+      FieldSep + TribalCitizenship + FieldSep + PatientTelecomInformation +
+      FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;
