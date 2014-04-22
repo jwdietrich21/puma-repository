@@ -28,6 +28,7 @@ program MessageViewer;
 
 {$mode objfpc}{$H+}
 
+{ $DEFINE debug}
 uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
@@ -35,11 +36,20 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms
   { you can add units after this },
-  HL7, MSH, GUI ;
+  HL7, MSH, GUI
+  {$IFDEF debug}
+  , SysUtils
+  {$ENDIF}
+  ;
 
 {$R *.res}
 
 begin
+  {$IFDEF debug}
+  if FileExists('heaptrace.trc') then
+    DeleteFile('heaptrace.trc');
+  SetHeapTraceOutput('heaptrace.trc');
+  {$ENDIF}
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);
