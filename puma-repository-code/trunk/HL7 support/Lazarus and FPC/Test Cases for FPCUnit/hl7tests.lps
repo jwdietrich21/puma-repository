@@ -163,8 +163,6 @@
         <CursorPos X="70" Y="4"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
-          <IsVisibleTab Value="True"/>
-          <WindowIndex Value="1"/>
           <TopLine Value="38"/>
           <CursorPos X="1" Y="75"/>
         </ExtraEditor1>
@@ -400,7 +398,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="hl7testcases.pas"/>
         <Caret Line="652" Column="45" TopLine="636"/>
@@ -513,14 +511,6 @@
         <Filename Value="../err.pas"/>
         <Caret Line="53" Column="33" TopLine="36"/>
       </Position28>
-      <Position29>
-        <Filename Value="../evn.pas"/>
-        <Caret Line="2" Column="5" TopLine="20"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../hl7.pas"/>
-        <Caret Line="11" Column="84" TopLine="141"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

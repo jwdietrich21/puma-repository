@@ -18,7 +18,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="5"/>
-      <BuildNr Value="57"/>
+      <BuildNr Value="58"/>
       <StringTable CompanyName="FORMATIO RETICULARIS" InternalName="MessageViewer" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="HL7 MessageViewer" ProductVersion="1.5"/>
     </VersionInfo>
     <BuildModes Count="1">

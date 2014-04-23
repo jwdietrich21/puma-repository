@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
     <Version Value="9"/>
@@ -219,4 +219,5 @@
       </Item9>
     </Watches>
   </Debugging>
+  <EditorMacros Count="0"/>
 </CONFIG>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -18,9 +18,9 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="2"/>
-      <RevisionNr Value="3"/>
-      <BuildNr Value="25"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS " InternalName="Unit Converter" ProductName="PUMA Repository" ProductVersion="1.2.3"/>
+      <RevisionNr Value="4"/>
+      <BuildNr Value="26"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS " InternalName="Unit Converter" ProductName="PUMA Repository" ProductVersion="1.2.4"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
