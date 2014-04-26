@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA,
-  ERR, OBR, OBX, SPM, NTE, EVN, PID, PV1, NK1;
+  ERR, OBR, OBX, SPM, NTE, EVN, PID, PV1, PV2, NK1;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -59,7 +59,8 @@ const
     'OBR|1|43215^OE|98765^EKG|93000^EKG REPORT|||198801111330|||1235^TAYLOR^ROBERT^M||||198801111330||P030||||||198801120930||||||P011^PRESLEY^ELVIS^AARON^^^MD|43214^OE|';
   EXAMPLE_OBR_SEGMENT2 =
     'OBR|1|15810^H_Dx_2_0|16699480030^MB|123^Erythrocyte sedimentation rate^L|||20110331150551-0800|||||||||^Smith^John||15810||008847||20110615102200|||F||||OBX|1|ST|30341-2^Erythrocyte sedimentation rate^LN||test not performed||||||X|||20110331140551-0800||33445566^Levin^Henry^^^^^^&2.16.840.1.113883.3.72.5.30.1&ISO^L^^^EN|||20110331150551-0800||||Century Hospital^^^^^&2.16.840.1.113883.3.72.5.30.1&ISO^XX^^^987|2070 Test Park^^Los Angeles^CA^90067^^B|2343242^Knowsalot^Phil^J.^III^Dr.^^^&2.16.840.1.113883.3.72.5.30.1&ISO^L^^^DN‘';
-    EXAMPLE_SPM_SEGMENT = 'SPM|1|||119297000^BLD^SCT^BldSpc^Blood^99USA^^^Blood Specimen|||||||||||||20110103143428||||RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube|||CLOT^Clotted^HL70493^CLT^Clotted^99USA^^^clotted blood';
+  EXAMPLE_SPM_SEGMENT = 'SPM|1|||119297000^BLD^SCT^BldSpc^Blood^99USA^^^Blood Specimen|||||||||||||20110103143428||||RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube|||CLOT^Clotted^HL70493^CLT^Clotted^99USA^^^clotted blood';
+  EXAMPLE_PV2_SEGMENT = 'PV2|||0101^vollstationaer, Normalfall^GSG0001||||||20050405|4||||||||||||||||||||||||||N|N';
   EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
   EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
@@ -76,6 +77,7 @@ const
   EXAMPLE_MESSAGE5 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
     SEGMENT_DELIMITER + EXAMPLE_OBR_SEGMENT2 + SEGMENT_DELIMITER +
     EXAMPLE_NTE_SEGMENT + SEGMENT_DELIMITER + EXAMPLE_SPM_SEGMENT;
+  EXAMPLE_MESSAGE6 = EXAMPLE_MESSAGE4 + SEGMENT_DELIMITER + EXAMPLE_PV2_SEGMENT;
 
 
 type
@@ -157,6 +159,13 @@ type
   TPV1TestCases = class(TTestCase)
   published
     procedure TPV1TestCase1;
+  end;
+
+  { tPV2TestCases }
+
+  TPV2TestCases = class(TTestCase)
+  published
+    procedure TPV2TestCase1;
   end;
 
   { tNK1TestCases }
@@ -752,6 +761,25 @@ begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE4;
     GetPV1(TestHL7Message, PV1Record);
     AssertEquals(TestAlternateVisitID, PV1Record.AlternateVisitID);
+  end;
+end;
+
+{ TPV2TestCases }
+
+procedure TPV2TestCases.TPV2TestCase1;
+const
+  TestLOS = '4';
+var
+  PV2Record: tPV2;
+begin
+  TestHL7Message := THL7Message.Create('2.7');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE6;
+    GetPV2(TestHL7Message, PV2Record);
+    AssertEquals(TestLOS, PV2Record.EstLOS);
   end;
 end;
 
@@ -1736,6 +1764,7 @@ initialization
   RegisterTest(TEVNTestCase);
   RegisterTest(TPIDTestCases);
   RegisterTest(TPV1TestCases);
+  RegisterTest(TPV2TestCases);
   RegisterTest(TNK1TestCases);
   RegisterTest(TMessageTestCases);
   RegisterTest(TStringEncodingTestCases);

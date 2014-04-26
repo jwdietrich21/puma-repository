@@ -18,7 +18,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="5"/>
-      <BuildNr Value="169"/>
+      <BuildNr Value="174"/>
       <StringTable CompanyName="FORMATIO RETICULARIS " FileDescription="Unit Tests for HL7 engine" InternalName="PUMA HL7 Engine" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="1.5.0"/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -45,7 +45,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="14">
+    <Units Count="15">
       <Unit0>
         <Filename Value="hl7tests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -116,6 +116,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SPM"/>
       </Unit13>
+      <Unit14>
+        <Filename Value="../pv2.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PV2"/>
+      </Unit14>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
