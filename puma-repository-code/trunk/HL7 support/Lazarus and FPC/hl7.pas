@@ -417,9 +417,10 @@ begin
     aStream.Read(theString[1], aStream.Size);
     if theString <> '' then
     begin
-      theString := StringReplace(theString, ksCRLF, ksCR, [rfReplaceAll, rfIgnoreCase]);
+      theString := StringReplace(theString, ksCRLF, ksCR, [rfReplaceAll, rfIgnoreCase]); // correct line endings
       HL7Doc := THL7Message.Create('2.5');
       HL7Doc.contentString := theString;
+      HL7Doc.Status := 0;
     end
     else
       begin
