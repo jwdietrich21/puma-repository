@@ -156,7 +156,7 @@ uses
   Classes, SysUtils, Math;
 
 const
-  MAXFACTORS = 10; {number of supported prefixes for measurement units}
+  MAXFACTORS = 11; {number of supported prefixes for measurement units}
   {$IFNDEF FULLMATHAVAILABLE}
   NaN = 0.0 / 0.0;
   {$ENDIF}
@@ -280,13 +280,16 @@ procedure InitConversionFactors;
 {sets labels and appropriate conversion factors for the elements of measurement units}
 begin
   PrefixLabel[0] := '';
-  PrefixLabel[1] := 'd';
-  PrefixLabel[2] := 'c';
-  PrefixLabel[3] := 'm';
-  PrefixLabel[4] := #194#181;
-  PrefixLabel[5] := 'n';
-  PrefixLabel[6] := 'p';
-  PrefixLabel[7] := 'f';
+  PrefixLabel[1] := 'd';        // deci
+  PrefixLabel[2] := 'c';        // centi
+  PrefixLabel[3] := 'm';        // milli
+  PrefixLabel[4] := #194#181;   // micro
+  PrefixLabel[5] := 'n';        // nano
+  PrefixLabel[6] := 'p';        // pico
+  PrefixLabel[7] := 'f';        // femto
+  PrefixLabel[8] := 'a';        // atto
+  PrefixLabel[9] := 'z';        // zepto
+  PrefixLabel[10] := 'y';       // yokto
   PrefixFactor[0] := 1;
   PrefixFactor[1] := 1e-1;
   PrefixFactor[2] := 1e-2;
@@ -295,6 +298,9 @@ begin
   PrefixFactor[5] := 1e-9;
   PrefixFactor[6] := 1e-12;
   PrefixFactor[7] := 1e-15;
+  PrefixFactor[8] := 1e-18;
+  PrefixFactor[9] := 1e-21;
+  PrefixFactor[10] := 1e-24;
   UnitLabel[0] := 'g';
   UnitLabel[1] := 'mol';
 end;
@@ -682,4 +688,4 @@ end;
 initialization
   InitConversionFactors;
 
-end.
+end.

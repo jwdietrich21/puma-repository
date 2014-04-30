@@ -6,7 +6,7 @@ program UnitConverterTests;
 
 { Unit Converter }
 
-{ Version 1.2.4 }
+{ Version 1.3.0 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
