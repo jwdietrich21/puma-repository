@@ -17,10 +17,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="2"/>
-      <RevisionNr Value="4"/>
-      <BuildNr Value="26"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS " InternalName="Unit Converter" ProductName="PUMA Repository" ProductVersion="1.2.4"/>
+      <MinorVersionNr Value="3"/>
+      <BuildNr Value="28"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS " InternalName="Unit Converter" ProductName="PUMA Repository" ProductVersion="1.3.0"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
