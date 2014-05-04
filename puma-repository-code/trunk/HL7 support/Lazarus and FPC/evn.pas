@@ -51,11 +51,13 @@ procedure GetEVN(message: THL7Message; out EVNRecord: tEVN);
 procedure GetEVN(message: THL7Message; out evtTypeCode: char;
   out recDateTime, plannedDateTime: tDTM; out reasonCode: tCWE;
   out opID: tXCN; out evtOccurred: tDTM; out evtFacility: tHD);
+  deprecated;
 procedure SetEVN(message: THL7Message; aSegment: THL7Segment);
 procedure SetEVN(message: THL7message; EVNRecord: tEVN);
 procedure SetEVN(message: THL7Message; evtTypeCode: char;
   recDateTime, plannedDateTime: tDTM; reasonCode: tCWE; opID: tXCN;
   evtOccurred: tDTM; evtFacility: tHD);
+  deprecated;
 
 implementation
 

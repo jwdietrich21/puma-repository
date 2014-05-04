@@ -61,18 +61,22 @@ procedure GetERR(message: THL7Message; out ErrCodeLoc: tELD; out ErrLoc: tERL;
   out ErrCode: tCWE; out severity: tID; out appErrCode: tCWE;
   out appErrPar: str80; DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
   OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
+  deprecated;
 procedure GetERR(message: THL7Message; out ErrCodeLoc, ErrLoc, ErrCode: string;
   out severity: char; out appErrCode, appErrPar, DiagInfo, UserMessage,
   InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
+  deprecated;
 procedure SetERR(message: THL7Message; aSegment: THL7Segment);
 procedure SetERR(message: THL7Message; ERRRecord: tERR);
 procedure SetERR(message: THL7Message; ErrCodeLoc: tELD; ErrLoc: tERL;
   ErrCode: tCWE; severity: tID; appErrCode: tCWE; appErrPar: str80;
   DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
   OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
+  deprecated;
 procedure SetERR(message: THL7Message; ErrCodeLoc, ErrLoc, ErrCode: string;
   severity: char; appErrCode, appErrPar, DiagInfo, UserMessage,
   InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
+  deprecated;
 
 implementation
 

@@ -53,15 +53,19 @@ procedure GetMSA(message: THL7Message; out MSARecord: tMSA);
 procedure GetMSA(message: THL7Message; out AckCode: tID; out controlID: str20;
   out textMessage: str80; out exSeqNum: tNM; out delAckType: char;
   out ErrorCond: tCE);
+  deprecated;
 procedure GetMSA(message: THL7Message; out AckCode: str2; out controlID: str20;
   out textMessage: str80; out exSeqNum: Str15; out delAckType: char;
   out ErrorCond: Str250);
+  deprecated;
 procedure SetMSA(message: THL7Message; aSegment: THL7Segment);
 procedure SetMSA(message: THL7Message; MSARecord: tMSA);
 procedure SetMSA(message: THL7Message; AckCode: tID; controlID: str20;
   textMessage: str80; exSeqNum: tNM; delAckType: char; ErrorCond: tCE);
+  deprecated;
 procedure SetMSA(message: THL7Message; AckCode: str2; controlID: str20;
   textMessage: str80; exSeqNum: Str15; delAckType: char; ErrorCond: Str250);
+  deprecated;
 
 implementation
 

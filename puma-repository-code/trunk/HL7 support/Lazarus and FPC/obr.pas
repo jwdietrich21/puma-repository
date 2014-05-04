@@ -85,15 +85,19 @@ procedure GetOBR(message: THL7Message; out OBRRecord: tOBR);
 procedure GetOBR(message: THL7Message; out SetID: tSI;
   out PlacOrdNumb, FillOrdNumb: tEI; out USI: tCE; out Priority: tID;
   out ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
+  deprecated;
 procedure GetOBR(message: THL7Message; out SetID: str4;
   out PlacOrdNumb, FillOrdNumb: str22; out USI: str250; out Priority: Str2;
   out ReqDateTime, ObsDateTime, ObsEndDateTime: str26);
+  deprecated;
 procedure SetOBR(message: THL7Message; aSegment: THL7Segment);
 procedure SetOBR(message: THL7Message; OBRRecord: tOBR);
 procedure SetOBR(message: THL7Message; SetID: tSI; PlacOrdNumb, FillOrdNumb: tEI;
   USI: tCE; Priority: tID; ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM);
+  deprecated;
 procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb, FillOrdNumb: str22;
   USI: str250; Priority: Str2; ReqDateTime, ObsDateTime, ObsEndDateTime: str26);
+  deprecated;
 
 implementation
 

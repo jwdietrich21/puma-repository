@@ -73,11 +73,13 @@ procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: tID;
   out Nature, status: tID; out RRDate: tDTM; UDAC: tST; out ObsDateTime: tDTM;
   out prodID: tCE; respObs: tXCN; observMethod: tCE; EquipInstID: tEI;
   out AnalysisDateTime: tDTM);
+  deprecated;
 procedure GetOBX(message: THL7Message; out SetID: str4; out ValueType: str2; out ObsID: str250;
   obsSubID: str20; out obsValue: AnsiString; out Units: str250; out RefRange: str60;
   AbnormFlags, probability: str5; out Nature: str2; out status: char; out RRDate: str26;
   UDAC: str20; out ObsDateTime: str26; out prodID, respObs, observMethod: str250;
   EquipInstID: str22; out AnalysisDateTime: str26);
+  deprecated;
 procedure SetOBX(message: THL7Message; aSegment: THL7Segment);
 procedure SetOBX(message: THL7Message; OBXRecord: tOBX);
 procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: tID;
@@ -85,11 +87,13 @@ procedure SetOBX(message: THL7Message; SetID: tSI; ValueType: tID;
   RefRange: tST; AbnormFlags: tIS; probability: tNM; Nature, status: tID;
   RRDate: tDTM; UDAC: tST; ObsDateTime: tDTM; prodID: tCE; respObs: tXCN;
   observMethod: tCE; EquipInstID: tEI; AnalysisDateTime: tDTM);
+  deprecated;
 procedure SetOBX(message: THL7Message; SetID: str4; ValueType: str2; ObsID: str250;
   obsSubID: str20; obsValue: AnsiString; Units: str250; RefRange: str60;
   AbnormFlags, probability: str5; Nature: str2; status: char; RRDate: str26;
   UDAC: str20; ObsDateTime: str26; prodID, respObs, observMethod: str250;
   EquipInstID: str22; AnalysisDateTime: str26);
+  deprecated;
 
 implementation
 

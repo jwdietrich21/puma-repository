@@ -50,14 +50,18 @@ function NTE_Segment(message: THL7Message): THL7Segment;
 procedure GetNTE(message: THL7Message; out NTERecord: tNTE);
 procedure GetNTE(message: THL7Message; out SetID: tSI; out CommentSource: tID;
   out comment: tFT; out commentType: tCE);
+  deprecated;
 procedure GetNTE(message: THL7Message; out SetID: str4; out CommentSource: str8;
   out comment: ansistring; out commentType: str250);
+  deprecated;
 procedure SetNTE(message: THL7Message; aSegment: THL7Segment);
 procedure SetNTE(message: THL7Message; NTERecord: tNTE);
 procedure SetNTE(message: THL7Message; SetID: tSI; CommentSource: tID;
   comment: tFT; commentType: tCE);
+  deprecated;
 procedure SetNTE(message: THL7Message; SetID: str4; CommentSource: str8;
   comment: ansistring; commentType: str250);
+  deprecated;
 
 implementation
 
