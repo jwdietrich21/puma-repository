@@ -173,6 +173,9 @@ end;
 
 var
   gPosition: integer;
+  { the following arrays are provided as global variables rather than as }
+  { constants in order to ensure backwards-compatibility with very old }
+  { Pascal compilers }
   PrefixLabel: array[0..MAXFACTORS - 1] of string;
   PrefixFactor: array[0..MAXFACTORS - 1] of real;
   UnitLabel: array[0..MAXFACTORS - 1] of string;
@@ -688,4 +691,4 @@ end;
 initialization
   InitConversionFactors;
 
-end.
+end.
