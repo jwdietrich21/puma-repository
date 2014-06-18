@@ -6,7 +6,7 @@ unit NK1;
 
 { HL7 support unit for next of kin segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -77,6 +77,7 @@ function NK1_Segment(message: THL7Message): THL7Segment;
 procedure GetNK1(message: THL7Message; out NK1Record: tNK1);
 procedure SetNK1(message: THL7Message; aSegment: THL7Segment);
 procedure SetNK1(message: THL7message; NK1Record: tNK1);
+procedure ClearNK1(NK1Record: tNK1);
 
 implementation
 
@@ -184,6 +185,11 @@ begin
       FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
+end;
+
+procedure ClearNK1(NK1Record: tNK1);
+begin
+  FillChar(NK1Record, SizeOf(NK1Record), 0);
 end;
 
 end.

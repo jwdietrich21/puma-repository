@@ -6,7 +6,7 @@ unit SPM;
 
 { HL7 support unit for specimen segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -65,6 +65,7 @@ function SPM_Segment(message: THL7Message): THL7Segment;
 procedure GetSPM(message: THL7Message; out SPMRecord: tSPM);
 procedure SetSPM(message: THL7Message; aSegment: THL7Segment);
 procedure SetSPM(message: THL7message; SPMRecord: tSPM);
+procedure ClearSPM(SPMRecord: tSPM);
 
 implementation
 
@@ -172,6 +173,11 @@ begin
       otherSpecimenID + FieldSep + ShipmentID + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
+end;
+
+procedure ClearSPM(SPMRecord: tSPM);
+begin
+  FillChar(SPMRecord, SizeOf(SPMRecord), 0);
 end;
 
 end.

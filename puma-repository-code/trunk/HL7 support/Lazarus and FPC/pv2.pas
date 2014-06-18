@@ -6,7 +6,7 @@ unit PV2;
 
 { HL7 support unit for patient visit segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -78,6 +78,7 @@ function PV2_Segment(message: THL7Message): THL7Segment;
 procedure GetPV2(message: THL7Message; out PV2Record: tPV2);
 procedure SetPV2(message: THL7Message; aSegment: THL7Segment);
 procedure SetPV2(message: THL7message; PV2Record: tPV2);
+procedure ClearPV2(PV2Record: tPV2);
 
 implementation
 
@@ -216,6 +217,11 @@ begin
       NotifyClergyCode + FieldSep + AdvanceDirectiveLastVerifiedDate + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
+end;
+
+procedure ClearPV2(PV2Record: tPV2);
+begin
+  FillChar(PV2Record, SizeOf(PV2Record), 0);
 end;
 
 end.

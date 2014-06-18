@@ -6,7 +6,7 @@ unit OBX;
 
 { HL7 support unit for observation / result segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -94,6 +94,7 @@ procedure SetOBX(message: THL7Message; SetID: str4; ValueType: str2; ObsID: str2
   UDAC: str20; ObsDateTime: str26; prodID, respObs, observMethod: str250;
   EquipInstID: str22; AnalysisDateTime: str26);
   deprecated;
+procedure ClearOBX(OBXRecord: tOBX);
 
 implementation
 
@@ -320,6 +321,11 @@ begin
   OBXRecord.PerformingOrgMedicalDirector := '';
   OBXRecord.PatientResultsReleaseCat := '';
   SetOBX(message, OBXRecord);
+end;
+
+procedure ClearOBX(OBXRecord: tOBX);
+begin
+  FillChar(OBXRecord, SizeOf(OBXRecord), 0);
 end;
 
 end.

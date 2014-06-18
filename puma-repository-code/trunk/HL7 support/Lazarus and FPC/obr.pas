@@ -6,7 +6,7 @@ unit OBR;
 
 { HL7 support unit for observation request segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -98,6 +98,7 @@ procedure SetOBR(message: THL7Message; SetID: tSI; PlacOrdNumb, FillOrdNumb: tEI
 procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb, FillOrdNumb: str22;
   USI: str250; Priority: Str2; ReqDateTime, ObsDateTime, ObsEndDateTime: str26);
   deprecated;
+procedure ClearOBR(OBRRecord: tOBR);
 
 implementation
 
@@ -396,6 +397,11 @@ begin
   OBRRecord.ParentObservationGroupID := '';
   OBRRecord.AltPlacerOrderNumber := '';
   SetOBR(message, OBRRecord);
+end;
+
+procedure ClearOBR(OBRRecord: tOBR);
+begin
+  FillChar(OBRRecord, SizeOf(OBRRecord), 0);
 end;
 
 end.

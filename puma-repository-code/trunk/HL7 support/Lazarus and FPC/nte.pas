@@ -6,7 +6,7 @@ unit NTE;
 
 { HL7 support unit for notes and comments segment }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -62,6 +62,7 @@ procedure SetNTE(message: THL7Message; SetID: tSI; CommentSource: tID;
 procedure SetNTE(message: THL7Message; SetID: str4; CommentSource: str8;
   comment: ansistring; commentType: str250);
   deprecated;
+procedure ClearNTE(NTERecord: tNTE);
 
 implementation
 
@@ -183,6 +184,11 @@ begin
   NTERecord.EffectiveStartDate := '';
   NTERecord.ExpirationDate := '';
   SetNTE(message, NTERecord);
+end;
+
+procedure ClearNTE(NTERecord: tNTE);
+begin
+  FillChar(NTERecord, SizeOf(NTERecord), 0);
 end;
 
 end.

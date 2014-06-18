@@ -6,7 +6,7 @@ unit EVN;
 
 { HL7 support unit for event type segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -58,6 +58,7 @@ procedure SetEVN(message: THL7Message; evtTypeCode: char;
   recDateTime, plannedDateTime: tDTM; reasonCode: tCWE; opID: tXCN;
   evtOccurred: tDTM; evtFacility: tHD);
   deprecated;
+procedure ClearEVN(EVNRecord: tEVN);
 
 implementation
 
@@ -149,6 +150,11 @@ begin
   EVNRecord.evtOccurred := evtOccurred;
   EVNRecord.evtFacility := evtFacility;
   SetEVN(message, EVNRecord);
+end;
+
+procedure ClearEVN(EVNRecord: tEVN);
+begin
+  FillChar(EVNRecord, SizeOf(EVNRecord), 0);
 end;
 
 end.

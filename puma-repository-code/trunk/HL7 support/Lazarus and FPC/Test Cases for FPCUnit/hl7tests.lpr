@@ -6,7 +6,7 @@ program hl7tests;
 
 { HL7 testing project for FPCUnit }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }

@@ -6,7 +6,7 @@ unit MSA;
 
 { HL7 support unit for message acknowledgement segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -66,6 +66,7 @@ procedure SetMSA(message: THL7Message; AckCode: tID; controlID: str20;
 procedure SetMSA(message: THL7Message; AckCode: str2; controlID: str20;
   textMessage: str80; exSeqNum: Str15; delAckType: char; ErrorCond: Str250);
   deprecated;
+procedure ClearMSA(MSARecord: tMSA);
 
 implementation
 
@@ -193,6 +194,11 @@ begin
   MSARecord.MessageWaitingNumber := '';
   MSARecord.MessageWaitingPriority := '';
   SetMSA(message, MSARecord);
+end;
+
+procedure ClearMSA(MSARecord: tMSA);
+begin
+  FillChar(MSARecord, SizeOf(MSARecord), 0);
 end;
 
 end.

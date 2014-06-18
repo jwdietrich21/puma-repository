@@ -6,7 +6,7 @@ unit ERR;
 
 { HL7 support unit for error segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -77,6 +77,7 @@ procedure SetERR(message: THL7Message; ErrCodeLoc, ErrLoc, ErrCode: string;
   severity: char; appErrCode, appErrPar, DiagInfo, UserMessage,
   InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
   deprecated;
+procedure ClearERR(ERRRecord: tERR);
 
 implementation
 
@@ -234,6 +235,11 @@ begin
   ERRRecord.OverrideReason := OverrideReason;
   ERRRecord.HelpDeskContact := HelpDeskContact;
   SetErr(message, ERRRecord);
+end;
+
+procedure ClearERR(ERRRecord: tERR);
+begin
+  FillChar(ERRRecord, SizeOf(ERRRecord), 0);
 end;
 
 end.

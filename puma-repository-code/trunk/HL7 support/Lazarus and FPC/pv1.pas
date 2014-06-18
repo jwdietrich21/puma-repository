@@ -6,7 +6,7 @@ unit PV1;
 
 { HL7 support unit for patient visit segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -82,6 +82,7 @@ function PV1_Segment(message: THL7Message): THL7Segment;
 procedure GetPV1(message: THL7Message; out PV1Record: tPV1);
 procedure SetPV1(message: THL7Message; aSegment: THL7Segment);
 procedure SetPV1(message: THL7message; PV1Record: tPV1);
+procedure ClearPV1(PV1Record: tPV1);
 
 implementation
 
@@ -224,6 +225,11 @@ begin
       FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
+end;
+
+procedure ClearPV1(PV1Record: tPV1);
+begin
+  FillChar(PV1Record, SizeOf(PV1Record), 0);
 end;
 
 end.

@@ -6,7 +6,7 @@ unit PID;
 
 { HL7 support unit for patient identification segments }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -80,6 +80,7 @@ function PID_Segment(message: THL7Message): THL7Segment;
 procedure GetPID(message: THL7Message; out PIDRecord: tPID);
 procedure SetPID(message: THL7Message; aSegment: THL7Segment);
 procedure SetPID(message: THL7message; PIDRecord: tPID);
+procedure ClearPID(PIDRecord: tPID);
 
 implementation
 
@@ -192,6 +193,11 @@ begin
       FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
+end;
+
+procedure ClearPID(PIDRecord: tPID);
+begin
+  FillChar(PIDRecord, SizeOf(PIDRecord), 0);
 end;
 
 end.

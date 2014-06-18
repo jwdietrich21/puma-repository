@@ -6,7 +6,7 @@ unit MSH;
 
 { HL7 support unit for message headers }
 
-{ Version 1.5 }
+{ Version 1.6 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -105,6 +105,7 @@ procedure SetMSH(message: THL7Message; delimiters: str5;
   countryCode: str3; charSet: str16; messageLanguage: str250;
   altCharHandlScheme: str20; profileID: str427);
   deprecated;
+procedure ClearMSH(MSHRecord: tMSH);
 
 implementation
 
@@ -416,6 +417,11 @@ begin
   MSHRecord.SendingNetworkAddr := '';
   MSHRecord.ReceivingNetworkAddr := '';
   SetMSH(message, MSHRecord, false);
+end;
+
+procedure ClearMSH(MSHRecord: tMSH);
+begin
+  FillChar(MSHRecord, SizeOf(MSHRecord), 0);
 end;
 
 end.
