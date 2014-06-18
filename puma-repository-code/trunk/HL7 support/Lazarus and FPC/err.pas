@@ -77,7 +77,7 @@ procedure SetERR(message: THL7Message; ErrCodeLoc, ErrLoc, ErrCode: string;
   severity: char; appErrCode, appErrPar, DiagInfo, UserMessage,
   InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
   deprecated;
-procedure ClearERR(ERRRecord: tERR);
+procedure ClearERR(var ERRRecord: tERR);
 
 implementation
 
@@ -237,7 +237,7 @@ begin
   SetErr(message, ERRRecord);
 end;
 
-procedure ClearERR(ERRRecord: tERR);
+procedure ClearERR(var ERRRecord: tERR);
 begin
   FillChar(ERRRecord, SizeOf(ERRRecord), 0);
 end;

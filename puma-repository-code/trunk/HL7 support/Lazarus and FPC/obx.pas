@@ -94,7 +94,7 @@ procedure SetOBX(message: THL7Message; SetID: str4; ValueType: str2; ObsID: str2
   UDAC: str20; ObsDateTime: str26; prodID, respObs, observMethod: str250;
   EquipInstID: str22; AnalysisDateTime: str26);
   deprecated;
-procedure ClearOBX(OBXRecord: tOBX);
+procedure ClearOBX(var OBXRecord: tOBX);
 
 implementation
 
@@ -323,7 +323,7 @@ begin
   SetOBX(message, OBXRecord);
 end;
 
-procedure ClearOBX(OBXRecord: tOBX);
+procedure ClearOBX(var OBXRecord: tOBX);
 begin
   FillChar(OBXRecord, SizeOf(OBXRecord), 0);
 end;

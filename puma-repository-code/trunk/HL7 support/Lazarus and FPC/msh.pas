@@ -105,7 +105,7 @@ procedure SetMSH(message: THL7Message; delimiters: str5;
   countryCode: str3; charSet: str16; messageLanguage: str250;
   altCharHandlScheme: str20; profileID: str427);
   deprecated;
-procedure ClearMSH(MSHRecord: tMSH);
+procedure ClearMSH(var MSHRecord: tMSH);
 
 implementation
 
@@ -419,7 +419,7 @@ begin
   SetMSH(message, MSHRecord, false);
 end;
 
-procedure ClearMSH(MSHRecord: tMSH);
+procedure ClearMSH(var MSHRecord: tMSH);
 begin
   FillChar(MSHRecord, SizeOf(MSHRecord), 0);
 end;

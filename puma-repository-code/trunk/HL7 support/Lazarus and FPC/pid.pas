@@ -80,7 +80,7 @@ function PID_Segment(message: THL7Message): THL7Segment;
 procedure GetPID(message: THL7Message; out PIDRecord: tPID);
 procedure SetPID(message: THL7Message; aSegment: THL7Segment);
 procedure SetPID(message: THL7message; PIDRecord: tPID);
-procedure ClearPID(PIDRecord: tPID);
+procedure ClearPID(var PIDRecord: tPID);
 
 implementation
 
@@ -195,9 +195,9 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure ClearPID(PIDRecord: tPID);
+procedure ClearPID(var PIDRecord: tPID);
 begin
-  FillChar(PIDRecord, SizeOf(PIDRecord), 0);
+  FillChar(PIDRecord, SizeOf(tPID), 0);
 end;
 
 end.

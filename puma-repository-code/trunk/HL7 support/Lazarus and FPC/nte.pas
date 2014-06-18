@@ -62,7 +62,7 @@ procedure SetNTE(message: THL7Message; SetID: tSI; CommentSource: tID;
 procedure SetNTE(message: THL7Message; SetID: str4; CommentSource: str8;
   comment: ansistring; commentType: str250);
   deprecated;
-procedure ClearNTE(NTERecord: tNTE);
+procedure ClearNTE(var NTERecord: tNTE);
 
 implementation
 
@@ -186,7 +186,7 @@ begin
   SetNTE(message, NTERecord);
 end;
 
-procedure ClearNTE(NTERecord: tNTE);
+procedure ClearNTE(var NTERecord: tNTE);
 begin
   FillChar(NTERecord, SizeOf(NTERecord), 0);
 end;

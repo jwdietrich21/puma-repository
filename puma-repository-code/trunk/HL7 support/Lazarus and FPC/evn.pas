@@ -58,7 +58,7 @@ procedure SetEVN(message: THL7Message; evtTypeCode: char;
   recDateTime, plannedDateTime: tDTM; reasonCode: tCWE; opID: tXCN;
   evtOccurred: tDTM; evtFacility: tHD);
   deprecated;
-procedure ClearEVN(EVNRecord: tEVN);
+procedure ClearEVN(var EVNRecord: tEVN);
 
 implementation
 
@@ -152,7 +152,7 @@ begin
   SetEVN(message, EVNRecord);
 end;
 
-procedure ClearEVN(EVNRecord: tEVN);
+procedure ClearEVN(var EVNRecord: tEVN);
 begin
   FillChar(EVNRecord, SizeOf(EVNRecord), 0);
 end;

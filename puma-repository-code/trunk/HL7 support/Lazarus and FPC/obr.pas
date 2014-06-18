@@ -98,7 +98,7 @@ procedure SetOBR(message: THL7Message; SetID: tSI; PlacOrdNumb, FillOrdNumb: tEI
 procedure SetOBR(message: THL7Message; SetID: str4; PlacOrdNumb, FillOrdNumb: str22;
   USI: str250; Priority: Str2; ReqDateTime, ObsDateTime, ObsEndDateTime: str26);
   deprecated;
-procedure ClearOBR(OBRRecord: tOBR);
+procedure ClearOBR(var OBRRecord: tOBR);
 
 implementation
 
@@ -399,7 +399,7 @@ begin
   SetOBR(message, OBRRecord);
 end;
 
-procedure ClearOBR(OBRRecord: tOBR);
+procedure ClearOBR(var OBRRecord: tOBR);
 begin
   FillChar(OBRRecord, SizeOf(OBRRecord), 0);
 end;

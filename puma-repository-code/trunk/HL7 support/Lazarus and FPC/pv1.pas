@@ -82,7 +82,7 @@ function PV1_Segment(message: THL7Message): THL7Segment;
 procedure GetPV1(message: THL7Message; out PV1Record: tPV1);
 procedure SetPV1(message: THL7Message; aSegment: THL7Segment);
 procedure SetPV1(message: THL7message; PV1Record: tPV1);
-procedure ClearPV1(PV1Record: tPV1);
+procedure ClearPV1(var PV1Record: tPV1);
 
 implementation
 
@@ -227,9 +227,9 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure ClearPV1(PV1Record: tPV1);
+procedure ClearPV1(var PV1Record: tPV1);
 begin
-  FillChar(PV1Record, SizeOf(PV1Record), 0);
+  FillChar(PV1Record, SizeOf(tPV1), 0);
 end;
 
 end.

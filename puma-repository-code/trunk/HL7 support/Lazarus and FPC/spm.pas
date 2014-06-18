@@ -65,7 +65,7 @@ function SPM_Segment(message: THL7Message): THL7Segment;
 procedure GetSPM(message: THL7Message; out SPMRecord: tSPM);
 procedure SetSPM(message: THL7Message; aSegment: THL7Segment);
 procedure SetSPM(message: THL7message; SPMRecord: tSPM);
-procedure ClearSPM(SPMRecord: tSPM);
+procedure ClearSPM(var SPMRecord: tSPM);
 
 implementation
 
@@ -175,9 +175,9 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure ClearSPM(SPMRecord: tSPM);
+procedure ClearSPM(var SPMRecord: tSPM);
 begin
-  FillChar(SPMRecord, SizeOf(SPMRecord), 0);
+  FillChar(SPMRecord, SizeOf(tSPM), 0);
 end;
 
 end.

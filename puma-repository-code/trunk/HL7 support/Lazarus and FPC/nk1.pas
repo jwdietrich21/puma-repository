@@ -77,7 +77,7 @@ function NK1_Segment(message: THL7Message): THL7Segment;
 procedure GetNK1(message: THL7Message; out NK1Record: tNK1);
 procedure SetNK1(message: THL7Message; aSegment: THL7Segment);
 procedure SetNK1(message: THL7message; NK1Record: tNK1);
-procedure ClearNK1(NK1Record: tNK1);
+procedure ClearNK1(var NK1Record: tNK1);
 
 implementation
 
@@ -187,7 +187,7 @@ begin
   message.AddSegment(newSegment);
 end;
 
-procedure ClearNK1(NK1Record: tNK1);
+procedure ClearNK1(var NK1Record: tNK1);
 begin
   FillChar(NK1Record, SizeOf(NK1Record), 0);
 end;
