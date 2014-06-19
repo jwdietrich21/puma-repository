@@ -40,7 +40,7 @@ Status code of HL7 message:
 interface
 
 uses
-  Classes, SysUtils, StrUtils, Math, URIParser;
+  Classes, SysUtils, StrUtils, Math, URIParser, DateUtils;
 
 const
 
@@ -502,6 +502,7 @@ end;
 
 function DecodeDateTime(StringRepresentation: string): TDateTime;
 var
+  theYear, theMonth, theDay, theHour, theMinute, theSecond: longint;
   oldDateFormat: string;
   format: TFormatSettings;
 begin
@@ -509,9 +510,41 @@ begin
   ShortDateFormat := 'YYYYMMDDhhnnss';
   format.DateSeparator := char(0);
   format.TimeSeparator := char(0);
+  format.TimeAMString := char(0);
+  format.TimePMString := char(0);
   format.ShortDateFormat := 'YYYYMMDDhhnnss';
   if not TryStrToDateTime(StringRepresentation, result, format) then
-    result := NaN;
+  begin
+    if length(StringRepresentation) = 14 then
+    begin
+      try
+        theYear := StrToIntDef(copy(StringRepresentation, 1, 4), -1);
+        theMonth := StrToIntDef(copy(StringRepresentation, 5, 2), -1);
+        theDay := StrToIntDef(copy(StringRepresentation, 7, 2), -1);
+        theHour := StrToIntDef(copy(StringRepresentation, 9, 2), -1);
+        theMinute := StrToIntDef(copy(StringRepresentation, 11, 2), -1);
+        theSecond := StrToIntDef(copy(StringRepresentation, 13, 2), -1);
+        result := EncodeDateTime(theYear, theMonth, theDay, theHour, theMinute, theSecond, 0);
+      except
+        on E: EConvertError do
+          result := NaN;
+      end;
+    end
+    else if length(StringRepresentation) = 8 then
+    begin
+      try
+        theYear := StrToIntDef(copy(StringRepresentation, 1, 4), -1);
+        theMonth := StrToIntDef(copy(StringRepresentation, 5, 2), -1);
+        theDay := StrToIntDef(copy(StringRepresentation, 7, 2), -1);
+        result := EncodeDateTime(theYear, theMonth, theDay, 0, 0, 0, 0);
+      except
+        on E: EConvertError do
+          result := NaN;
+      end;
+    end
+    else
+      result := NaN;
+  end;
   ShortDateFormat := oldDateFormat;
 end;
 
@@ -1296,4 +1329,4 @@ begin
 end;
 
 
-end.
+end.

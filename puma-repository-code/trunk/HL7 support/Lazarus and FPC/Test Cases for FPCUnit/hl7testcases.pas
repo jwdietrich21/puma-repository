@@ -31,8 +31,8 @@ unit HL7TestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, HL7, MSH, MSA,
-  ERR, OBR, OBX, SPM, NTE, EVN, PID, PV1, PV2, NK1;
+  Classes, SysUtils, fpcunit, testutils, testregistry, DateUtils,
+  HL7, MSH, MSA, ERR, OBR, OBX, SPM, NTE, EVN, PID, PV1, PV2, NK1;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -234,8 +234,6 @@ type
     procedure ComponentCompileTestCase1;
   end;
 
-  { TSubComponentParseTestCases }
-
   { TSubComponentTestCases }
 
   TSubComponentTestCases = class(TTestCase)
@@ -245,7 +243,13 @@ type
     procedure SubComponentParseTestCase3;
   end;
 
+  {TEncodingTestCases}
 
+  TEncodingTestCases = class(TTestCase)
+  published
+    procedure EncodeDateTimeTestCase;
+    procedure DecodeDateTimeTestCase;
+  end;
 
 var
   TestHL7Message: THL7Message;
@@ -1752,6 +1756,28 @@ begin
     TestHL7Message.Destroy;
 end;
 
+{ TEncodingTestCases }
+
+procedure TEncodingTestCases.EncodeDateTimeTestCase;
+var
+  theDateTime: TDateTime;
+begin
+  theDateTime := EncodeDateTime(1994, 12, 27, 21, 13, 0, 0);
+  AssertEquals('19941227211300', EncodedDateTime(theDateTime))
+end;
+
+procedure TEncodingTestCases.DecodeDateTimeTestCase;
+var
+  timeRepresentation: String;
+  desiredDateTime, theDateTime: TDateTime;
+begin
+  desiredDateTime := EncodeDateTime(1994, 12, 27, 21, 13, 0, 0);
+  timeRepresentation := '19941227211300';
+  theDateTime := DecodeDateTime(timeRepresentation);
+  AssertEquals(desiredDateTime, theDateTime);
+end;
+
+
 initialization
   RegisterTest(TControlTestCases);
   RegisterTest(TMSHTestCases);
@@ -1772,4 +1798,5 @@ initialization
   RegisterTest(TFieldsTestCases);
   RegisterTest(TComponentTestCases);
   RegisterTest(TSubComponentTestCases);
+  RegisterTest(TEncodingTestCases);
 end.

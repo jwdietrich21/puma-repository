@@ -12,17 +12,18 @@
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="7" Y="2"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="128"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="hl7testcases.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7TestCases"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="14" Y="9"/>
+        <TopLine Value="1758"/>
+        <CursorPos X="1" Y="1776"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <TopLine Value="38"/>
@@ -32,7 +33,7 @@
           <TopLine Value="32"/>
           <CursorPos X="86" Y="43"/>
         </ExtraEditor2>
-        <UsageCount Value="126"/>
+        <UsageCount Value="128"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -44,7 +45,7 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
         <ExtraEditorCount Value="1"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -54,14 +55,14 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="4" Y="2"/>
+        <CursorPos X="10" Y="1"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="1"/>
           <TopLine Value="114"/>
           <CursorPos X="14" Y="225"/>
         </ExtraEditor1>
-        <UsageCount Value="60"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -76,7 +77,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="60"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -93,7 +94,7 @@
           <TopLine Value="129"/>
           <CursorPos X="1" Y="162"/>
         </ExtraEditor1>
-        <UsageCount Value="60"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -108,7 +109,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="60"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -123,7 +124,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="57"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -134,7 +135,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -149,7 +150,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="53"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -165,7 +166,7 @@
           <TopLine Value="38"/>
           <CursorPos X="1" Y="75"/>
         </ExtraEditor1>
-        <UsageCount Value="42"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -177,20 +178,19 @@
         <TopLine Value="1"/>
         <CursorPos X="9" Y="2"/>
         <ExtraEditorCount Value="1"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="../nk1.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NK1"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
         <ExtraEditorCount Value="1"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -201,7 +201,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="14" Y="9"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -218,7 +218,7 @@
           <TopLine Value="35"/>
           <CursorPos X="64" Y="42"/>
         </ExtraEditor1>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -415,124 +415,124 @@
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="101" Column="19" TopLine="79"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="515" Column="1" TopLine="490"/>
       </Position1>
       <Position2>
-        <Filename Value="../obx.pas"/>
-        <Caret Line="97" Column="19" TopLine="83"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="516" Column="1" TopLine="490"/>
       </Position2>
       <Position3>
-        <Filename Value="../spm.pas"/>
-        <Caret Line="68" Column="19" TopLine="43"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="526" Column="3" TopLine="498"/>
       </Position3>
       <Position4>
-        <Filename Value="../err.pas"/>
-        <Caret Line="80" Column="19" TopLine="55"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="524" Column="70" TopLine="499"/>
       </Position4>
       <Position5>
-        <Filename Value="../evn.pas"/>
-        <Caret Line="61" Column="19" TopLine="43"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="503" Column="65" TopLine="501"/>
       </Position5>
       <Position6>
-        <Filename Value="../pid.pas"/>
-        <Caret Line="83" Column="19" TopLine="67"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="524" Column="68" TopLine="501"/>
       </Position6>
       <Position7>
-        <Filename Value="../pv1.pas"/>
-        <Caret Line="85" Column="19" TopLine="73"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="505" Column="68" TopLine="502"/>
       </Position7>
       <Position8>
-        <Filename Value="../pv2.pas"/>
-        <Caret Line="81" Column="19" TopLine="61"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="526" Column="63" TopLine="502"/>
       </Position8>
       <Position9>
-        <Filename Value="../nk1.pas"/>
-        <Caret Line="80" Column="19" TopLine="61"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="539" Column="68" TopLine="513"/>
       </Position9>
       <Position10>
-        <Filename Value="../spm.pas"/>
-        <Caret Line="180" Column="33" TopLine="156"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="1774" Column="1" TopLine="1758"/>
       </Position10>
       <Position11>
-        <Filename Value="../evn.pas"/>
-        <Caret Line="157" Column="33" TopLine="135"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="1775" Column="1" TopLine="1758"/>
       </Position11>
       <Position12>
-        <Filename Value="../msa.pas"/>
-        <Caret Line="201" Column="33" TopLine="177"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="1776" Column="1" TopLine="1758"/>
       </Position12>
       <Position13>
-        <Filename Value="../nte.pas"/>
-        <Caret Line="191" Column="39" TopLine="168"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="508" Column="1" TopLine="489"/>
       </Position13>
       <Position14>
-        <Filename Value="../msh.pas"/>
-        <Caret Line="424" Column="3" TopLine="400"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="509" Column="1" TopLine="489"/>
       </Position14>
       <Position15>
-        <Filename Value="../msa.pas"/>
-        <Caret Line="69" Column="15" TopLine="52"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="510" Column="1" TopLine="489"/>
       </Position15>
       <Position16>
-        <Filename Value="../msa.pas"/>
-        <Caret Line="199" Column="24" TopLine="177"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="511" Column="1" TopLine="489"/>
       </Position16>
       <Position17>
-        <Filename Value="../nte.pas"/>
-        <Caret Line="65" Column="15" TopLine="55"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="512" Column="1" TopLine="489"/>
       </Position17>
       <Position18>
-        <Filename Value="../nte.pas"/>
-        <Caret Line="189" Column="24" TopLine="168"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="513" Column="1" TopLine="489"/>
       </Position18>
       <Position19>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="101" Column="14" TopLine="88"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="514" Column="1" TopLine="489"/>
       </Position19>
       <Position20>
-        <Filename Value="../obr.pas"/>
-        <Caret Line="402" Column="24" TopLine="380"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="515" Column="1" TopLine="489"/>
       </Position20>
       <Position21>
-        <Filename Value="../obx.pas"/>
-        <Caret Line="97" Column="16" TopLine="76"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="516" Column="1" TopLine="489"/>
       </Position21>
       <Position22>
-        <Filename Value="../obx.pas"/>
-        <Caret Line="326" Column="24" TopLine="304"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="518" Column="1" TopLine="489"/>
       </Position22>
       <Position23>
-        <Filename Value="../err.pas"/>
-        <Caret Line="80" Column="14" TopLine="58"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="520" Column="1" TopLine="490"/>
       </Position23>
       <Position24>
-        <Filename Value="../err.pas"/>
-        <Caret Line="240" Column="24" TopLine="218"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="521" Column="1" TopLine="491"/>
       </Position24>
       <Position25>
-        <Filename Value="../evn.pas"/>
-        <Caret Line="61" Column="13" TopLine="40"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="522" Column="1" TopLine="492"/>
       </Position25>
       <Position26>
-        <Filename Value="../evn.pas"/>
-        <Caret Line="155" Column="24" TopLine="135"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="523" Column="1" TopLine="493"/>
       </Position26>
       <Position27>
-        <Filename Value="../pv2.pas"/>
-        <Caret Line="81" Column="16" TopLine="67"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="524" Column="1" TopLine="494"/>
       </Position27>
       <Position28>
-        <Filename Value="../pv2.pas"/>
-        <Caret Line="222" Column="24" TopLine="200"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="525" Column="1" TopLine="495"/>
       </Position28>
       <Position29>
-        <Filename Value="../nk1.pas"/>
-        <Caret Line="80" Column="15" TopLine="70"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="526" Column="1" TopLine="496"/>
       </Position29>
       <Position30>
-        <Filename Value="../nk1.pas"/>
-        <Caret Line="190" Column="24" TopLine="168"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="527" Column="1" TopLine="497"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
