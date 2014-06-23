@@ -8,23 +8,23 @@ unit PV2;
 
 { Version 1.6 }
 
-{ (c) J. W. Dietrich, 1994 - 2014 }
-{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
-{ (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2014 }
+ { (c) J. W. Dietrich, 1994 - 2014 }
+ { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+ { (c) University of Ulm Hospitals 2002-2004 }
+ { (c) Ruhr University of Bochum 2005 - 2014 }
 
 { Parser and compiler for HL7 messages }
 
 { Source code released under the BSD License }
 
-{ See the file "license.txt", included in this distribution, }
-{ for details about the copyright. }
-{ Current versions and additional information are available from }
-{ http://puma-repository.sf.net }
+ { See the file "license.txt", included in this distribution, }
+ { for details about the copyright. }
+ { Current versions and additional information are available from }
+ { http://puma-repository.sf.net }
 
-{ This program is distributed in the hope that it will be useful, }
-{ but WITHOUT ANY WARRANTY; without even the implied warranty of }
-{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
+ { This program is distributed in the hope that it will be useful, }
+ { but WITHOUT ANY WARRANTY; without even the implied warranty of }
+ { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
 {$mode objfpc}{$H+}
 
@@ -41,21 +41,21 @@ type
     PriorPendingLocation: tPL;
     AccommodationCode, AdmitReason, TransferReason: tCWE;
     PatientValuables, PatientValuablesLocation: tST;
-    VisitUserCode: tCWE;
+    VisitUserCode:    tCWE;
     ExpAdmitDateTime, ExpDischargeDateTime: tDTM;
-    EstLOS, ActLOS: tNM;
+    EstLOS, ActLOS:   tNM;
     VisitDescription: tST;
     ReferralSourceCode: tXCN;
     PreviousServiceDate: tDT;
     EpmploymentIllnessRelatedID: tID;
-    PurgeStatusCode: tCWE;
-    PurgeStatusDate: tDT;
+    PurgeStatusCode:  tCWE;
+    PurgeStatusDate:  tDT;
     SpecialProgramCode: tCWE;
-    RetentionID: tID;
+    RetentionID:      tID;
     ExpNumberOfInsurancePlans: tNM;
     VisitPublicityCode: tCWE;
     VisitProtectionID: tID;
-    ClinicOrgName: tXON;
+    ClinicOrgName:    tXON;
     PatientStatusCode, VisitPriorityCode: tCWE;
     PreviousTreatmentDate: tDT;
     ExpDischargeDispo: tCWE;
@@ -75,6 +75,7 @@ type
   end;
 
 function PV2_Segment(message: THL7Message): THL7Segment;
+procedure GetPV2(aSegment: THL7Segment; out PV2Record: tPV2);
 procedure GetPV2(message: THL7Message; out PV2Record: tPV2);
 procedure SetPV2(message: THL7Message; aSegment: THL7Segment);
 procedure SetPV2(message: THL7message; PV2Record: tPV2);
@@ -90,90 +91,98 @@ begin
     Result := nil;
 end;
 
-procedure GetPV2(message: THL7Message; out PV2Record: tPV2);
+procedure GetPV2(aSegment: THL7Segment; out PV2Record: tPV2);
 var
-  curSegment: THL7Segment;
-  nextField: THL7Field;
+  nextField:      THL7Field;
   nextOccurrence: THL7Occurrence;
 begin
-  curSegment := PV2_Segment(message);
-  if curSegment <> nil then
+  if (aSegment <> nil) and (aSegment.segmentType = 'PV2') then
   begin
-    nextOccurrence := curSegment.FirstOccurrence;
+    nextOccurrence := aSegment.FirstOccurrence;
     if nextOccurrence <> nil then
       with PV2Record do
       begin
-        nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
+        nextField   := aSegment.FirstOccurrence.FirstField.nextSibling;
         PriorPendingLocation :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AccommodationCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AccommodationCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         AdmitReason :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TransferReason := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientValuables := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TransferReason := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientValuables := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PatientValuablesLocation :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        VisitUserCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ExpAdmitDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        VisitUserCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ExpAdmitDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ExpDischargeDateTime :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        EstLOS := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ActLOS := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        VisitDescription := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ReferralSourceCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PreviousServiceDate := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        EstLOS      := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ActLOS      := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        VisitDescription := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ReferralSourceCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PreviousServiceDate := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         EpmploymentIllnessRelatedID :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PurgeStatusCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PurgeStatusDate := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        SpecialProgramCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        RetentionID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PurgeStatusCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PurgeStatusDate := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        SpecialProgramCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        RetentionID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ExpNumberOfInsurancePlans :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        VisitPublicityCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        VisitProtectionID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ClinicOrgName := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientStatusCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        VisitPriorityCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        VisitPublicityCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        VisitProtectionID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ClinicOrgName := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientStatusCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        VisitPriorityCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PreviousTreatmentDate :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ExpDischargeDispo := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        SignatureOnFileDate := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ExpDischargeDispo := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        SignatureOnFileDate := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         FirstSimilarIllnessDate :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PatientChargeAdjustmentCode :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         RecurringServiceCode :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        BillingMediaCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ExpSurgeryDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        MilPartnershipCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        MilNonAvailCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        NewbornBabyID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        BabyDetainedID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ModeOfArrivalCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        BillingMediaCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ExpSurgeryDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MilPartnershipCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MilNonAvailCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        NewbornBabyID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        BabyDetainedID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ModeOfArrivalCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         RecreationalDrugUseCode :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         AdmissionLevelOfCareCode :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PrecautionCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PrecautionCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PatientConditionCode :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        LivingWillCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        OrganDonorCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        LivingWillCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrganDonorCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         AdvanceDirectiveCode :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PatientStatusEffectiveDate :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ExpectedLOAReturnDateTime :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ExpectedPreadmissionTestingDateTime :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        NotifyClergyCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        NotifyClergyCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         AdvanceDirectiveLastVerifiedDate :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
-  end;
+  end
+  else
+    ClearPV2(PV2Record);
+end;
+
+procedure GetPV2(message: THL7Message; out PV2Record: tPV2);
+var
+  curSegment: THL7Segment;
+begin
+  curSegment := PV2_Segment(message);
+  GetPV2(curSegment, PV2Record);
 end;
 
 procedure SetPV2(message: THL7Message; aSegment: THL7Segment);
@@ -184,37 +193,38 @@ end;
 procedure SetPV2(message: THL7message; PV2Record: tPV2);
 var
   newSegment: THL7Segment;
-  FieldSep: char;
-  theString: ansistring;
+  FieldSep:   char;
+  theString:  ansistring;
 begin
-  FieldSep := message.Delimiters.FieldSeparator;
+  FieldSep   := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
   with PV2Record do
     theString := PV2_ID + FieldSep + PriorPendingLocation + FieldSep +
-      AccommodationCode + FieldSep + AdmitReason + FieldSep + TransferReason +
-      FieldSep + PatientValuables + FieldSep + PatientValuablesLocation +
-      FieldSep + VisitUserCode + FieldSep + ExpAdmitDateTime +
-      FieldSep + ExpDischargeDateTime + FieldSep + EstLOS + FieldSep +
-      ActLOS + FieldSep + VisitDescription + FieldSep + ReferralSourceCode +
-      FieldSep + PreviousServiceDate + FieldSep + EpmploymentIllnessRelatedID +
-      FieldSep + PurgeStatusCode + FieldSep + PurgeStatusDate +
-      FieldSep + SpecialProgramCode + FieldSep + RetentionID +
-      FieldSep + ExpNumberOfInsurancePlans + FieldSep + VisitPublicityCode +
-      FieldSep + VisitProtectionID + FieldSep + ClinicOrgName +
-      FieldSep + PatientStatusCode + FieldSep + VisitPriorityCode +
-      FieldSep + PreviousTreatmentDate + FieldSep + ExpDischargeDispo +
-      FieldSep + SignatureOnFileDate + FieldSep + FirstSimilarIllnessDate +
-      FieldSep + PatientChargeAdjustmentCode + FieldSep + RecurringServiceCode +
-      FieldSep + BillingMediaCode + FieldSep + ExpSurgeryDateTime +
-      FieldSep + MilPartnershipCode + FieldSep + MilNonAvailCode +
-      FieldSep + NewbornBabyID + FieldSep + BabyDetainedID + FieldSep +
-      ModeOfArrivalCode + FieldSep + RecreationalDrugUseCode + FieldSep +
-      AdmissionLevelOfCareCode + FieldSep + PrecautionCode + FieldSep +
-      PatientConditionCode + FieldSep + LivingWillCode + FieldSep +
-      OrganDonorCode + FieldSep + AdvanceDirectiveCode + FieldSep +
-      PatientStatusEffectiveDate + FieldSep + ExpectedLOAReturnDateTime +
-      FieldSep + ExpectedPreadmissionTestingDateTime + FieldSep +
-      NotifyClergyCode + FieldSep + AdvanceDirectiveLastVerifiedDate + FieldSep;
+      AccommodationCode + FieldSep + AdmitReason + FieldSep +
+      TransferReason + FieldSep + PatientValuables + FieldSep +
+      PatientValuablesLocation + FieldSep + VisitUserCode + FieldSep +
+      ExpAdmitDateTime + FieldSep + ExpDischargeDateTime + FieldSep +
+      EstLOS + FieldSep + ActLOS + FieldSep + VisitDescription +
+      FieldSep + ReferralSourceCode + FieldSep + PreviousServiceDate +
+      FieldSep + EpmploymentIllnessRelatedID + FieldSep + PurgeStatusCode +
+      FieldSep + PurgeStatusDate + FieldSep + SpecialProgramCode +
+      FieldSep + RetentionID + FieldSep + ExpNumberOfInsurancePlans +
+      FieldSep + VisitPublicityCode + FieldSep + VisitProtectionID +
+      FieldSep + ClinicOrgName + FieldSep + PatientStatusCode +
+      FieldSep + VisitPriorityCode + FieldSep + PreviousTreatmentDate +
+      FieldSep + ExpDischargeDispo + FieldSep + SignatureOnFileDate +
+      FieldSep + FirstSimilarIllnessDate + FieldSep + PatientChargeAdjustmentCode +
+      FieldSep + RecurringServiceCode + FieldSep + BillingMediaCode +
+      FieldSep + ExpSurgeryDateTime + FieldSep + MilPartnershipCode +
+      FieldSep + MilNonAvailCode + FieldSep + NewbornBabyID + FieldSep +
+      BabyDetainedID + FieldSep + ModeOfArrivalCode + FieldSep +
+      RecreationalDrugUseCode + FieldSep + AdmissionLevelOfCareCode +
+      FieldSep + PrecautionCode + FieldSep + PatientConditionCode +
+      FieldSep + LivingWillCode + FieldSep + OrganDonorCode + FieldSep +
+      AdvanceDirectiveCode + FieldSep + PatientStatusEffectiveDate +
+      FieldSep + ExpectedLOAReturnDateTime + FieldSep +
+      ExpectedPreadmissionTestingDateTime + FieldSep + NotifyClergyCode +
+      FieldSep + AdvanceDirectiveLastVerifiedDate + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;

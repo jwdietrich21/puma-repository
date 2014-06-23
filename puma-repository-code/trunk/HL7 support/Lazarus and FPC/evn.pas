@@ -8,23 +8,23 @@ unit EVN;
 
 { Version 1.6 }
 
-{ (c) J. W. Dietrich, 1994 - 2014 }
-{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
-{ (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2014 }
+ { (c) J. W. Dietrich, 1994 - 2014 }
+ { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+ { (c) University of Ulm Hospitals 2002-2004 }
+ { (c) Ruhr University of Bochum 2005 - 2014 }
 
 { Parser and compiler for HL7 messages }
 
 { Source code released under the BSD License }
 
-{ See the file "license.txt", included in this distribution, }
-{ for details about the copyright. }
-{ Current versions and additional information are available from }
-{ http://puma-repository.sf.net }
+ { See the file "license.txt", included in this distribution, }
+ { for details about the copyright. }
+ { Current versions and additional information are available from }
+ { http://puma-repository.sf.net }
 
-{ This program is distributed in the hope that it will be useful, }
-{ but WITHOUT ANY WARRANTY; without even the implied warranty of }
-{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
+ { This program is distributed in the hope that it will be useful, }
+ { but WITHOUT ANY WARRANTY; without even the implied warranty of }
+ { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
 {$mode objfpc}{$H+}
 
@@ -47,6 +47,7 @@ type
   end;
 
 function EVN_Segment(message: THL7Message): THL7Segment;
+procedure GetEVN(aSegment: THL7Segment; out EVNRecord: tEVN);
 procedure GetEVN(message: THL7Message; out EVNRecord: tEVN);
 procedure GetEVN(message: THL7Message; out evtTypeCode: char;
   out recDateTime, plannedDateTime: tDTM; out reasonCode: tCWE;
@@ -70,36 +71,44 @@ begin
     Result := nil;
 end;
 
-procedure GetEVN(message: THL7Message; out EVNRecord: tEVN);
+procedure GetEVN(aSegment: THL7Segment; out EVNRecord: tEVN);
 var
-  curSegment: THL7Segment;
-  nextField: THL7Field;
+  nextField:      THL7Field;
   nextOccurrence: THL7Occurrence;
 begin
-  curSegment := EVN_Segment(message);
-  if curSegment <> nil then
+  if (aSegment <> nil) and (aSegment.segmentType = 'EVN') then
   begin
-    nextOccurrence := curSegment.FirstOccurrence;
+    nextOccurrence := aSegment.FirstOccurrence;
     if nextOccurrence <> nil then
       with EVNRecord do
       begin
-        nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
-        evtTypeCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField)[1];
-        recDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        plannedDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        reasonCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        opID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        evtOccurred := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        evtFacility := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        nextField := aSegment.FirstOccurrence.FirstField.nextSibling;
+        evtTypeCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField)[1];
+        recDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        plannedDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        reasonCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        opID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        evtOccurred := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        evtFacility := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
-  end;
+  end
+  else
+    ClearEVN(EVNRecord);
+end;
+
+procedure GetEVN(message: THL7Message; out EVNRecord: tEVN);
+var
+  curSegment: THL7Segment;
+begin
+  curSegment := EVN_Segment(message);
+  GetEVN(curSegment, EVNRecord);
 end;
 
 procedure GetEVN(message: THL7Message; out evtTypeCode: char;
   out recDateTime, plannedDateTime: tDTM; out reasonCode: tCWE;
   out opID: tXCN; out evtOccurred: tDTM; out evtFacility: tHD);
-{ deprecated method, retained for backward-compatibility only, }
-{ capsules new version of polymorphic GetEVN }
+ { deprecated method, retained for backward-compatibility only, }
+ { capsules new version of polymorphic GetEVN }
 var
   EVNRecord: tEVN;
 begin
@@ -121,10 +130,10 @@ end;
 procedure SetEVN(message: THL7message; EVNRecord: tEVN);
 var
   newSegment: THL7Segment;
-  FieldSep: char;
-  theString: ansistring;
+  FieldSep:   char;
+  theString:  ansistring;
 begin
-  FieldSep := message.Delimiters.FieldSeparator;
+  FieldSep   := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
   with EVNRecord do
     theString := EVN_ID + FieldSep + evtTypeCode + FieldSep + recDateTime +
@@ -137,8 +146,8 @@ end;
 procedure SetEVN(message: THL7Message; evtTypeCode: char;
   recDateTime, plannedDateTime: tDTM; reasonCode: tCWE; opID: tXCN;
   evtOccurred: tDTM; evtFacility: tHD);
-{ deprecated method, retained for backward-compatibility only, }
-{ capsules new version of polymorphic SetEVN }
+ { deprecated method, retained for backward-compatibility only, }
+ { capsules new version of polymorphic SetEVN }
 var
   EVNRecord: tEVN;
 begin

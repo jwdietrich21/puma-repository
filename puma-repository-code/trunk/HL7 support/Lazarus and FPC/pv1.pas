@@ -8,23 +8,23 @@ unit PV1;
 
 { Version 1.6 }
 
-{ (c) J. W. Dietrich, 1994 - 2014 }
-{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
-{ (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2014 }
+ { (c) J. W. Dietrich, 1994 - 2014 }
+ { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+ { (c) University of Ulm Hospitals 2002-2004 }
+ { (c) Ruhr University of Bochum 2005 - 2014 }
 
 { Parser and compiler for HL7 messages }
 
 { Source code released under the BSD License }
 
-{ See the file "license.txt", included in this distribution, }
-{ for details about the copyright. }
-{ Current versions and additional information are available from }
-{ http://puma-repository.sf.net }
+ { See the file "license.txt", included in this distribution, }
+ { for details about the copyright. }
+ { Current versions and additional information are available from }
+ { http://puma-repository.sf.net }
 
-{ This program is distributed in the hope that it will be useful, }
-{ but WITHOUT ANY WARRANTY; without even the implied warranty of }
-{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
+ { This program is distributed in the hope that it will be useful, }
+ { but WITHOUT ANY WARRANTY; without even the implied warranty of }
+ { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
 {$mode objfpc}{$H+}
 
@@ -38,7 +38,7 @@ const
 
 type
   tPV1 = record
-    SetID: tSI;
+    SetID:    tSI;
     PatientClass: tIS;
     AssignedPatientLocation: tPL;
     AdmissionType: tIS;
@@ -79,6 +79,7 @@ type
   end;
 
 function PV1_Segment(message: THL7Message): THL7Segment;
+procedure GetPV1(aSegment: THL7Segment; out PV1Record: tPV1);
 procedure GetPV1(message: THL7Message; out PV1Record: tPV1);
 procedure SetPV1(message: THL7Message; aSegment: THL7Segment);
 procedure SetPV1(message: THL7message; PV1Record: tPV1);
@@ -94,94 +95,102 @@ begin
     Result := nil;
 end;
 
-procedure GetPV1(message: THL7Message; out PV1Record: tPV1);
+procedure GetPV1(aSegment: THL7Segment; out PV1Record: tPV1);
 var
-  curSegment: THL7Segment;
-  nextField: THL7Field;
+  nextField:      THL7Field;
   nextOccurrence: THL7Occurrence;
 begin
-  curSegment := PV1_Segment(message);
-  if curSegment <> nil then
+  if (aSegment <> nil) and (aSegment.segmentType = 'PV1') then
   begin
-    nextOccurrence := curSegment.FirstOccurrence;
+    nextOccurrence := aSegment.FirstOccurrence;
     if nextOccurrence <> nil then
       with PV1Record do
       begin
-        nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
-        SetID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientClass := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        nextField  := aSegment.FirstOccurrence.FirstField.nextSibling;
+        SetID      := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientClass := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         AssignedPatientLocation :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AdmissionType := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PreadmitNumber := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AdmissionType := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PreadmitNumber := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PriorPatientLocation :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AttendingDoctor := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ReferringDoctor := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ConsultingDoctor := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        HospitalService := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TemporaryLocation := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AttendingDoctor := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ReferringDoctor := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ConsultingDoctor := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        HospitalService := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TemporaryLocation := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PreadmitTestIndicator :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ReadmissionIndicator :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AdmitSource := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AmbulatoryStatus := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        VIPIndicator := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AdmittingDoctor := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientType := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        VisitNumber := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        FinancialClass := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AdmitSource := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AmbulatoryStatus := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        VIPIndicator := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AdmittingDoctor := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientType := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        VisitNumber := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        FinancialClass := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ChargePriceIndicator :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        CourtesyCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        CreditRate := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ContractCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        CourtesyCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        CreditRate := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ContractCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ContractEffectiveDate :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ContractAmount := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ContractPeriod := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        InterestCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ContractAmount := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ContractPeriod := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        InterestCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         TransferToBadDeptCode :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         TransferToBadDeptDate :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        BadDeptAgencyCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        BadDeptAgencyCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         BadDeptTransferAmount :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         BadDeptRecoveryAmount :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         DeleteAccountIndicator :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        DeleteAccountDate := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        DeleteAccountDate := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         DischargeDisposition :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         DischargedToLocation :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        DietType := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ServicingFacility := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        BedStatus := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AccountStatus := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PendingLocation := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        DietType   := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ServicingFacility := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        BedStatus  := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AccountStatus := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PendingLocation := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PriorTemporaryLocation :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AdmitDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        DischargeDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AdmitDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        DischargeDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         CurrentPatientBalance :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TotalCharges := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TotalAdustments := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TotalPayments := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AlternateVisitID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        VisitIndicator := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TotalCharges := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TotalAdustments := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TotalPayments := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AlternateVisitID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        VisitIndicator := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         OtherHealthcareProvider :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ServiceEpisodeDescription :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         ServiceEpisodeID :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
-  end;
+  end
+  else
+    ClearPV1(PV1Record);
+end;
+
+procedure GetPV1(message: THL7Message; out PV1Record: tPV1);
+var
+  curSegment: THL7Segment;
+begin
+  curSegment := PV1_Segment(message);
+  GetPV1(curSegment, PV1Record);
 end;
 
 procedure SetPV1(message: THL7Message; aSegment: THL7Segment);
@@ -192,37 +201,38 @@ end;
 procedure SetPV1(message: THL7message; PV1Record: tPV1);
 var
   newSegment: THL7Segment;
-  FieldSep: char;
-  theString: ansistring;
+  FieldSep:   char;
+  theString:  ansistring;
 begin
-  FieldSep := message.Delimiters.FieldSeparator;
+  FieldSep   := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
   with PV1Record do
     theString := PV1_ID + FieldSep + SetID + FieldSep + PatientClass +
       FieldSep + AssignedPatientLocation + FieldSep + AdmissionType +
-      FieldSep + PreadmitNumber + FieldSep + PriorPatientLocation + FieldSep +
-      AttendingDoctor + FieldSep + ReferringDoctor + FieldSep + ConsultingDoctor +
-      FieldSep + HospitalService + FieldSep + TemporaryLocation + FieldSep +
-      PreadmitTestIndicator + FieldSep + ReadmissionIndicator + FieldSep +
-      AdmitSource + FieldSep + AmbulatoryStatus + FieldSep + VIPIndicator +
-      FieldSep + AdmittingDoctor + FieldSep + PatientType + FieldSep +
-      VisitNumber + FieldSep + FinancialClass + FieldSep + ChargePriceIndicator +
+      FieldSep + PreadmitNumber + FieldSep + PriorPatientLocation +
+      FieldSep + AttendingDoctor + FieldSep + ReferringDoctor +
+      FieldSep + ConsultingDoctor + FieldSep + HospitalService +
+      FieldSep + TemporaryLocation + FieldSep + PreadmitTestIndicator +
+      FieldSep + ReadmissionIndicator + FieldSep + AdmitSource +
+      FieldSep + AmbulatoryStatus + FieldSep + VIPIndicator + FieldSep +
+      AdmittingDoctor + FieldSep + PatientType + FieldSep + VisitNumber +
+      FieldSep + FinancialClass + FieldSep + ChargePriceIndicator +
       FieldSep + CourtesyCode + FieldSep + CreditRate + FieldSep +
       ContractCode + FieldSep + ContractEffectiveDate + FieldSep +
-      ContractAmount + FieldSep + ContractPeriod + FieldSep + InterestCode +
-      FieldSep + TransferToBadDeptCode + FieldSep + TransferToBadDeptDate +
-      FieldSep + BadDeptAgencyCode + FieldSep + BadDeptTransferAmount +
-      FieldSep + BadDeptRecoveryAmount + FieldSep + DeleteAccountIndicator +
-      FieldSep + DeleteAccountDate + FieldSep + DischargeDisposition +
-      FieldSep + DischargedToLocation + FieldSep + DietType + FieldSep +
-      ServicingFacility + FieldSep + BedStatus + FieldSep + AccountStatus +
-      FieldSep + PendingLocation + FieldSep + PriorTemporaryLocation +
-      FieldSep + AdmitDateTime + FieldSep + DischargeDateTime + FieldSep +
-      CurrentPatientBalance + FieldSep + TotalCharges + FieldSep +
-      TotalAdustments + FieldSep + TotalPayments + FieldSep + AlternateVisitID +
-      FieldSep + VisitIndicator + FieldSep + OtherHealthcareProvider + FieldSep
-      + FieldSep + ServiceEpisodeDescription + FieldSep + ServiceEpisodeID +
-      FieldSep;
+      ContractAmount + FieldSep + ContractPeriod + FieldSep +
+      InterestCode + FieldSep + TransferToBadDeptCode + FieldSep +
+      TransferToBadDeptDate + FieldSep + BadDeptAgencyCode + FieldSep +
+      BadDeptTransferAmount + FieldSep + BadDeptRecoveryAmount +
+      FieldSep + DeleteAccountIndicator + FieldSep + DeleteAccountDate +
+      FieldSep + DischargeDisposition + FieldSep + DischargedToLocation +
+      FieldSep + DietType + FieldSep + ServicingFacility + FieldSep +
+      BedStatus + FieldSep + AccountStatus + FieldSep + PendingLocation +
+      FieldSep + PriorTemporaryLocation + FieldSep + AdmitDateTime +
+      FieldSep + DischargeDateTime + FieldSep + CurrentPatientBalance +
+      FieldSep + TotalCharges + FieldSep + TotalAdustments + FieldSep +
+      TotalPayments + FieldSep + AlternateVisitID + FieldSep +
+      VisitIndicator + FieldSep + OtherHealthcareProvider + FieldSep +
+      FieldSep + ServiceEpisodeDescription + FieldSep + ServiceEpisodeID + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;

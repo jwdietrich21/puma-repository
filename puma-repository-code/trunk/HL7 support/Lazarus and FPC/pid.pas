@@ -8,23 +8,23 @@ unit PID;
 
 { Version 1.6 }
 
-{ (c) J. W. Dietrich, 1994 - 2014 }
-{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
-{ (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2014 }
+ { (c) J. W. Dietrich, 1994 - 2014 }
+ { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+ { (c) University of Ulm Hospitals 2002-2004 }
+ { (c) Ruhr University of Bochum 2005 - 2014 }
 
 { Parser and compiler for HL7 messages }
 
 { Source code released under the BSD License }
 
-{ See the file "license.txt", included in this distribution, }
-{ for details about the copyright. }
-{ Current versions and additional information are available from }
-{ http://puma-repository.sf.net }
+ { See the file "license.txt", included in this distribution, }
+ { for details about the copyright. }
+ { Current versions and additional information are available from }
+ { http://puma-repository.sf.net }
 
-{ This program is distributed in the hope that it will be useful, }
-{ but WITHOUT ANY WARRANTY; without even the implied warranty of }
-{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
+ { This program is distributed in the hope that it will be useful, }
+ { but WITHOUT ANY WARRANTY; without even the implied warranty of }
+ { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
 {$mode objfpc}{$H+}
 
@@ -38,19 +38,19 @@ const
 
 type
   tPID = record
-    SetID: tSI;
+    SetID:     tSI;
     PatientID: str20;
     PatientIDList: str250;
-    AltPatID: str20;
+    AltPatID:  str20;
     PatientName: tXPN;
     MothersMaidenName: tXPN;
     BirthDateTime: tDTM;
-    AdminSex: tIS;
+    AdminSex:  tIS;
     PatientAlias: tXPN;
-    Race: tCE;
+    Race:      tCE;
     PatientAddress: tXAD;
     CountyCode: tIS;
-    HomePhoe: tXTN;  // Should be HomePhone; retained for backwards compatibility
+    HomePhoe:  tXTN;  // Should be HomePhone; retained for backwards compatibility
     BusinessPhone: tXTN;
     PrimaryLanguage, MaritalStatus: tCE;
     Religion, PatientAccountNumber: tCE;
@@ -70,13 +70,14 @@ type
     LastUpdateDateTime: tDTM;
     LastUpdateFacility: tHD;
     SpeciesCode, BreedCode: tCE;
-    Strain: tST;
+    Strain:    tST;
     ProductionClassCode: tCE;
     TribalCitizenship: tCWE;
     PatientTelecomInformation: tXTN;  // Introduced in HL7 2.7
   end;
 
 function PID_Segment(message: THL7Message): THL7Segment;
+procedure GetPID(aSegment: THL7Segment; out PIDRecord: tPID);
 procedure GetPID(message: THL7Message; out PIDRecord: tPID);
 procedure SetPID(message: THL7Message; aSegment: THL7Segment);
 procedure SetPID(message: THL7message; PIDRecord: tPID);
@@ -92,69 +93,78 @@ begin
     Result := nil;
 end;
 
-procedure GetPID(message: THL7Message; out PIDRecord: tPID);
+procedure GetPID(aSegment: THL7Segment; out PIDRecord: tPID);
 var
-  curSegment: THL7Segment;
-  nextField: THL7Field;
+  nextField:      THL7Field;
   nextOccurrence: THL7Occurrence;
 begin
-  curSegment := PID_Segment(message);
-  if curSegment <> nil then
+  if (aSegment <> nil) and (aSegment.segmentType = 'PID') then
   begin
-    nextOccurrence := curSegment.FirstOccurrence;
+    nextOccurrence := aSegment.FirstOccurrence;
     if nextOccurrence <> nil then
       with PIDRecord do
       begin
-        nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
-        SetID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientIDList := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AltPatID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientName := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        MothersMaidenName := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        BirthDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AdminSex := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientAlias := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Race := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientAddress := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        CountyCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        HomePhoe := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        BusinessPhone := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PrimaryLanguage := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        MaritalStatus := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Religion := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        nextField := aSegment.FirstOccurrence.FirstField.nextSibling;
+        SetID     := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientIDList := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AltPatID  := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientName := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MothersMaidenName := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        BirthDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AdminSex  := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientAlias := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Race      := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientAddress := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        CountyCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        HomePhoe  := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        BusinessPhone := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PrimaryLanguage := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MaritalStatus := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Religion  := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PatientAccountNumber :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        SSNNumber := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        DriverLicenseNumber := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        MothersID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        EthnicGroup := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        BirthPlace := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        MultipleBirthID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        BirthOrder := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Citizenship := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        SSNNumber := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        DriverLicenseNumber := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MothersID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        EthnicGroup := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        BirthPlace := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MultipleBirthID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        BirthOrder := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Citizenship := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         VeteransMilitaryStatus :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Nationality := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Nationality := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PatientDeathDateTime :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PatientDeathIndicator :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        IDUnknownIndicator := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        IDUnknownIndicator := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         IDReliabilityIndicator :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         IDReliabilityCode :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        LastUpdateDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        LastUpdateFacility := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        SpeciesCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        BreedCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Strain := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ProductionClassCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TribalCitizenship := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientTelecomInformation := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        LastUpdateDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        LastUpdateFacility := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        SpeciesCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        BreedCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Strain    := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ProductionClassCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TribalCitizenship := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientTelecomInformation :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
-  end;
+  end
+  else
+    ClearPID(PIDRecord);
+end;
+
+procedure GetPID(message: THL7Message; out PIDRecord: tPID);
+var
+  curSegment: THL7Segment;
+begin
+  curSegment := PID_Segment(message);
+  GetPID(curSegment, PIDRecord);
 end;
 
 procedure SetPID(message: THL7Message; aSegment: THL7Segment);
@@ -165,10 +175,10 @@ end;
 procedure SetPID(message: THL7message; PIDRecord: tPID);
 var
   newSegment: THL7Segment;
-  FieldSep: char;
-  theString: ansistring;
+  FieldSep:   char;
+  theString:  ansistring;
 begin
-  FieldSep := message.Delimiters.FieldSeparator;
+  FieldSep   := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
   with PIDRecord do
     theString := PID_ID + FieldSep + SetID + FieldSep + PatientID +
@@ -181,16 +191,15 @@ begin
       FieldSep + Religion + FieldSep + PatientAccountNumber +
       FieldSep + SSNNumber + FieldSep + DriverLicenseNumber +
       FieldSep + MothersID + FieldSep + EthnicGroup + FieldSep +
-      BirthPlace + FieldSep + MultipleBirthID + FieldSep +
-      BirthOrder + FieldSep + Citizenship + FieldSep +
-      VeteransMilitaryStatus + FieldSep + Nationality + FieldSep +
-      PatientDeathDateTime + FieldSep + PatientDeathIndicator +
-      FieldSep + IDUnknownIndicator + FieldSep + IDReliabilityIndicator +
-      FieldSep + IDReliabilityCode + FieldSep + LastUpdateDateTime +
-      FieldSep + LastUpdateFacility + FieldSep + SpeciesCode + FieldSep +
-      BreedCode + FieldSep + Strain + FieldSep + ProductionClassCode +
-      FieldSep + TribalCitizenship + FieldSep + PatientTelecomInformation +
-      FieldSep;
+      BirthPlace + FieldSep + MultipleBirthID + FieldSep + BirthOrder +
+      FieldSep + Citizenship + FieldSep + VeteransMilitaryStatus +
+      FieldSep + Nationality + FieldSep + PatientDeathDateTime +
+      FieldSep + PatientDeathIndicator + FieldSep + IDUnknownIndicator +
+      FieldSep + IDReliabilityIndicator + FieldSep + IDReliabilityCode +
+      FieldSep + LastUpdateDateTime + FieldSep + LastUpdateFacility +
+      FieldSep + SpeciesCode + FieldSep + BreedCode + FieldSep +
+      Strain + FieldSep + ProductionClassCode + FieldSep + TribalCitizenship +
+      FieldSep + PatientTelecomInformation + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;

@@ -8,23 +8,23 @@ unit ERR;
 
 { Version 1.6 }
 
-{ (c) J. W. Dietrich, 1994 - 2014 }
-{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
-{ (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2014 }
+ { (c) J. W. Dietrich, 1994 - 2014 }
+ { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+ { (c) University of Ulm Hospitals 2002-2004 }
+ { (c) Ruhr University of Bochum 2005 - 2014 }
 
 { Parser and compiler for HL7 messages }
 
 { Source code released under the BSD License }
 
-{ See the file "license.txt", included in this distribution, }
-{ for details about the copyright. }
-{ Current versions and additional information are available from }
-{ http://puma-repository.sf.net }
+ { See the file "license.txt", included in this distribution, }
+ { for details about the copyright. }
+ { Current versions and additional information are available from }
+ { http://puma-repository.sf.net }
 
-{ This program is distributed in the hope that it will be useful, }
-{ but WITHOUT ANY WARRANTY; without even the implied warranty of }
-{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
+ { This program is distributed in the hope that it will be useful, }
+ { but WITHOUT ANY WARRANTY; without even the implied warranty of }
+ { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
 {$mode objfpc}{$H+}
 
@@ -37,18 +37,18 @@ const
   ERR_ID = 'ERR';
 
   SEV_WARNING = 'W';
-  SEV_INFO = 'I';
-  SEV_ERROR = 'E';
-  SEV_FATAL = 'F';
+  SEV_INFO    = 'I';
+  SEV_ERROR   = 'E';
+  SEV_FATAL   = 'F';
 
 type
   tERR = record
     ErrCodeLoc: tELD;
-    ErrLoc: tERL;
-    ErrCode: tCWE;
-    severity: tID;
+    ErrLoc:     tERL;
+    ErrCode:    tCWE;
+    severity:   tID;
     appErrCode: tCWE;
-    appErrPar: str80;
+    appErrPar:  str80;
     DiagInfo, UserMessage: ansistring;
     InformPersIndic: tIS;
     OverrideType, OverrideReason: tCWE;
@@ -56,6 +56,7 @@ type
   end;
 
 function ERR_Segment(message: THL7Message): THL7Segment;
+procedure GetERR(aSegment: THL7Segment; out ERRRecord: tERR);
 procedure GetERR(message: THL7Message; out ERRRecord: tERR);
 procedure GetERR(message: THL7Message; out ErrCodeLoc: tELD; out ErrLoc: tERL;
   out ErrCode: tCWE; out severity: tID; out appErrCode: tCWE;
@@ -89,54 +90,61 @@ begin
     Result := nil;
 end;
 
-procedure GetERR(message: THL7Message; out ERRRecord: tERR);
+procedure GetERR(aSegment: THL7Segment; out ERRRecord: tERR);
 var
-  curSegment: THL7Segment;
-  nextField: THL7Field;
+  nextField:      THL7Field;
   nextOccurrence: THL7Occurrence;
 begin
-  curSegment := ERR_Segment(message);
-  if curSegment <> nil then
+  if (aSegment <> nil) and (aSegment.segmentType = 'ERR') then
   begin
-    nextOccurrence := curSegment.FirstOccurrence;
+    nextOccurrence := aSegment.FirstOccurrence;
     if nextOccurrence <> nil then
       with ErrRecord do
       begin
-        nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
-        ErrCodeLoc := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ErrLoc := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ErrCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        severity := curSegment.FirstOccurrence.GetNextFieldContent(nextField)[1];
-        appErrCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        appErrPar := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        DiagInfo := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        UserMessage := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        InformPersIndic := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        OverrideType := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        OverrideReason := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        HelpDeskContact := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        nextField   := aSegment.FirstOccurrence.FirstField.nextSibling;
+        ErrCodeLoc  := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ErrLoc      := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ErrCode     := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        severity    := aSegment.FirstOccurrence.GetNextFieldContent(nextField)[1];
+        appErrCode  := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        appErrPar   := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        DiagInfo    := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        UserMessage := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        InformPersIndic := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OverrideType := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OverrideReason := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        HelpDeskContact := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
-  end;
+  end
+  else
+    ClearERR(ERRRecord);
+end;
 
+procedure GetERR(message: THL7Message; out ERRRecord: tERR);
+var
+  curSegment: THL7Segment;
+begin
+  curSegment := ERR_Segment(message);
+  GetERR(curSegment, ERRRecord);
 end;
 
 procedure GetERR(message: THL7Message; out ErrCodeLoc: tELD; out ErrLoc: tERL;
   out ErrCode: tCWE; out severity: tID; out appErrCode: tCWE;
   out appErrPar: str80; DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
   OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
-{ deprecated method, retained for backward-compatibility only, }
-{ capsules new version of polymorphic GetERR }
+ { deprecated method, retained for backward-compatibility only, }
+ { capsules new version of polymorphic GetERR }
 var
   ERRRecord: tERR;
 begin
   GetERR(message, ERRRecord);
-  ErrCodeLoc := ERRRecord.ErrCodeLoc;
-  ErrLoc := ERRRecord.ErrLoc;
-  ErrCode := ERRRecord.ErrCode;
-  severity := ERRRecord.severity;
-  appErrCode := ERRRecord.appErrCode;
-  appErrPar := ERRRecord.appErrPar;
-  DiagInfo := ERRRecord.DiagInfo;
+  ErrCodeLoc  := ERRRecord.ErrCodeLoc;
+  ErrLoc      := ERRRecord.ErrLoc;
+  ErrCode     := ERRRecord.ErrCode;
+  severity    := ERRRecord.severity;
+  appErrCode  := ERRRecord.appErrCode;
+  appErrPar   := ERRRecord.appErrPar;
+  DiagInfo    := ERRRecord.DiagInfo;
   UserMessage := ERRRecord.UserMessage;
   InformPersIndic := ERRRecord.InformPersIndic;
   OverrideType := ERRRecord.OverrideType;
@@ -147,19 +155,19 @@ end;
 procedure GetERR(message: THL7Message; out ErrCodeLoc, ErrLoc, ErrCode: string;
   out severity: char; out appErrCode, appErrPar, DiagInfo, UserMessage,
   InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
-{ deprecated method, retained for backward-compatibility only, }
-{ capsules new version of polymorphic GetERR }
+ { deprecated method, retained for backward-compatibility only, }
+ { capsules new version of polymorphic GetERR }
 var
   ERRRecord: tERR;
 begin
   GetERR(message, ERRRecord);
-  ErrCodeLoc := ERRRecord.ErrCodeLoc;
-  ErrLoc := ERRRecord.ErrLoc;
-  ErrCode := ERRRecord.ErrCode;
-  severity := ERRRecord.severity[1];
-  appErrCode := ERRRecord.appErrCode;
-  appErrPar := ERRRecord.appErrPar;
-  DiagInfo := ERRRecord.DiagInfo;
+  ErrCodeLoc  := ERRRecord.ErrCodeLoc;
+  ErrLoc      := ERRRecord.ErrLoc;
+  ErrCode     := ERRRecord.ErrCode;
+  severity    := ERRRecord.severity[1];
+  appErrCode  := ERRRecord.appErrCode;
+  appErrPar   := ERRRecord.appErrPar;
+  DiagInfo    := ERRRecord.DiagInfo;
   UserMessage := ERRRecord.UserMessage;
   InformPersIndic := ERRRecord.InformPersIndic;
   OverrideType := ERRRecord.OverrideType;
@@ -175,10 +183,10 @@ end;
 procedure SetERR(message: THL7Message; ERRRecord: tERR);
 var
   newSegment: THL7Segment;
-  FieldSep: char;
-  theString: ansistring;
+  FieldSep:   char;
+  theString:  ansistring;
 begin
-  FieldSep := message.Delimiters.FieldSeparator;
+  FieldSep   := message.Delimiters.FieldSeparator;
   newSegment := THL7Segment.Create(message, '');
   with ERRREcord do
     theString := ERR_ID + FieldSep + ErrCodeLoc + FieldSep + ErrLoc +
@@ -194,18 +202,18 @@ procedure SetERR(message: THL7Message; ErrCodeLoc: tELD; ErrLoc: tERL;
   ErrCode: tCWE; severity: tID; appErrCode: tCWE; appErrPar: str80;
   DiagInfo, UserMessage: ansistring; InformPersIndic: tIS;
   OverrideType, OverrideReason: tCWE; HelpDeskContact: tXTN);
-{ deprecated method, retained for backward-compatibility only, }
-{ capsules new version of polymorphic SetERR }
+ { deprecated method, retained for backward-compatibility only, }
+ { capsules new version of polymorphic SetERR }
 var
   ERRRecord: tERR;
 begin
-  ERRRecord.ErrCodeLoc := ErrCodeLoc;
-  ERRRecord.ErrLoc := ErrLoc;
-  ERRRecord.ErrCode := ErrCode;
-  ERRRecord.severity := severity;
-  ERRRecord.appErrCode := appErrCode;
-  ERRRecord.appErrPar := appErrPar;
-  ERRRecord.DiagInfo := DiagInfo;
+  ERRRecord.ErrCodeLoc  := ErrCodeLoc;
+  ERRRecord.ErrLoc      := ErrLoc;
+  ERRRecord.ErrCode     := ErrCode;
+  ERRRecord.severity    := severity;
+  ERRRecord.appErrCode  := appErrCode;
+  ERRRecord.appErrPar   := appErrPar;
+  ERRRecord.DiagInfo    := DiagInfo;
   ERRRecord.UserMessage := UserMessage;
   ERRRecord.InformPersIndic := InformPersIndic;
   ERRRecord.OverrideType := OverrideType;
@@ -217,18 +225,18 @@ end;
 procedure SetERR(message: THL7Message; ErrCodeLoc, ErrLoc, ErrCode: string;
   severity: char; appErrCode, appErrPar, DiagInfo, UserMessage,
   InformPersIndic, OverrideType, OverrideReason, HelpDeskContact: string);
-{ deprecated method, retained for backward-compatibility only, }
-{ capsules new version of polymorphic SetERR }
+ { deprecated method, retained for backward-compatibility only, }
+ { capsules new version of polymorphic SetERR }
 var
   ERRRecord: tERR;
 begin
-  ERRRecord.ErrCodeLoc := ErrCodeLoc;
-  ERRRecord.ErrLoc := ErrLoc;
-  ERRRecord.ErrCode := ErrCode;
-  ERRRecord.severity := severity;
-  ERRRecord.appErrCode := appErrCode;
-  ERRRecord.appErrPar := appErrPar;
-  ERRRecord.DiagInfo := DiagInfo;
+  ERRRecord.ErrCodeLoc  := ErrCodeLoc;
+  ERRRecord.ErrLoc      := ErrLoc;
+  ERRRecord.ErrCode     := ErrCode;
+  ERRRecord.severity    := severity;
+  ERRRecord.appErrCode  := appErrCode;
+  ERRRecord.appErrPar   := appErrPar;
+  ERRRecord.DiagInfo    := DiagInfo;
   ERRRecord.UserMessage := UserMessage;
   ERRRecord.InformPersIndic := InformPersIndic;
   ERRRecord.OverrideType := OverrideType;

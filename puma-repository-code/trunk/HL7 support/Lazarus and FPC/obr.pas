@@ -81,6 +81,7 @@ type
   end;
 
 function OBR_Segment(message: THL7Message): THL7Segment;
+procedure GetOBR(aSegment: THL7Segment; out OBRRecord: tOBR);
 procedure GetOBR(message: THL7Message; out OBRRecord: tOBR);
 procedure GetOBR(message: THL7Message; out SetID: tSI;
   out PlacOrdNumb, FillOrdNumb: tEI; out USI: tCE; out Priority: tID;
@@ -110,6 +111,84 @@ begin
     Result := nil;
 end;
 
+procedure GetOBR(aSegment: THL7Segment; out OBRRecord: tOBR);
+var
+  nextField: THL7Field;
+  nextOccurrence: THL7Occurrence;
+begin
+  if (aSegment <> nil) and (aSegment.segmentType = 'OBR') then
+  begin
+    nextOccurrence := aSegment.FirstOccurrence;
+    if nextOccurrence <> nil then
+      with OBRRecord do
+      begin
+        nextField := aSegment.FirstOccurrence.FirstField.nextSibling;
+        SetID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PlacOrdNumb := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        FillOrdNumb := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        USI := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Priority := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ReqDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObsDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObsEndDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        CollectionVolume := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        CollectorIdentifier := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        SpecimenActionCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        DangerCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        RelevantClinicalInfo :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        SpecimenReceivedDateTime :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        SpecimenSource := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrderingProvider := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrderCallbackPhoneNumber :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PlacerField1 := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PlacerField2 := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        FillerField1 := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        FillerField2 := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ResultsRptStatusChng :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ChargeToPractice := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        DiagnosticServSectID :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ResultStatus := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ParentResult := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        QuantityTiming := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ResultCopiesTo := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Parent := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TransportationMode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ReasonForStudy := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PrincipalResultInterpreter :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AssistantResultInterpreter :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Technician := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Transcriptionist := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ScheduledDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        NumberOfSampleContainers := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TransportLogisticsOfCollSampl := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        CollectorsComment := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TransportArrangementResponsibility := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        TransportArranged := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        EscortRequired := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PlannedPatientTransportComment := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ProcedureCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ProcedureCodeModifier := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PlacerSupplServiceInfo := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        FillerSupplServiceInfo := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MedicallyNecessaryDuplProcReason := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ResultHandling := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ParentUniversalServiceID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObservationGroupID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ParentObservationGroupID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AltPlacerOrderNumber := aSegment.FirstOccurrence.GetNextFieldContent(nextField)
+      end;
+  end
+  else
+  ClearOBR(OBRRecord);
+end;
+
 procedure GetOBR(message: THL7Message; out OBRRecord: tOBR);
 var
   curSegment: THL7Segment;
@@ -117,75 +196,7 @@ var
   nextOccurrence: THL7Occurrence;
 begin
   curSegment := OBR_Segment(message);
-  if curSegment <> nil then
-  begin
-    nextOccurrence := curSegment.FirstOccurrence;
-    if nextOccurrence <> nil then
-      with OBRRecord do
-      begin
-        nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
-        SetID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PlacOrdNumb := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        FillOrdNumb := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        USI := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Priority := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ReqDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ObsDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ObsEndDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        CollectionVolume := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        CollectorIdentifier := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        SpecimenActionCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        DangerCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        RelevantClinicalInfo :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        SpecimenReceivedDateTime :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        SpecimenSource := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        OrderingProvider := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        OrderCallbackPhoneNumber :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PlacerField1 := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PlacerField2 := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        FillerField1 := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        FillerField2 := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ResultsRptStatusChng :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ChargeToPractice := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        DiagnosticServSectID :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ResultStatus := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ParentResult := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        QuantityTiming := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ResultCopiesTo := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Parent := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TransportationMode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ReasonForStudy := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PrincipalResultInterpreter :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AssistantResultInterpreter :=
-          curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Technician := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Transcriptionist := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ScheduledDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        NumberOfSampleContainers := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TransportLogisticsOfCollSampl := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        CollectorsComment := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TransportArrangementResponsibility := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        TransportArranged := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        EscortRequired := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PlannedPatientTransportComment := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ProcedureCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ProcedureCodeModifier := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PlacerSupplServiceInfo := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        FillerSupplServiceInfo := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        MedicallyNecessaryDuplProcReason := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ResultHandling := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ParentUniversalServiceID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ObservationGroupID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ParentObservationGroupID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AltPlacerOrderNumber := curSegment.FirstOccurrence.GetNextFieldContent(nextField)
-      end;
-  end;
+  GetOBR(curSegment, OBRRecord);
 end;
 
 procedure GetOBR(message: THL7Message; out SetID: tSI;
