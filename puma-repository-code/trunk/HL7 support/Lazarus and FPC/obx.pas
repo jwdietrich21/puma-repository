@@ -66,6 +66,7 @@ type
   end;
 
 function OBX_Segment(message: THL7Message): THL7Segment;
+procedure GetOBX(aSegment: THL7Segment; out OBXRecord: tOBX);
 procedure GetOBX(message: THL7Message; out OBXRecord: tOBX);
 procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: tID;
   out ObsID: tCE; obsSubID: tST; out obsValue: ansistring; out Units: tCE;
@@ -106,48 +107,56 @@ begin
     Result := nil;
 end;
 
-procedure GetOBX(message: THL7Message; out OBXRecord: tOBX);
+procedure GetOBX(aSegment: THL7Segment; out OBXRecord: tOBX);
 var
-  curSegment: THL7Segment;
   nextField: THL7Field;
   nextOccurrence: THL7Occurrence;
 begin
-  curSegment := OBX_Segment(message);
-  if curSegment <> nil then
+  if (aSegment <> nil) and (aSegment.segmentType = 'OBX') then
   begin
-    nextOccurrence := curSegment.FirstOccurrence;
+    nextOccurrence := aSegment.FirstOccurrence;
     if nextOccurrence <> nil then
       with OBXRecord do
       begin
-        nextField := curSegment.FirstOccurrence.FirstField.nextSibling;
-        SetID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ValueType := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ObsID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        obsSubID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        obsValue := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Units := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        RefRange := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AbnormFlags := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        probability := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        Nature := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        status := curSegment.FirstOccurrence.GetNextFieldContent(nextField)[1];
-        RRDate := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        UDAC := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ObsDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        prodID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        respObs := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        observMethod := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        EquipInstID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        AnalysisDateTime := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ObservationSite := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ObservationInstanceID := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        MoodCode := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PerformingOrgName := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PerformingOrgAddr := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PerformingOrgMedicalDirector := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        PatientResultsReleaseCat := curSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        nextField := aSegment.FirstOccurrence.FirstField.nextSibling;
+        SetID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ValueType := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObsID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        obsSubID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        obsValue := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Units := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        RefRange := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AbnormFlags := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        probability := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        Nature := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        status := aSegment.FirstOccurrence.GetNextFieldContent(nextField)[1];
+        RRDate := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        UDAC := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObsDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        prodID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        respObs := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        observMethod := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        EquipInstID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AnalysisDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObservationSite := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ObservationInstanceID := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        MoodCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PerformingOrgName := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PerformingOrgAddr := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PerformingOrgMedicalDirector := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        PatientResultsReleaseCat := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
-  end;
+  end
+  else
+    ClearOBX(OBXRecord);
+end;
+
+procedure GetOBX(message: THL7Message; out OBXRecord: tOBX);
+var
+  curSegment: THL7Segment;
+begin
+  curSegment := OBX_Segment(message);
+  GetOBX(curSegment, OBXRecord);
 end;
 
 procedure GetOBX(message: THL7Message; out SetID: tSI; out ValueType: tID;
