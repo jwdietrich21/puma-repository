@@ -8,23 +8,23 @@ unit HL7TestCases;
 
 { Version 1.6 }
 
-{ (c) J. W. Dietrich, 1994 - 2014 }
-{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
-{ (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2014 }
+ { (c) J. W. Dietrich, 1994 - 2014 }
+ { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+ { (c) University of Ulm Hospitals 2002-2004 }
+ { (c) Ruhr University of Bochum 2005 - 2014 }
 
 { Parser and compiler for HL7 messages }
 
 { Source code released under the BSD License }
 
-{ See the file "license.txt", included in this distribution, }
-{ for details about the copyright. }
-{ Current versions and additional information are available from }
-{ http://puma-repository.sf.net }
+ { See the file "license.txt", included in this distribution, }
+ { for details about the copyright. }
+ { Current versions and additional information are available from }
+ { http://puma-repository.sf.net }
 
-{ This program is distributed in the hope that it will be useful, }
-{ but WITHOUT ANY WARRANTY; without even the implied warranty of }
-{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
+ { This program is distributed in the hope that it will be useful, }
+ { but WITHOUT ANY WARRANTY; without even the implied warranty of }
+ { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
 {$mode objfpc}{$H+}
 
@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, DateUtils,
-  HL7, MSH, MSA, ERR, OBR, OBX, SPM, NTE, EVN, PID, PV1, PV2, NK1;
+  HL7, MSH, MSA, ERR, OBR, OBX, SPM, NTE, EVN, PID, PV1, PV2, NK1, MLLP;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -54,19 +54,22 @@ const
   EXAMPLE_MSA_SEGMENT = 'MSA|AA|CDB22222|P|';
   EXAMPLE_ERR_SEGMENT = 'ERR| |PID^1^11^^9|103|E';
   EXAMPLE_EVN_SEGMENT = 'EVN||200605290901||||200605290900';
-  EXAMPLE_NTE_SEGMENT = 'NTE|1||Blood in tube was clotted, resulting in a rejection of the specimen and leaving the lab unable to perform this test. Please resubmit a new specimen, if test is still desired.|';
+  EXAMPLE_NTE_SEGMENT =
+    'NTE|1||Blood in tube was clotted, resulting in a rejection of the specimen and leaving the lab unable to perform this test. Please resubmit a new specimen, if test is still desired.|';
   EXAMPLE_OBR_SEGMENT =
     'OBR|1|43215^OE|98765^EKG|93000^EKG REPORT|||198801111330|||1235^TAYLOR^ROBERT^M||||198801111330||P030||||||198801120930||||||P011^PRESLEY^ELVIS^AARON^^^MD|43214^OE|';
   EXAMPLE_OBR_SEGMENT2 =
     'OBR|1|15810^H_Dx_2_0|16699480030^MB|123^Erythrocyte sedimentation rate^L|||20110331150551-0800|||||||||^Smith^John||15810||008847||20110615102200|||F||||OBX|1|ST|30341-2^Erythrocyte sedimentation rate^LN||test not performed||||||X|||20110331140551-0800||33445566^Levin^Henry^^^^^^&2.16.840.1.113883.3.72.5.30.1&ISO^L^^^EN|||20110331150551-0800||||Century Hospital^^^^^&2.16.840.1.113883.3.72.5.30.1&ISO^XX^^^987|2070 Test Park^^Los Angeles^CA^90067^^B|2343242^Knowsalot^Phil^J.^III^Dr.^^^&2.16.840.1.113883.3.72.5.30.1&ISO^L^^^DN‘';
-  EXAMPLE_SPM_SEGMENT = 'SPM|1|||119297000^BLD^SCT^BldSpc^Blood^99USA^^^Blood Specimen|||||||||||||20110103143428||||RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube|||CLOT^Clotted^HL70493^CLT^Clotted^99USA^^^clotted blood';
-  EXAMPLE_PV2_SEGMENT = 'PV2|||0101^vollstationaer, Normalfall^GSG0001||||||20050405|4||||||||||||||||||||||||||N|N';
-  EXAMPLE_FIELD1 = '0493575^^^2^ID 1';
-  EXAMPLE_FIELD2 = '168 ~219~C~PMA^^^^^^^^^';
-  EXAMPLE_FIELD3 = 'DOE^JOHN^^^^';
-  EXAMPLE_FIELD4 = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
-  EXAMPLE_FIELD5 = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
-  EXAMOLE_FIELD6 = '13.5&18^M~12.0 & 16^F';
+  EXAMPLE_SPM_SEGMENT =
+    'SPM|1|||119297000^BLD^SCT^BldSpc^Blood^99USA^^^Blood Specimen|||||||||||||20110103143428||||RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube|||CLOT^Clotted^HL70493^CLT^Clotted^99USA^^^clotted blood';
+  EXAMPLE_PV2_SEGMENT =
+    'PV2|||0101^vollstationaer, Normalfall^GSG0001||||||20050405|4||||||||||||||||||||||||||N|N';
+  EXAMPLE_FIELD1   = '0493575^^^2^ID 1';
+  EXAMPLE_FIELD2   = '168 ~219~C~PMA^^^^^^^^^';
+  EXAMPLE_FIELD3   = 'DOE^JOHN^^^^';
+  EXAMPLE_FIELD4   = '254 MYSTREET AVE^^MYTOWN^OH^44123^USA';
+  EXAMPLE_FIELD5   = 'BID&Twice a day at institution specified times&HL7xxx^^^^12^h^Y|';
+  EXAMOLE_FIELD6   = '13.5&18^M~12.0 & 16^F';
   EXAMPLE_MESSAGE1 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
     SEGMENT_DELIMITER + EXAMPLE_SEGMENT3 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT4;
   EXAMPLE_MESSAGE2 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 +
@@ -251,6 +254,15 @@ type
     procedure DecodeDateTimeTestCase;
   end;
 
+  {TMLLPTestCases}
+
+  TMLLPTestCases = class(TTestCase)
+  published
+    procedure BlockToMessageTestCase;
+    procedure MessageToBlockTestCase1;
+    procedure MessageToBlockTestCase2;
+  end;
+
 var
   TestHL7Message: THL7Message;
 
@@ -283,23 +295,23 @@ end;
 
 procedure TMSHTestCases.MSHGetCase2;
 var
-  testSegment: THL7Segment;
-  delimiters: str5;
+  testSegment:  THL7Segment;
+  delimiters:   str5;
   sendingApp, sendingFac, receivingApp, receivingFac: tHD;
-  dateTime: tDTM;
-  security: str40;
-  messageType: tMSG;
-  controlID: str20;
+  dateTime:     tDTM;
+  security:     str40;
+  messageType:  tMSG;
+  controlID:    str20;
   processingID: tPT;
-  versionID: tVID;
+  versionID:    tVID;
   sequenceNumber: tNM;
   continuationPointer: str180;
   AccAckType, AppAckType: tID;
-  countryCode: tID;
-  charSet: tID;
+  countryCode:  tID;
+  charSet:      tID;
   messageLanguage: tCE;
   altCharHandlScheme: tID;
-  profileID: tEI;
+  profileID:    tEI;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -319,23 +331,23 @@ end;
 
 procedure TMSHTestCases.MSHSetCase1;
 var
-  testSegment: THL7Segment;
-  delimiters: str5;
+  testSegment:  THL7Segment;
+  delimiters:   str5;
   sendingApp, sendingFac, receivingApp, receivingFac: tHD;
-  dateTime: tDTM;
-  security: str40;
-  messageType: tMSG;
-  controlID: str20;
+  dateTime:     tDTM;
+  security:     str40;
+  messageType:  tMSG;
+  controlID:    str20;
   processingID: tPT;
-  versionID: tVID;
+  versionID:    tVID;
   sequenceNumber: tNM;
   continuationPointer: str180;
   AccAckType, AppAckType: tID;
-  countryCode: tID;
-  charSet: tID;
+  countryCode:  tID;
+  charSet:      tID;
   messageLanguage: tCE;
   altCharHandlScheme: tID;
-  profileID: tEI;
+  profileID:    tEI;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -358,23 +370,23 @@ end;
 
 procedure TMSHTestCases.MSHSetCase2;
 var
-  testSegment: THL7Segment;
-  delimiters: str5;
+  testSegment:  THL7Segment;
+  delimiters:   str5;
   sendingApp, sendingFac, receivingApp, receivingFac: tHD;
-  dateTime: tDTM;
-  security: str40;
-  messageType: tMSG;
-  controlID: str20;
+  dateTime:     tDTM;
+  security:     str40;
+  messageType:  tMSG;
+  controlID:    str20;
   processingID: tPT;
-  versionID: tVID;
+  versionID:    tVID;
   sequenceNumber: tNM;
   continuationPointer: str180;
   AccAckType, AppAckType: tID;
   countryCode, countryCode2: tID;
-  charSet: tID;
+  charSet:      tID;
   messageLanguage: tCE;
   altCharHandlScheme: tID;
-  profileID: tEI;
+  profileID:    tEI;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -382,27 +394,27 @@ begin
   else
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
-    delimiters := STANDARD_DELIMITERS;
-    sendingApp := 'TestApp1';
-    sendingFac := 'Dr. Mabuse';
+    delimiters   := STANDARD_DELIMITERS;
+    sendingApp   := 'TestApp1';
+    sendingFac   := 'Dr. Mabuse';
     receivingApp := 'TestApp2';
     receivingFac := 'Dr. Frankenstein';
-    dateTime := EncodedDateTime(Now);
-    messageType := 'ADT^A04';
-    security := '';
-    messageType := '';
-    controlID := EncodedDateTime(Now) + IntToStr(random(13000));
+    dateTime     := EncodedDateTime(Now);
+    messageType  := 'ADT^A04';
+    security     := '';
+    messageType  := '';
+    controlID    := EncodedDateTime(Now) + IntToStr(random(13000));
     processingID := '';
-    versionID := '';
+    versionID    := '';
     sequenceNumber := '';
     continuationPointer := '';
-    AccAckType := '';
-    AppAckType := '';
-    countryCode := '276';
-    charSet := '';
+    AccAckType   := '';
+    AppAckType   := '';
+    countryCode  := '276';
+    charSet      := '';
     messageLanguage := '';
     altCharHandlScheme := '';
-    profileID := '';
+    profileID    := '';
     SetMSH(TestHL7Message, delimiters, sendingApp,
       sendingFac, receivingApp, receivingFac, dateTime,
       security, messageType, controlID, processingID,
@@ -421,23 +433,23 @@ end;
 
 procedure TMSHTestCases.MSHSetCase3;
 var
-  testSegment: THL7Segment;
-  delimiters: str5;
+  testSegment:  THL7Segment;
+  delimiters:   str5;
   sendingApp, sendingFac, receivingApp, receivingFac: tHD;
-  dateTime: tDTM;
-  security: str40;
-  messageType: tMSG;
-  controlID: str20;
+  dateTime:     tDTM;
+  security:     str40;
+  messageType:  tMSG;
+  controlID:    str20;
   processingID: tPT;
   versionID, versionID2: tVID;
   sequenceNumber: tNM;
   continuationPointer: str180;
   AccAckType, AppAckType: tID;
-  countryCode: tID;
-  charSet: tID;
+  countryCode:  tID;
+  charSet:      tID;
   messageLanguage: tCE;
   altCharHandlScheme: tID;
-  profileID: tEI;
+  profileID:    tEI;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -445,22 +457,22 @@ begin
   else
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
-    delimiters := STANDARD_DELIMITERS;
-    sendingApp := 'TestApp1';
-    sendingFac := 'Dr. Mabuse';
+    delimiters  := STANDARD_DELIMITERS;
+    sendingApp  := 'TestApp1';
+    sendingFac  := 'Dr. Mabuse';
     receivingApp := 'TestApp2';
     receivingFac := 'Dr. Frankenstein';
     messageType := 'ADT^A04';
-    controlID := '';
+    controlID   := '';
     processingID := '';
     sequenceNumber := '';
     continuationPointer := '';
-    AccAckType := '';
-    AppAckType := '';
-    charSet := '';
+    AccAckType  := '';
+    AppAckType  := '';
+    charSet     := '';
     messageLanguage := '';
     altCharHandlScheme := '';
-    profileID := '';
+    profileID   := '';
     countryCode := '276';
     SetMSH(TestHL7Message, delimiters, sendingApp,
       sendingFac, receivingApp, receivingFac,
@@ -483,11 +495,11 @@ end;
 procedure TMSATestCases.MSASetCase1;
 var
   AckCode, AckCode2: tID;
-  controlID: str20;
+  controlID:   str20;
   textMessage: str80;
-  exSeqNum: tNM;
-  delAckType: char;
-  ErrorCond: tCE;
+  exSeqNum:    tNM;
+  delAckType:  char;
+  ErrorCond:   tCE;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -495,12 +507,12 @@ begin
   else
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
-    AckCode := ACKNOWLEDGEMENT_OK;
-    controlID := 'CDB22222';
+    AckCode     := ACKNOWLEDGEMENT_OK;
+    controlID   := 'CDB22222';
     textMessage := 'P';
-    exSeqNum := '';
-    delAckType := char(0);
-    ErrorCond := '';
+    exSeqNum    := '';
+    delAckType  := char(0);
+    ErrorCond   := '';
     SetMSA(TestHL7Message, AckCode, controlID,
       textMessage, exSeqNum, delAckType, ErrorCond);
     GetMSA(TestHL7Message, AckCode2, controlID,
@@ -516,9 +528,9 @@ var
   ErrCodeLoc: tELD;
   ErrLoc, ErrLoc2: tERL;
   ErrCode, ErrCode2: tCWE;
-  severity: tID;
+  severity:   tID;
   appErrCode: tCWE;
-  appErrPar: str80;
+  appErrPar:  str80;
   DiagInfo, UserMessage: ansistring;
   InformPersIndic: tIS;
   OverrideType, OverrideReason: tCWE;
@@ -530,13 +542,13 @@ begin
   else
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
-    ErrCodeLoc := '';
-    ErrLoc := 'PID^1^11^^9';
-    ErrCode := ERROR_COND_TBL_VAL_NOT_FND;
-    severity := SEV_ERROR;
-    appErrCode := '';
-    appErrPar := '';
-    DiagInfo := '';
+    ErrCodeLoc  := '';
+    ErrLoc      := 'PID^1^11^^9';
+    ErrCode     := ERROR_COND_TBL_VAL_NOT_FND;
+    severity    := SEV_ERROR;
+    appErrCode  := '';
+    appErrPar   := '';
+    DiagInfo    := '';
     UserMessage := '';
     InformPersIndic := '';
     OverrideType := '';
@@ -558,9 +570,9 @@ end;
 
 procedure TOBRTestCases.OBRSetCase1;
 var
-  SetID: tSI;
+  SetID:    tSI;
   PlacOrdNumb, FillOrdNumb: tEI;
-  USI: tCE;
+  USI:      tCE;
   Priority: tID;
   ReqDateTime, ObsDateTime, ObsEndDateTime: tDTM;
   ReqDateTime2: tDTM;
@@ -571,10 +583,10 @@ begin
   else
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
-    SetID := '1';
+    SetID    := '1';
     PlacOrdNumb := '43215^OE';
     FillOrdNumb := '98765^EKG';
-    USI := '93000^EKG REPORT';
+    USI      := '93000^EKG REPORT';
     Priority := '';
     ReqDateTime := '198801111330';
     ObsDateTime := '';
@@ -591,21 +603,21 @@ end;
 
 procedure TOBXTestCases.OBXSetCase1;
 var
-  SetID: tSI;
+  SetID:     tSI;
   ValueType: tID;
-  ObsID: tCE;
-  obsSubID: tST;
+  ObsID:     tCE;
+  obsSubID:  tST;
   obsValue, obsValue2: ansistring;
-  Units: tCE;
-  RefRange: tST;
+  Units:     tCE;
+  RefRange:  tST;
   AbnormFlags: tIS;
   probability: tNM;
   Nature, status: tID;
-  RRDate: tDTM;
-  UDAC: tST;
+  RRDate:    tDTM;
+  UDAC:      tST;
   ObsDateTime: tDTM;
-  prodID: tCE;
-  respObs: tXCN;
+  prodID:    tCE;
+  respObs:   tXCN;
   observMethod: tCE;
   EquipInstID: tEI;
   AnalysisDateTime: tDTM;
@@ -616,22 +628,22 @@ begin
   else
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
-    SetID := '1';
+    SetID     := '1';
     ValueType := 'ST';
-    ObsID := '8897-1^QRS COMPLEX^LN';
-    obsSubID := '';
-    obsValue := '91';
-    Units := '/MIN';
-    RefRange := '';
+    ObsID     := '8897-1^QRS COMPLEX^LN';
+    obsSubID  := '';
+    obsValue  := '91';
+    Units     := '/MIN';
+    RefRange  := '';
     AbnormFlags := '';
     probability := '';
-    Nature := '';
-    status := 'F';
-    RRDate := '';
-    UDAC := '';
+    Nature    := '';
+    status    := 'F';
+    RRDate    := '';
+    UDAC      := '';
     ObsDateTime := '198804011230';
-    prodID := '';
-    respObs := '';
+    prodID    := '';
+    respObs   := '';
     observMethod := '';
     EquipInstID := '';
     AnalysisDateTime := '';
@@ -653,7 +665,8 @@ end;
 
 procedure TSPMTestCases.SPMSetCase1;
 const
-  TestSpecimenRejectReason = 'RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube';
+  TestSpecimenRejectReason =
+    'RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube';
 var
   SPMRecord: tSPM;
 begin
@@ -707,7 +720,7 @@ end;
 
 procedure TNTETestCases.NTESetCase1;
 var
-  SetID, SetID2: tSI;
+  SetID, SetID2:     tSI;
   CommentSource, CommentSource2: tID;
   comment, comment2: tFT;
   commentType, commentType2: tCE;
@@ -718,7 +731,7 @@ begin
   else
   begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE1;
-    SetID := '1';
+    SetID   := '1';
     CommentSource := 'O';
     comment := 'This is a test segment for PUMA HL7 units';
     commentType := 'RE';
@@ -1051,7 +1064,7 @@ end;
 procedure TMessageTestCases.WholeMessageReplaceTestCase1;
 var
   segmentContent: string;
-  testSegment: THL7Segment;
+  testSegment:    THL7Segment;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -1073,7 +1086,7 @@ end;
 procedure TMessageTestCases.WholeMessageReplaceTestCase2;
 var
   messageContent: string;
-  testSegment: THL7Segment;
+  testSegment:    THL7Segment;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -1131,7 +1144,7 @@ end;
 
 procedure TStringEncodingTestCases.DelimiterCompileTestCase1;
 var
-  testSequence: str5;
+  testSequence:   str5;
   testDelimiters: THL7Delimiters;
 begin
   TestHL7Message := THL7Message.Create('2.5');
@@ -1154,7 +1167,7 @@ end;
 
 procedure TStringEncodingTestCases.DelimiterCompileTestCase2;
 var
-  testSequence: str5;
+  testSequence:   str5;
   testDelimiters: THL7Delimiters;
 begin
   TestHL7Message := THL7Message.Create('2.5');
@@ -1179,7 +1192,7 @@ procedure TStringEncodingTestCases.EncodingTestCase1;
 const
   STRING_WITH_SPECIAL_SYMBOLS =
     'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
-  ESCAPED_EXAMPLE_STRING =
+  ESCAPED_EXAMPLE_STRING      =
     'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
 begin
   TestHL7Message := THL7Message.Create('2.5');
@@ -1212,7 +1225,7 @@ procedure TStringEncodingTestCases.DecodingTestCase1;
 const
   STRING_WITH_SPECIAL_SYMBOLS =
     'Escape: \, field: |, repetition: ~, component: ^, subcomponent: &';
-  ESCAPED_EXAMPLE_STRING =
+  ESCAPED_EXAMPLE_STRING      =
     'Escape: \E\, field: \F\, repetition: \R\, component: \S\, subcomponent: \T\';
 begin
   TestHL7Message := THL7Message.Create('2.5');
@@ -1763,12 +1776,12 @@ var
   theDateTime: TDateTime;
 begin
   theDateTime := EncodeDateTime(1994, 12, 27, 21, 13, 0, 0);
-  AssertEquals('19941227211300', EncodedDateTime(theDateTime))
+  AssertEquals('19941227211300', EncodedDateTime(theDateTime));
 end;
 
 procedure TEncodingTestCases.DecodeDateTimeTestCase;
 var
-  timeRepresentation: String;
+  timeRepresentation: string;
   desiredDateTime, theDateTime: TDateTime;
 begin
   desiredDateTime := EncodeDateTime(1994, 12, 27, 21, 13, 0, 0);
@@ -1777,6 +1790,76 @@ begin
   AssertEquals(desiredDateTime, theDateTime);
 end;
 
+{ TMLLPTestCases }
+
+procedure TMLLPTestCases.BlockToMessageTestCase;
+var
+  testBlock:     string;
+  testMLLPBlock: TMLLP;
+begin
+  testMLLPBlock := TMLLP.Create;
+  if testMLLPBlock = nil then
+    fail('MLLP block could not be created.')
+  else
+  begin
+    testBlock := SB + EXAMPLE_MESSAGE1 + EB + ksCR;
+    testMLLPBlock.block := testBlock;
+    AssertEquals(EXAMPLE_MESSAGE1, LeftStr(testMLLPBlock.message.contentString,
+      length(EXAMPLE_MESSAGE1)));
+  end;
+  if testMLLPBlock <> nil then
+    testMLLPBlock.Destroy;
+end;
+
+procedure TMLLPTestCases.MessageToBlockTestCase1;
+var
+  testBlock:     string;
+  testMLLPBlock: TMLLP;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    testMLLPBlock := TMLLP.Create;
+    if testMLLPBlock = nil then
+      fail('MLLP block could not be created.')
+    else
+    begin
+      testBlock := SB + EXAMPLE_MESSAGE2 + EB + ksCR;
+      TestHL7Message.contentString := EXAMPLE_MESSAGE2;
+      testMLLPBlock.message := TestHL7Message;
+      AssertEquals(LeftStr(testBlock, length(EXAMPLE_MESSAGE2)),
+        LeftStr(testMLLPBlock.block, length(EXAMPLE_MESSAGE2)));
+    end;
+  end;
+  if testMLLPBlock <> nil then
+    testMLLPBlock.Destroy;
+end;
+
+procedure TMLLPTestCases.MessageToBlockTestCase2;
+var
+  testBlock:     string;
+  testMLLPBlock: TMLLP;
+begin
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    testMLLPBlock := TMLLP.Create;
+    if testMLLPBlock = nil then
+      fail('MLLP block could not be created.')
+    else
+    begin
+      testBlock := SB + EXAMPLE_MESSAGE2 + EB + ksCR;
+      testMLLPBlock.message := EXAMPLE_MESSAGE2;
+      AssertEquals(LeftStr(testBlock, length(EXAMPLE_MESSAGE2)),
+        LeftStr(testMLLPBlock.block, length(EXAMPLE_MESSAGE2)));
+    end;
+  end;
+  if testMLLPBlock <> nil then
+    testMLLPBlock.Destroy;
+end;
 
 initialization
   RegisterTest(TControlTestCases);
@@ -1799,4 +1882,5 @@ initialization
   RegisterTest(TComponentTestCases);
   RegisterTest(TSubComponentTestCases);
   RegisterTest(TEncodingTestCases);
+  RegisterTest(TMLLPTestCases);
 end.

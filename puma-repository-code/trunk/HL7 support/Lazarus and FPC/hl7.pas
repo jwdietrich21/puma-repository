@@ -48,6 +48,12 @@ const
   ksLF = #10;
   ksCRLF = #13#10;
 
+  noErr = 0;
+  unsuppVers = 4;
+  saveErr = 6;
+  readErr = 7;
+  segNotFound = 8;
+
   STANDARD_DELIMITERS = '|^~\&';
   SEGMENT_DELIMITER = ksCR;
 
@@ -356,7 +362,7 @@ begin
           theStream.Free
         else
           begin
-            HL7Doc.Status := 7;
+            HL7Doc.Status := readErr;
             HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
           end;
       end;
@@ -364,7 +370,7 @@ begin
   else
     begin
       HL7Doc := THL7Message.Create('2.0');
-      HL7Doc.Status := 7;          { create empty message with status code 7 }
+      HL7Doc.Status := readErr;          { create empty message with status code 7 }
       HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
     end;
 end;
@@ -394,7 +400,7 @@ begin
   else
     begin
       HL7Doc := THL7Message.Create('2.0');
-      HL7Doc.Status := 7;          { create empty message with status code 7 }
+      HL7Doc.Status := readErr;          { create empty message with status code 7 }
       HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
     end;
 end;
@@ -420,19 +426,19 @@ begin
       theString := StringReplace(theString, ksCRLF, ksCR, [rfReplaceAll, rfIgnoreCase]); // correct line endings
       HL7Doc := THL7Message.Create('2.5');
       HL7Doc.contentString := theString;
-      HL7Doc.Status := 0;
+      HL7Doc.Status := noErr;
     end
     else
       begin
         HL7Doc := THL7Message.Create('2.0');
-        HL7Doc.Status := 7;          { create empty message with status code 7 }
+        HL7Doc.Status := readErr;          { create empty message with status code 7 }
         HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
       end;
   end
   else
     begin
       HL7Doc := THL7Message.Create('2.0');
-      HL7Doc.Status := 7;          { create empty message with status code 7 }
+      HL7Doc.Status := readErr;          { create empty message with status code 7 }
       HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
     end;
 end;
@@ -450,7 +456,7 @@ begin
       theStream.Free
     else
       begin
-        HL7Doc.Status := 6;
+        HL7Doc.Status := saveErr;
         HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
       end;
   end;
@@ -472,7 +478,7 @@ begin
   end;
   if IOResult <> 0 then
     begin
-      HL7Doc.Status := 6;
+      HL7Doc.Status := saveErr;
       HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
     end;
 end;
@@ -489,7 +495,7 @@ begin
     aStream.WriteBuffer(theString[1], textLength);
   except
     begin
-      HL7Doc.Status := 6;
+      HL7Doc.Status := saveErr;
       HL7Doc.ErrorCondition := ERROR_COND_INT_ERR;
     end;
   end;
@@ -999,7 +1005,7 @@ begin
   HL7_version := aValue;
   if LeftStr(HL7_version, 1) <> '2' then
   begin
-    Status := 4;
+    Status := unsuppVers;
     ErrorCondition := ERROR_COND_UNSUPP_VERS_ID;
   end;
 end;
@@ -1112,7 +1118,7 @@ constructor THL7Message.Create(version: string);
 begin
   inherited Create;
   ParseDelimiters(STANDARD_DELIMITERS);  {Default delimiter definition}
-  Status := 0;
+  Status := noErr;
   ErrorCondition := ERROR_COND_MSG_ACC;
   HL7_Version := version;
   FirstSegment := nil;
@@ -1186,7 +1192,7 @@ begin
       (currSegment.FirstOccurrence.FirstField.nextSibling.contentString = SetID)) then
     begin
       found := True;
-      Status := 0;
+      Status := noErr;
       ErrorCondition := ERROR_COND_MSG_ACC;
       Result := currSegment;
     end
@@ -1199,7 +1205,7 @@ begin
   until (found = True) or (currSegment = nil);
   if not found then
     begin
-      Status := 8;
+      Status := segNotFound;
       ErrorCondition := ERROR_COND_SEG_SEQ_ERR;
     end;
 end;
@@ -1329,4 +1335,4 @@ begin
 end;
 
 
-end.
+end.
