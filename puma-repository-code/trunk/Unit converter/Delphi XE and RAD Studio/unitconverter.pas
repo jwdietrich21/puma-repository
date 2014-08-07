@@ -6,7 +6,7 @@ unit UnitConverter;
 
 { Unit Converter }
 
-{ Version 1.3.1 }
+{ Version 1.3.2 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -586,15 +586,27 @@ begin
       toVpIndex := 0;    {index for volume prefix}
       fromUnitElements := ParsedUnitstring(EncodeGreek(fromUnit));
       toUnitElements := ParsedUnitstring(EncodeGreek(toUnit));
+      {$IFDEF FPC}   {Lazarus and Free Pascal}
       for i := MAXFACTORS - 1 downto 0 do
         begin
-          if fromUnitElements.MassPrefix = RightStr(PrefixLabel[i], 1) then fromMpIndex := i;
+          if fromUnitElements.MassPrefix = PrefixLabel[i] then fromMpIndex := i;
           if fromUnitElements.MassUnit = UnitLabel[i] then fromMuIndex := i;
-          if fromUnitElements.VolumePrefix = RightStr(PrefixLabel[i], 1) then fromVpIndex := i;
-          if toUnitElements.MassPrefix = RightStr(PrefixLabel[i], 1) then toMpIndex := i;
+          if fromUnitElements.VolumePrefix = PrefixLabel[i] then fromVpIndex := i;
+          if toUnitElements.MassPrefix = PrefixLabel[i] then toMpIndex := i;
           if toUnitElements.MassUnit = UnitLabel[i] then toMuIndex := i;
-          if toUnitElements.VolumePrefix = RightStr(PrefixLabel[i], 1) then toVpIndex := i;
+          if toUnitElements.VolumePrefix = PrefixLabel[i] then toVpIndex := i;
         end;
+      {$ELSE}
+      for i := MAXFACTORS - 1 downto 0 do
+       begin
+         if fromUnitElements.MassPrefix = RightStr(PrefixLabel[i], 1) then fromMpIndex := i;
+         if fromUnitElements.MassUnit = UnitLabel[i] then fromMuIndex := i;
+         if fromUnitElements.VolumePrefix = RightStr(PrefixLabel[i], 1) then fromVpIndex := i;
+         if toUnitElements.MassPrefix = RightStr(PrefixLabel[i], 1) then toMpIndex := i;
+         if toUnitElements.MassUnit = UnitLabel[i] then toMuIndex := i;
+         if toUnitElements.VolumePrefix = RightStr(PrefixLabel[i], 1) then toVpIndex := i;
+       end;
+      {$ENDIF}
       if (fromUnitElements.MassUnit = 'mol') and (toUnitElements.MassUnit = 'g') then        {SI to conventional}
         conversionFactor := PrefixFactor[fromMpIndex] * molarMass / PrefixFactor[fromVpIndex] * PrefixFactor[toVpIndex] / PrefixFactor[toMpIndex]
       else if (fromUnitElements.MassUnit = 'g') and (toUnitElements.MassUnit = 'mol') then        {conventional to SI}
