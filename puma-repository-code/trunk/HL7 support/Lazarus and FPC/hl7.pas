@@ -29,10 +29,12 @@ unit HL7;
 {
 Status code of HL7 message:
  0: No Error.
+ 2: Block not properly terminated.
  4: This HL7 version is not supported.
  6: Error saving file.
  7: Error reading file.
  8: Segment not found.
+ 9: Error creating HL7 message.
 }
 
 {$mode objfpc}
@@ -49,10 +51,12 @@ const
   ksCRLF = #13#10;
 
   noErr = 0;
+  termErr = 2;
   unsuppVers = 4;
   saveErr = 6;
   readErr = 7;
   segNotFound = 8;
+  createErr = 9;
 
   STANDARD_DELIMITERS = '|^~\&';
   SEGMENT_DELIMITER = ksCR;
@@ -1335,4 +1339,4 @@ begin
 end;
 
 
-end.
+end.
