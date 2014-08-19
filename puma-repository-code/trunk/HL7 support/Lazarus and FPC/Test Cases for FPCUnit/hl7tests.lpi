@@ -19,7 +19,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="6"/>
       <RevisionNr Value="1"/>
-      <BuildNr Value="219"/>
+      <BuildNr Value="221"/>
       <StringTable CompanyName="FORMATIO RETICULARIS " FileDescription="Unit Tests for HL7 engine" InternalName="PUMA HL7 Engine" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="1.6.1"/>
     </VersionInfo>
     <BuildModes Count="1">
