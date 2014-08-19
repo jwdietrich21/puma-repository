@@ -6,7 +6,7 @@ unit NTE;
 
 { HL7 support unit for notes and comments segment }
 
-{ Version 1.6 }
+{ Version 1.6.1 }
 
  { (c) J. W. Dietrich, 1994 - 2014 }
  { (c) Ludwig Maximilian University of Munich 1995 - 2002 }

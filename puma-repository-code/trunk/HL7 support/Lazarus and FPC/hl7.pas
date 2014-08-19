@@ -6,7 +6,7 @@ unit HL7;
 
 { HL7 base unit }
 
-{ Version 1.6 }
+{ Version 1.6.1 }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -728,12 +728,25 @@ end;
 procedure THL7Field.ParseMessageString(const aString: ansistring);
 begin
   FText := aString;
-  if (aString <> '') and (FMessage <> nil) and
+  if FMessage <> nil then
+  begin
+  if (aString <> '') and
     (pos(FMessage.Delimiters.FieldSeparator, aString) = 0) and
     ((pos(FMessage.Delimiters.ComponentSeparator, aString) > 0) or
     (pos(FMessage.Delimiters.SubComponentSeparator, aString) > 0)) then
     {true fields only}
     AllocComponents(aString);
+  end
+  else
+  begin
+    { no message available, use standard instead of message-defined delimiters }
+    if (aString <> '') and
+      (pos(STANDARD_DELIMITERS[1], aString) = 0) and
+      ((pos(STANDARD_DELIMITERS[2], aString) > 0) or
+      (pos(STANDARD_DELIMITERS[5], aString) > 0)) then
+      {true fields only}
+      AllocComponents(aString);
+  end;
 end;
 
 function THL7Field.CompiledMessageString: ansistring;
@@ -1339,4 +1352,4 @@ begin
 end;
 
 
-end.
+end.
