@@ -17,10 +17,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="6"/>
-      <RevisionNr Value="1"/>
-      <BuildNr Value="221"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS " FileDescription="Unit Tests for HL7 engine" InternalName="PUMA HL7 Engine" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="1.6.1"/>
+      <MinorVersionNr Value="7"/>
+      <BuildNr Value="224"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS " FileDescription="Unit Tests for HL7 engine" InternalName="PUMA HL7 Engine" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="1.7.0"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -46,7 +45,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="16">
+    <Units Count="17">
       <Unit0>
         <Filename Value="hl7tests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -127,6 +126,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MLLP"/>
       </Unit15>
+      <Unit16>
+        <Filename Value="../orc.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ORC"/>
+      </Unit16>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

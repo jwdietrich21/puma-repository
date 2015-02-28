@@ -6,7 +6,7 @@ unit EVN;
 
 { HL7 support unit for event type segments }
 
-{ Version 1.6.1 }
+{ Version 1.7.0 }
 
  { (c) J. W. Dietrich, 1994 - 2014 }
  { (c) Ludwig Maximilian University of Munich 1995 - 2002 }

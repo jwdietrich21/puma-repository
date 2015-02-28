@@ -6,12 +6,13 @@ program hl7tests;
 
 { HL7 testing project for FPCUnit }
 
-{ Version 1.6.1 }
+{ Version 1.7.0 }
 
-{ (c) J. W. Dietrich, 1994 - 2014 }
+{ (c) Johannes W. Dietrich, 1994 - 2015 }
+{ (c) Marek Skorupski 2015 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2014 }
+{ (c) Ruhr University of Bochum 2005 - 2015 }
 
 { Parser and compiler for HL7 messages }
 
@@ -30,7 +31,7 @@ program hl7tests;
 
 uses
   Interfaces, Forms, GuiTestRunner, HL7TestCases, obx, hl7, msa, msh, obr, nte,
-  err, EVN, PID, PV1, NK1, SPM, PV2, mllp;
+  err, EVN, PID, PV1, NK1, SPM, PV2, mllp, orc;
 
 {$R *.res}
 

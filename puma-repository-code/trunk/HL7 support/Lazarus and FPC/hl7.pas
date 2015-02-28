@@ -6,25 +6,26 @@ unit HL7;
 
 { HL7 base unit }
 
-{ Version 1.6.1 }
+{ Version 1.7.0 }
 
- { (c) J. W. Dietrich, 1994 - 2014 }
- { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
- { (c) University of Ulm Hospitals 2002-2004 }
- { (c) Ruhr University of Bochum 2005 - 2014 }
+{ (c) Johannes W. Dietrich, 1994 - 2015 }
+{ (c) Marek Skorupski 2015 }
+{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+{ (c) University of Ulm Hospitals 2002-2004 }
+{ (c) Ruhr University of Bochum 2005 - 2015 }
 
 { Parser and compiler for HL7 messages }
 
 { Source code released under the BSD License }
 
- { See the file "license.txt", included in this distribution, }
- { for details about the copyright. }
- { Current versions and additional information are available from }
- { http://puma-repository.sf.net }
+{ See the file "license.txt", included in this distribution, }
+{ for details about the copyright. }
+{ Current versions and additional information are available from }
+{ http://puma-repository.sf.net }
 
- { This program is distributed in the hope that it will be useful, }
- { but WITHOUT ANY WARRANTY; without even the implied warranty of }
- { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
+{ This program is distributed in the hope that it will be useful, }
+{ but WITHOUT ANY WARRANTY; without even the implied warranty of }
+{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
 {
 Status code of HL7 message:
@@ -115,66 +116,29 @@ const
 
 type
 
-  str2 = string
-
-    [2];
-  str3 = string
-
-    [3];
-  str4 = string
-
-    [4];
-  str5 = string
-
-    [5];
-  str8  = string
-
-    [8];
-  str15 = string
-
-    [15];
-  str16 = string
-
-    [16];
-  str20 = string
-
-    [20];
-  str22 = string
-
-    [22];
-  str25 = string
-
-    [25];
-  str26 = string
-
-    [26];
-  str40 = string
-
-    [40];
-  str50 = string
-
-    [50];
-  str53 = string
-
-    [53];
-  str60 = string
-
-    [60];
-  str80 = string
-
-    [80];
-  str180 = string
-
-    [180];
-  str227 = string
-
-    [227];
-  str241 = string
-
-    [241];
-  str250 = string
-
-    [250];
+  str1 = string[1];
+  str2 = string[2];
+  str3 = string[3];
+  str4 = string[4];
+  str5 = string[5];
+  str8  = string[8];
+  str15 = string[15];
+  str16 = string[16];
+  str20 = string[20];
+  str22 = string[22];
+  str25 = string[25];
+  str26 = string[26];
+  str40 = string[40];
+  str50 = string[50];
+  str53 = string[53];
+  str60 = string[60];
+  str80 = string[80];
+  str120 = string[120];
+  str180 = string[180];
+  str200 = string[200];
+  str227 = string[227];
+  str241 = string[241];
+  str250 = string[250];
   str427 = ansistring;
 
   tCE  = str250;      { HL7 CE type (Coded entry, deprecated as of HL7 v2.6) }
@@ -1446,4 +1410,4 @@ begin
 end;
 
 
-end.
+end.

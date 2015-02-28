@@ -6,12 +6,13 @@ unit HL7TestCases;
 
 { HL7 test cases }
 
-{ Version 1.6.1 }
+{ Version 1.7.0 }
 
- { (c) J. W. Dietrich, 1994 - 2014 }
+{ (c) Johannes W. Dietrich, 1994 - 2015 }
+{ (c) Marek Skorupski 2015 }
  { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
  { (c) University of Ulm Hospitals 2002-2004 }
- { (c) Ruhr University of Bochum 2005 - 2014 }
+ { (c) Ruhr University of Bochum 2005 - 2015 }
 
 { Parser and compiler for HL7 messages }
 
@@ -32,7 +33,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, DateUtils,
-  HL7, MSH, MSA, ERR, OBR, OBX, SPM, NTE, EVN, PID, PV1, PV2, NK1, MLLP;
+  HL7, MSH, MSA, ERR, OBR, OBX, ORC, SPM, NTE, EVN, PID, PV1, PV2, NK1, MLLP;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -60,6 +61,7 @@ const
     'OBR|1|43215^OE|98765^EKG|93000^EKG REPORT|||198801111330|||1235^TAYLOR^ROBERT^M||||198801111330||P030||||||198801120930||||||P011^PRESLEY^ELVIS^AARON^^^MD|43214^OE|';
   EXAMPLE_OBR_SEGMENT2 =
     'OBR|1|15810^H_Dx_2_0|16699480030^MB|123^Erythrocyte sedimentation rate^L|||20110331150551-0800|||||||||^Smith^John||15810||008847||20110615102200|||F||||OBX|1|ST|30341-2^Erythrocyte sedimentation rate^LN||test not performed||||||X|||20110331140551-0800||33445566^Levin^Henry^^^^^^&2.16.840.1.113883.3.72.5.30.1&ISO^L^^^EN|||20110331150551-0800||||Century Hospital^^^^^&2.16.840.1.113883.3.72.5.30.1&ISO^XX^^^987|2070 Test Park^^Los Angeles^CA^90067^^B|2343242^Knowsalot^Phil^J.^III^Dr.^^^&2.16.840.1.113883.3.72.5.30.1&ISO^L^^^DN‘';
+  EXAMPLE_ORC_SEGMENT = 'ORC|PA|A226677^PC|89-458^EKG';
   EXAMPLE_SPM_SEGMENT =
     'SPM|1|||119297000^BLD^SCT^BldSpc^Blood^99USA^^^Blood Specimen|||||||||||||20110103143428||||RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube|||CLOT^Clotted^HL70493^CLT^Clotted^99USA^^^clotted blood';
   EXAMPLE_PV2_SEGMENT =
@@ -81,7 +83,7 @@ const
     SEGMENT_DELIMITER + EXAMPLE_OBR_SEGMENT2 + SEGMENT_DELIMITER +
     EXAMPLE_NTE_SEGMENT + SEGMENT_DELIMITER + EXAMPLE_SPM_SEGMENT;
   EXAMPLE_MESSAGE6 = EXAMPLE_MESSAGE4 + SEGMENT_DELIMITER + EXAMPLE_PV2_SEGMENT;
-
+  EXAMPLE_MESSAGE7 = EXAMPLE_MESSAGE4 + SEGMENT_DELIMITER + EXAMPLE_ORC_SEGMENT;
 
 type
 
@@ -127,6 +129,13 @@ type
   TOBXTestCases = class(TTestCase)
   published
     procedure OBXSetCase1;
+  end;
+
+  { TORCTestCases }
+
+  TORCTestCases = class(TTestCase)
+  published
+    procedure ORCSetCase1;
   end;
 
   { TSPMTestCases }
@@ -658,6 +667,26 @@ begin
       UDAC, ObsDateTime, prodID, respObs, observMethod,
       EquipInstID, AnalysisDateTime);
     AssertEquals(obsValue, obsValue2);
+  end;
+end;
+
+{ TOBXTestCases }
+
+procedure TORCTestCases.ORCSetCase1;
+const
+  TestFillerOrderNumber =
+    '89-458^EKG';
+var
+  ORCRecord: tORC;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE7;
+    GetORC(TestHL7Message, ORCRecord);
+    AssertEquals(TestFillerOrderNumber, ORCRecord.FillerOrderNumber);
   end;
 end;
 
@@ -1868,6 +1897,7 @@ initialization
   RegisterTest(TERRTestCases);
   RegisterTest(TOBRTestCases);
   RegisterTest(TOBXTestCases);
+  RegisterTest(TORCTestCases);
   RegisterTest(TSPMTestCases);
   RegisterTest(TNTETestCases);
   RegisterTest(TEVNTestCase);
