@@ -53,6 +53,17 @@ type
     OrderControlCodeReason: tCE;
     EnteringOrganization, EnteringDevice: tCE;
     ActionBy: tXCN;
+    AdvancedBeneficiaryNoticeCode: tCE;
+    OrderingFacilityName: tXON;
+    OrderingFacilityAddress: tXAD;
+    OrderingFacilityPhoneNumber: tXTN;
+    OrderingProviderAddress: tXAD;
+    OrderStatusModifier, AdvancedBeneficiaryNoticeOverrideReason: tCE;
+    FillersExpectedAvailabilityDateTime: tDTM;
+    ConfidentialityCode, OrderType, EntererAuthorizationMode: tCE;
+    ParentUniversalServiceIdentifier: tCE;
+    AdvancedBeneficiaryNoticeDate: tDT;
+    AlternatePlacerOrderNumber: tCX;
   end;
 
 function ORC_Segment(message: THL7Message): THL7Segment;
