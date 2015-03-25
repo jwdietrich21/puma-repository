@@ -121,7 +121,10 @@ type
   str3 = string[3];
   str4 = string[4];
   str5 = string[5];
+  str6 = string[6];
   str8  = string[8];
+  str10 = string[10];
+  str12 = string[12];
   str15 = string[15];
   str16 = string[16];
   str20 = string[20];
@@ -133,6 +136,7 @@ type
   str53 = string[53];
   str60 = string[60];
   str80 = string[80];
+  str100 = string[100];
   str120 = string[120];
   str180 = string[180];
   str200 = string[200];
@@ -142,7 +146,10 @@ type
   str427 = ansistring;
 
   tCE  = str250;      { HL7 CE type (Coded entry, deprecated as of HL7 v2.6) }
+  tCK  = str100;
+  tCM  = str40;
   tCNE = ansistring;  { HL7 2.6 CNE type (Coded with no exceptions) }
+  tCP  = ansistring;
   tCWE = ansistring;  { HL7 2.6 CWE type (coded with exceptions) }
   tCX  = str250;      { HL7 CX type (Extended composite ID with check digit) }
   tCQ  = ansistring;  { HL7 CQ type (Composite quantity with units) }

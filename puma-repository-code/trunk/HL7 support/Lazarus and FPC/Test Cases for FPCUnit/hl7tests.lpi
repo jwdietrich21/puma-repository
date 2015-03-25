@@ -18,8 +18,8 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="7"/>
-      <BuildNr Value="226"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS " FileDescription="Unit Tests for HL7 engine" InternalName="PUMA HL7 Engine" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="1.7.0"/>
+      <BuildNr Value="234"/>
+      <StringTable Comments="with contributions by Marek Skorupski" CompanyName="FORMATIO RETICULARIS " FileDescription="Unit Tests for HL7 engine" InternalName="PUMA HL7 Engine" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="1.7.0"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -45,7 +45,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="17">
+    <Units Count="20">
       <Unit0>
         <Filename Value="hl7tests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -131,6 +131,21 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ORC"/>
       </Unit16>
+      <Unit17>
+        <Filename Value="../blg.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="BLG"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="../bpo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="BPO"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="../ft1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="FT1"/>
+      </Unit19>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -17,10 +17,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="6"/>
-      <RevisionNr Value="1"/>
-      <BuildNr Value="68"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS" InternalName="MessageViewer" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="HL7 MessageViewer" ProductVersion="1.6.1"/>
+      <MinorVersionNr Value="7"/>
+      <BuildNr Value="70"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS" InternalName="MessageViewer" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="HL7 MessageViewer" ProductVersion="1.7.0"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -103,4 +102,4 @@
       </Item3>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

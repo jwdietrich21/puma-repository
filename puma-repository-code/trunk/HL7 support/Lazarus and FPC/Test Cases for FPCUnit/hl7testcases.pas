@@ -33,7 +33,8 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, DateUtils,
-  HL7, MSH, MSA, ERR, OBR, OBX, ORC, SPM, NTE, EVN, PID, PV1, PV2, NK1, MLLP;
+  HL7, MSH, MSA, ERR, OBR, OBX, ORC, SPM, NTE, EVN, PID, PV1, PV2, NK1,
+  BLG, BPO, FT1, MLLP;
 
 const
   EXAMPLE_SEGMENT1 =
@@ -66,6 +67,8 @@ const
     'SPM|1|||119297000^BLD^SCT^BldSpc^Blood^99USA^^^Blood Specimen|||||||||||||20110103143428||||RC^Clotting^HL70490^CLT^Clotted^99USA^^^Blood clotted in tube|||CLOT^Clotted^HL70493^CLT^Clotted^99USA^^^clotted blood';
   EXAMPLE_PV2_SEGMENT =
     'PV2|||0101^vollstationaer, Normalfall^GSG0001||||||20050405|4||||||||||||||||||||||||||N|N';
+  EXAMPLE_FT1_SEGMENT =
+    'FT1|1|||19950715|19950716|CG|B1238^BIOPSY-SKIN^SYSTEMA|||1|||ONC|A357||||||P8765^KILDARE^BEN';
   EXAMPLE_FIELD1   = '0493575^^^2^ID 1';
   EXAMPLE_FIELD2   = '168 ~219~C~PMA^^^^^^^^^';
   EXAMPLE_FIELD3   = 'DOE^JOHN^^^^';
@@ -84,6 +87,9 @@ const
     EXAMPLE_NTE_SEGMENT + SEGMENT_DELIMITER + EXAMPLE_SPM_SEGMENT;
   EXAMPLE_MESSAGE6 = EXAMPLE_MESSAGE4 + SEGMENT_DELIMITER + EXAMPLE_PV2_SEGMENT;
   EXAMPLE_MESSAGE7 = EXAMPLE_MESSAGE4 + SEGMENT_DELIMITER + EXAMPLE_ORC_SEGMENT;
+  EXAMPLE_MESSAGE8 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_EVN_SEGMENT
+    + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 + SEGMENT_DELIMITER +
+    EXAMPLE_FT1_SEGMENT;
 
 type
 
@@ -136,6 +142,13 @@ type
   TORCTestCases = class(TTestCase)
   published
     procedure ORCSetCase1;
+  end;
+
+  { TFT1TestCases }
+
+  TFT1TestCases = class(TTestCase)
+  published
+    procedure FT1SetCase1;
   end;
 
   { TSPMTestCases }
@@ -670,7 +683,7 @@ begin
   end;
 end;
 
-{ TOBXTestCases }
+{ TORCTestCases }
 
 procedure TORCTestCases.ORCSetCase1;
 const
@@ -687,6 +700,26 @@ begin
     TestHL7Message.contentString := EXAMPLE_MESSAGE7;
     GetORC(TestHL7Message, ORCRecord);
     AssertEquals(TestFillerOrderNumber, ORCRecord.FillerOrderNumber);
+  end;
+end;
+
+{ TFT1TestCases }
+
+procedure TFT1TestCases.FT1SetCase1;
+const
+  TestTransactionCode =
+    'B1238^BIOPSY-SKIN^SYSTEMA';
+var
+  FT1Record: tFT1;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE8;
+    GetFT1(TestHL7Message, FT1Record);
+    AssertEquals(TestTransactionCode, FT1Record.TransactionCode);
   end;
 end;
 
@@ -1898,6 +1931,7 @@ initialization
   RegisterTest(TOBRTestCases);
   RegisterTest(TOBXTestCases);
   RegisterTest(TORCTestCases);
+  RegisterTest(tFT1TestCases);
   RegisterTest(TSPMTestCases);
   RegisterTest(TNTETestCases);
   RegisterTest(TEVNTestCase);

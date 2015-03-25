@@ -5,16 +5,16 @@ object MainForm: TMainForm
   Width = 834
   ActiveControl = SegmentsGroupBox
   Caption = 'HL7 Message Viewer'
-  ClientHeight = 550
+  ClientHeight = 570
   ClientWidth = 834
   Menu = MainMenu1
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.2.4.0'
+  LCLVersion = '1.2.6.0'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 527
+    Height = 15
+    Top = 555
     Width = 834
     Panels = <    
       item
@@ -80,7 +80,7 @@ object MainForm: TMainForm
   object PairSplitter1: TPairSplitter
     Cursor = crVSplit
     Left = 0
-    Height = 501
+    Height = 529
     Top = 26
     Width = 834
     Align = alClient
@@ -100,30 +100,30 @@ object MainForm: TMainForm
         Top = 0
         Width = 834
         HorzScrollBar.Page = 213
-        VertScrollBar.Page = 98
+        VertScrollBar.Page = 26
         Align = alClient
         Anchors = [akTop, akLeft, akRight]
-        ClientHeight = 366
-        ClientWidth = 830
+        ClientHeight = 355
+        ClientWidth = 819
         TabOrder = 0
         object ComponentsGroupBox: TGroupBox
           AnchorSideBottom.Control = ScrollBox1
           AnchorSideBottom.Side = asrBottom
           Left = 411
-          Height = 353
+          Height = 342
           Top = 13
           Width = 200
           Anchors = [akTop, akLeft, akBottom]
           BorderSpacing.Right = 5
           Caption = 'Components'
-          ClientHeight = 335
-          ClientWidth = 196
+          ClientHeight = 320
+          ClientWidth = 192
           TabOrder = 0
           object ComponentsListBox: TListBox
             Left = 2
-            Height = 326
+            Height = 311
             Top = 5
-            Width = 192
+            Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
             ExtendedSelect = False
             ItemHeight = 0
@@ -137,19 +137,19 @@ object MainForm: TMainForm
           AnchorSideBottom.Control = ScrollBox1
           AnchorSideBottom.Side = asrBottom
           Left = 616
-          Height = 353
+          Height = 342
           Top = 13
           Width = 200
           Anchors = [akTop, akLeft, akBottom]
           Caption = 'Subcomponents'
-          ClientHeight = 335
-          ClientWidth = 196
+          ClientHeight = 320
+          ClientWidth = 192
           TabOrder = 1
           object SubComponentsListBox: TListBox
             Left = 2
-            Height = 326
+            Height = 311
             Top = 5
-            Width = 192
+            Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
             ExtendedSelect = False
             ItemHeight = 0
@@ -160,20 +160,20 @@ object MainForm: TMainForm
         end
         object SegmentsGroupBox: TGroupBox
           Left = 0
-          Height = 353
+          Height = 342
           Top = 13
           Width = 200
           Anchors = [akTop, akLeft, akBottom]
           BorderSpacing.Right = 5
           Caption = 'Segments'
-          ClientHeight = 335
-          ClientWidth = 196
+          ClientHeight = 320
+          ClientWidth = 192
           TabOrder = 2
           object SegmentsListBox: TListBox
             Left = 2
-            Height = 326
+            Height = 311
             Top = 5
-            Width = 191
+            Width = 187
             Anchors = [akTop, akLeft, akRight, akBottom]
             ExtendedSelect = False
             ItemHeight = 0
@@ -185,21 +185,21 @@ object MainForm: TMainForm
         end
         object FieldsGroupBox: TGroupBox
           Left = 206
-          Height = 353
+          Height = 342
           Top = 13
           Width = 200
           Anchors = [akTop, akLeft, akBottom]
           BorderSpacing.Left = 8
           BorderSpacing.Right = 5
           Caption = 'Fields'
-          ClientHeight = 335
-          ClientWidth = 196
+          ClientHeight = 320
+          ClientWidth = 192
           TabOrder = 3
           object FieldsListBox: TListBox
             Left = 2
-            Height = 326
+            Height = 311
             Top = 5
-            Width = 192
+            Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
             ExtendedSelect = False
             ItemHeight = 0
@@ -214,26 +214,26 @@ object MainForm: TMainForm
     object PairSplitterSide2: TPairSplitterSide
       Cursor = crArrow
       Left = 0
-      Height = 126
+      Height = 154
       Top = 375
       Width = 834
       ClientWidth = 834
-      ClientHeight = 126
+      ClientHeight = 154
       object MessageGroupBox: TGroupBox
         Left = 0
-        Height = 126
+        Height = 154
         Top = 0
         Width = 834
         Align = alClient
         Caption = 'Message'
-        ClientHeight = 108
-        ClientWidth = 830
+        ClientHeight = 132
+        ClientWidth = 826
         TabOrder = 0
         object MessageMemo: TMemo
           Left = 0
-          Height = 108
+          Height = 132
           Top = 0
-          Width = 830
+          Width = 826
           Align = alClient
           ReadOnly = True
           ScrollBars = ssAutoBoth

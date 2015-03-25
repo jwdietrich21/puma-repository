@@ -30,8 +30,8 @@ program hl7tests;
 {$mode objfpc}{$H+}
 
 uses
-  Interfaces, Forms, GuiTestRunner, HL7TestCases, obx, hl7, msa, msh, obr, nte,
-  err, EVN, PID, PV1, NK1, SPM, PV2, mllp, orc;
+  Interfaces, Forms, GuiTestRunner, HL7TestCases, OBX, HL7, MSA, MSH, OBR, NTE,
+  ERR, EVN, PID, PV1, NK1, SPM, PV2, ORC, BLG, BPO, FT1, MLLP;
 
 {$R *.res}
 
