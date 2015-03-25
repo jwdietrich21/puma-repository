@@ -51,13 +51,13 @@ const
   ksLF   = #10;
   ksCRLF = #13#10;
 
-  noErr      = 0;
-  termErr    = 2;
-  unsuppVers = 4;
-  saveErr    = 6;
-  readErr    = 7;
+  noErr       = 0;
+  termErr     = 2;
+  unsuppVers  = 4;
+  saveErr     = 6;
+  readErr     = 7;
   segNotFound = 8;
-  createErr  = 9;
+  createErr   = 9;
 
   STANDARD_FIELD_SEP  = '|';
   STANDARD_COMP_SEP   = '^';
@@ -146,10 +146,10 @@ type
   str427 = ansistring;
 
   tCE  = str250;      { HL7 CE type (Coded entry, deprecated as of HL7 v2.6) }
-  tCK  = str100;
-  tCM  = str40;
+  tCK  = str100;      { HL7 2.4 CK type (Composite ID with check digit, deprecated) }
+  tCM  = str40;       { HL7 2.4 CM type (Composite, deprecated) }
   tCNE = ansistring;  { HL7 2.6 CNE type (Coded with no exceptions) }
-  tCP  = ansistring;
+  tCP  = ansistring;  { HL7 CP type (composite price) }
   tCWE = ansistring;  { HL7 2.6 CWE type (coded with exceptions) }
   tCX  = str250;      { HL7 CX type (Extended composite ID with check digit) }
   tCQ  = ansistring;  { HL7 CQ type (Composite quantity with units) }
@@ -162,32 +162,32 @@ type
   tEIP = ansistring;  { HL7 EIP type (Entity identifier pair) }
   tELD = ansistring;
   { HL7 ELD type (Error location and description, deprecated as of HL7 v2.5) }
-  tERL = str180;     { HL7 ERL type (Error location) }
+  tERL = str180;      { HL7 ERL type (Error location) }
   tFC  = str50;       { HL7 FC type (Financial class) }
   tFT  = ansistring;  { HL7 FT type (Formatted text data) }
   tHD  = ansistring;  { HL7 HD type (Hierarchic designator) }
   tID  = ansistring;  { HL7 ID type (Coded value for HL7 defined tables) }
   tIS  = str20;       { HL7 2.5 IS type (Coded value for user-defined tables) }
-  tJCC = ansistring; { HL7 JCC type (Job code/class) }
-  tMSG = str15;      { HL7 MSG type (Message type) }
-  tMOC = ansistring; { HL7 MOC type (Money and charge code) }
-  tNDL = ansistring; { HL7 NDL type (Name with date and location) }
+  tJCC = ansistring;  { HL7 JCC type (Job code/class) }
+  tMSG = str15;       { HL7 MSG type (Message type) }
+  tMOC = ansistring;  { HL7 MOC type (Money and charge code) }
+  tNDL = ansistring;  { HL7 NDL type (Name with date and location) }
   tNM  = str16;       { HL7 NM type (ASCII-represented number) }
   tPL  = str80;       { HL7 PL type (Person location) }
-  tPRL = ansistring; { HL7 PRL type (Parent result link) }
+  tPRL = ansistring;  { HL7 PRL type (Parent result link) }
   tPT  = str3;        { HL7 PT type (Processing type) }
   tSI  = str4;        { HL7 SI type (Sequence ID) }
-  tSPS = ansistring; { HL7 SPS type (Specimen source, deprecated as of HL7 v2.5) }
+  tSPS = ansistring;  { HL7 SPS type (Specimen source, deprecated as of HL7 v2.5) }
   tST  = ansistring;  { HL7 ST type (Dtring data ) }
   tTQ  = str250;      { HL7 TQ type (timing/quantity, deprecated as of HL7 v2.6) }
   tTS  = str26;       { HL7 2.5 TS type (Time stamp, deprecated as of HL7 v2.6) }
-  tVID = str60;      { HL7 VID type (Version identifier) }
-  tXAD = str250;     { HL7 XAD type (Extended address) }
-  tXCN = str250;     { HL7 XCN type (Extended composite ID number and name for persons) }
+  tVID = str60;       { HL7 VID type (Version identifier) }
+  tXAD = str250;      { HL7 XAD type (Extended address) }
+  tXCN = str250;      { HL7 XCN type (Extended composite ID number and name for persons) }
   tXON = ansistring;
   { HL7 XON type (Extended composite name and identification number for organizations) }
-  tXPN = str250;     { HL7 XPN type (Extended person name) }
-  tXTN = str250;     { HL7 XAD type (Extended telecommunications number) }
+  tXPN = str250;      { HL7 XPN type (Extended person name) }
+  tXTN = str250;      { HL7 XAD type (Extended telecommunications number) }
 
   THL7Delimiters = record
     SegmentTerminator, FieldSeparator, ComponentSeparator: char;

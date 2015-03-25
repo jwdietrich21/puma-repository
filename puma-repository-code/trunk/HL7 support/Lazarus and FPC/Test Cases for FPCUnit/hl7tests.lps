@@ -12,7 +12,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="137"/>
+        <UsageCount Value="138"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -32,7 +32,7 @@
           <TopLine Value="52"/>
           <CursorPos X="39" Y="516"/>
         </ExtraEditor2>
-        <UsageCount Value="137"/>
+        <UsageCount Value="138"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -44,13 +44,14 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
         <ExtraEditorCount Value="1"/>
-        <UsageCount Value="71"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="../hl7.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -60,7 +61,7 @@
           <TopLine Value="38"/>
           <CursorPos X="22" Y="61"/>
         </ExtraEditor1>
-        <UsageCount Value="71"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -75,7 +76,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="71"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -92,7 +93,7 @@
           <TopLine Value="129"/>
           <CursorPos X="1" Y="162"/>
         </ExtraEditor1>
-        <UsageCount Value="71"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -107,7 +108,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="71"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -122,7 +123,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="68"/>
+        <UsageCount Value="69"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -133,7 +134,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="67"/>
+        <UsageCount Value="68"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -148,7 +149,7 @@
         <ExtraEditor1>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="64"/>
+        <UsageCount Value="65"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -164,7 +165,7 @@
           <TopLine Value="38"/>
           <CursorPos X="1" Y="75"/>
         </ExtraEditor1>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -176,7 +177,7 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
         <ExtraEditorCount Value="1"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="51"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -188,7 +189,7 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
         <ExtraEditorCount Value="1"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -199,7 +200,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -216,19 +217,18 @@
           <TopLine Value="35"/>
           <CursorPos X="64" Y="42"/>
         </ExtraEditor1>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="../mllp.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MLLP"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit15>
       <Unit16>
@@ -239,7 +239,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -250,7 +250,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit17>
       <Unit18>
@@ -261,7 +261,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -272,7 +272,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
@@ -467,46 +467,46 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="65" Column="29" TopLine="35"/>
+        <Caret Line="152" Column="3" TopLine="119"/>
       </Position1>
       <Position2>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="89" Column="72" TopLine="59"/>
+        <Caret Line="523" Column="9" TopLine="493"/>
       </Position2>
       <Position3>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="152" Column="3" TopLine="119"/>
+        <Caret Line="536" Column="11" TopLine="506"/>
       </Position3>
       <Position4>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="523" Column="9" TopLine="493"/>
+        <Caret Line="538" Column="48" TopLine="508"/>
       </Position4>
       <Position5>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="536" Column="11" TopLine="506"/>
+        <Caret Line="540" Column="48" TopLine="510"/>
       </Position5>
       <Position6>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="538" Column="48" TopLine="508"/>
+        <Caret Line="724" Column="9" TopLine="694"/>
       </Position6>
       <Position7>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="540" Column="48" TopLine="510"/>
+        <Caret Line="2" Column="44" TopLine="1"/>
       </Position7>
       <Position8>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="724" Column="9" TopLine="694"/>
+        <Caret Line="721" Column="42" TopLine="703"/>
       </Position8>
       <Position9>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="2" Column="44" TopLine="1"/>
+        <Caret Line="2" Column="1" TopLine="1"/>
       </Position9>
       <Position10>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="721" Column="42" TopLine="703"/>
+        <Caret Line="1933" Column="31" TopLine="1913"/>
       </Position10>
       <Position11>
         <Filename Value="hl7testcases.pas"/>
@@ -514,7 +514,7 @@
       </Position11>
       <Position12>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1933" Column="31" TopLine="1913"/>
+        <Caret Line="1933" Column="30" TopLine="1913"/>
       </Position12>
       <Position13>
         <Filename Value="hl7testcases.pas"/>
@@ -522,72 +522,68 @@
       </Position13>
       <Position14>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1933" Column="30" TopLine="1913"/>
+        <Caret Line="720" Column="35" TopLine="698"/>
       </Position14>
       <Position15>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="2" Column="1" TopLine="1"/>
+        <Caret Line="37" Column="31" TopLine="17"/>
       </Position15>
       <Position16>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="720" Column="35" TopLine="698"/>
+        <Caret Line="720" Column="54" TopLine="699"/>
       </Position16>
       <Position17>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="37" Column="31" TopLine="17"/>
+        <Caret Line="37" Column="22" TopLine="19"/>
       </Position17>
       <Position18>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="720" Column="54" TopLine="699"/>
+        <Filename Value="../nte.pas"/>
+        <Caret Line="9" Column="26" TopLine="1"/>
       </Position18>
       <Position19>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="37" Column="22" TopLine="19"/>
+        <Filename Value="../obr.pas"/>
+        <Caret Line="9" Column="26" TopLine="1"/>
       </Position19>
       <Position20>
-        <Filename Value="../nte.pas"/>
+        <Filename Value="../obx.pas"/>
         <Caret Line="9" Column="26" TopLine="1"/>
       </Position20>
       <Position21>
-        <Filename Value="../obr.pas"/>
+        <Filename Value="../err.pas"/>
         <Caret Line="9" Column="26" TopLine="1"/>
       </Position21>
       <Position22>
-        <Filename Value="../obx.pas"/>
+        <Filename Value="../evn.pas"/>
         <Caret Line="9" Column="26" TopLine="1"/>
       </Position22>
       <Position23>
-        <Filename Value="../err.pas"/>
+        <Filename Value="../pid.pas"/>
         <Caret Line="9" Column="26" TopLine="1"/>
       </Position23>
       <Position24>
-        <Filename Value="../evn.pas"/>
+        <Filename Value="../pv1.pas"/>
         <Caret Line="9" Column="26" TopLine="1"/>
       </Position24>
       <Position25>
-        <Filename Value="../pid.pas"/>
+        <Filename Value="../pv2.pas"/>
         <Caret Line="9" Column="26" TopLine="1"/>
       </Position25>
       <Position26>
-        <Filename Value="../pv1.pas"/>
+        <Filename Value="../nk1.pas"/>
         <Caret Line="9" Column="26" TopLine="1"/>
       </Position26>
       <Position27>
-        <Filename Value="../pv2.pas"/>
+        <Filename Value="../blg.pas"/>
         <Caret Line="9" Column="26" TopLine="1"/>
       </Position27>
       <Position28>
-        <Filename Value="../nk1.pas"/>
+        <Filename Value="../bpo.pas"/>
         <Caret Line="9" Column="26" TopLine="1"/>
       </Position28>
       <Position29>
-        <Filename Value="../blg.pas"/>
-        <Caret Line="9" Column="26" TopLine="1"/>
+        <Filename Value="../obr.pas"/>
+        <Caret Line="283" Column="29" TopLine="270"/>
       </Position29>
-      <Position30>
-        <Filename Value="../bpo.pas"/>
-        <Caret Line="9" Column="26" TopLine="1"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
