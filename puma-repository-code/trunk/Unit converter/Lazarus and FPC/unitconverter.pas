@@ -6,7 +6,7 @@ unit UnitConverter;
 
 { Unit Converter }
 
-{ Version 1.3.2 }
+{ Version 1.3.2 (Delphinus) }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -703,4 +703,4 @@ end;
 initialization
   InitConversionFactors;
 
-end.
+end.

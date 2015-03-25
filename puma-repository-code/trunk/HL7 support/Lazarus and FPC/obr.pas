@@ -6,7 +6,7 @@ unit OBR;
 
 { HL7 support unit for observation request segments }
 
-{ Version 1.7.0 }
+{ Version 1.7.0 (Hermes) }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
