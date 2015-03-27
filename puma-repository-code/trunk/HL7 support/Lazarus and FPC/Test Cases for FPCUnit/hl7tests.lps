@@ -51,7 +51,6 @@
         <Filename Value="../hl7.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -268,10 +267,11 @@
         <Filename Value="../ft1.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="FT1"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="2"/>
+        <CursorPos X="49" Y="10"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit19>

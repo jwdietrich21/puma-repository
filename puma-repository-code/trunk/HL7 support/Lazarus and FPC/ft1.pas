@@ -39,7 +39,7 @@ const
 
 type
   tFT1 = record
-    SetID: tSI; // Pole 1: Numer segmentu typu NTE
+    SetID: tSI;
     TransactionID: tST;
     TransactionBatchID: tST;
     TransactionDate: tTS;
