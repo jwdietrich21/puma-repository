@@ -18,7 +18,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="7"/>
-      <BuildNr Value="73"/>
+      <BuildNr Value="74"/>
       <StringTable CompanyName="FORMATIO RETICULARIS" InternalName="HL7 MessageViewer 1.7.0 (Hermes)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="HL7 MessageViewer" ProductVersion="1.7.0"/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -43,7 +43,6 @@
       <Unit0>
         <Filename Value="MessageViewer.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="MessageViewer"/>
       </Unit0>
       <Unit1>
         <Filename Value="../../hl7.pas"/>
@@ -82,12 +81,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
@@ -102,4 +95,4 @@
       </Item3>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>
