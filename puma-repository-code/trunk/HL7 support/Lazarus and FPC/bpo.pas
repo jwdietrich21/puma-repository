@@ -6,7 +6,7 @@ unit BPO;
 
 { HL7 support unit for Blood Product Order segments }
 
-{ Version 1.7.0 (Hermes) }
+{ Version 2.0.0 (Hermes) }
 
 { (c) Johannes W. Dietrich, 1994 - 2015 }
 { (c) Marek Skorupski 2015 }

@@ -17,18 +17,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7TestCases"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="11"/>
-        <TopLine Value="1776"/>
-        <CursorPos X="39" Y="1803"/>
+        <EditorIndex Value="23"/>
+        <CursorPos Y="2"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
-          <EditorIndex Value="23"/>
-          <CursorPos X="35" Y="43"/>
+          <EditorIndex Value="11"/>
+          <CursorPos Y="2"/>
         </ExtraEditor1>
         <ExtraEditor2>
-          <IsVisibleTab Value="True"/>
           <EditorIndex Value="-1"/>
-          <WindowIndex Value="1"/>
+          <WindowIndex Value="-1"/>
           <TopLine Value="71"/>
           <CursorPos X="54" Y="1796"/>
         </ExtraEditor2>
@@ -44,6 +42,7 @@
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="3"/>
+          <CursorPos Y="2"/>
         </ExtraEditor1>
         <UsageCount Value="76"/>
         <Loaded Value="True"/>
@@ -154,11 +153,10 @@
         <Filename Value="../pid.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="PID"/>
-        <TopLine Value="38"/>
-        <CursorPos Y="75"/>
+        <EditorIndex Value="15"/>
+        <CursorPos Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
-          <EditorIndex Value="15"/>
           <CursorPos Y="2"/>
         </ExtraEditor1>
         <UsageCount Value="58"/>
@@ -173,6 +171,7 @@
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="2"/>
+          <CursorPos Y="2"/>
         </ExtraEditor1>
         <UsageCount Value="55"/>
         <Loaded Value="True"/>
@@ -186,6 +185,7 @@
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="1"/>
+          <CursorPos Y="2"/>
         </ExtraEditor1>
         <UsageCount Value="53"/>
         <Loaded Value="True"/>
@@ -256,8 +256,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="FT1"/>
         <EditorIndex Value="21"/>
-        <TopLine Value="2"/>
-        <CursorPos Y="4"/>
+        <CursorPos Y="2"/>
         <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit19>
@@ -405,124 +404,123 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../hl7.pas"/>
-        <Caret Line="837" Column="15" TopLine="811"/>
+        <Filename Value="../blg.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position1>
       <Position2>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1610" Column="63" TopLine="1590"/>
+        <Filename Value="../bpo.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position2>
       <Position3>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1606" Column="51" TopLine="1593"/>
+        <Filename Value="../ft1.pas"/>
+        <Caret Line="9" Column="27" TopLine="2"/>
       </Position3>
       <Position4>
-        <Filename Value="../hl7.pas"/>
-        <Caret Line="349" Column="21" TopLine="334"/>
+        <Filename Value="../mllp.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position4>
       <Position5>
-        <Filename Value="../hl7.pas"/>
-        <Caret Line="2" Column="77"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position5>
       <Position6>
-        <Filename Value="../hl7.pas"/>
-        <Caret Line="251" Column="25" TopLine="231"/>
+        <Filename Value="hl7tests.lpr"/>
+        <Caret Line="9" Column="27"/>
       </Position6>
       <Position7>
-        <Filename Value="../hl7.pas"/>
-        <Caret Line="263" Column="59" TopLine="243"/>
+        <Filename Value="../pid.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position7>
       <Position8>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="262" Column="51" TopLine="239"/>
+        <Filename Value="../nk1.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position8>
       <Position9>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1784" Column="3" TopLine="1784"/>
+        <Filename Value="../pv1.pas"/>
       </Position9>
       <Position10>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="28" Column="46" TopLine="7"/>
+        <Filename Value="../obx.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position10>
       <Position11>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="41" Column="14" TopLine="21"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position11>
       <Position12>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="48" Column="38" TopLine="28"/>
+        <Filename Value="../msh.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position12>
       <Position13>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="55" Column="14" TopLine="35"/>
+        <Filename Value="../msa.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position13>
       <Position14>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="64" Column="525" TopLine="44"/>
+        <Filename Value="../nte.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position14>
       <Position15>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="76" Column="70" TopLine="56"/>
+        <Filename Value="../obr.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position15>
       <Position16>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="77" Column="61" TopLine="72"/>
+        <Filename Value="../obx.pas"/>
+        <Caret Line="2"/>
       </Position16>
       <Position17>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="85" Column="19" TopLine="72"/>
+        <Filename Value="../orc.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position17>
       <Position18>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1787" Column="72" TopLine="1779"/>
+        <Caret Line="1801" Column="61" TopLine="1776"/>
       </Position18>
       <Position19>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="90" Column="19" TopLine="72"/>
+        <Filename Value="../spm.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position19>
       <Position20>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="717" Column="68" TopLine="1762"/>
+        <Filename Value="../err.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position20>
       <Position21>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1773" Column="54" TopLine="1771"/>
+        <Filename Value="../evn.pas"/>
+        <Caret Line="2"/>
       </Position21>
       <Position22>
-        <Filename Value="../hl7.pas"/>
-        <Caret Line="294" Column="32" TopLine="276"/>
+        <Filename Value="../pid.pas"/>
+        <Caret Line="2"/>
       </Position22>
       <Position23>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1795" Column="86" TopLine="1778"/>
+        <Filename Value="../pv1.pas"/>
+        <Caret Line="2"/>
       </Position23>
       <Position24>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1787" Column="27" TopLine="1777"/>
+        <Filename Value="../pv2.pas"/>
+        <Caret Line="2"/>
       </Position24>
       <Position25>
-        <Filename Value="../hl7.pas"/>
-        <Caret Line="719" Column="28" TopLine="700"/>
+        <Filename Value="../nk1.pas"/>
+        <Caret Line="2"/>
       </Position25>
       <Position26>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1797" Column="46" TopLine="1779"/>
+        <Filename Value="../blg.pas"/>
+        <Caret Line="2"/>
       </Position26>
       <Position27>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1800" Column="32" TopLine="1782"/>
+        <Filename Value="../bpo.pas"/>
+        <Caret Line="2"/>
       </Position27>
       <Position28>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1802" Column="65" TopLine="1779"/>
+        <Filename Value="../ft1.pas"/>
+        <Caret Line="2"/>
       </Position28>
       <Position29>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1796" Column="54" TopLine="1779"/>
+        <Filename Value="../mllp.pas"/>
+        <Caret Line="2"/>
       </Position29>
       <Position30>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1794" Column="53" TopLine="1779"/>
+        <Caret Line="2"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

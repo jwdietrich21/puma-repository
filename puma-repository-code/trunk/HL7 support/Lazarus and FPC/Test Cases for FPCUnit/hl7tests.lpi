@@ -16,11 +16,10 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
-      <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="7"/>
-      <BuildNr Value="252"/>
+      <MajorVersionNr Value="2"/>
+      <BuildNr Value="255"/>
       <Attributes pvaDebug="True"/>
-      <StringTable Comments="with contributions by Marek Skorupski" CompanyName="FORMATIO RETICULARIS " FileDescription="Unit Tests for HL7 engine" InternalName="PUMA HL7 Engine 1.7 (Hermes)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="1.7.0"/>
+      <StringTable Comments="with contributions by Marek Skorupski" CompanyName="FORMATIO RETICULARIS " FileDescription="Unit Tests for HL7 engine" InternalName="PUMA HL7 Engine 2.0 (Hermes)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="2.0.0"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>

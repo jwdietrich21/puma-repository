@@ -6,7 +6,7 @@ unit HL7;
 
 { HL7 base unit }
 
-{ Version 1.7.0 (Hermes) }
+{ Version 2.0.0 (Hermes) }
 
 { (c) Johannes W. Dietrich, 1994 - 2015 }
 { (c) Marek Skorupski 2015 }
@@ -709,6 +709,7 @@ var
   theSubComponent: THL7SubComponent;
 begin
   Result := nil;
+  if self = nil then exit;
   theSubComponent := self.firstSubComponent;
   for i := 0 to index - 1 do
   begin
@@ -846,6 +847,7 @@ var
   theComponent: THL7Component;
 begin
   Result := nil;
+  if self = nil then exit;
   theComponent := self.firstComponent;
   for i := 0 to index - 1 do
   begin
@@ -963,6 +965,7 @@ var
   theField: THL7Field;
 begin
   Result := nil;
+  if self = nil then exit;
   theField := self.FirstField;
   for i := 0 to index - 1 do
   begin
@@ -1102,6 +1105,7 @@ var
   theOccurrence: THL7Occurrence;
 begin
   Result := nil;
+  if self = nil then exit;
   theOccurrence := self.firstOccurrence;
   for i := 0 to index - 1 do
   begin
@@ -1202,6 +1206,7 @@ var
   theSegment: THL7Segment;
 begin
   Result := nil;
+  if self = nil then exit;
   theSegment := self.firstSegment;
   for i := 0 to index - 1 do
   begin

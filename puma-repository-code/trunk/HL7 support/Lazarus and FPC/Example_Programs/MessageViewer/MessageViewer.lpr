@@ -6,12 +6,12 @@ program MessageViewer;
 
 { Demo implementation: Viewer for HL7 messages }
 
-{ Version 1.7.0 (Hermes) }
+{ Version 2.0.0 (Hermes) }
 
-{ (c) J. W. Dietrich, 1994 - 2014 }
+{ (c) J. W. Dietrich, 1994 - 2015 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2014 }
+{ (c) Ruhr University of Bochum 2005 - 2015 }
 
 { Viewer and browser for HL7 messages }
 

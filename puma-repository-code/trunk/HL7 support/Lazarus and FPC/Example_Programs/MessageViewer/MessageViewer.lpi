@@ -16,10 +16,9 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
-      <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="7"/>
-      <BuildNr Value="74"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS" InternalName="HL7 MessageViewer 1.7.0 (Hermes)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="HL7 MessageViewer" ProductVersion="1.7.0"/>
+      <MajorVersionNr Value="2"/>
+      <BuildNr Value="77"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS" InternalName="HL7 MessageViewer 2.0.0 (Hermes)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="HL7 MessageViewer" ProductVersion="2.0.0"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
