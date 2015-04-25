@@ -248,6 +248,7 @@ type
     procedure FieldsParseTestCase2;
     procedure FieldsParseTestCase3;
     procedure FieldsCompileTestCase1;
+    procedure FieldsGetnthComponentTestCase1;
   end;
 
   { TComponentTestCases }
@@ -1559,6 +1560,56 @@ begin
             FirstField.nextSibling.nextSibling.nextSibling.nextSibling.
             nextSibling.contentString;
           AssertEquals('Thomas&Gregory', fieldContent);
+        end;
+      end;
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TFieldsTestCases.FieldsGetnthComponentTestCase1;
+var
+  fieldContent, componentContent: string;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.AllocSegments(EXAMPLE_SEGMENT3);
+    if TestHL7Message.FirstSegment = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      if TestHL7Message.FirstSegment.FirstOccurrence = nil then
+        fail('Occurrence could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
+          fail('Field could not be created.')
+        else
+        if (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling = nil) or
+          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling.nextSibling
+          = nil) then
+          fail('Field could not be found.')
+        else
+        begin
+          fieldContent := TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
+            nextSibling.nextSibling.contentString;
+          AssertEquals('ROE^MARIE^^^^', fieldContent);
+          if (TestHL7Message.FirstSegment.FirstOccurrence.
+            FirstField.nextSibling.nextSibling.FirstComponent = nil) or
+            (TestHL7Message.FirstSegment.FirstOccurrence.
+            FirstField.nextSibling.nextSibling.FirstComponent.nextSibling = nil) then
+            fail('Component could not be found.')
+          else
+          begin
+            componentContent :=
+              TestHL7Message.FirstSegment.FirstOccurrence.
+              FirstField.nextSibling.nextSibling.Component[1].contentString;
+            AssertEquals('MARIE', componentContent);
+          end;
         end;
       end;
     end;
