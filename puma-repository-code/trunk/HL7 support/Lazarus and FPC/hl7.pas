@@ -226,6 +226,7 @@ type
     FlOwner:     THL7Message;
     procedure ParseMessageString(const aString: ansistring);
     function CompiledMessageString: ansistring;
+    //function GetnthOccurrence: THL7Occurrence;
   public
     FirstOccurrence: THL7Occurrence;
     constructor Create(owner: THL7Message; SegmentText: ansistring);
@@ -236,6 +237,7 @@ type
       Write ParseMessageString;
     property previousSibling: THL7Segment Read FPreviousSibling;
     property nextSibling: THL7Segment Read FNextSibling;
+    //property nthOccurrence: THL7Occurrence Read GetnthOccurrence;
     property segmentType: str3 Read SegmentName Write SegmentName;
   end;
 
@@ -246,6 +248,7 @@ type
     FPreviousSibling, FNextSibling: THL7Occurrence;
     procedure ParseMessageString(const aString: ansistring);
     function CompiledMessageString: ansistring;
+    function GetnthField(index: integer): THL7Field;
   public
     FirstField: THL7Field;
     constructor Create(owner: THL7Segment; OccurrencesText: ansistring);
@@ -256,6 +259,7 @@ type
     property contentString: ansistring Read CompiledMessageString
       Write ParseMessageString;
     property previousSibling: THL7Occurrence Read FPreviousSibling;
+    property Field[i: integer]: THL7Field Read GetnthField;
     property nextSibling: THL7Occurrence Read FNextSibling;
   end;
 
@@ -915,6 +919,22 @@ begin
   Result := FText;
 end;
 
+function THL7Occurrence.GetnthField(index: integer): THL7Field;
+var
+  i: integer;
+  theField: THL7Field;
+begin
+  Result := nil;
+  theField := self.FirstField;
+  for i := 0 to index - 1 do
+  begin
+    if theField = nil then break
+    else
+    theField := theField.nextSibling;
+  end;
+  Result := theField;
+end;
+
 constructor THL7Occurrence.Create(owner: THL7Segment; OccurrencesText: ansistring);
 begin
   inherited Create;
@@ -1417,4 +1437,4 @@ begin
 end;
 
 
-end.
+end.

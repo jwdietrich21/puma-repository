@@ -237,6 +237,7 @@ type
     procedure SegmentsParseTestCase2;
     procedure SegmentsParseTestCase3;
     procedure SegmentsCompileTestCase1;
+    procedure SegmentsGetnthFieldTestCase1;
   end;
 
   { TFieldsTestCases }
@@ -1394,6 +1395,39 @@ begin
       segmentContent := TestHL7Message.FirstSegment.nextSibling.
         nextSibling.contentString;
       AssertEquals(EXAMPLE_SEGMENT3, segmentContent);
+    end;
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TSegmentsTestCases.SegmentsGetnthFieldTestCase1;
+var
+  testSegment: THL7Segment;
+  testOccurrence: THL7Occurrence;
+  testField: THL7Field;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.AllocSegments(EXAMPLE_SEGMENT1);
+    if TestHL7Message.FirstSegment = nil then
+      fail('Segment could not be created.')
+    else
+    begin
+      testOccurrence := TestHL7Message.FirstSegment.FirstOccurrence;
+      if testOccurrence = nil then
+        fail('Occurrence could not be created.')
+      else
+      begin
+        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
+          fail('Field could not be created.')
+        else
+        testField := testOccurrence.Field[7];
+        AssertEquals('CHARRIS', testField.contentString);
+      end;
     end;
   end;
   if TestHL7Message <> nil then
