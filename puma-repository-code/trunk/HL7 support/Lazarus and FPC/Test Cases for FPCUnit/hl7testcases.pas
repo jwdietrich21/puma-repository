@@ -90,6 +90,9 @@ const
   EXAMPLE_MESSAGE8 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_EVN_SEGMENT
     + SEGMENT_DELIMITER + EXAMPLE_SEGMENT2 + SEGMENT_DELIMITER +
     EXAMPLE_FT1_SEGMENT;
+  EXAMPLE_MESSAGE9 = EXAMPLE_SEGMENT1 + SEGMENT_DELIMITER + EXAMPLE_SEGMENT5
+    + SEGMENT_DELIMITER + EXAMPLE_EVN_SEGMENT + SEGMENT_DELIMITER
+    + EXAMPLE_SEGMENT2 + SEGMENT_DELIMITER + EXAMPLE_FT1_SEGMENT;
 
 type
 
@@ -259,6 +262,7 @@ type
     procedure ComponentParseTestCase2;
     procedure ComponentParseTestCase3;
     procedure ComponentCompileTestCase1;
+    procedure ComponentGetnthSubComponentTestCase1;
   end;
 
   { TSubComponentTestCases }
@@ -1571,6 +1575,7 @@ end;
 procedure TFieldsTestCases.FieldsGetnthComponentTestCase1;
 var
   fieldContent, componentContent: string;
+  curComponent: THL7Component;
 begin
   TestHL7Message := THL7Message.Create('2.5');
   if TestHL7Message = nil then
@@ -1578,38 +1583,31 @@ begin
   else
   begin
     TestHL7Message.AllocSegments(EXAMPLE_SEGMENT3);
-    if TestHL7Message.FirstSegment = nil then
+    if TestHL7Message.Segment[0] = nil then
       fail('Segment could not be created.')
     else
     begin
-      if TestHL7Message.FirstSegment.FirstOccurrence = nil then
+      if TestHL7Message.Segment[0].Occurrence[0] = nil then
         fail('Occurrence could not be created.')
       else
       begin
-        if TestHL7Message.FirstSegment.FirstOccurrence.FirstField = nil then
+        if TestHL7Message.Segment[0].Occurrence[0].Field[0] = nil then
           fail('Field could not be created.')
         else
-        if (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling = nil) or
-          (TestHL7Message.FirstSegment.FirstOccurrence.FirstField.nextSibling.nextSibling
-          = nil) then
+        if (TestHL7Message.Segment[0].Occurrence[0].Field[1] = nil) or
+          (TestHL7Message.FirstSegment.Occurrence[0].Field[2] = nil) then
           fail('Field could not be found.')
         else
         begin
-          fieldContent := TestHL7Message.FirstSegment.FirstOccurrence.FirstField.
-            nextSibling.nextSibling.contentString;
+          fieldContent := TestHL7Message.Segment[0].Occurrence[0].Field[2].contentString;
           AssertEquals('ROE^MARIE^^^^', fieldContent);
-          if (TestHL7Message.FirstSegment.FirstOccurrence.
-            FirstField.nextSibling.nextSibling.FirstComponent = nil) or
-            (TestHL7Message.FirstSegment.FirstOccurrence.
-            FirstField.nextSibling.nextSibling.FirstComponent.nextSibling = nil) then
+          curComponent := TestHL7Message.Segment[0].Occurrence[0].Field[2].Component[1];
+          if curComponent = nil then
             fail('Component could not be found.')
           else
-          begin
             componentContent :=
-              TestHL7Message.FirstSegment.FirstOccurrence.
-              FirstField.nextSibling.nextSibling.Component[1].contentString;
-            AssertEquals('MARIE', componentContent);
-          end;
+            curComponent.contentString;
+          AssertEquals('MARIE', componentContent);
         end;
       end;
     end;
@@ -1617,7 +1615,6 @@ begin
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
 end;
-
 
 { TComponentTestCases }
 
@@ -1782,6 +1779,29 @@ begin
   end;
   if TestHL7Message <> nil then
     TestHL7Message.Destroy;
+end;
+
+procedure TComponentTestCases.ComponentGetnthSubComponentTestCase1;
+var
+  subcomponentContent: string;
+  curSubComponent: THL7SubComponent;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE9;
+    curSubComponent := TestHL7Message.Segment[1].Occurrence[0].Field[5].
+      Component[0].Subcomponent[1];
+    if curSubComponent = nil then
+      fail('Subcomponent could not be found.')
+    else
+      subcomponentContent := curSubComponent.contentString;
+    AssertEquals('Gregory', subcomponentContent);
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+  end;
 end;
 
 { TSubComponentTestCases }

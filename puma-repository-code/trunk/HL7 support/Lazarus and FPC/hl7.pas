@@ -291,6 +291,7 @@ type
     FPreviousSibling, FNextSibling: THL7Component;
     procedure ParseMessageString(const aString: ansistring);
     function CompiledMessageString: ansistring;
+    function GetnthSubComponent(index: integer): THL7SubComponent;
   public
     FirstSubComponent: THL7SubComponent;
     constructor Create(owner: THL7Field; ComponentText: ansistring);
@@ -301,6 +302,7 @@ type
       Write ParseMessageString;
     property previousSibling: THL7Component Read FPreviousSibling;
     property nextSibling: THL7Component Read FNextSibling;
+    property SubComponent[i: integer]: THL7SubComponent Read GetnthSubComponent;
   end;
 
   { THL7SubComponent }
@@ -332,6 +334,7 @@ type
     procedure SetHL7Version(const aValue: string);
     procedure ParseMessageString(const aString: ansistring);
     function CompiledMessageString: ansistring;
+    function GetnthSegment(index: integer): THL7Segment;
   public
     ControlID:    Str20;
     FirstSegment: THL7Segment;
@@ -345,6 +348,7 @@ type
     destructor Destroy; override;
     property HL7Version: string Read HL7_version Write SetHL7Version;
     property Delimiters: THL7Delimiters Read HL7Delimiters Write HL7Delimiters;
+    property Segment[i: integer]: THL7Segment Read GetnthSegment;
     function FoundSegment(const aSegmentName, SetID: Str3): THL7Segment;
     function FoundSegment(const aSegmentName, SetID: Str3;
       beginWith: THL7Segment): THL7Segment;
@@ -697,6 +701,22 @@ begin
     end;
     Result := FText;
   end;
+end;
+
+function THL7Component.GetnthSubComponent(index: integer): THL7SubComponent;
+var
+  i: integer;
+  theSubComponent: THL7SubComponent;
+begin
+  Result := nil;
+  theSubComponent := self.firstSubComponent;
+  for i := 0 to index - 1 do
+  begin
+    if theSubComponent = nil then break
+    else
+    theSubComponent := theSubComponent.nextSibling;
+  end;
+  Result := theSubComponent;
 end;
 
 constructor THL7Component.Create(owner: THL7Field; ComponentText: ansistring);
@@ -1176,6 +1196,21 @@ begin
   end;
 end;
 
+function THL7Message.GetnthSegment(index: integer): THL7Segment;
+var
+  i: integer;
+  theSegment: THL7Segment;
+begin
+  Result := nil;
+  theSegment := self.firstSegment;
+  for i := 0 to index - 1 do
+  begin
+    if theSegment = nil then break
+    else
+    theSegment := theSegment.nextSibling;
+  end;
+  Result := theSegment;
+end;
 
 procedure THL7Message.ParseDelimiters(DelimiterDefinition: ansistring);
 begin
