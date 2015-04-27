@@ -138,6 +138,7 @@ type
   TOBXTestCases = class(TTestCase)
   published
     procedure OBXSetCase1;
+    procedure OBXSetCase2;
   end;
 
   { TORCTestCases }
@@ -319,6 +320,8 @@ begin
     testSegment := MSH_Segment(TestHL7Message);
     AssertEquals('MSH', testSegment.segmentType);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 procedure TMSHTestCases.MSHGetCase2;
@@ -355,6 +358,8 @@ begin
       messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('199912271408', dateTime);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 procedure TMSHTestCases.MSHSetCase1;
@@ -394,6 +399,8 @@ begin
       messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('201311302157', dateTime);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 procedure TMSHTestCases.MSHSetCase2;
@@ -457,6 +464,8 @@ begin
       messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('276', countryCode2);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 procedure TMSHTestCases.MSHSetCase3;
@@ -516,6 +525,8 @@ begin
       messageLanguage, altCharHandlScheme, profileID);
     AssertEquals('2.5', versionID2);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TMSATestCases }
@@ -547,6 +558,8 @@ begin
       textMessage, exSeqNum, delAckType, ErrorCond);
     AssertEquals(AckCode, AckCode2);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TERRTestCases }
@@ -592,6 +605,8 @@ begin
     AssertEquals(ErrLoc, ErrLoc2);
     AssertEquals(ErrCode, ErrCode2);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TOBRTestCases }
@@ -625,6 +640,8 @@ begin
       Priority, ReqDateTime2, ObsDateTime, ObsEndDateTime);
     AssertEquals(ReqDateTime, ReqDateTime2);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TOBXTestCases }
@@ -687,6 +704,46 @@ begin
       EquipInstID, AnalysisDateTime);
     AssertEquals(obsValue, obsValue2);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
+end;
+
+procedure TOBXTestCases.OBXSetCase2;
+var
+  OBXTestRecord1, OBXTestRecord2: tOBX;
+begin
+  TestHL7Message := THL7Message.Create('2.5');
+  if TestHL7Message = nil then
+    fail('Message could not be created.')
+  else
+  begin
+    TestHL7Message.contentString := EXAMPLE_MESSAGE1;
+    OBXTestRecord1.SetID     := '1';
+    OBXTestRecord1.ValueType := 'ST';
+    OBXTestRecord1.ObsID     := '8897-1^QRS COMPLEX^LN';
+    OBXTestRecord1.obsSubID  := '';
+    OBXTestRecord1.obsValue  := '91';
+    OBXTestRecord1.Units     := '/MIN';
+    OBXTestRecord1.RefRange  := '';
+    OBXTestRecord1.AbnormFlags := '';
+    OBXTestRecord1.probability := '';
+    OBXTestRecord1.Nature    := '';
+    OBXTestRecord1.status    := 'F';
+    OBXTestRecord1.RRDate    := '';
+    OBXTestRecord1.UDAC      := '';
+    OBXTestRecord1.ObsDateTime := '198804011230';
+    OBXTestRecord1.prodID    := '';
+    OBXTestRecord1.respObs   := '';
+    OBXTestRecord1.observMethod := '';
+    OBXTestRecord1.EquipInstID := '';
+    OBXTestRecord1.AnalysisDateTime := '';
+    SetOBX(TestHL7Message, OBXTestRecord1);
+    GetOBX(TestHL7Message, OBXTestRecord2);
+    AssertEquals(OBXTestRecord1.obsValue, OBXTestRecord2.obsValue);
+    AssertEquals(OBXTestRecord1.obsValue, TestHL7Message.Segment[4].Occurrence[0].Field[5].contentString);
+  end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TORCTestCases }
@@ -707,6 +764,8 @@ begin
     GetORC(TestHL7Message, ORCRecord);
     AssertEquals(TestFillerOrderNumber, ORCRecord.FillerOrderNumber);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TFT1TestCases }
@@ -727,6 +786,8 @@ begin
     GetFT1(TestHL7Message, FT1Record);
     AssertEquals(TestTransactionCode, FT1Record.TransactionCode);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TSPMTestCases }
@@ -747,6 +808,8 @@ begin
     GetSPM(TestHL7Message, SPMRecord);
     AssertEquals(TestSpecimenRejectReason, SPMRecord.SpecimenRejectReason);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 
@@ -781,6 +844,8 @@ begin
     AssertEquals(recDateTime, recDateTime2);
     AssertEquals(evtOccurred, evtOccurred2);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 
@@ -809,6 +874,8 @@ begin
       commentType2);
     AssertEquals(comment, comment2);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TPIDTestCases }
@@ -828,6 +895,8 @@ begin
     GetPID(TestHL7Message, PIDRecord);
     AssertEquals(TestPatientAccountNumber, PIDRecord.PatientAccountNumber);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TPV1TestCases }
@@ -847,6 +916,8 @@ begin
     GetPV1(TestHL7Message, PV1Record);
     AssertEquals(TestAlternateVisitID, PV1Record.AlternateVisitID);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TPV2TestCases }
@@ -866,6 +937,8 @@ begin
     GetPV2(TestHL7Message, PV2Record);
     AssertEquals(TestLOS, PV2Record.EstLOS);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TNK1TestCases }
@@ -887,6 +960,8 @@ begin
     AssertEquals(TestPhoneNumber, NK1Record.PhoneNumber);
     AssertEquals(TestContactRole, NK1Record.ContactRole);
   end;
+  if TestHL7Message <> nil then
+    TestHL7Message.Destroy;
 end;
 
 { TMessageTestCases }

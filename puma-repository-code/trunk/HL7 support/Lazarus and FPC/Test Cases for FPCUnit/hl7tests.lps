@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="24"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="142"/>
+        <UsageCount Value="143"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -25,12 +25,13 @@
           <CursorPos Y="2"/>
         </ExtraEditor1>
         <ExtraEditor2>
+          <IsVisibleTab Value="True"/>
           <EditorIndex Value="-1"/>
-          <WindowIndex Value="-1"/>
-          <TopLine Value="71"/>
-          <CursorPos X="54" Y="1796"/>
+          <WindowIndex Value="1"/>
+          <TopLine Value="41"/>
+          <CursorPos X="3" Y="654"/>
         </ExtraEditor2>
-        <UsageCount Value="142"/>
+        <UsageCount Value="143"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -39,12 +40,18 @@
         <UnitName Value="OBX"/>
         <EditorIndex Value="9"/>
         <CursorPos Y="2"/>
-        <ExtraEditorCount Value="1"/>
+        <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <EditorIndex Value="3"/>
           <CursorPos Y="2"/>
         </ExtraEditor1>
-        <UsageCount Value="76"/>
+        <ExtraEditor2>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+          <TopLine Value="-1"/>
+          <CursorPos X="-1" Y="-1"/>
+        </ExtraEditor2>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -65,7 +72,7 @@
           <WindowIndex Value="1"/>
           <CursorPos Y="2"/>
         </ExtraEditor2>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -79,7 +86,7 @@
           <EditorIndex Value="-1"/>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -95,7 +102,7 @@
           <TopLine Value="129"/>
           <CursorPos Y="162"/>
         </ExtraEditor1>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -109,7 +116,7 @@
           <EditorIndex Value="-1"/>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -123,7 +130,7 @@
           <EditorIndex Value="-1"/>
           <WindowIndex Value="-1"/>
         </ExtraEditor1>
-        <UsageCount Value="73"/>
+        <UsageCount Value="74"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -132,7 +139,7 @@
         <UnitName Value="ERR"/>
         <EditorIndex Value="13"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="72"/>
+        <UsageCount Value="73"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -146,7 +153,7 @@
           <EditorIndex Value="-1"/>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="69"/>
+        <UsageCount Value="70"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -159,7 +166,7 @@
         <ExtraEditor1>
           <CursorPos Y="2"/>
         </ExtraEditor1>
-        <UsageCount Value="58"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -173,7 +180,7 @@
           <EditorIndex Value="2"/>
           <CursorPos Y="2"/>
         </ExtraEditor1>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -187,7 +194,7 @@
           <EditorIndex Value="1"/>
           <CursorPos Y="2"/>
         </ExtraEditor1>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -196,7 +203,7 @@
         <UnitName Value="SPM"/>
         <EditorIndex Value="12"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -212,7 +219,7 @@
           <TopLine Value="35"/>
           <CursorPos X="64" Y="42"/>
         </ExtraEditor1>
-        <UsageCount Value="38"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -221,7 +228,7 @@
         <UnitName Value="MLLP"/>
         <EditorIndex Value="22"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit15>
       <Unit16>
@@ -230,7 +237,7 @@
         <UnitName Value="ORC"/>
         <EditorIndex Value="10"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -239,7 +246,7 @@
         <UnitName Value="BLG"/>
         <EditorIndex Value="19"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit17>
       <Unit18>
@@ -248,7 +255,7 @@
         <UnitName Value="BPO"/>
         <EditorIndex Value="20"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -257,7 +264,7 @@
         <UnitName Value="FT1"/>
         <EditorIndex Value="21"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
@@ -404,123 +411,123 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../blg.pas"/>
-        <Caret Line="9" Column="27"/>
+        <Filename Value="../ft1.pas"/>
+        <Caret Line="9" Column="27" TopLine="2"/>
       </Position1>
       <Position2>
-        <Filename Value="../bpo.pas"/>
+        <Filename Value="../mllp.pas"/>
         <Caret Line="9" Column="27"/>
       </Position2>
       <Position3>
-        <Filename Value="../ft1.pas"/>
-        <Caret Line="9" Column="27" TopLine="2"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position3>
       <Position4>
-        <Filename Value="../mllp.pas"/>
+        <Filename Value="hl7tests.lpr"/>
         <Caret Line="9" Column="27"/>
       </Position4>
       <Position5>
-        <Filename Value="hl7testcases.pas"/>
+        <Filename Value="../pid.pas"/>
         <Caret Line="9" Column="27"/>
       </Position5>
       <Position6>
-        <Filename Value="hl7tests.lpr"/>
+        <Filename Value="../nk1.pas"/>
         <Caret Line="9" Column="27"/>
       </Position6>
       <Position7>
-        <Filename Value="../pid.pas"/>
-        <Caret Line="9" Column="27"/>
+        <Filename Value="../pv1.pas"/>
       </Position7>
       <Position8>
-        <Filename Value="../nk1.pas"/>
+        <Filename Value="../obx.pas"/>
         <Caret Line="9" Column="27"/>
       </Position8>
       <Position9>
-        <Filename Value="../pv1.pas"/>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="9" Column="27"/>
       </Position9>
       <Position10>
-        <Filename Value="../obx.pas"/>
+        <Filename Value="../msh.pas"/>
         <Caret Line="9" Column="27"/>
       </Position10>
       <Position11>
-        <Filename Value="../hl7.pas"/>
+        <Filename Value="../msa.pas"/>
         <Caret Line="9" Column="27"/>
       </Position11>
       <Position12>
-        <Filename Value="../msh.pas"/>
+        <Filename Value="../nte.pas"/>
         <Caret Line="9" Column="27"/>
       </Position12>
       <Position13>
-        <Filename Value="../msa.pas"/>
+        <Filename Value="../obr.pas"/>
         <Caret Line="9" Column="27"/>
       </Position13>
       <Position14>
-        <Filename Value="../nte.pas"/>
-        <Caret Line="9" Column="27"/>
+        <Filename Value="../obx.pas"/>
+        <Caret Line="2"/>
       </Position14>
       <Position15>
-        <Filename Value="../obr.pas"/>
+        <Filename Value="../orc.pas"/>
         <Caret Line="9" Column="27"/>
       </Position15>
       <Position16>
-        <Filename Value="../obx.pas"/>
-        <Caret Line="2"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="1801" Column="61" TopLine="1776"/>
       </Position16>
       <Position17>
-        <Filename Value="../orc.pas"/>
+        <Filename Value="../spm.pas"/>
         <Caret Line="9" Column="27"/>
       </Position17>
       <Position18>
-        <Filename Value="hl7testcases.pas"/>
-        <Caret Line="1801" Column="61" TopLine="1776"/>
-      </Position18>
-      <Position19>
-        <Filename Value="../spm.pas"/>
-        <Caret Line="9" Column="27"/>
-      </Position19>
-      <Position20>
         <Filename Value="../err.pas"/>
         <Caret Line="9" Column="27"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../evn.pas"/>
+        <Caret Line="2"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../pid.pas"/>
+        <Caret Line="2"/>
       </Position20>
       <Position21>
-        <Filename Value="../evn.pas"/>
+        <Filename Value="../pv1.pas"/>
         <Caret Line="2"/>
       </Position21>
       <Position22>
-        <Filename Value="../pid.pas"/>
+        <Filename Value="../pv2.pas"/>
         <Caret Line="2"/>
       </Position22>
       <Position23>
-        <Filename Value="../pv1.pas"/>
+        <Filename Value="../nk1.pas"/>
         <Caret Line="2"/>
       </Position23>
       <Position24>
-        <Filename Value="../pv2.pas"/>
+        <Filename Value="../blg.pas"/>
         <Caret Line="2"/>
       </Position24>
       <Position25>
-        <Filename Value="../nk1.pas"/>
+        <Filename Value="../bpo.pas"/>
         <Caret Line="2"/>
       </Position25>
       <Position26>
-        <Filename Value="../blg.pas"/>
+        <Filename Value="../ft1.pas"/>
         <Caret Line="2"/>
       </Position26>
       <Position27>
-        <Filename Value="../bpo.pas"/>
+        <Filename Value="../mllp.pas"/>
         <Caret Line="2"/>
       </Position27>
       <Position28>
-        <Filename Value="../ft1.pas"/>
+        <Filename Value="hl7testcases.pas"/>
         <Caret Line="2"/>
       </Position28>
       <Position29>
-        <Filename Value="../mllp.pas"/>
-        <Caret Line="2"/>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="141" Column="26" TopLine="126"/>
       </Position29>
       <Position30>
         <Filename Value="hl7testcases.pas"/>
-        <Caret Line="2"/>
+        <Caret Line="725" Column="93" TopLine="692"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
