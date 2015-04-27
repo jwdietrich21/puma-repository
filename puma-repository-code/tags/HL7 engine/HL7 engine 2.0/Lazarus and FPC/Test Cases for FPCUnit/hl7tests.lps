@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="42">
+      <Unit0>
+        <Filename Value="hl7tests.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="19"/>
+        <CursorPos Y="2"/>
+        <UsageCount Value="145"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="hl7testcases.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="HL7TestCases"/>
+        <EditorIndex Value="18"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="2"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="-1"/>
+          <TopLine Value="41"/>
+          <CursorPos X="3" Y="654"/>
+        </ExtraEditor1>
+        <ExtraEditor2>
+          <EditorIndex Value="-1"/>
+          <CursorPos Y="2"/>
+        </ExtraEditor2>
+        <UsageCount Value="145"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="../obx.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="OBX"/>
+        <EditorIndex Value="5"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="2"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <CursorPos Y="2"/>
+        </ExtraEditor1>
+        <ExtraEditor2>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+          <TopLine Value="-1"/>
+          <CursorPos X="-1" Y="-1"/>
+        </ExtraEditor2>
+        <UsageCount Value="79"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="../hl7.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="HL7"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="71" Y="4"/>
+        <ExtraEditorCount Value="2"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+          <TopLine Value="-1"/>
+          <CursorPos X="-1" Y="-1"/>
+        </ExtraEditor1>
+        <ExtraEditor2>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+          <CursorPos Y="2"/>
+        </ExtraEditor2>
+        <UsageCount Value="79"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="../msa.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MSA"/>
+        <EditorIndex Value="2"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+        </ExtraEditor1>
+        <UsageCount Value="79"/>
+        <Loaded Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="../msh.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MSH"/>
+        <EditorIndex Value="1"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+          <TopLine Value="129"/>
+          <CursorPos Y="162"/>
+        </ExtraEditor1>
+        <UsageCount Value="79"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../obr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="OBR"/>
+        <EditorIndex Value="4"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+        </ExtraEditor1>
+        <UsageCount Value="79"/>
+        <Loaded Value="True"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="../nte.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NTE"/>
+        <EditorIndex Value="3"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="-1"/>
+        </ExtraEditor1>
+        <UsageCount Value="76"/>
+        <Loaded Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="../err.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ERR"/>
+        <EditorIndex Value="8"/>
+        <CursorPos X="17" Y="2"/>
+        <UsageCount Value="75"/>
+        <Loaded Value="True"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../evn.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="EVN"/>
+        <EditorIndex Value="9"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+        </ExtraEditor1>
+        <UsageCount Value="72"/>
+        <Loaded Value="True"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../pid.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PID"/>
+        <EditorIndex Value="10"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <CursorPos Y="2"/>
+        </ExtraEditor1>
+        <UsageCount Value="61"/>
+        <Loaded Value="True"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../pv1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PV1"/>
+        <EditorIndex Value="11"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <CursorPos Y="2"/>
+        </ExtraEditor1>
+        <UsageCount Value="58"/>
+        <Loaded Value="True"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="../nk1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NK1"/>
+        <EditorIndex Value="13"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <CursorPos Y="2"/>
+        </ExtraEditor1>
+        <UsageCount Value="56"/>
+        <Loaded Value="True"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="../spm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SPM"/>
+        <EditorIndex Value="7"/>
+        <CursorPos Y="2"/>
+        <UsageCount Value="45"/>
+        <Loaded Value="True"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="../pv2.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PV2"/>
+        <EditorIndex Value="12"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+          <TopLine Value="35"/>
+          <CursorPos X="64" Y="42"/>
+        </ExtraEditor1>
+        <UsageCount Value="41"/>
+        <Loaded Value="True"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="../mllp.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MLLP"/>
+        <EditorIndex Value="17"/>
+        <CursorPos Y="2"/>
+        <UsageCount Value="36"/>
+        <Loaded Value="True"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="../orc.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ORC"/>
+        <EditorIndex Value="6"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="-1"/>
+          <TopLine Value="-1"/>
+          <CursorPos X="-1" Y="-1"/>
+        </ExtraEditor1>
+        <UsageCount Value="32"/>
+        <Loaded Value="True"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="../blg.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="BLG"/>
+        <EditorIndex Value="14"/>
+        <CursorPos Y="2"/>
+        <UsageCount Value="31"/>
+        <Loaded Value="True"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="../bpo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="BPO"/>
+        <EditorIndex Value="15"/>
+        <CursorPos Y="2"/>
+        <UsageCount Value="31"/>
+        <Loaded Value="True"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="../ft1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="FT1"/>
+        <EditorIndex Value="16"/>
+        <CursorPos Y="2"/>
+        <UsageCount Value="31"/>
+        <Loaded Value="True"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="hl7.pas"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <TopLine Value="191"/>
+          <CursorPos X="30" Y="202"/>
+        </ExtraEditor1>
+        <UsageCount Value="86"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="msh.pas"/>
+        <CursorPos Y="2"/>
+        <UsageCount Value="38"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="msa.pas"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <TopLine Value="46"/>
+          <CursorPos X="33" Y="57"/>
+        </ExtraEditor1>
+        <UsageCount Value="24"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="obr.pas"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <TopLine Value="45"/>
+          <CursorPos X="43" Y="76"/>
+        </ExtraEditor1>
+        <UsageCount Value="23"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="obx.pas"/>
+        <CursorPos Y="2"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <TopLine Value="10"/>
+          <CursorPos X="46" Y="39"/>
+        </ExtraEditor1>
+        <UsageCount Value="22"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="/Developer/lazarus/components/fpcunit/guitestrunner.pas"/>
+        <TopLine Value="788"/>
+        <CursorPos Y="802"/>
+        <UsageCount Value="10"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/strutils.pp"/>
+        <TopLine Value="1234"/>
+        <CursorPos Y="1249"/>
+        <UsageCount Value="10"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/sysutils/sysstrh.inc"/>
+        <TopLine Value="226"/>
+        <CursorPos X="14" Y="244"/>
+        <UsageCount Value="10"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="/Developer/lazarus/lcl/include/messagedialogs.inc"/>
+        <TopLine Value="222"/>
+        <CursorPos Y="235"/>
+        <UsageCount Value="10"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="/Developer/lazarus/lcl/include/lclintf.inc"/>
+        <TopLine Value="493"/>
+        <CursorPos Y="505"/>
+        <UsageCount Value="10"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="/usr/local/share/fpcsrc/packages/fcl-fpcunit/src/fpcunit.pp"/>
+        <TopLine Value="84"/>
+        <CursorPos X="21" Y="88"/>
+        <UsageCount Value="10"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/inc/objpash.inc"/>
+        <TopLine Value="176"/>
+        <CursorPos X="22" Y="194"/>
+        <UsageCount Value="10"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="../../../../../../JWD Backup/Backups.backupdb/PM G5 Johannes 2/2013-11-30-200500/G5 Dokumente/Projekte/PUMA Repository/code/trunk/HL7 support/hl7testcases.pas"/>
+        <TopLine Value="174"/>
+        <CursorPos X="29" Y="196"/>
+        <UsageCount Value="10"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/sysutils/datih.inc"/>
+        <TopLine Value="145"/>
+        <CursorPos X="10" Y="163"/>
+        <UsageCount Value="10"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/sysutils/dati.inc"/>
+        <TopLine Value="740"/>
+        <CursorPos X="3" Y="744"/>
+        <UsageCount Value="10"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/sysutils/sysinth.inc"/>
+        <TopLine Value="28"/>
+        <CursorPos X="3" Y="33"/>
+        <UsageCount Value="10"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/inc/systemh.inc"/>
+        <TopLine Value="289"/>
+        <CursorPos X="3" Y="307"/>
+        <UsageCount Value="10"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="/usr/local/share/fpcsrc/packages/fcl-xml/src/xmlread.pp"/>
+        <TopLine Value="1208"/>
+        <CursorPos X="58" Y="3832"/>
+        <UsageCount Value="10"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="/usr/local/share/fpcsrc/packages/fcl-xml/src/xmlwrite.pp"/>
+        <UsageCount Value="10"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="/usr/local/share/fpcsrc/packages/fcl-base/src/uriparser.pp"/>
+        <CursorPos X="10" Y="50"/>
+        <UsageCount Value="10"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="/usr/local/share/fpcsrc/packages/fcl-xml/src/dom.pp"/>
+        <TopLine Value="14"/>
+        <UsageCount Value="10"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="/usr/local/share/fpcsrc/packages/fcl-xml/src/xmlutils.pp"/>
+        <UsageCount Value="10"/>
+      </Unit41>
+    </Units>
+    <JumpHistory Count="29" HistoryIndex="28">
+      <Position1>
+        <Filename Value="../pv1.pas"/>
+      </Position1>
+      <Position2>
+        <Filename Value="../obx.pas"/>
+        <Caret Line="9" Column="27"/>
+      </Position2>
+      <Position3>
+        <Filename Value="../hl7.pas"/>
+        <Caret Line="9" Column="27"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../msh.pas"/>
+        <Caret Line="9" Column="27"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../msa.pas"/>
+        <Caret Line="9" Column="27"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../nte.pas"/>
+        <Caret Line="9" Column="27"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../obr.pas"/>
+        <Caret Line="9" Column="27"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../obx.pas"/>
+        <Caret Line="2"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../orc.pas"/>
+        <Caret Line="9" Column="27"/>
+      </Position9>
+      <Position10>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="1801" Column="61" TopLine="1776"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../spm.pas"/>
+        <Caret Line="9" Column="27"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../err.pas"/>
+        <Caret Line="9" Column="27"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../evn.pas"/>
+        <Caret Line="2"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../pid.pas"/>
+        <Caret Line="2"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../pv1.pas"/>
+        <Caret Line="2"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../pv2.pas"/>
+        <Caret Line="2"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../nk1.pas"/>
+        <Caret Line="2"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../blg.pas"/>
+        <Caret Line="2"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../bpo.pas"/>
+        <Caret Line="2"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../ft1.pas"/>
+        <Caret Line="2"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../mllp.pas"/>
+        <Caret Line="2"/>
+      </Position21>
+      <Position22>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="2"/>
+      </Position22>
+      <Position23>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="141" Column="26" TopLine="126"/>
+      </Position23>
+      <Position24>
+        <Filename Value="hl7testcases.pas"/>
+        <Caret Line="725" Column="93" TopLine="692"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../pid.pas"/>
+        <Caret Line="53" TopLine="52"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../pv1.pas"/>
+        <Caret Line="53" TopLine="52"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../pv1.pas"/>
+        <Caret Line="52" TopLine="52"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../pv2.pas"/>
+        <Caret Line="53" TopLine="52"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../nk1.pas"/>
+        <Caret Line="53" TopLine="52"/>
+      </Position29>
+    </JumpHistory>
+  </ProjectSession>
+  <Debugging>
+    <Watches Count="5">
+      <Item1>
+        <Expression Value="OBRRecord.SetID"/>
+      </Item1>
+      <Item2>
+        <Expression Value="OBRRecord.ReqDateTime"/>
+      </Item2>
+      <Item3>
+        <Expression Value="OBRRecord.OBsEndDateTime"/>
+      </Item3>
+      <Item4>
+        <Expression Value="OBRRecord.SpecimenSource"/>
+      </Item4>
+      <Item5>
+        <Expression Value="TESTSEGMENT"/>
+      </Item5>
+    </Watches>
+  </Debugging>
+</CONFIG>
