@@ -6,7 +6,7 @@ unit HL7TestCases;
 
 { HL7 test cases }
 
-{ Version 2.0.0 (Hermes) }
+{ Version 2.0.1 (Hermes) }
 
 { (c) Johannes W. Dietrich, 1994 - 2015 }
 { (c) Marek Skorupski 2015 }

@@ -6,9 +6,9 @@ unit PV1;
 
 { HL7 support unit for patient visit segments }
 
-{ Version 2.0.0 (Hermes) }
+{ Version 2.0.1 (Hermes) }
 
- { (c) J. W. Dietrich, 1994 - 2014 }
+ { (c) J. W. Dietrich, 1994 - 2015 }
  { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
  { (c) University of Ulm Hospitals 2002-2004 }
  { (c) Ruhr University of Bochum 2005 - 2014 }

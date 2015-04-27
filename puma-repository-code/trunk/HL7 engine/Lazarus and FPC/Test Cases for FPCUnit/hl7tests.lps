@@ -7,8 +7,9 @@
       <Unit0>
         <Filename Value="hl7tests.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="19"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="3" Y="2"/>
         <UsageCount Value="145"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -17,7 +18,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7TestCases"/>
         <EditorIndex Value="18"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="4" Y="2"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -37,7 +38,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="OBX"/>
         <EditorIndex Value="5"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="5" Y="2"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -56,8 +57,7 @@
         <Filename Value="../hl7.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7"/>
-        <IsVisibleTab Value="True"/>
-        <CursorPos X="71" Y="4"/>
+        <CursorPos Y="2"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -108,7 +108,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="OBR"/>
         <EditorIndex Value="4"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="6" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -122,7 +122,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="NTE"/>
         <EditorIndex Value="3"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="2" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -136,7 +136,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ERR"/>
         <EditorIndex Value="8"/>
-        <CursorPos X="17" Y="2"/>
+        <CursorPos X="7" Y="2"/>
         <UsageCount Value="75"/>
         <Loaded Value="True"/>
       </Unit8>
@@ -145,7 +145,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="EVN"/>
         <EditorIndex Value="9"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="3" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -159,7 +159,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="PID"/>
         <EditorIndex Value="10"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="3" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -173,6 +173,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="PV1"/>
         <EditorIndex Value="11"/>
+        <CursorPos X="7" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -186,7 +187,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="NK1"/>
         <EditorIndex Value="13"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="3" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -200,7 +201,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SPM"/>
         <EditorIndex Value="7"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="6" Y="2"/>
         <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit13>
@@ -209,7 +210,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="PV2"/>
         <EditorIndex Value="12"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="2" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -225,7 +226,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MLLP"/>
         <EditorIndex Value="17"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="3" Y="2"/>
         <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit15>
@@ -234,7 +235,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ORC"/>
         <EditorIndex Value="6"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="7" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -250,7 +251,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="BLG"/>
         <EditorIndex Value="14"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="4" Y="2"/>
         <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit17>
@@ -268,7 +269,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="FT1"/>
         <EditorIndex Value="16"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="16" Y="9"/>
         <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit19>

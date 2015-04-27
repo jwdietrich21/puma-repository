@@ -6,7 +6,7 @@ unit FT1;
 
 { HL7 support unit for financial transaction segments }
 
-{ Version 2.0.0 (Hermes) }
+{ Version 2.0.1 (Hermes) }
 
 { (c) Johannes W. Dietrich, 1994 - 2015 }
 { (c) Marek Skorupski 2015 }

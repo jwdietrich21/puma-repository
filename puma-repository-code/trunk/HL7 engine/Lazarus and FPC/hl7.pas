@@ -6,7 +6,7 @@ unit HL7;
 
 { HL7 base unit }
 
-{ Version 2.0.0 (Hermes) }
+{ Version 2.0.1 (Hermes) }
 
 { (c) Johannes W. Dietrich, 1994 - 2015 }
 { (c) Marek Skorupski 2015 }
@@ -65,7 +65,7 @@ const
   STANDARD_ESC_SEP    = '\';
   STANDARD_SUBC_SEP   = '&';
   STANDARD_DELIMITERS = STANDARD_FIELD_SEP + STANDARD_COMP_SEP +
-    STANDARD_REP_SEP + STANDARD_ESC_SEP + STANDARD_SUBC_SEP;
+    STANDARD_REP_SEP + STANDARD_ESC_SEP + STANDARD_SUBC_SEP; // '|^~\&'
   SEGMENT_DELIMITER   = ksCR;
 
   ACKNOWLEDGEMENT_OK = 'AA';

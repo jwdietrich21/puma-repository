@@ -6,7 +6,7 @@ unit GUI;
 
 { Demo implementation: Viewer for HL7 messages }
 
-{ Version 2.0.0 (Hermes) }
+{ Version 2.0.1 (Hermes) }
 
 { (c) J. W. Dietrich, 1994 - 2015 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
