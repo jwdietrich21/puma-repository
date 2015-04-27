@@ -63,6 +63,7 @@ type
     PerformingOrgAddr: tXAD;  // Introduced in HL7 2.7
     PerformingOrgMedicalDirector: tXCN;  // Introduced in HL7 2.7
     PatientResultsReleaseCat: tID;  // Introduced in HL7 2.7
+    RootCause, LocalProcessControl: tCWE;  // Introduced in HL7 2.8
   end;
 
 function OBX_Segment(message: THL7Message): THL7Segment;
@@ -147,6 +148,10 @@ begin
         PerformingOrgMedicalDirector :=
           aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         PatientResultsReleaseCat :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        RootCause :=
+          aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        LocalProcessControl :=
           aSegment.FirstOccurrence.GetNextFieldContent(nextField);
       end;
   end
@@ -252,7 +257,8 @@ begin
       ObservationSite + FieldSep + ObservationInstanceID + FieldSep +
       MoodCode + FieldSep + PerformingOrgName + FieldSep + PerformingOrgAddr +
       FieldSep + PerformingOrgMedicalDirector + FieldSep +
-      PatientResultsReleaseCat + FieldSep;
+      PatientResultsReleaseCat + FieldSep + RootCause + FieldSep +
+      LocalProcessControl + FieldSep;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
 end;

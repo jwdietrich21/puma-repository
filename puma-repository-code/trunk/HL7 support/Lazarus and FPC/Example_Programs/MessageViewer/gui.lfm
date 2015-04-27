@@ -122,6 +122,7 @@ object MainForm: TMainForm
           object ComponentsListBox: TListBox
             Left = 2
             Height = 311
+            Hint = 'Available components'
             Top = 5
             Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
@@ -129,6 +130,8 @@ object MainForm: TMainForm
             ItemHeight = 0
             OnClick = ComponentsListBoxClick
             OnDrawItem = SegmentsListBoxDrawItem
+            ParentShowHint = False
+            ShowHint = True
             Style = lbOwnerDrawFixed
             TabOrder = 0
           end
@@ -148,12 +151,15 @@ object MainForm: TMainForm
           object SubComponentsListBox: TListBox
             Left = 2
             Height = 311
+            Hint = 'Available subcomponents'
             Top = 5
             Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
             ExtendedSelect = False
             ItemHeight = 0
             OnDrawItem = SegmentsListBoxDrawItem
+            ParentShowHint = False
+            ShowHint = True
             Style = lbOwnerDrawFixed
             TabOrder = 0
           end
@@ -172,6 +178,7 @@ object MainForm: TMainForm
           object SegmentsListBox: TListBox
             Left = 2
             Height = 311
+            Hint = 'Available segments'
             Top = 5
             Width = 187
             Anchors = [akTop, akLeft, akRight, akBottom]
@@ -179,6 +186,8 @@ object MainForm: TMainForm
             ItemHeight = 0
             OnClick = SegmentsListBoxClick
             OnDrawItem = SegmentsListBoxDrawItem
+            ParentShowHint = False
+            ShowHint = True
             Style = lbOwnerDrawFixed
             TabOrder = 0
           end
@@ -198,6 +207,7 @@ object MainForm: TMainForm
           object FieldsListBox: TListBox
             Left = 2
             Height = 311
+            Hint = 'Available fields'
             Top = 5
             Width = 188
             Anchors = [akTop, akLeft, akRight, akBottom]
@@ -205,6 +215,8 @@ object MainForm: TMainForm
             ItemHeight = 0
             OnClick = FieldsListBoxClick
             OnDrawItem = SegmentsListBoxDrawItem
+            ParentShowHint = False
+            ShowHint = True
             Style = lbOwnerDrawFixed
             TabOrder = 0
           end

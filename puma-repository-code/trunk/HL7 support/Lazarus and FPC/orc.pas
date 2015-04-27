@@ -53,17 +53,19 @@ type
     OrderControlCodeReason: tCE;
     EnteringOrganization, EnteringDevice: tCE;
     ActionBy: tXCN;
-    AdvancedBeneficiaryNoticeCode: tCE;
-    OrderingFacilityName: tXON;
-    OrderingFacilityAddress: tXAD;
-    OrderingFacilityPhoneNumber: tXTN;
-    OrderingProviderAddress: tXAD;
-    OrderStatusModifier, AdvancedBeneficiaryNoticeOverrideReason: tCE;
-    FillersExpectedAvailabilityDateTime: tDTM;
-    ConfidentialityCode, OrderType, EntererAuthorizationMode: tCE;
-    ParentUniversalServiceIdentifier: tCE;
-    AdvancedBeneficiaryNoticeDate: tDT;
-    AlternatePlacerOrderNumber: tCX;
+    AdvancedBeneficiaryNoticeCode: tCE;  // Introduced in HL7 2.4
+    OrderingFacilityName: tXON;  // Introduced in HL7 2.4
+    OrderingFacilityAddress: tXAD;  // Introduced in HL7 2.4
+    OrderingFacilityPhoneNumber: tXTN;  // Introduced in HL7 2.4
+    OrderingProviderAddress: tXAD;  // Introduced in HL7 2.4
+    OrderStatusModifier: tCE;  // Introduced in HL7 2.4
+    AdvancedBeneficiaryNoticeOverrideReason: tCE;  // Introduced in HL7 2.5
+    FillersExpectedAvailabilityDateTime: tDTM;  // Introduced in HL7 2.5
+    ConfidentialityCode, OrderType, EntererAuthorizationMode: tCE;  // Introduced in HL7 2.5
+    ParentUniversalServiceIdentifier: tCE;  // Introduced in HL7 2.6
+    AdvancedBeneficiaryNoticeDate: tDT;  // Introduced in HL7 2.7
+    AlternatePlacerOrderNumber: tCX;  // Introduced in HL7 2.7
+    OrderWorkflowProfile: tCWE;  // Introduced in HL7 2.8
   end;
 
 function ORC_Segment(message: THL7Message): THL7Segment;
@@ -113,7 +115,22 @@ begin
         OrderControlCodeReason := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         EnteringOrganization := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
         EnteringDevice := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
-        ActionBy := aSegment.FirstOccurrence.GetNextFieldContent(nextField)
+        ActionBy := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AdvancedBeneficiaryNoticeCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrderingFacilityName := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrderingFacilityAddress := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrderingFacilityPhoneNumber := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrderingProviderAddress := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrderStatusModifier := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AdvancedBeneficiaryNoticeOverrideReason := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        FillersExpectedAvailabilityDateTime := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ConfidentialityCode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrderType := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        EntererAuthorizationMode := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        ParentUniversalServiceIdentifier := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AdvancedBeneficiaryNoticeDate := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        AlternatePlacerOrderNumber := aSegment.FirstOccurrence.GetNextFieldContent(nextField);
+        OrderWorkflowProfile := aSegment.FirstOccurrence.GetNextFieldContent(nextField)  // Introduced in HL7 2.8
       end;
   end
   else
@@ -149,9 +166,18 @@ begin
       FieldSep + FillerOrderNumber + FieldSep + PlacerGroupNumber + FieldSep + OrderStatus +
       FieldSep + ResponseFlag + FieldSep + QuantityTiming + FieldSep + Parent +
       FieldSep + DateTimeofTransaction + FieldSep + EnteredBy + FieldSep + VerifiedBy +
-      FieldSep + OrderingProvider + FieldSep + EnterersLocation + FieldSep + CallBackPhoneNumber +
-      FieldSep + OrderEffectiveDateTime + FieldSep + OrderControlCodeReason + FieldSep + EnteringOrganization +
-      FieldSep + EnteringDevice + FieldSep + ActionBy;
+      FieldSep + OrderingProvider + FieldSep + EnterersLocation + FieldSep +
+      CallBackPhoneNumber +  FieldSep + OrderEffectiveDateTime + FieldSep +
+      OrderControlCodeReason + FieldSep + EnteringOrganization +
+      FieldSep + EnteringDevice + FieldSep + ActionBy + FieldSep +
+      AdvancedBeneficiaryNoticeCode + FieldSep + OrderingFacilityName +
+      FieldSep + OrderingFacilityAddress + FieldSep + OrderingFacilityPhoneNumber +
+      FieldSep + OrderingProviderAddress + FieldSep + OrderStatusModifier +
+      FieldSep + AdvancedBeneficiaryNoticeOverrideReason + FieldSep +
+      FillersExpectedAvailabilityDateTime + FieldSep + ConfidentialityCode +
+      FieldSep + OrderType + FieldSep + EntererAuthorizationMode + FieldSep +
+      ParentUniversalServiceIdentifier + FieldSep + AdvancedBeneficiaryNoticeDate +
+      FieldSep + AlternatePlacerOrderNumber + FieldSep + OrderWorkflowProfile + FieldSep;
   end;
   newSegment.contentString := theString;
   message.AddSegment(newSegment);
