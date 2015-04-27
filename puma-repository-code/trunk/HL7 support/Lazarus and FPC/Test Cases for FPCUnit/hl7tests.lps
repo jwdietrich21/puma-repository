@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="19"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="144"/>
+        <UsageCount Value="145"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -29,7 +29,7 @@
           <EditorIndex Value="-1"/>
           <CursorPos Y="2"/>
         </ExtraEditor2>
-        <UsageCount Value="144"/>
+        <UsageCount Value="145"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -49,14 +49,15 @@
           <TopLine Value="-1"/>
           <CursorPos X="-1" Y="-1"/>
         </ExtraEditor2>
-        <UsageCount Value="78"/>
+        <UsageCount Value="79"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="../hl7.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7"/>
-        <CursorPos Y="2"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="71" Y="4"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -69,7 +70,7 @@
           <WindowIndex Value="1"/>
           <CursorPos Y="2"/>
         </ExtraEditor2>
-        <UsageCount Value="78"/>
+        <UsageCount Value="79"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -83,7 +84,7 @@
           <EditorIndex Value="-1"/>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="78"/>
+        <UsageCount Value="79"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -99,7 +100,7 @@
           <TopLine Value="129"/>
           <CursorPos Y="162"/>
         </ExtraEditor1>
-        <UsageCount Value="78"/>
+        <UsageCount Value="79"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -113,7 +114,7 @@
           <EditorIndex Value="-1"/>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="78"/>
+        <UsageCount Value="79"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -127,7 +128,7 @@
           <EditorIndex Value="-1"/>
           <WindowIndex Value="-1"/>
         </ExtraEditor1>
-        <UsageCount Value="75"/>
+        <UsageCount Value="76"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -136,7 +137,7 @@
         <UnitName Value="ERR"/>
         <EditorIndex Value="8"/>
         <CursorPos X="17" Y="2"/>
-        <UsageCount Value="74"/>
+        <UsageCount Value="75"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -150,7 +151,7 @@
           <EditorIndex Value="-1"/>
           <WindowIndex Value="1"/>
         </ExtraEditor1>
-        <UsageCount Value="71"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -164,7 +165,7 @@
           <EditorIndex Value="-1"/>
           <CursorPos Y="2"/>
         </ExtraEditor1>
-        <UsageCount Value="60"/>
+        <UsageCount Value="61"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -177,7 +178,7 @@
           <EditorIndex Value="-1"/>
           <CursorPos Y="2"/>
         </ExtraEditor1>
-        <UsageCount Value="57"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -191,7 +192,7 @@
           <EditorIndex Value="-1"/>
           <CursorPos Y="2"/>
         </ExtraEditor1>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -200,7 +201,7 @@
         <UnitName Value="SPM"/>
         <EditorIndex Value="7"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="44"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -216,7 +217,7 @@
           <TopLine Value="35"/>
           <CursorPos X="64" Y="42"/>
         </ExtraEditor1>
-        <UsageCount Value="40"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -225,7 +226,7 @@
         <UnitName Value="MLLP"/>
         <EditorIndex Value="17"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit15>
       <Unit16>
@@ -236,13 +237,12 @@
         <CursorPos Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
-          <IsVisibleTab Value="True"/>
           <EditorIndex Value="-1"/>
-          <WindowIndex Value="1"/>
+          <WindowIndex Value="-1"/>
           <TopLine Value="-1"/>
           <CursorPos X="-1" Y="-1"/>
         </ExtraEditor1>
-        <UsageCount Value="31"/>
+        <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -251,17 +251,16 @@
         <UnitName Value="BLG"/>
         <EditorIndex Value="14"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="../bpo.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="BPO"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="15"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -270,7 +269,7 @@
         <UnitName Value="FT1"/>
         <EditorIndex Value="16"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
@@ -415,7 +414,7 @@
         <UsageCount Value="10"/>
       </Unit41>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../pv1.pas"/>
       </Position1>
@@ -531,10 +530,6 @@
         <Filename Value="../nk1.pas"/>
         <Caret Line="53" TopLine="52"/>
       </Position29>
-      <Position30>
-        <Filename Value="../ft1.pas"/>
-        <Caret Line="2" TopLine="67"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
