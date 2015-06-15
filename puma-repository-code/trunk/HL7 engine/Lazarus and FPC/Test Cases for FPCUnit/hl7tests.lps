@@ -18,8 +18,8 @@
         <UnitName Value="HL7TestCases"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="18"/>
-        <TopLine Value="103"/>
-        <CursorPos X="4" Y="2"/>
+        <TopLine Value="367"/>
+        <CursorPos X="3" Y="314"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -58,7 +58,8 @@
         <Filename Value="../hl7.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HL7"/>
-        <CursorPos Y="2"/>
+        <TopLine Value="208"/>
+        <CursorPos X="39" Y="224"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
