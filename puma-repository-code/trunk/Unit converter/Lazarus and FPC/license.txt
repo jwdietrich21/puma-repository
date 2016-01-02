@@ -1,4 +1,4 @@
-Copyright (c) 1994-2014, Dr. Johannes W. Dietrich M.D., Klinikum der 
+Copyright (c) 1994-2016, Dr. Johannes W. Dietrich M.D., Klinikum der 
 Universitaet Muenchen, Universitaetsklinikum Ulm, and 
 Universitaetsklinikum Bergmannsheil, Ruhr-Universitaet Bochum.
 

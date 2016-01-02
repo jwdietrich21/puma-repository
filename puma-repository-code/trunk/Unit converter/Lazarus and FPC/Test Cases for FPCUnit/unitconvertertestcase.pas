@@ -6,12 +6,12 @@ unit UnitConverterTestCase;
 
 { Unit Converter }
 
-{ Version 1.3.2 (Delphinus) }
+{ Version 1.4.0 (Eridanus) }
 
-{ (c) J. W. Dietrich, 1994 - 2014 }
+{ (c) J. W. Dietrich, 1994 - 2016 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2014 }
+{ (c) Ruhr University of Bochum 2005 - 2016 }
 
 { Parser and converter for measurement units }
 
