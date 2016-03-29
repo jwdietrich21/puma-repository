@@ -6,7 +6,7 @@ program UnitConverterTests;
 
 { Unit Converter }
 
-{ Version 1.3.2 }
+{ Version 1.4.0 (Eridanus) }
 
 { (c) J. W. Dietrich, 1994 - 2014 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
