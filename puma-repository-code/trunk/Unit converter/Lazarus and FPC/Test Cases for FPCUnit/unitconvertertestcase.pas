@@ -31,7 +31,7 @@ unit UnitConverterTestCase;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, Math, unitconverter;
+  Classes, SysUtils, fpcunit, testregistry, Math, unitconverter;
 
 const
   T4_MOLAR_MASS = 776.87; {molar mass of T4}

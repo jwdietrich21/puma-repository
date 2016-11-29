@@ -17,7 +17,8 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="4"/>
-      <BuildNr Value="39"/>
+      <BuildNr Value="45"/>
+      <Attributes pvaDebug="True"/>
       <StringTable CompanyName="FORMATIO RETICULARIS " InternalName="Unit Converter 1.4.0 (Eridanus) " LegalCopyright="© 1994 - 2016 J. W. Dietrich and collaborators" ProductName="PUMA Repository" ProductVersion="1.4.0"/>
     </VersionInfo>
     <BuildModes Count="1" Active="Default">
@@ -58,7 +59,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverterTestCase"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="4" Y="2"/>
+        <CursorPos X="8" Y="2"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -67,44 +68,132 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverter"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="6" Y="2"/>
+        <CursorPos Y="2"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit2>
     </Units>
-    <JumpHistory Count="8" HistoryIndex="7">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../unitconverter.pas"/>
-        <Caret Line="2"/>
+        <Filename Value="UnitConverterTests.lpr"/>
+        <Caret Line="9" Column="29"/>
       </Position1>
       <Position2>
         <Filename Value="../unitconverter.pas"/>
-        <Caret Line="290" Column="25" TopLine="272"/>
+        <Caret Line="2" Column="29"/>
       </Position2>
       <Position3>
         <Filename Value="../unitconverter.pas"/>
-        <Caret Line="159" Column="18" TopLine="141"/>
+        <Caret Line="165" Column="46" TopLine="150"/>
       </Position3>
       <Position4>
         <Filename Value="../unitconverter.pas"/>
-        <Caret Line="9" Column="17"/>
+        <Caret Line="2" Column="6"/>
       </Position4>
       <Position5>
-        <Filename Value="unitconvertertestcase.pas"/>
-        <Caret Line="9" Column="29"/>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="324" Column="10" TopLine="306"/>
       </Position5>
       <Position6>
-        <Filename Value="UnitConverterTests.lpr"/>
-        <Caret Line="9" Column="29"/>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="325" Column="3" TopLine="307"/>
       </Position6>
       <Position7>
         <Filename Value="../unitconverter.pas"/>
-        <Caret Line="2" Column="29"/>
+        <Caret Line="366" Column="13" TopLine="349"/>
       </Position7>
       <Position8>
         <Filename Value="../unitconverter.pas"/>
-        <Caret Line="165" Column="46" TopLine="150"/>
+        <Caret Line="376" Column="10" TopLine="365"/>
       </Position8>
+      <Position9>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="419" Column="24" TopLine="410"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="376" Column="10" TopLine="359"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="419" Column="24" TopLine="392"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="376" TopLine="359"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="418" Column="2" TopLine="391"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="583" Column="18" TopLine="581"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="594" Column="71" TopLine="581"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="604" Column="70" TopLine="581"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="575" Column="30" TopLine="558"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="583" Column="18" TopLine="558"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="594" Column="71" TopLine="566"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="604" Column="70" TopLine="577"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="575" Column="30" TopLine="558"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="583" Column="18" TopLine="558"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="594" Column="71" TopLine="566"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="604" Column="70" TopLine="577"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="575" Column="30" TopLine="558"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="583" Column="18" TopLine="558"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="594" Column="71" TopLine="566"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="604" Column="70" TopLine="577"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../unitconverter.pas"/>
+        <Caret Line="575" Column="27" TopLine="564"/>
+      </Position29>
+      <Position30>
+        <Filename Value="unitconvertertestcase.pas"/>
+        <Caret Line="2" Column="4"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
