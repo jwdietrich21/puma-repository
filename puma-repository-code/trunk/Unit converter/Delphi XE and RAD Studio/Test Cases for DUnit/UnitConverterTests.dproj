@@ -66,6 +66,7 @@
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <VerInfo_Debug>true</VerInfo_Debug>
         <VerInfo_Keys>CompanyName=FORMATIO RETICULARIS ;FileDescription=;FileVersion=1.4.0.52;InternalName=Unit Converter 1.4.0 (Eridanus) ;LegalCopyright=© 1994 - 2016 J. W. Dietrich and collaborators;LegalTrademarks=;OriginalFilename=;ProductName=PUMA Repository;ProductVersion=1.4.0;Comments=</VerInfo_Keys>
         <VerInfo_Build>52</VerInfo_Build>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>

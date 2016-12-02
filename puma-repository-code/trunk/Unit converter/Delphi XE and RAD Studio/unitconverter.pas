@@ -321,19 +321,14 @@ function ValidChar(theChar: char): boolean;
 type
   format1 = set of char;
 var
-  formatn1, formatn2, formatd1, formatd2, formate, formata, formato,
-  formatc, formatl, validformat: format1;
+  formatn, formatd, formate, formato,
+  validformat: format1;
 begin
-  formatn1 := ['1'..'9', '0', kTAB];
-  formatn2 := ['1'..'9', '0'];
-  formatd1 := ['.', ','];
-  formatd2 := ['.'];
+  formatn := ['1'..'9', '0'];
+  formatd := ['.', ','];
   formate := ['e', 'E'];
-  formata := [' '..chr(255)];
   formato := ['+', '-'];
-  formatc := [char($1c), char($1d), char($1e), char($1f), char($08)];
-  formatl := [kCR, kLF];
-  validformat := formatn2 + formatd1 + formate + formato;
+  validformat := formatn + formatd + formate + formato;
   if theChar in validformat then
     ValidChar := True
   else
@@ -378,7 +373,6 @@ function ParsedUnitstring(theString: string): TUnitElements;
   {parses a string for measurement unit and breaks it up in single components of a TUnitElements record}
 var
   theElements: TUnitElements;
-  tempPos:integer;
 begin
   with theElements do
   begin
@@ -421,8 +415,7 @@ begin
               if copy(theString, 2, 1) = 'c' then
               begin
                 MassPrefix := PrefixLabel[4]; {mc -> µ}
-                temppos := pos('/', theString) - 2;
-                MassUnit := copy(theString, 3, pos('/', theString) - 3);
+                 MassUnit := copy(theString, 3, pos('/', theString) - 3);
               end
               else
               begin
