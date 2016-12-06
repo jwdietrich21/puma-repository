@@ -164,7 +164,7 @@ const
   UnitConverter_version = '1.4.0.0';
   UnitConverter_internalversion = 'Eridanus';
 
-  MAXFACTORS = 11; {number of supported prefixes for measurement units}
+  MAXFACTORS = 12; {number of supported prefixes for measurement units}
   {$IFNDEF FULLMATHAVAILABLE}
   NaN = 0.0 / 0.0;
   {$ENDIF}
@@ -184,7 +184,7 @@ var
   { the following arrays are provided as global variables rather than as }
   { constants in order to ensure backwards-compatibility with very old }
   { Pascal compilers }
-  PrefixLabel: array[0..MAXFACTORS - 1] of string;
+  PrefixLabel: array[0..MAXFACTORS - 1] of string[2];
   PrefixFactor: array[0..MAXFACTORS - 1] of real;
   UnitLabel: array[0..MAXFACTORS - 1] of string;
 
@@ -288,30 +288,32 @@ end;
 {$ENDIF}
 
 procedure InitConversionFactors;
-{sets labels and appropriate conversion factors for the elements of measurement units}
+{sets labels and appropriate conversion factors for the elements of units of measurement}
 begin
   PrefixLabel[0] := '';
   PrefixLabel[1] := 'd';        // deci
   PrefixLabel[2] := 'c';        // centi
   PrefixLabel[3] := 'm';        // milli
-  PrefixLabel[4] := #194#181;   // micro
-  PrefixLabel[5] := 'n';        // nano
-  PrefixLabel[6] := 'p';        // pico
-  PrefixLabel[7] := 'f';        // femto
-  PrefixLabel[8] := 'a';        // atto
-  PrefixLabel[9] := 'z';        // zepto
-  PrefixLabel[10] := 'y';       // yokto
+  PrefixLabel[4] := 'dm';       // dimi, a historical French unit
+  PrefixLabel[5] := #194#181;   // micro
+  PrefixLabel[6] := 'n';        // nano
+  PrefixLabel[7] := 'p';        // pico
+  PrefixLabel[8] := 'f';        // femto
+  PrefixLabel[9] := 'a';        // atto
+  PrefixLabel[10] := 'z';        // zepto
+  PrefixLabel[11] := 'y';       // yokto
   PrefixFactor[0] := 1;
   PrefixFactor[1] := 1e-1;
   PrefixFactor[2] := 1e-2;
   PrefixFactor[3] := 1e-3;
-  PrefixFactor[4] := 1e-6;
-  PrefixFactor[5] := 1e-9;
-  PrefixFactor[6] := 1e-12;
-  PrefixFactor[7] := 1e-15;
-  PrefixFactor[8] := 1e-18;
-  PrefixFactor[9] := 1e-21;
-  PrefixFactor[10] := 1e-24;
+  PrefixFactor[4] := 1e-4;
+  PrefixFactor[5] := 1e-6;
+  PrefixFactor[6] := 1e-9;
+  PrefixFactor[7] := 1e-12;
+  PrefixFactor[8] := 1e-15;
+  PrefixFactor[9] := 1e-18;
+  PrefixFactor[10] := 1e-21;
+  PrefixFactor[11] := 1e-24;
   UnitLabel[0] := 'g';
   UnitLabel[1] := 'mol';
 end;
@@ -414,14 +416,32 @@ begin
             begin
               if copy(theString, 2, 1) = 'c' then
               begin
-                MassPrefix := PrefixLabel[4]; {mc -> µ}
+                MassPrefix := PrefixLabel[5]; {mc -> µ}
                  MassUnit := copy(theString, 3, pos('/', theString) - 3);
               end
               else
               begin
-                MassPrefix := copy(theString, 1, 1);
+                MassPrefix := 'm';
                 MassUnit := copy(theString, 2, pos('/', theString) - 2);
               end;
+            end
+            else if copy(theString, 1, 1) = 'd' then
+            begin
+              if copy(theString, 2, 1) = 'd' then
+              begin
+                MassPrefix := PrefixLabel[4]; {dm}
+                 MassUnit := copy(theString, 3, pos('/', theString) - 3);
+              end
+              else
+              begin
+                MassPrefix := 'd';
+                MassUnit := copy(theString, 2, pos('/', theString) - 2);
+              end;
+            end
+            else if copy(theString, 1, 1) = 'u' then
+            begin
+              MassPrefix := PrefixLabel[5];
+              MassUnit := copy(theString, 2, pos('/', theString) - 2);
             end
             else
             begin
@@ -432,11 +452,20 @@ begin
         if copy(theString, pos('/', theString) + 1, 1) = 'm' then
           begin
             if copy(theString, pos('/', theString) + 2, 1) = 'c' then
-              VolumePrefix := PrefixLabel[4] {mc -> µ}
+              VolumePrefix := PrefixLabel[5] {mc -> µ}
             else
               VolumePrefix := 'm';
           end
-          else
+        else if copy(theString, pos('/', theString) + 1, 1) = 'd' then
+          begin
+            if copy(theString, pos('/', theString) + 2, 1) = 'm' then
+              VolumePrefix := PrefixLabel[4] {dm}
+            else
+              VolumePrefix := 'd';
+          end
+        else if copy(theString, pos('/', theString) + 1, 1) = 'u' then
+          VolumePrefix := PrefixLabel[5]
+        else
             VolumePrefix := copy(theString, pos('/', theString) + 1, 1);
         VolumeUnit := 'l';
         if VolumePrefix = VolumeUnit then
