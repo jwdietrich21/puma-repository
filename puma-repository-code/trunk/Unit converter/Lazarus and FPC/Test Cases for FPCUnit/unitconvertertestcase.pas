@@ -85,6 +85,8 @@ type
     procedure TestCase15;
     procedure TestCase16;
     procedure TestCase101;
+    procedure TestCase102;
+    procedure TestCase103;
   end;
 
 
@@ -425,6 +427,25 @@ begin
   theResultString := ConvertedUnitF('5 /nl', 1, '/µl', ffNumber, 2, 2);
   AssertTrue((LeftStr(theResultString, 5) = '5,000') or (LeftStr(theResultString, 5) = '5.000'));
 end;
+
+procedure TconverterTestCases.TestCase102;
+{Cell count: /dml to /l}
+var
+  theResultString: String;
+begin
+  theResultString := ConvertedUnitF('5 /dml', 1, '/l', ffNumber, 2, 2);
+  AssertTrue((LeftStr(theResultString, 5) = '50,00') or (LeftStr(theResultString, 5) = '50.00'));
+end;
+
+procedure TconverterTestCases.TestCase103;
+{Cell count: /nl to /µl (written as ul)}
+var
+  theResultString: String;
+begin
+  theResultString := ConvertedUnitF('5 /nl', 1, '/ul', ffNumber, 2, 2);
+  AssertTrue((LeftStr(theResultString, 5) = '5,000') or (LeftStr(theResultString, 5) = '5.000'));
+end;
+
 
 initialization
 
