@@ -164,7 +164,7 @@ const
   UnitConverter_version = '1.4.0.0';
   UnitConverter_internalversion = 'Eridanus';
 
-  MAXFACTORS = 11; {number of supported prefixes for measurement units}
+  MAXFACTORS = 12; {number of supported prefixes for measurement units}
   {$IFNDEF FULLMATHAVAILABLE}
   NaN = 0.0 / 0.0;
   {$ENDIF}
