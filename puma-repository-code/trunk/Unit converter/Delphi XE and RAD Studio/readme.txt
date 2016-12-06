@@ -1,8 +1,8 @@
 Unit Converter Notes
 
 The Unit Converter is a Pascal unit that provides functions for parsing 
-measurements consisting of measurement values and units. It also supports 
-conversion of measurements from one unit to another one.
+measurements consisting of numeric values and units of measurement. It also supports 
+conversion of clinical laboratory measurements from one unit to another one.
 
 In order to use the Unit Converter in your own enterprises you simply have to 
 add the file "unitconverter.pas" to your project. The other files in this 
