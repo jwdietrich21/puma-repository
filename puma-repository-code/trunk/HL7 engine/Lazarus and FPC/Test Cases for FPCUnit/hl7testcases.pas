@@ -499,6 +499,7 @@ begin
     sendingFac  := 'Dr. Mabuse';
     receivingApp := 'TestApp2';
     receivingFac := 'Dr. Frankenstein';
+    security    := '';
     messageType := 'ADT^A04';
     controlID   := '';
     processingID := '';
