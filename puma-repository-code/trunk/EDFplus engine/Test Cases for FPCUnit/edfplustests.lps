@@ -4,38 +4,50 @@
     <PathDelim Value="\"/>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="4">
+    <Units Count="6">
       <Unit0>
-        <Filename Value="fpcunitproject1.lpr"/>
+        <Filename Value="edfplustests.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="57" Y="11"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="..\edfplus.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="EDFplus"/>
         <EditorIndex Value="1"/>
         <CursorPos Y="2"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
-      </Unit0>
-      <Unit1>
-        <Filename Value="testcase1.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="EDFTestCases"/>
-        <UsageCount Value="23"/>
       </Unit1>
       <Unit2>
         <Filename Value="edftestcases.pas"/>
+        <IsPartOfProject Value="True"/>
         <UnitName Value="EDFTestCases"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos Y="2"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\edfplus.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="EDFplus"/>
-        <EditorIndex Value="2"/>
-        <CursorPos Y="2"/>
-        <UsageCount Value="23"/>
-        <Loaded Value="True"/>
+        <Filename Value="fpcunitproject1.lpr"/>
+        <UnitName Value="edfplustestcases"/>
+        <UsageCount Value="20"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="edftestcases.lpr"/>
+        <UnitName Value="edfplustestcases"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="21"/>
+        <UsageCount Value="23"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="testcase1.pas"/>
+        <UnitName Value="EDFTestCases"/>
+        <UsageCount Value="23"/>
+      </Unit5>
     </Units>
     <JumpHistory Count="16" HistoryIndex="15">
       <Position1>

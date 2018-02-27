@@ -1,4 +1,4 @@
-program fpcunitproject1;
+program edfplustests;
 
 { PUMA Repository }
 
