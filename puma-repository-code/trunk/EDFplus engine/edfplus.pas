@@ -33,6 +33,16 @@ interface
 uses
   Classes, SysUtils, StrUtils, Math, URIParser, DateUtils;
 
+type
+
+  str4 = string[4];
+  str8  = string[8];
+  str16 = string[16];
+  str32 = string[32];
+  str44 = string[44];
+  str80 = string[80];
+  tProtocol = (EDF, EDF_Plus);
+
 const
 
   ksCR   = #13;
@@ -47,25 +57,45 @@ const
   createErr      = 9;
   stringRangeErr = 11; // Please check for consistency
 
-  kEDFVersion     = '0       ';
+  kEDFVersion     : str8 = '0       ';
+  kUnknownLength  : str8 = '-1      ';
+  kEmpty8         : str8 = '        ';
+  kEmpty44        : str44 = '                                            ';
+  kEmpty80        : str80 = '                                                                                ';
+  kDefaultDate    : str8 = '01.01.85';
+  kDefaultTime    : str8 = '00.00.00';
   kStartDate      = 'Startdate';
   kEDFAnnotations = 'EDF Annotations';
 
 type
 
-  str4 = string[4];
-  str8  = string[8];
-  str16 = string[16];
-  str32 = string[32];
-  str44 = string[44];
-  str80 = string[80];
-
 { TEDFplusDoc }
 
 TEDFplusDoc = class
   private
-    prVersion: str8;
-    prLocalPatID: str80;
+    // Fields of EDF and EDF+ header record
+    prVersion: str8;             // Version of data format
+    prLocalPatID: str80;         // Local patient identification
+    prLocalRecID: str80;         // Local recording identification
+    prStartDate: str8;           // Start date of recording (dd.mm.yy)
+    prStartTime: str8;           // Start time of recording (hh.mm.ss)
+    prNumOfBytes: str8;          // Number of bytes in header record
+    prReserved: str44;           // Reserved
+    prNumOfDataRecs: str8;       // Number of data records
+    prDurOfData: str8;           // Duration of a data record
+    prNumOfSignals: str4;        // Number of signals in data record
+    prLabel: AnsiString;         // Label for signal
+    prTransducer: AnsiString;    // Transducer type
+    prPhysDim: AnsiString;       // Physical dimension
+    prPhysMin: AnsiString;       // Physical minimum
+    prPhysMax: AnsiString;       // Physical maximum
+    prDigMin: AnsiString;        // Digital minimum
+    prDigMax: AnsiString;        // Ditial maximum
+    prPrefilter: AnsiString;     // Prefiltering
+    prNumOfSamples: AnsiString;  // Nr of samples in each data record
+    prReserved2: AnsiString;     // Reserved
+    // Official EDF/EDF+ fields end here.
+    prProtType: tProtocol;
     status:    integer;
   protected
     HeaderText: ansistring;
@@ -89,7 +119,7 @@ implementation
 
 procedure TEDFplusDoc.CompileHeaderText;
 begin
-  HeaderText := prVersion + prLocalPatID;
+  HeaderText := prVersion + prLocalPatID + prLocalRecID + prStartDate + prStartTime;
 end;
 
 function TEDFplusDoc.ExtractHeaderText(const start, count: integer): AnsiString;
@@ -126,7 +156,11 @@ begin
   inherited Create;
   status := 0;
   prVersion := kEDFVersion;
-  prLocalPatID := '';
+  prNumOfDataRecs := kUnknownLength;
+  prLocalPatID := kEmpty80;
+  prLocalRecID := kEmpty80;
+  prStartDate := kDefaultDate;
+  prStartTime := kDefaultTime;
   CompileHeaderText;
 end;
 
