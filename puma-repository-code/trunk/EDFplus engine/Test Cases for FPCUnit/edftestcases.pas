@@ -31,7 +31,7 @@ unit EDFTestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, EDFplus;
+  Classes, SysUtils, fpcunit, testutils, testregistry, EDF;
 
 type
 
@@ -42,7 +42,7 @@ type
 
   { TEDFplusDocTestCases }
 
-  TEDFplusDocTestCases = class(TTestCase)
+  TEDFDocTestCases = class(TTestCase)
   published
     procedure VersionCheck;
   end;
@@ -60,12 +60,12 @@ end;
 
 { TEDFplusDocTestCases }
 
-procedure TEDFplusDocTestCases.VersionCheck;
+procedure TEDFDocTestCases.VersionCheck;
 var
-  theDoc: TEDFplusDoc;
+  theDoc: TEDFDoc;
   theHeader: AnsiString;
 begin
-  theDoc := TEDFplusDoc.Create;
+  theDoc := TEDFDoc.Create;
   AssertEquals('0       ', theDoc.version);
   theHeader := theDoc.header;
   AssertEquals('0', theDoc.header[1]);
@@ -76,6 +76,6 @@ end;
 initialization
 
   RegisterTest(TControlTestCases);
-  RegisterTest(TEDFplusDocTestCases);
+  RegisterTest(TEDFDocTestCases);
 end.
 

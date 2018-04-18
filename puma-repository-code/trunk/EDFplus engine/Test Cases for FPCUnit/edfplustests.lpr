@@ -29,7 +29,7 @@ program edfplustests;
 {$mode objfpc}{$H+}
 
 uses
-  Interfaces, Forms, GuiTestRunner, EDFTestCases, EDFplus;
+  Interfaces, Forms, GuiTestRunner, EDFTestCases, EDFplus, EDF;
 
 {$R *.res}
 

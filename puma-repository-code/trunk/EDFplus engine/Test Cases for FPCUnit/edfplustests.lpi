@@ -15,7 +15,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="23"/>
+      <BuildNr Value="25"/>
       <Attributes pvaDebug="True" pvaPreRelease="True"/>
       <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="Unit Tests for EDFplus engine" InternalName="PUMA EDFplus engine 1.0.0" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="1.0.0 Pre-Alpha"/>
     </VersionInfo>
@@ -41,7 +41,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="edfplustests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -56,6 +56,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDFTestCases"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="..\edf.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="EDF"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
