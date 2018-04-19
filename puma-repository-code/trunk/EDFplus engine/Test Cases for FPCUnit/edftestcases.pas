@@ -48,6 +48,7 @@ type
   published
     procedure VersionCheck;
     procedure DateCheck;
+    procedure TimeCheck;
   end;
 
 implementation
@@ -85,6 +86,19 @@ begin
   theDoc := TEDFDoc.Create;
   theDoc.StartDate := TestDate;
   AssertEquals(TestDate, theDoc.StartDate);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.TimeCheck;
+const
+  TestTime = '13.21.23';
+var
+  theDoc: TEDFDoc;
+  startTimeString: Str8;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.StartTime := TestTime;
+  AssertEquals(TestTime, theDoc.StartTime);
   theDoc.Destroy;
 end;
 

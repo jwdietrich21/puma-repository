@@ -113,6 +113,8 @@ TEDFDoc = class
     procedure SetLocalRecID(const ID: Str80);
     function GetStartDate: Str8;
     procedure SetStartDate(const DateStr: Str8);
+    function GetStartTime: Str8;
+    procedure SetStartTime(const TimeStr: Str8);
   public
     constructor Create;
     destructor Destroy; override;
@@ -121,6 +123,7 @@ TEDFDoc = class
     property LocalPatID: Str80 Read GetLocalPatID Write SetLocalPatID;
     property LocalRecID: Str80 Read GetLocalRecID Write SetLocalRecID;
     property StartDate: Str8 Read GetStartDate Write SetStartDate;
+    property StartTime: Str8 Read GetStartTime Write SetStartTime;
     property StatusCode: integer Read status;
   end;
 
@@ -185,6 +188,18 @@ end;
 procedure TEDFDoc.SetStartDate(const DateStr: Str8);
 begin
   prStartDate := DateStr;
+  CompileHeaderText;
+end;
+
+function TEDFDoc.GetStartTime: Str8;
+begin
+  // rightstr fixes a bug in certain Pascal compilers
+  result := rightstr(ExtractHeaderText(176, 8), 8);
+end;
+
+procedure TEDFDoc.SetStartTime(const TimeStr: Str8);
+begin
+  prStartTime := TimeStr;
   CompileHeaderText;
 end;
 
