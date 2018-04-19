@@ -141,9 +141,9 @@ end;
 
 function TEDFDoc.ExtractHeaderText(const start, count: integer): AnsiString;
 begin
-  if (start >= 0) and (count >= 0) and (length(HeaderText) >= start + count + 1) then
+  if (start >= 0) and (count >= 0) and (length(HeaderText) >= start + count) then
   begin
-    Result := copy(HeaderText, start, count + 1);
+    Result := copy(HeaderText, start, count);
   end
   else
   begin
@@ -154,12 +154,12 @@ end;
 
 function TEDFDoc.GetVersion: Str8;
 begin
-  Result := prVersion;
+  Result := ExtractHeaderText(1, 8);
 end;
 
 function TEDFDoc.GetLocalPatID: Str80;
 begin
-  result := ExtractHeaderText(8, 80);
+  result := ExtractHeaderText(9, 80);
 end;
 
 procedure TEDFDoc.SetLocalPatID(const ID: Str80);
@@ -170,7 +170,7 @@ end;
 
 function TEDFDoc.GetLocalRecID: Str80;
 begin
-  result := ExtractHeaderText(88, 80);
+  result := ExtractHeaderText(89, 80);
 end;
 
 procedure TEDFDoc.SetLocalRecID(const ID: Str80);
@@ -182,7 +182,7 @@ end;
 function TEDFDoc.GetStartDate: Str8;
 begin
   // rightstr fixes a bug in certain Pascal compilers
-  result := rightstr(ExtractHeaderText(168, 8), 8);
+  result := rightstr(ExtractHeaderText(169, 8), 8);
 end;
 
 procedure TEDFDoc.SetStartDate(const DateStr: Str8);
@@ -194,7 +194,7 @@ end;
 function TEDFDoc.GetStartTime: Str8;
 begin
   // rightstr fixes a bug in certain Pascal compilers
-  result := rightstr(ExtractHeaderText(176, 8), 8);
+  result := rightstr(ExtractHeaderText(177, 8), 8);
 end;
 
 procedure TEDFDoc.SetStartTime(const TimeStr: Str8);

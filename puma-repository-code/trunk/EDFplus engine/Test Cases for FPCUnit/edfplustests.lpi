@@ -15,7 +15,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="39"/>
+      <BuildNr Value="42"/>
       <Attributes pvaDebug="True" pvaPreRelease="True"/>
       <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="Unit Tests for EDFplus engine" InternalName="PUMA EDFplus engine 1.0.0 (Alpha Centauri)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="PUMA Repository" ProductVersion="1.0.0 Pre-Alpha"/>
     </VersionInfo>
