@@ -42,9 +42,12 @@ type
 
   { TEDFplusDocTestCases }
 
+  { TEDFDocTestCases }
+
   TEDFDocTestCases = class(TTestCase)
   published
     procedure VersionCheck;
+    procedure DateCheck;
   end;
 
 implementation
@@ -69,6 +72,19 @@ begin
   AssertEquals('0       ', theDoc.version);
   theHeader := theDoc.header;
   AssertEquals('0', theDoc.header[1]);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.DateCheck;
+const
+  TestDate = '19.04.18';
+var
+  theDoc: TEDFDoc;
+  startDateString: Str8;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.StartDate := TestDate;
+  AssertEquals(TestDate, theDoc.StartDate);
   theDoc.Destroy;
 end;
 

@@ -109,12 +109,18 @@ TEDFDoc = class
     function GetVersion: Str8;
     function GetLocalPatID: Str80;
     procedure SetLocalPatID(const ID: Str80);
+    function GetLocalRecID: Str80;
+    procedure SetLocalRecID(const ID: Str80);
+    function GetStartDate: Str8;
+    procedure SetStartDate(const DateStr: Str8);
   public
     constructor Create;
     destructor Destroy; override;
     property version: Str8 Read GetVersion;
     property header: AnsiString Read HeaderText;
     property LocalPatID: Str80 Read GetLocalPatID Write SetLocalPatID;
+    property LocalRecID: Str80 Read GetLocalRecID Write SetLocalRecID;
+    property StartDate: Str8 Read GetStartDate Write SetStartDate;
     property StatusCode: integer Read status;
   end;
 
@@ -132,9 +138,9 @@ end;
 
 function TEDFDoc.ExtractHeaderText(const start, count: integer): AnsiString;
 begin
-  if (length(HeaderText) >= start) and (length(HeaderText) >= start + count) then
+  if (start >= 0) and (count >= 0) and (length(HeaderText) >= start + count + 1) then
   begin
-    Result := copy(HeaderText, start, count);
+    Result := copy(HeaderText, start, count + 1);
   end
   else
   begin
@@ -150,12 +156,35 @@ end;
 
 function TEDFDoc.GetLocalPatID: Str80;
 begin
-  ExtractHeaderText(8, 80);
+  result := ExtractHeaderText(8, 80);
 end;
 
 procedure TEDFDoc.SetLocalPatID(const ID: Str80);
 begin
   prLocalPatID := ID;
+  CompileHeaderText;
+end;
+
+function TEDFDoc.GetLocalRecID: Str80;
+begin
+  result := ExtractHeaderText(88, 80);
+end;
+
+procedure TEDFDoc.SetLocalRecID(const ID: Str80);
+begin
+  prLocalRecID := ID;
+  CompileHeaderText;
+end;
+
+function TEDFDoc.GetStartDate: Str8;
+begin
+  // rightstr fixes a bug in certain Pascal compilers
+  result := rightstr(ExtractHeaderText(168, 8), 8);
+end;
+
+procedure TEDFDoc.SetStartDate(const DateStr: Str8);
+begin
+  prStartDate := DateStr;
   CompileHeaderText;
 end;
 
