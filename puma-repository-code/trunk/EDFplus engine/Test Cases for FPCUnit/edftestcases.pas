@@ -49,6 +49,8 @@ type
     procedure VersionCheck;
     procedure DateCheck;
     procedure TimeCheck;
+    procedure SizeCheck;
+    procedure RecNumCheck;
   end;
 
 implementation
@@ -99,6 +101,25 @@ begin
   theDoc := TEDFDoc.Create;
   theDoc.StartTime := TestTime;
   AssertEquals(TestTime, theDoc.StartTime);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.SizeCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  AssertEquals(length(theDoc.header), StrToInt(theDoc.NumOfBytes));
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.RecNumCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.NumOfDataRecs := FormatFloat(kZero8, 13);
+  AssertEquals(13, StrToInt(theDoc.NumOfDataRecs));
   theDoc.Destroy;
 end;
 

@@ -61,7 +61,7 @@ const
 
   kEDFVersion     : str8 = '0       ';
   kUnknown        : str8 = '-1      ';
-  kEmpty0         : char = char(0);
+  kEmpty0         = ''; //char(0);
   kEmpty8         : str8 = '        ';
   kEmpty44        : str44 = '                                            ';
   kEmpty80        : str80 = '                                                                                ';
@@ -107,6 +107,7 @@ TEDFDoc = class
     procedure CompileHeaderText;
     function ExtractHeaderText(const start, count: integer): AnsiString;
     function GetVersion: Str8;
+    procedure CalcHeaderLength;
     function GetLocalPatID: Str80;
     procedure SetLocalPatID(const ID: Str80);
     function GetLocalRecID: Str80;
@@ -115,6 +116,9 @@ TEDFDoc = class
     procedure SetStartDate(const DateStr: Str8);
     function GetStartTime: Str8;
     procedure SetStartTime(const TimeStr: Str8);
+    function GetNumOfBytes: Str8;
+    function GetNumOfDataRecs: Str8;
+    procedure SetNumOfDataRecs(const NumOfRecs: Str8);
   public
     constructor Create;
     destructor Destroy; override;
@@ -124,6 +128,8 @@ TEDFDoc = class
     property LocalRecID: Str80 Read GetLocalRecID Write SetLocalRecID;
     property StartDate: Str8 Read GetStartDate Write SetStartDate;
     property StartTime: Str8 Read GetStartTime Write SetStartTime;
+    property NumOfBytes: Str8 Read GetNumOfBytes;
+    property NumOfDataRecs: Str8 Read GetNumOfDataRecs Write SetNumOfDataRecs;
     property StatusCode: integer Read status;
   end;
 
@@ -132,6 +138,7 @@ implementation
 
 procedure TEDFDoc.CompileHeaderText;
 begin
+  CalcHeaderLength;
   HeaderText := prVersion + prLocalPatID + prLocalRecID + prStartDate +
                 prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
                 prDurOfData + prNumOfSignals + prLabel + prTransducer +
@@ -155,6 +162,18 @@ end;
 function TEDFDoc.GetVersion: Str8;
 begin
   Result := ExtractHeaderText(1, 8);
+end;
+
+procedure TEDFDoc.CalcHeaderLength;
+var
+  headerLength: longint;
+begin
+  headerLength := length(prVersion + prLocalPatID + prLocalRecID + prStartDate +
+                prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
+                prDurOfData + prNumOfSignals + prLabel + prTransducer +
+                prPhysDim + prPhysMin + prPhysMax + prDigMin + prDigMax +
+                prPrefilter + prNumOfSamples + prReserved2);
+  prNumOfBytes := FormatFloat(kZero8, headerLength);
 end;
 
 function TEDFDoc.GetLocalPatID: Str80;
@@ -181,8 +200,7 @@ end;
 
 function TEDFDoc.GetStartDate: Str8;
 begin
-  // rightstr fixes a bug in certain Pascal compilers
-  result := rightstr(ExtractHeaderText(169, 8), 8);
+  result := ExtractHeaderText(169, 8);
 end;
 
 procedure TEDFDoc.SetStartDate(const DateStr: Str8);
@@ -193,8 +211,7 @@ end;
 
 function TEDFDoc.GetStartTime: Str8;
 begin
-  // rightstr fixes a bug in certain Pascal compilers
-  result := rightstr(ExtractHeaderText(177, 8), 8);
+  result := ExtractHeaderText(177, 8);
 end;
 
 procedure TEDFDoc.SetStartTime(const TimeStr: Str8);
@@ -203,9 +220,23 @@ begin
   CompileHeaderText;
 end;
 
+function TEDFDoc.GetNumOfBytes: Str8;
+begin
+  result := ExtractHeaderText(185, 8);
+end;
+
+function TEDFDoc.GetNumOfDataRecs: Str8;
+begin
+  result := ExtractHeaderText(237, 8);
+end;
+
+procedure TEDFDoc.SetNumOfDataRecs(const NumOfRecs: Str8);
+begin
+  prNumOfDataRecs := NumOfRecs;
+  CompileHeaderText;
+end;
+
 constructor TEDFDoc.Create;
-var
-  headerLength: longint;
 begin
   inherited Create;
   status := 0;
@@ -215,6 +246,7 @@ begin
   prLocalRecID := kEmpty80;
   prStartDate := kDefaultDate;
   prStartTime := kDefaultTime;
+  prNumOfBytes := kZero8;
   prReserved := kEmpty44;
   prNumOfDataRecs := kUnknown;
   prDurOfData := kZero8;
@@ -229,16 +261,6 @@ begin
   prPrefilter := kEmpty0;
   prNumOfSamples := kEmpty0;
   prReserved2 := kEmpty0;
-  headerLength := length(prVersion) + length(prLocalPatID) +
-                length(prLocalRecID) + length(prStartDate) +
-                length(prStartTime) + length(kEmpty8) +
-                length(prReserved) + length(prNumOfDataRecs) +
-                length(prDurOfData) + length(prNumOfSignals) +
-                length(prLabel) + length(prTransducer) + length(prPhysDim) +
-                length(prPhysMin) + length(prPhysMax) + length(prDigMin) +
-                length(prDigMax) + length(prPrefilter) +
-                length(prNumOfSamples) + length(prReserved2);
-  prNumOfBytes := FormatFloat('00000000', headerLength);
   CompileHeaderText;
 end;
 
