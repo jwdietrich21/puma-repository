@@ -6,7 +6,7 @@ unit EDF;
 
 { EDF+ base unit }
 
-{ Version 1.0 () }
+{ Version 1.0 (Alpha Centauri) }
 
 { (c) Johannes W. Dietrich, 1994 - 2018 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -60,10 +60,13 @@ const
   stringRangeErr = 11;
 
   kEDFVersion     : str8 = '0       ';
-  kUnknownLength  : str8 = '-1      ';
+  kUnknown        : str8 = '-1      ';
+  kEmpty0         : char = char(0);
   kEmpty8         : str8 = '        ';
   kEmpty44        : str44 = '                                            ';
   kEmpty80        : str80 = '                                                                                ';
+  kZero4          : str4 = '0000';
+  kZero8          : str8 = '00000000';
   kDefaultDate    : str8 = '01.01.85';
   kDefaultTime    : str8 = '00.00.00';
   kStartDate      = 'Startdate';
@@ -120,7 +123,11 @@ implementation
 
 procedure TEDFDoc.CompileHeaderText;
 begin
-  HeaderText := prVersion + prLocalPatID + prLocalRecID + prStartDate + prStartTime;
+  HeaderText := prVersion + prLocalPatID + prLocalRecID + prStartDate +
+                prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
+                prDurOfData + prNumOfSignals + prLabel + prTransducer +
+                prPhysDim + prPhysMin + prPhysMax + prDigMin + prDigMax +
+                prPrefilter + prNumOfSamples + prReserved2;
 end;
 
 function TEDFDoc.ExtractHeaderText(const start, count: integer): AnsiString;
@@ -153,15 +160,41 @@ begin
 end;
 
 constructor TEDFDoc.Create;
+var
+  headerLength: longint;
 begin
   inherited Create;
   status := 0;
   prVersion := kEDFVersion;
-  prNumOfDataRecs := kUnknownLength;
+  prNumOfDataRecs := kUnknown;
   prLocalPatID := kEmpty80;
   prLocalRecID := kEmpty80;
   prStartDate := kDefaultDate;
   prStartTime := kDefaultTime;
+  prReserved := kEmpty44;
+  prNumOfDataRecs := kUnknown;
+  prDurOfData := kZero8;
+  prNumOfSignals := kZero4;
+  prLabel := kEmpty0;
+  prTransducer := kEmpty0;
+  prPhysDim := kEmpty0;
+  prPhysMin := kEmpty0;
+  prPhysMax := kEmpty0;
+  prDigMin := kEmpty0;
+  prDigMax := kEmpty0;
+  prPrefilter := kEmpty0;
+  prNumOfSamples := kEmpty0;
+  prReserved2 := kEmpty0;
+  headerLength := length(prVersion) + length(prLocalPatID) +
+                length(prLocalRecID) + length(prStartDate) +
+                length(prStartTime) + length(kEmpty8) +
+                length(prReserved) + length(prNumOfDataRecs) +
+                length(prDurOfData) + length(prNumOfSignals) +
+                length(prLabel) + length(prTransducer) + length(prPhysDim) +
+                length(prPhysMin) + length(prPhysMax) + length(prDigMin) +
+                length(prDigMax) + length(prPrefilter) +
+                length(prNumOfSamples) + length(prReserved2);
+  prNumOfBytes := FormatFloat('00000000', headerLength);
   CompileHeaderText;
 end;
 

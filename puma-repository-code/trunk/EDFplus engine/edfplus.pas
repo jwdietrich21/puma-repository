@@ -6,7 +6,7 @@ unit EDFplus;
 
 { EDF+ base unit }
 
-{ Version 1.0 () }
+{ Version 1.0 (Alpha Centauri) }
 
 { (c) Johannes W. Dietrich, 1994 - 2018 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
