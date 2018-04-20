@@ -51,6 +51,7 @@ type
     procedure TimeCheck;
     procedure SizeCheck;
     procedure RecNumCheck;
+    procedure DataDurationCheck;
   end;
 
 implementation
@@ -120,6 +121,16 @@ begin
   theDoc := TEDFDoc.Create;
   theDoc.NumOfDataRecs := FormatFloat(kZero8, 13);
   AssertEquals(13, StrToInt(theDoc.NumOfDataRecs));
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.DataDurationCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.DurationOfData := FormatFloat(kZero8, 10);
+  AssertEquals(10, StrToInt(theDoc.DurationOfData));
   theDoc.Destroy;
 end;
 

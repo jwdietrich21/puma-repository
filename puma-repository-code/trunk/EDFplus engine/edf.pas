@@ -119,6 +119,8 @@ TEDFDoc = class
     function GetNumOfBytes: Str8;
     function GetNumOfDataRecs: Str8;
     procedure SetNumOfDataRecs(const NumOfRecs: Str8);
+    function GetDurOfData: Str8;
+    procedure SetDurOfData(const duration: Str8);
   public
     constructor Create;
     destructor Destroy; override;
@@ -130,6 +132,7 @@ TEDFDoc = class
     property StartTime: Str8 Read GetStartTime Write SetStartTime;
     property NumOfBytes: Str8 Read GetNumOfBytes;
     property NumOfDataRecs: Str8 Read GetNumOfDataRecs Write SetNumOfDataRecs;
+    property DurationOfData: Str8 Read GetDurOfData Write SetDurOfData;
     property StatusCode: integer Read status;
   end;
 
@@ -233,6 +236,17 @@ end;
 procedure TEDFDoc.SetNumOfDataRecs(const NumOfRecs: Str8);
 begin
   prNumOfDataRecs := NumOfRecs;
+  CompileHeaderText;
+end;
+
+function TEDFDoc.GetDurOfData: Str8;
+begin
+  result := ExtractHeaderText(245, 8);
+end;
+
+procedure TEDFDoc.SetDurOfData(const duration: Str8);
+begin
+  prDurOfData := duration;
   CompileHeaderText;
 end;
 
