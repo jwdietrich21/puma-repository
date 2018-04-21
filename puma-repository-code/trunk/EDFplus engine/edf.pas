@@ -61,7 +61,7 @@ const
 
   kEDFVersion     : str8 = '0       ';
   kUnknown        : str8 = '-1      ';
-  kEmpty0         = ''; //char(0);
+  kEmpty0         = '';
   kEmpty8         : str8 = '        ';
   kEmpty44        : str44 = '                                            ';
   kEmpty80        : str80 = '                                                                                ';
@@ -78,6 +78,8 @@ type
 
 TEDFDoc = class
   private
+    FHeaderText: AnsiString;
+    // DataChunk: (Buffer type still to be determined)
     // Fields of EDF and EDF+ header record
     prVersion: str8;             // Version of data format
     prLocalPatID: str80;         // Local patient identification
@@ -102,12 +104,11 @@ TEDFDoc = class
     // Official EDF/EDF+ fields end here.
     status:    integer;
   protected
-    HeaderText: ansistring;
-    // DataChunk: (Buffer type still to be determined)
     procedure CompileHeaderText;
-    function ExtractHeaderText(const start, count: integer): AnsiString;
-    function GetVersion: Str8;
+    function ExtractedHeaderText(const start, count: integer): AnsiString;
     procedure CalcHeaderLength;
+    function HeaderString: AnsiString;
+    function GetVersion: Str8;
     function GetLocalPatID: Str80;
     procedure SetLocalPatID(const ID: Str80);
     function GetLocalRecID: Str80;
@@ -121,11 +122,13 @@ TEDFDoc = class
     procedure SetNumOfDataRecs(const NumOfRecs: Str8);
     function GetDurOfData: Str8;
     procedure SetDurOfData(const duration: Str8);
+    function GetNumOfSignals: Str4;
+    procedure SetNumOfSignals(const ns: Str4);
   public
     constructor Create;
     destructor Destroy; override;
     property version: Str8 Read GetVersion;
-    property header: AnsiString Read HeaderText;
+    property header: AnsiString Read FHeaderText;
     property LocalPatID: Str80 Read GetLocalPatID Write SetLocalPatID;
     property LocalRecID: Str80 Read GetLocalRecID Write SetLocalRecID;
     property StartDate: Str8 Read GetStartDate Write SetStartDate;
@@ -133,6 +136,7 @@ TEDFDoc = class
     property NumOfBytes: Str8 Read GetNumOfBytes;
     property NumOfDataRecs: Str8 Read GetNumOfDataRecs Write SetNumOfDataRecs;
     property DurationOfData: Str8 Read GetDurOfData Write SetDurOfData;
+    property NumOfSignals: Str4 read GetNumOfSignals Write SetNumOfSignals;
     property StatusCode: integer Read status;
   end;
 
@@ -142,18 +146,14 @@ implementation
 procedure TEDFDoc.CompileHeaderText;
 begin
   CalcHeaderLength;
-  HeaderText := prVersion + prLocalPatID + prLocalRecID + prStartDate +
-                prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
-                prDurOfData + prNumOfSignals + prLabel + prTransducer +
-                prPhysDim + prPhysMin + prPhysMax + prDigMin + prDigMax +
-                prPrefilter + prNumOfSamples + prReserved2;
+  FHeaderText := HeaderString;
 end;
 
-function TEDFDoc.ExtractHeaderText(const start, count: integer): AnsiString;
+function TEDFDoc.ExtractedHeaderText(const start, count: integer): AnsiString;
 begin
-  if (start >= 0) and (count >= 0) and (length(HeaderText) >= start + count) then
+  if (start >= 0) and (count >= 0) and (length(FHeaderText) >= start + count - 1) then
   begin
-    Result := copy(HeaderText, start, count);
+    Result := copy(FHeaderText, start, count);
   end
   else
   begin
@@ -162,26 +162,37 @@ begin
   end;
 end;
 
-function TEDFDoc.GetVersion: Str8;
-begin
-  Result := ExtractHeaderText(1, 8);
-end;
-
 procedure TEDFDoc.CalcHeaderLength;
 var
   headerLength: longint;
 begin
-  headerLength := length(prVersion + prLocalPatID + prLocalRecID + prStartDate +
-                prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
-                prDurOfData + prNumOfSignals + prLabel + prTransducer +
-                prPhysDim + prPhysMin + prPhysMax + prDigMin + prDigMax +
-                prPrefilter + prNumOfSamples + prReserved2);
+  headerLength := length(HeaderString);
   prNumOfBytes := FormatFloat(kZero8, headerLength);
+end;
+
+function TEDFDoc.HeaderString: AnsiString;
+var
+  tempString1, tempString2: AnsiString;
+begin
+  { Concatenation has to be done in chunks due to limitations of certain }
+  { Pascal compilers }
+  tempString1 := prVersion + prLocalPatID + prLocalRecID + prStartDate +
+                prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
+                prDurOfData;
+  tempString2 := prNumOfSignals + prLabel + prTransducer +
+                prPhysDim + prPhysMin + prPhysMax + prDigMin + prDigMax +
+                prPrefilter + prNumOfSamples + prReserved2;
+  result := tempString1 + tempString2;
+end;
+
+function TEDFDoc.GetVersion: Str8;
+begin
+  Result := ExtractedHeaderText(1, 8);
 end;
 
 function TEDFDoc.GetLocalPatID: Str80;
 begin
-  result := ExtractHeaderText(9, 80);
+  result := ExtractedHeaderText(9, 80);
 end;
 
 procedure TEDFDoc.SetLocalPatID(const ID: Str80);
@@ -192,7 +203,7 @@ end;
 
 function TEDFDoc.GetLocalRecID: Str80;
 begin
-  result := ExtractHeaderText(89, 80);
+  result := ExtractedHeaderText(89, 80);
 end;
 
 procedure TEDFDoc.SetLocalRecID(const ID: Str80);
@@ -203,7 +214,7 @@ end;
 
 function TEDFDoc.GetStartDate: Str8;
 begin
-  result := ExtractHeaderText(169, 8);
+  result := ExtractedHeaderText(169, 8);
 end;
 
 procedure TEDFDoc.SetStartDate(const DateStr: Str8);
@@ -214,7 +225,7 @@ end;
 
 function TEDFDoc.GetStartTime: Str8;
 begin
-  result := ExtractHeaderText(177, 8);
+  result := ExtractedHeaderText(177, 8);
 end;
 
 procedure TEDFDoc.SetStartTime(const TimeStr: Str8);
@@ -225,12 +236,12 @@ end;
 
 function TEDFDoc.GetNumOfBytes: Str8;
 begin
-  result := ExtractHeaderText(185, 8);
+  result := ExtractedHeaderText(185, 8);
 end;
 
 function TEDFDoc.GetNumOfDataRecs: Str8;
 begin
-  result := ExtractHeaderText(237, 8);
+  result := ExtractedHeaderText(237, 8);
 end;
 
 procedure TEDFDoc.SetNumOfDataRecs(const NumOfRecs: Str8);
@@ -241,12 +252,23 @@ end;
 
 function TEDFDoc.GetDurOfData: Str8;
 begin
-  result := ExtractHeaderText(245, 8);
+  result := ExtractedHeaderText(245, 8);
 end;
 
 procedure TEDFDoc.SetDurOfData(const duration: Str8);
 begin
   prDurOfData := duration;
+  CompileHeaderText;
+end;
+
+function TEDFDoc.GetNumOfSignals: Str4;
+begin
+  result := ExtractedHeaderText(253, 4);
+end;
+
+procedure TEDFDoc.SetNumOfSignals(const ns: Str4);
+begin
+  prNumOfSignals := ns;
   CompileHeaderText;
 end;
 

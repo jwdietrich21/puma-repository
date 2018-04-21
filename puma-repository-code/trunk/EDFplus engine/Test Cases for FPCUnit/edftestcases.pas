@@ -52,6 +52,7 @@ type
     procedure SizeCheck;
     procedure RecNumCheck;
     procedure DataDurationCheck;
+    procedure NumOfSignalsCheck;
   end;
 
 implementation
@@ -131,6 +132,16 @@ begin
   theDoc := TEDFDoc.Create;
   theDoc.DurationOfData := FormatFloat(kZero8, 10);
   AssertEquals(10, StrToInt(theDoc.DurationOfData));
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.NumOfSignalsCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.NumOfSignals := FormatFloat(kZero4, 24);
+  AssertEquals(24, StrToInt(theDoc.NumOfSignals));
   theDoc.Destroy;
 end;
 
