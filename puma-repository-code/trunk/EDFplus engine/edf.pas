@@ -118,12 +118,15 @@ TEDFDoc = class
     function GetStartTime: Str8;
     procedure SetStartTime(const TimeStr: Str8);
     function GetNumOfBytes: Str8;
+    function iGetNumOfBytes: longint;
     function GetNumOfDataRecs: Str8;
     procedure SetNumOfDataRecs(const NumOfRecs: Str8);
     function GetDurOfData: Str8;
     procedure SetDurOfData(const duration: Str8);
     function GetNumOfSignals: Str4;
+    function iGetNumOfSignals: integer;
     procedure SetNumOfSignals(const ns: Str4);
+    procedure SetNumOfSignals(const ns: integer);
   public
     constructor Create;
     destructor Destroy; override;
@@ -134,9 +137,11 @@ TEDFDoc = class
     property StartDate: Str8 Read GetStartDate Write SetStartDate;
     property StartTime: Str8 Read GetStartTime Write SetStartTime;
     property NumOfBytes: Str8 Read GetNumOfBytes;
+    property iNumOfBytes: longint Read iGetNumOfBytes;
     property NumOfDataRecs: Str8 Read GetNumOfDataRecs Write SetNumOfDataRecs;
     property DurationOfData: Str8 Read GetDurOfData Write SetDurOfData;
     property NumOfSignals: Str4 read GetNumOfSignals Write SetNumOfSignals;
+    property iNumOfSignals: integer Read iGetNumOfSignals Write SetNumOfSignals;
     property StatusCode: integer Read status;
   end;
 
@@ -239,6 +244,13 @@ begin
   result := ExtractedHeaderText(185, 8);
 end;
 
+function TEDFDoc.iGetNumOfBytes: longint;
+var nbString: Str8;
+begin
+  nbString := GetNumOfBytes;
+  result := StrToInt(nbString);
+end;
+
 function TEDFDoc.GetNumOfDataRecs: Str8;
 begin
   result := ExtractedHeaderText(237, 8);
@@ -266,10 +278,26 @@ begin
   result := ExtractedHeaderText(253, 4);
 end;
 
+function TEDFDoc.iGetNumOfSignals: integer;
+var
+  nsString: Str4;
+begin
+  nsString := GetNumOfSignals;
+  result := StrToInt(nsString);
+end;
+
 procedure TEDFDoc.SetNumOfSignals(const ns: Str4);
 begin
   prNumOfSignals := ns;
   CompileHeaderText;
+end;
+
+procedure TEDFDoc.SetNumOfSignals(const ns: integer);
+var
+  nsString: Str4;
+begin
+  nsString := FormatFloat(kZero4, ns);
+  SetNumOfSignals(nsString);
 end;
 
 constructor TEDFDoc.Create;

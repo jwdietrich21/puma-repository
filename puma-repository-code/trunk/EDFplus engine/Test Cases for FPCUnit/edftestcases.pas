@@ -112,6 +112,7 @@ var
 begin
   theDoc := TEDFDoc.Create;
   AssertEquals(length(theDoc.header), StrToInt(theDoc.NumOfBytes));
+  AssertEquals(length(theDoc.header), theDoc.iNumOfBytes);
   theDoc.Destroy;
 end;
 
@@ -142,6 +143,8 @@ begin
   theDoc := TEDFDoc.Create;
   theDoc.NumOfSignals := FormatFloat(kZero4, 24);
   AssertEquals(24, StrToInt(theDoc.NumOfSignals));
+  theDoc.iNumOfSignals := 21;
+  AssertEquals(21, theDoc.iNumOfSignals);
   theDoc.Destroy;
 end;
 
