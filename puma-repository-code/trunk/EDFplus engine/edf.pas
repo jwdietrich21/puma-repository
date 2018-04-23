@@ -57,7 +57,9 @@ const
   saveErr        = 6;
   readErr        = 7;
   createErr      = 9;
-  stringRangeErr = 11;
+  rangeErr       = 10;
+  strRangeErr    = 11;
+  strFormatErr   = 12;
 
   kEDFVersion     : str8 = '0       ';
   kUnknown        : str8 = '-1      ';
@@ -114,15 +116,21 @@ TEDFDoc = class
     function GetLocalRecID: Str80;
     procedure SetLocalRecID(const ID: Str80);
     function GetStartDate: Str8;
+    function dGetStartDate: tDateTime;
     procedure SetStartDate(const DateStr: Str8);
+    procedure SetStartDate(const Date: tDateTime);
     function GetStartTime: Str8;
     procedure SetStartTime(const TimeStr: Str8);
     function GetNumOfBytes: Str8;
     function iGetNumOfBytes: longint;
     function GetNumOfDataRecs: Str8;
+    function iGetNumOfDataRecs: longint;
     procedure SetNumOfDataRecs(const NumOfRecs: Str8);
+    procedure SetNumOfDataRecs(const nr: longint);
     function GetDurOfData: Str8;
+    function iGetDurOfData: longint;
     procedure SetDurOfData(const duration: Str8);
+    procedure SetDurOfData(const dd: longint);
     function GetNumOfSignals: Str4;
     function iGetNumOfSignals: integer;
     procedure SetNumOfSignals(const ns: Str4);
@@ -135,11 +143,14 @@ TEDFDoc = class
     property LocalPatID: Str80 Read GetLocalPatID Write SetLocalPatID;
     property LocalRecID: Str80 Read GetLocalRecID Write SetLocalRecID;
     property StartDate: Str8 Read GetStartDate Write SetStartDate;
+    property dStartDate: TDateTime Read dGetStartDate Write SetStartDate;
     property StartTime: Str8 Read GetStartTime Write SetStartTime;
     property NumOfBytes: Str8 Read GetNumOfBytes;
     property iNumOfBytes: longint Read iGetNumOfBytes;
     property NumOfDataRecs: Str8 Read GetNumOfDataRecs Write SetNumOfDataRecs;
+    property iNumOfDataRecs: longint Read iGetNumOfDataRecs Write SetNumOfDataRecs;
     property DurationOfData: Str8 Read GetDurOfData Write SetDurOfData;
+    property iDurationOfData: longint Read iGetDurOfData Write SetDurOfData;
     property NumOfSignals: Str4 read GetNumOfSignals Write SetNumOfSignals;
     property iNumOfSignals: integer Read iGetNumOfSignals Write SetNumOfSignals;
     property StatusCode: integer Read status;
@@ -162,7 +173,7 @@ begin
   end
   else
   begin
-    Status := stringRangeErr;
+    Status := strRangeErr;
     Result := '';
   end;
 end;
@@ -222,10 +233,34 @@ begin
   result := ExtractedHeaderText(169, 8);
 end;
 
+function TEDFDoc.dGetStartDate: tDateTime;
+var
+  sdString: Str8;
+  standardFormatSettings: TFormatSettings;
+begin
+  standardFormatSettings := DefaultFormatSettings;
+  DefaultFormatSettings.DateSeparator := '.';
+  DefaultFormatSettings.ShortDateFormat := 'dd.mm.yy';
+  { TODO -oJWD : Adapt for special EDF convention for two-digits years }
+  sdString := GetStartDate;
+  if not TryStrToDate(sdString, result) then
+    status := strFormatErr;
+  DefaultFormatSettings := standardFormatSettings;
+end;
+
 procedure TEDFDoc.SetStartDate(const DateStr: Str8);
 begin
   prStartDate := DateStr;
   CompileHeaderText;
+end;
+
+procedure TEDFDoc.SetStartDate(const Date: tDateTime);
+var
+  sdString: Str8;
+begin
+  sdString := FormatDateTime('dd.mm.yy', Date);
+  { TODO -oJWD : Adapt for special EDF convention for two-digits years }
+  SetStartDate(sdString);
 end;
 
 function TEDFDoc.GetStartTime: Str8;
@@ -245,15 +280,26 @@ begin
 end;
 
 function TEDFDoc.iGetNumOfBytes: longint;
-var nbString: Str8;
+var
+  nbString: Str8;
 begin
   nbString := GetNumOfBytes;
-  result := StrToInt(nbString);
+  if not TryStrToInt(nbString, result) then
+    status := strFormatErr;
 end;
 
 function TEDFDoc.GetNumOfDataRecs: Str8;
 begin
   result := ExtractedHeaderText(237, 8);
+end;
+
+function TEDFDoc.iGetNumOfDataRecs: longint;
+var
+  nrString: Str8;
+begin
+  nrString := GetNumOfDataRecs;
+  if not TryStrToInt(nrString, result) then
+    status := strFormatErr;
 end;
 
 procedure TEDFDoc.SetNumOfDataRecs(const NumOfRecs: Str8);
@@ -262,15 +308,50 @@ begin
   CompileHeaderText;
 end;
 
+procedure TEDFDoc.SetNumOfDataRecs(const nr: longint);
+var
+  nrString: Str8;
+begin
+  if nr > 99999999 then begin
+    status := rangeErr;
+    nrString := FloatToStr(NaN);
+  end
+  else
+    nrString := FormatFloat(kZero8, nr);
+  SetNumOfDataRecs(nrString);
+end;
+
 function TEDFDoc.GetDurOfData: Str8;
 begin
   result := ExtractedHeaderText(245, 8);
+end;
+
+function TEDFDoc.iGetDurOfData: longint;
+var
+  ddString: Str8;
+begin
+  ddString := GetDurOfData;
+  if not TryStrToInt(ddString, result) then
+    status := strFormatErr;
 end;
 
 procedure TEDFDoc.SetDurOfData(const duration: Str8);
 begin
   prDurOfData := duration;
   CompileHeaderText;
+end;
+
+procedure TEDFDoc.SetDurOfData(const dd: longint);
+var
+  ddString: Str8;
+begin
+  if dd > 99999999 then begin
+    status := rangeErr;
+    ddString := FloatToStr(NaN);
+  end
+  else
+    ddString := FormatFloat(kZero8, dd);
+  SetDurOfData(ddString);
 end;
 
 function TEDFDoc.GetNumOfSignals: Str4;
@@ -283,7 +364,8 @@ var
   nsString: Str4;
 begin
   nsString := GetNumOfSignals;
-  result := StrToInt(nsString);
+  if not TryStrToInt(nsString, result) then
+    status := strFormatErr;
 end;
 
 procedure TEDFDoc.SetNumOfSignals(const ns: Str4);
@@ -296,7 +378,12 @@ procedure TEDFDoc.SetNumOfSignals(const ns: integer);
 var
   nsString: Str4;
 begin
-  nsString := FormatFloat(kZero4, ns);
+  if ns > 9999 then begin
+    status := rangeErr;
+    nsString := FloatToStr(NaN);
+  end
+  else
+    nsString := FormatFloat(kZero4, ns);
   SetNumOfSignals(nsString);
 end;
 

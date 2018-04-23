@@ -82,27 +82,31 @@ end;
 
 procedure TEDFDocTestCases.DateCheck;
 const
-  TestDate = '19.04.18';
+  TestDate1 = '19.04.18';
 var
   theDoc: TEDFDoc;
   startDateString: Str8;
+  TestDate2 : TDateTime;
 begin
   theDoc := TEDFDoc.Create;
-  theDoc.StartDate := TestDate;
-  AssertEquals(TestDate, theDoc.StartDate);
+  theDoc.StartDate := TestDate1;
+  AssertEquals(TestDate1, theDoc.StartDate);
+  TestDate2 := EncodeDate(2018, 4, 23);
+  theDoc.dStartDate := TestDate2;
+  AssertEquals(TestDate2, theDoc.dStartDate);
   theDoc.Destroy;
 end;
 
 procedure TEDFDocTestCases.TimeCheck;
 const
-  TestTime = '13.21.23';
+  TestTime1 = '13.21.23';
 var
   theDoc: TEDFDoc;
   startTimeString: Str8;
 begin
   theDoc := TEDFDoc.Create;
-  theDoc.StartTime := TestTime;
-  AssertEquals(TestTime, theDoc.StartTime);
+  theDoc.StartTime := TestTime1;
+  AssertEquals(TestTime1, theDoc.StartTime);
   theDoc.Destroy;
 end;
 
@@ -123,6 +127,8 @@ begin
   theDoc := TEDFDoc.Create;
   theDoc.NumOfDataRecs := FormatFloat(kZero8, 13);
   AssertEquals(13, StrToInt(theDoc.NumOfDataRecs));
+  theDoc.iNumOfDataRecs := 23;
+  AssertEquals(23, theDoc.iNumOfDataRecs);
   theDoc.Destroy;
 end;
 
@@ -133,6 +139,8 @@ begin
   theDoc := TEDFDoc.Create;
   theDoc.DurationOfData := FormatFloat(kZero8, 10);
   AssertEquals(10, StrToInt(theDoc.DurationOfData));
+  theDoc.DurationOfData := 24;
+  AssertEquals(24, theDoc.iDurationOfData);
   theDoc.Destroy;
 end;
 
