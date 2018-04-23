@@ -86,7 +86,7 @@ const
 var
   theDoc: TEDFDoc;
   startDateString: Str8;
-  TestDate2 : TDateTime;
+  TestDate2: TDateTime;
 begin
   theDoc := TEDFDoc.Create;
   theDoc.StartDate := TestDate1;
@@ -103,10 +103,14 @@ const
 var
   theDoc: TEDFDoc;
   startTimeString: Str8;
+  TestTime2: TDateTime;
 begin
   theDoc := TEDFDoc.Create;
   theDoc.StartTime := TestTime1;
   AssertEquals(TestTime1, theDoc.StartTime);
+  TestTime2 := EncodeTime(22, 15, 51, 0);
+  theDoc.dStartTime := TestTime2;
+  AssertEquals(TestTime2, theDoc.dStartTime);
   theDoc.Destroy;
 end;
 

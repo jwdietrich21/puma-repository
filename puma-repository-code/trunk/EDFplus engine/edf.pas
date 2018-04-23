@@ -120,7 +120,9 @@ TEDFDoc = class
     procedure SetStartDate(const DateStr: Str8);
     procedure SetStartDate(const Date: tDateTime);
     function GetStartTime: Str8;
+    function dGetStartTime: tDateTime;
     procedure SetStartTime(const TimeStr: Str8);
+    procedure SetStartTime(const Time: tDateTime);
     function GetNumOfBytes: Str8;
     function iGetNumOfBytes: longint;
     function GetNumOfDataRecs: Str8;
@@ -145,6 +147,7 @@ TEDFDoc = class
     property StartDate: Str8 Read GetStartDate Write SetStartDate;
     property dStartDate: TDateTime Read dGetStartDate Write SetStartDate;
     property StartTime: Str8 Read GetStartTime Write SetStartTime;
+    property dStartTime: TDateTime Read dGetStartTime Write SetStartTime;
     property NumOfBytes: Str8 Read GetNumOfBytes;
     property iNumOfBytes: longint Read iGetNumOfBytes;
     property NumOfDataRecs: Str8 Read GetNumOfDataRecs Write SetNumOfDataRecs;
@@ -236,16 +239,16 @@ end;
 function TEDFDoc.dGetStartDate: tDateTime;
 var
   sdString: Str8;
-  standardFormatSettings: TFormatSettings;
+  theFormat: TFormatSettings;
 begin
-  standardFormatSettings := DefaultFormatSettings;
-  DefaultFormatSettings.DateSeparator := '.';
-  DefaultFormatSettings.ShortDateFormat := 'dd.mm.yy';
-  { TODO -oJWD : Adapt for special EDF convention for two-digits years }
+  //theFormat := DefaultFormatSettings;
+  theFormat.DateSeparator := '.';
+  theFormat.ShortDateFormat := 'dd.mm.yy';
+  { TODO -oJWD : Adapt for special EDF convention for two-digits years: }
+  theFormat.TwoDigitYearCenturyWindow := 85;  // correct?
   sdString := GetStartDate;
-  if not TryStrToDate(sdString, result) then
+  if not TryStrToDate(sdString, result, theFormat) then
     status := strFormatErr;
-  DefaultFormatSettings := standardFormatSettings;
 end;
 
 procedure TEDFDoc.SetStartDate(const DateStr: Str8);
@@ -268,10 +271,30 @@ begin
   result := ExtractedHeaderText(177, 8);
 end;
 
+function TEDFDoc.dGetStartTime: tDateTime;
+var
+  stString: Str8;
+  theFormat: TFormatSettings;
+begin
+  theFormat.TimeSeparator := '.';
+  theFormat.ShortTimeFormat := 'hh.nn.ss';
+  stString := GetStartTime;
+  if not TryStrToTime(stString, result, theFormat) then
+    status := strFormatErr;
+end;
+
 procedure TEDFDoc.SetStartTime(const TimeStr: Str8);
 begin
   prStartTime := TimeStr;
   CompileHeaderText;
+end;
+
+procedure TEDFDoc.SetStartTime(const Time: tDateTime);
+var
+  stString: Str8;
+begin
+  stString := FormatDateTime('hh.nn.ss', Time);
+  SetStartTime(stString);
 end;
 
 function TEDFDoc.GetNumOfBytes: Str8;
