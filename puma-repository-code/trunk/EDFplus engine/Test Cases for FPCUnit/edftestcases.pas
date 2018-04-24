@@ -53,6 +53,7 @@ type
     procedure RecNumCheck;
     procedure DataDurationCheck;
     procedure NumOfSignalsCheck;
+    procedure LabelsCheck;
   end;
 
 implementation
@@ -157,6 +158,25 @@ begin
   AssertEquals(24, StrToInt(theDoc.NumOfSignals));
   theDoc.iNumOfSignals := 21;
   AssertEquals(21, theDoc.iNumOfSignals);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.LabelsCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.NumOfSignals := 6;
+  theDoc.SignalLabel[0] := 'I';
+  theDoc.SignalLabel[1] := 'II';
+  theDoc.SignalLabel[2] := 'III';
+  theDoc.SignalLabel[3] := 'ECG avR';
+  theDoc.SignalLabel[4] := 'ECG avL';
+  theDoc.SignalLabel[5] := 'ECG avF';
+  AssertEquals('ECG avL', theDoc.SignalLabel[4]); // retrievable?
+  theDoc.NumOfSignals := 12;
+  theDoc.SignalLabel[8] := 'ECG V3'; // can label be appended discontinuously?
+  AssertEquals('ECG V3', theDoc.SignalLabel[8]);
   theDoc.Destroy;
 end;
 

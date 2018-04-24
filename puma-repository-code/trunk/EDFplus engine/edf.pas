@@ -137,6 +137,8 @@ TEDFDoc = class
     function iGetNumOfSignals: integer;
     procedure SetNumOfSignals(const ns: Str4);
     procedure SetNumOfSignals(const ns: integer);
+    procedure SetLabel(position: integer; const theLabel: str16);
+    function GetLabel(position: integer): str16;
   public
     constructor Create;
     destructor Destroy; override;
@@ -156,6 +158,7 @@ TEDFDoc = class
     property iDurationOfData: longint Read iGetDurOfData Write SetDurOfData;
     property NumOfSignals: Str4 read GetNumOfSignals Write SetNumOfSignals;
     property iNumOfSignals: integer Read iGetNumOfSignals Write SetNumOfSignals;
+    property SignalLabel[i: integer]: Str16 read GetLabel Write SetLabel;
     property StatusCode: integer Read status;
   end;
 
@@ -191,17 +194,15 @@ end;
 
 function TEDFDoc.HeaderString: AnsiString;
 var
-  tempString1, tempString2: AnsiString;
+  chunk1, chunk2: AnsiString;
 begin
-  { Concatenation has to be done in chunks due to limitations of certain }
-  { Pascal compilers }
-  tempString1 := prVersion + prLocalPatID + prLocalRecID + prStartDate +
-                prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
-                prDurOfData;
-  tempString2 := prNumOfSignals + prLabel + prTransducer +
-                prPhysDim + prPhysMin + prPhysMax + prDigMin + prDigMax +
-                prPrefilter + prNumOfSamples + prReserved2;
-  result := tempString1 + tempString2;
+  chunk1 := prVersion + prLocalPatID + prLocalRecID + prStartDate +
+            prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
+            prDurOfData;
+  chunk2 := prNumOfSignals + prLabel + prTransducer +
+            prPhysDim + prPhysMin + prPhysMax + prDigMin + prDigMax +
+            prPrefilter + prNumOfSamples + prReserved2;
+  result := chunk1 + chunk2;
 end;
 
 function TEDFDoc.GetVersion: Str8;
@@ -408,6 +409,45 @@ begin
   else
     nsString := FormatFloat(kZero4, ns);
   SetNumOfSignals(nsString);
+end;
+
+procedure TEDFDoc.SetLabel(position: integer; const theLabel: str16);
+var
+  filledString: str16;
+  ns: integer;
+begin
+  if not TryStrToInt(prNumOfSignals, ns) then
+    status := strFormatErr
+  else if position > (ns - 1) then // outside range?
+  begin
+    status := rangeErr;
+  end
+  else
+  begin
+    if length(prLabel) < ns * 16 then // Label string to short?
+      prLabel := PadRight(prLabel, ns * 16);
+    filledString := PadRight(theLabel, 16); // fill with spaces for length 16
+    prLabel := StuffString(prLabel, position * 16 + 1, 16, filledString);
+  end;
+end;
+
+function TEDFDoc.GetLabel(position: integer): str16;
+var
+  subString: Str16;
+  ns: integer;
+begin
+  if not TryStrToInt(prNumOfSignals, ns) then
+    status := strFormatErr
+  else if position > (ns - 1) then
+  begin
+    status := rangeErr;
+    result := '';
+  end
+  else
+  begin
+    subString := copy(prLabel, position * 16 + 1, 16);
+    result := TrimRight(subString);
+  end;
 end;
 
 constructor TEDFDoc.Create;
