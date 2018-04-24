@@ -32,14 +32,51 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ValEdit,
-  ComCtrls, EDF;
+  ComCtrls, Menus, LCLType, EDF;
+
+const
+  FEEDBACK_TEXT = '  Status Code: ';
 
 type
 
-  { TForm1 }
+  { TMainForm }
 
-  TForm1 = class(TForm)
+  TMainForm = class(TForm)
+    AppleMenu: TMenuItem;
+    CloseMenuItem: TMenuItem;
+    CopyMenuItem: TMenuItem;
+    CutMenuItem: TMenuItem;
+    Divider11: TMenuItem;
+    Divider12: TMenuItem;
+    Divider21: TMenuItem;
+    EditMenu: TMenuItem;
+    FileMenu: TMenuItem;
     HeaderRecordValueListEditor: TValueListEditor;
+    HelpMenu: TMenuItem;
+    ImageList1: TImageList;
+    MacAboutItem: TMenuItem;
+    MainMenu1: TMainMenu;
+    EDFFileOpenDialog: TOpenDialog;
+    NewButton: TToolButton;
+    NewMenuItem: TMenuItem;
+    OpenButton: TToolButton;
+    OpenMenuItem: TMenuItem;
+    PasteMenuItem: TMenuItem;
+    QuitMenuItem: TMenuItem;
+    RedoMenuItem: TMenuItem;
+    SaveAsButton: TToolButton;
+    SaveButton: TToolButton;
+    SaveMenuItem: TMenuItem;
+    StatusBar1: TStatusBar;
+    ToolBar1: TToolBar;
+    UndoMenuItem: TMenuItem;
+    WinAboutItem: TMenuItem;
+    procedure CloseMenuItemClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure MacAboutItemClick(Sender: TObject);
+    procedure OpenMenuItemClick(Sender: TObject);
+    procedure QuitMenuItemClick(Sender: TObject);
+    procedure WinAboutItemClick(Sender: TObject);
   private
 
   public
@@ -47,11 +84,78 @@ type
   end;
 
 var
-  Form1: TForm1;
+  MainForm: TMainForm;
 
 implementation
 
 {$R *.lfm}
+
+{ TMainForm }
+
+procedure AdaptMenus;
+{ Adapts Menus and Shortcuts to the interface style guidelines
+  of the respective operating system }
+var
+  modifierKey: TShiftState;
+begin
+  {$IFDEF LCLcarbon}
+  modifierKey := [ssMeta];
+  MainForm.WinAboutItem.Visible := False;
+  MainForm.AppleMenu.Visible := True;
+  {$ELSE}
+  modifierKey := [ssCtrl];
+  MainForm.WinAboutItem.Visible := True;
+  MainForm.AppleMenu.Visible := False;
+  {$ENDIF}
+  MainForm.NewMenuItem.ShortCut := ShortCut(VK_N, modifierKey);
+  MainForm.OpenMenuItem.ShortCut := ShortCut(VK_O, modifierKey);
+  MainForm.CloseMenuItem.ShortCut := ShortCut(VK_W, modifierKey);
+  MainForm.SaveMenuItem.ShortCut := ShortCut(VK_S, modifierKey);
+  MainForm.QuitMenuItem.ShortCut := ShortCut(VK_Q, modifierKey);
+  MainForm.UndoMenuItem.ShortCut := ShortCut(VK_Z, modifierKey);
+  MainForm.RedoMenuItem.ShortCut := ShortCut(VK_Z, modifierKey + [ssShift]);
+  MainForm.CutMenuItem.ShortCut := ShortCut(VK_X, modifierKey);
+  MainForm.CopyMenuItem.ShortCut := ShortCut(VK_C, modifierKey);
+  MainForm.PasteMenuItem.ShortCut := ShortCut(VK_V, modifierKey);
+end;
+
+procedure TMainForm.MacAboutItemClick(Sender: TObject);
+begin
+  ShowMessage('EDF Inspector, a demo program for PUMA EDF Engine');
+end;
+
+procedure TMainForm.FormCreate(Sender: TObject);
+begin
+  AdaptMenus;
+end;
+
+procedure TMainForm.CloseMenuItemClick(Sender: TObject);
+begin
+  QuitMenuItemClick(Sender);
+end;
+
+procedure TMainForm.WinAboutItemClick(Sender: TObject);
+begin
+  MacAboutItemClick(Sender);
+end;
+
+procedure TMainForm.OpenMenuItemClick(Sender: TObject);
+begin
+  if EDFFileOpenDialog.Execute then
+  begin
+    HeaderRecordValueListEditor.Clear;
+
+    MainForm.Caption := 'EDF Inspector: ' +
+      ExtractFileName(EDFFileOpenDialog.FileName);
+
+  end;
+end;
+
+procedure TMainForm.QuitMenuItemClick(Sender: TObject);
+begin
+  application.Terminate;
+end;
+
 
 end.
 

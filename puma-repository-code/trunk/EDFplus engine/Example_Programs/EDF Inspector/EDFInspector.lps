@@ -7,21 +7,21 @@
       <Unit0>
         <Filename Value="EDFInspector.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="24"/>
+        <CursorPos Y="2"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="gui.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Form1"/>
+        <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="GUI"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="16" Y="35"/>
+        <CursorPos Y="2"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -43,11 +43,95 @@
         <UsageCount Value="20"/>
       </Unit3>
     </Units>
-    <JumpHistory Count="1">
+    <JumpHistory Count="22" HistoryIndex="21">
       <Position1>
         <Filename Value="gui.pas"/>
         <Caret Line="6" Column="10"/>
       </Position1>
+      <Position2>
+        <Filename Value="gui.pas"/>
+        <Caret Line="118" TopLine="72"/>
+      </Position2>
+      <Position3>
+        <Filename Value="gui.pas"/>
+        <Caret Line="35" Column="16" TopLine="11"/>
+      </Position3>
+      <Position4>
+        <Filename Value="gui.pas"/>
+        <Caret Line="62" Column="3" TopLine="19"/>
+      </Position4>
+      <Position5>
+        <Filename Value="gui.pas"/>
+        <Caret Line="73" Column="25" TopLine="27"/>
+      </Position5>
+      <Position6>
+        <Filename Value="gui.pas"/>
+        <Caret Line="69" Column="29" TopLine="37"/>
+      </Position6>
+      <Position7>
+        <Filename Value="gui.pas"/>
+        <Caret Line="90" Column="29" TopLine="45"/>
+      </Position7>
+      <Position8>
+        <Filename Value="gui.pas"/>
+        <Caret Line="95" Column="29" TopLine="58"/>
+      </Position8>
+      <Position9>
+        <Filename Value="gui.pas"/>
+        <Caret Line="97" Column="29" TopLine="60"/>
+      </Position9>
+      <Position10>
+        <Filename Value="gui.pas"/>
+        <Caret Line="96" Column="29" TopLine="59"/>
+      </Position10>
+      <Position11>
+        <Filename Value="gui.pas"/>
+        <Caret Line="114" Column="18" TopLine="68"/>
+      </Position11>
+      <Position12>
+        <Filename Value="gui.pas"/>
+        <Caret Line="35" Column="29"/>
+      </Position12>
+      <Position13>
+        <Filename Value="gui.pas"/>
+        <Caret Line="124" Column="14" TopLine="97"/>
+      </Position13>
+      <Position14>
+        <Filename Value="gui.pas"/>
+        <Caret Line="38" Column="38" TopLine="9"/>
+      </Position14>
+      <Position15>
+        <Filename Value="gui.pas"/>
+        <Caret Line="144" Column="5" TopLine="108"/>
+      </Position15>
+      <Position16>
+        <Filename Value="gui.pas"/>
+        <Caret Line="143" Column="26" TopLine="108"/>
+      </Position16>
+      <Position17>
+        <Filename Value="gui.pas"/>
+        <Caret Line="139" Column="3" TopLine="109"/>
+      </Position17>
+      <Position18>
+        <Filename Value="gui.pas"/>
+        <Caret Line="162" Column="3" TopLine="115"/>
+      </Position18>
+      <Position19>
+        <Filename Value="gui.pas"/>
+        <Caret Line="163" Column="3" TopLine="121"/>
+      </Position19>
+      <Position20>
+        <Filename Value="gui.pas"/>
+        <Caret Line="137" Column="3" TopLine="127"/>
+      </Position20>
+      <Position21>
+        <Filename Value="gui.pas"/>
+        <Caret Line="155" Column="5" TopLine="112"/>
+      </Position21>
+      <Position22>
+        <Filename Value="gui.pas"/>
+        <Caret Line="79" TopLine="53"/>
+      </Position22>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
