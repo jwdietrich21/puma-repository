@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ValEdit,
-  ComCtrls, Menus, LCLType, EDF;
+  ComCtrls, Menus, LCLType, LazUTF8, EDF;
 
 const
   FEEDBACK_TEXT = '  Status Code: ';
@@ -85,6 +85,7 @@ type
 
 var
   MainForm: TMainForm;
+  gEDFFile: TEDFDoc;
 
 implementation
 
@@ -140,14 +141,36 @@ begin
 end;
 
 procedure TMainForm.OpenMenuItemClick(Sender: TObject);
+var
+  i, ns: integer;
+  Summary: AnsiString;
 begin
   if EDFFileOpenDialog.Execute then
   begin
-    HeaderRecordValueListEditor.Clear;
-
+    HeaderRecordValueListEditor.Strings.Clear;
+    ReadEDFFile(gEDFFile, UTF8ToSys(EDFFileOpenDialog.FileName));
     MainForm.Caption := 'EDF Inspector: ' +
       ExtractFileName(EDFFileOpenDialog.FileName);
-
+    HeaderRecordValueListEditor.Row := 0;
+    HeaderRecordValueListEditor.InsertRow('Version', gEDFFile.version, true);
+    HeaderRecordValueListEditor.InsertRow('Local Patient ID', gEDFFile.LocalPatID, true);
+    HeaderRecordValueListEditor.InsertRow('Local Recording ID', gEDFFile.LocalRecID, true);
+    HeaderRecordValueListEditor.InsertRow('Start Date', gEDFFile.StartDate, true);
+    HeaderRecordValueListEditor.InsertRow('Start Time', gEDFFile.StartTime, true);
+    HeaderRecordValueListEditor.InsertRow('Number of Bytes', gEDFFile.NumOfBytes, true);
+    HeaderRecordValueListEditor.InsertRow('Reserved', '', true);
+    HeaderRecordValueListEditor.InsertRow('Number of Records', gEDFFile.NumOfDataRecs, true);
+    HeaderRecordValueListEditor.InsertRow('Duration of a Record', gEDFFile.DurationOfData, true);
+    HeaderRecordValueListEditor.InsertRow('Number of Signals', gEDFFile.NumOfSignals, true);
+    Summary := gEDFFile.SignalLabel[0];
+    if TryStrToInt(TrimRight(gEDFFile.NumOfSignals), ns) and (ns > 0) then
+    for i := 1 to ns do
+      begin
+        Summary := Summary + ' | ' + gEDFFile.SignalLabel[1]
+      end;
+    HeaderRecordValueListEditor.InsertRow('Labels', Summary, true);
+    HeaderRecordValueListEditor.InsertRow('Reserved', '', true);
+    Statusbar1.Panels[0].Text := FEEDBACK_TEXT + IntToStr(gEDFFile.StatusCode);
   end;
 end;
 

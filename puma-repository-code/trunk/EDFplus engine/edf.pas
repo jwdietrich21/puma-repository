@@ -82,6 +82,16 @@ const
   kStartDate      = 'Startdate';
   kEDFAnnotations = 'EDF Annotations';
 
+  kVersionPos     = 1;
+  kLocalPatIDPos  = 9;
+  kLocalRecIDPos  = 89;
+  kStartDatePos   = 169;
+  kStartTimePos   = 177;
+  kNumOfBytesPos  = 185;
+  kNumOfDRecsPos  = 237;
+  kDurOfDataPos   = 245;
+  kNumOfSigPos    = 253;
+
 type
 
 { TEDFDoc }
@@ -115,6 +125,7 @@ TEDFDoc = class
     status:    integer;
   protected
     procedure CompileHeaderText;
+    procedure ParseHeaderText;
     function ExtractedHeaderText(const start, count: integer): AnsiString;
     procedure CalcHeaderLength;
     function HeaderString: AnsiString;
@@ -210,13 +221,120 @@ TEDFDoc = class
     property StatusCode: integer Read status;
   end;
 
+procedure ReadEDFFile(out EDFDoc: TEDFDoc; aStream: TStream; const aBaseURI: AnsiString);
+procedure ReadEDFFile(out EDFDoc: TEDFDoc; const aFileName: AnsiString);
 
 implementation
+
+procedure ReadEDFFile(out EDFDoc: TEDFDoc; aStream: TStream;
+  const aBaseURI: AnsiString);
+{ reads and parses an EDF file from an URI }
+var
+  mstream: TMemoryStream;
+begin
+  mstream := TMemoryStream.Create;
+  EDFDoc := nil;
+  if aStream.Size > 0 then
+  begin
+    aStream.Position := 0;
+    mstream.CopyFrom(aStream, aStream.Size);
+    { TODO : Complete }
+  end
+  else
+  begin
+    EDFDoc := TEDFDoc.Create;
+    EDFDoc.status := readErr; { create empty document with status code 7 }
+  end;
+  mstream.Free;
+end;
+
+procedure ReadEDFFile(out EDFDoc: TEDFDoc; const aFileName: AnsiString);
+var
+  mstream: TMemoryStream;
+  sstream: TStringStream;
+  headerLength: str8;
+  iHeaderLength: longint;
+begin
+  headerLength := kZero8;
+  mstream := TMemoryStream.Create;
+  sstream := TStringStream.Create('');
+  try
+    EDFDoc := TEDFDoc.Create;
+    mstream.LoadFromFile(aFileName);
+    mstream.Seek(kNumOfBytesPos - 1, soFromBeginning);
+    mstream.ReadBuffer(headerLength[1], 8);
+    headerLength := trimRight(headerLength);
+    mstream.Seek(0, soFromBeginning);
+    if TryStrToInt(headerLength, iHeaderLength) then
+    begin
+      sstream.CopyFrom(mstream, iHeaderLength);
+      sstream.Seek(0, soFromBeginning);
+      EDFDoc.FHeaderText := sstream.ReadString(iHeaderLength);
+      EDFDoc.ParseHeaderText;
+    end
+    else
+    begin
+      raise EConvertError.Create('');
+      EDFDoc.status := headermalform;
+    end;
+  except
+    on E:Exception do
+    begin
+      EDFDoc := TEDFDoc.Create;
+      EDFDoc.status := readErr; { create empty document with status code 7 }
+    end;
+  end;
+  sstream.Free;
+  mstream.Free;
+end;
 
 procedure TEDFDoc.CompileHeaderText;
 begin
   CalcHeaderLength;
   FHeaderText := HeaderString;
+end;
+
+procedure TEDFDoc.ParseHeaderText;
+var
+  ns: integer;
+begin
+  prVersion := ExtractedHeaderText(kVersionPos, 8);
+  prLocalPatID := ExtractedHeaderText(kLocalPatIDPos, 80);  ;
+  prLocalRecID := ExtractedHeaderText(kLocalRecIDPos, 80);
+  prStartDate := ExtractedHeaderText(kStartDatePos, 8);
+  prStartTime := ExtractedHeaderText(kStartTimePos, 8);
+  prNumOfBytes := ExtractedHeaderText(kNumOfBytesPos, 8);
+  prReserved := '';
+  prNumOfDataRecs := ExtractedHeaderText(kNumOfDRecsPos, 8);
+  prDurOfData := ExtractedHeaderText(kDurOfDataPos, 8);
+  prNumOfSignals := ExtractedHeaderText(kNumOfSigPos, 4);
+  if not TryStrToInt(TrimRight(prNumOfSignals), ns) then
+    begin
+      status := strFormatErr;
+      prLabel := '';
+      prTransducer := '';
+      prPhysDim := '';
+      prPhysMin := '';
+      prPhysMax := '';
+      prDigMin := '';
+      prDigMax := '';
+      prPrefilter := '';
+      prNumOfSamples := '';
+      prReserved2 := '';
+    end
+  else
+  begin
+    prLabel := ExtractedHeaderText(kNumOfSigPos + 4, ns * 16);
+    {prTransducer := '';
+    prPhysDim := '';
+    prPhysMin := '';
+    prPhysMax := '';
+    prDigMin := '';
+    prDigMax := '';
+    prPrefilter := '';
+    prNumOfSamples := '';
+    prReserved2 := '';    }
+  end;
 end;
 
 function TEDFDoc.ExtractedHeaderText(const start, count: integer): AnsiString;
@@ -255,12 +373,12 @@ end;
 
 function TEDFDoc.GetVersion: Str8;
 begin
-  Result := ExtractedHeaderText(1, 8);
+  Result := ExtractedHeaderText(kVersionPos, 8);
 end;
 
 function TEDFDoc.GetLocalPatID: Str80;
 begin
-  result := ExtractedHeaderText(9, 80);
+  result := ExtractedHeaderText(kLocalPatIDPos, 80);
 end;
 
 procedure TEDFDoc.SetLocalPatID(const ID: Str80);
@@ -271,7 +389,7 @@ end;
 
 function TEDFDoc.GetLocalRecID: Str80;
 begin
-  result := ExtractedHeaderText(89, 80);
+  result := ExtractedHeaderText(kLocalRecIDPos, 80);
 end;
 
 procedure TEDFDoc.SetLocalRecID(const ID: Str80);
@@ -282,7 +400,7 @@ end;
 
 function TEDFDoc.GetStartDate: Str8;
 begin
-  result := ExtractedHeaderText(169, 8);
+  result := ExtractedHeaderText(kStartDatePos, 8);
 end;
 
 function TEDFDoc.dGetStartDate: tDateTime;
@@ -316,7 +434,7 @@ end;
 
 function TEDFDoc.GetStartTime: Str8;
 begin
-  result := ExtractedHeaderText(177, 8);
+  result := ExtractedHeaderText(kStartTimePos, 8);
 end;
 
 function TEDFDoc.dGetStartTime: tDateTime;
@@ -347,7 +465,7 @@ end;
 
 function TEDFDoc.GetNumOfBytes: Str8;
 begin
-  result := ExtractedHeaderText(185, 8);
+  result := ExtractedHeaderText(kNumOfBytesPos, 8);
 end;
 
 function TEDFDoc.iGetNumOfBytes: longint;
@@ -361,7 +479,7 @@ end;
 
 function TEDFDoc.GetNumOfDataRecs: Str8;
 begin
-  result := ExtractedHeaderText(237, 8);
+  result := ExtractedHeaderText(kNumOfDRecsPos, 8);
 end;
 
 function TEDFDoc.iGetNumOfDataRecs: longint;
@@ -394,7 +512,7 @@ end;
 
 function TEDFDoc.GetDurOfData: Str8;
 begin
-  result := ExtractedHeaderText(245, 8);
+  result := ExtractedHeaderText(kDurOfDataPos, 8);
 end;
 
 function TEDFDoc.iGetDurOfData: longint;
@@ -427,7 +545,7 @@ end;
 
 function TEDFDoc.GetNumOfSignals: Str4;
 begin
-  result := ExtractedHeaderText(253, 4);
+  result := ExtractedHeaderText(kNumOfSigPos, 4);
 end;
 
 function TEDFDoc.iGetNumOfSignals: integer;
@@ -461,7 +579,7 @@ end;
 function TEDFDoc.ValidPosition(const position: integer; var ns: integer): boolean;
 begin
   ns := 0;
-  if not TryStrToInt(prNumOfSignals, ns) then // valid number representation?
+  if not TryStrToInt(TrimRight(NumOfSignals), ns) then // valid number representation?
     begin
       status := strFormatErr;
       result := false;

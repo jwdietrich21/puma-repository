@@ -13,8 +13,9 @@ object MainForm: TMainForm
     Left = 8
     Height = 591
     Top = 32
-    Width = 200
+    Width = 854
     Anchors = [akTop, akLeft, akBottom]
+    Enabled = False
     FixedCols = 0
     RowCount = 3
     TabOrder = 0
@@ -29,7 +30,7 @@ object MainForm: TMainForm
     )
     ColWidths = (
       100
-      100
+      754
     )
   end
   object ToolBar1: TToolBar
