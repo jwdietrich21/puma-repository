@@ -137,8 +137,12 @@ TEDFDoc = class
     function iGetNumOfSignals: integer;
     procedure SetNumOfSignals(const ns: Str4);
     procedure SetNumOfSignals(const ns: integer);
-    procedure SetLabel(position: integer; const theLabel: str16);
-    function GetLabel(position: integer): str16;
+    procedure SetLabel(const position: integer; const theLabel: str16);
+    function GetLabel(const position: integer): str16;
+    procedure SetTransducer(const position: integer; const transducer: str80);
+    function GetTransducer(const position: integer): str80;
+    procedure SetPhysDim(const position: integer; const dimension: str8);
+    function GetPhysDim(const position: integer): Str8;
   public
     constructor Create;
     destructor Destroy; override;
@@ -159,6 +163,8 @@ TEDFDoc = class
     property NumOfSignals: Str4 read GetNumOfSignals Write SetNumOfSignals;
     property iNumOfSignals: integer Read iGetNumOfSignals Write SetNumOfSignals;
     property SignalLabel[i: integer]: Str16 read GetLabel Write SetLabel;
+    property Transducer[i: integer]: Str80 read GetTransducer Write SetTransducer;
+    property PhysDim[i: integer]: Str8 read GetPhysDim Write SetPhysDim;
     property StatusCode: integer Read status;
   end;
 
@@ -411,7 +417,7 @@ begin
   SetNumOfSignals(nsString);
 end;
 
-procedure TEDFDoc.SetLabel(position: integer; const theLabel: str16);
+procedure TEDFDoc.SetLabel(const position: integer; const theLabel: str16);
 var
   filledString: str16;
   ns: integer;
@@ -431,7 +437,7 @@ begin
   end;
 end;
 
-function TEDFDoc.GetLabel(position: integer): str16;
+function TEDFDoc.GetLabel(const position: integer): str16;
 var
   subString: Str16;
   ns: integer;
@@ -446,6 +452,85 @@ begin
   else
   begin
     subString := copy(prLabel, position * 16 + 1, 16);
+    result := TrimRight(subString);
+  end;
+end;
+
+procedure TEDFDoc.SetTransducer(const position: integer; const transducer: str80
+  );
+var
+  filledString: str80;
+  ns: integer;
+begin
+  if not TryStrToInt(prNumOfSignals, ns) then
+    status := strFormatErr
+  else if position > (ns - 1) then // outside range?
+  begin
+    status := rangeErr;
+  end
+  else
+  begin
+    if length(prTransducer) < ns * 80 then // Label string to short?
+      prTransducer := PadRight(prTransducer, ns * 80);
+    filledString := PadRight(transducer, 80); // fill with spaces for length 16
+    prTransducer := StuffString(prTransducer, position * 80 + 1, 80, filledString);
+  end;
+end;
+
+function TEDFDoc.GetTransducer(const position: integer): str80;
+var
+  subString: Str80;
+  ns: integer;
+begin
+  if not TryStrToInt(prNumOfSignals, ns) then
+    status := strFormatErr
+  else if position > (ns - 1) then
+  begin
+    status := rangeErr;
+    result := '';
+  end
+  else
+  begin
+    subString := copy(prTransducer, position * 80 + 1, 80);
+    result := TrimRight(subString);
+  end;
+end;
+
+procedure TEDFDoc.SetPhysDim(const position: integer; const dimension: str8);
+var
+  filledString: str8;
+  ns: integer;
+begin
+  if not TryStrToInt(prNumOfSignals, ns) then
+    status := strFormatErr
+  else if position > (ns - 1) then // outside range?
+  begin
+    status := rangeErr;
+  end
+  else
+  begin
+    if length(prPhysDim) < ns * 8 then // Label string to short?
+      prPhysDim := PadRight(prPhysDim, ns * 8);
+    filledString := PadRight(dimension, 8); // fill with spaces for length 16
+    prPhysDim := StuffString(prPhysDim, position * 8 + 1, 8, filledString);
+  end;
+end;
+
+function TEDFDoc.GetPhysDim(const position: integer): Str8;
+var
+  subString: Str8;
+  ns: integer;
+begin
+  if not TryStrToInt(prNumOfSignals, ns) then
+    status := strFormatErr
+  else if position > (ns - 1) then
+  begin
+    status := rangeErr;
+    result := '';
+  end
+  else
+  begin
+    subString := copy(prPhysDim, position * 8 + 1, 8);
     result := TrimRight(subString);
   end;
 end;

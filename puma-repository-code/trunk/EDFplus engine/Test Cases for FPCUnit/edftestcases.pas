@@ -54,6 +54,8 @@ type
     procedure DataDurationCheck;
     procedure NumOfSignalsCheck;
     procedure LabelsCheck;
+    procedure TransducersCheck;
+    procedure PhysDimsCheck;
   end;
 
 implementation
@@ -177,6 +179,28 @@ begin
   theDoc.NumOfSignals := 12;
   theDoc.SignalLabel[8] := 'ECG V3'; // can label be appended discontinuously?
   AssertEquals('ECG V3', theDoc.SignalLabel[8]);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.TransducersCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.NumOfSignals := 6;
+  theDoc.Transducer[3] := 'AgAgCl electrode';
+  AssertEquals('AgAgCl electrode', theDoc.Transducer[3]);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.PhysDimsCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.NumOfSignals := 12;
+  theDoc.PhysDim[3] := 'mV';
+  AssertEquals('mV', theDoc.PhysDim[3]);
   theDoc.Destroy;
 end;
 
