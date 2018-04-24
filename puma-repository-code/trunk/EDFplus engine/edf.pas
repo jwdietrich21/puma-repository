@@ -44,6 +44,14 @@ type
 
 const
 
+  EDFEngine_major = 1;
+  EDFEngine_minor = 0;
+  EDFEngine_release = 0;
+  EDFEngine_patch = 0;
+  EDFEngine_fullversion = ((EDFEngine_major *  100 + EDFEngine_minor) * 100 + EDFEngine_release) * 100 + EDFEngine_patch;
+  EDFEngine_version = '1.0.0.0';
+  EDFEngine_internalversion = 'Alpha Centauri';
+
   ksCR   = #13;
   ksLF   = #10;
   ksCRLF = #13#10;
@@ -152,6 +160,20 @@ TEDFDoc = class
     procedure SetPhysMax(const position: integer; const physmax: longint);
     function GetPhysMax(const position: integer): Str8;
     function iGetPhysMax(const position: integer): longint;
+    procedure SetDigMin(const position: integer; const digmin: str8);
+    procedure SetDigMin(const position: integer; const digmin: longint);
+    function GetDigMin(const position: integer): Str8;
+    function iGetDigMin(const position: integer): longint;
+    procedure SetDigMax(const position: integer; const digmax: str8);
+    procedure SetDigMax(const position: integer; const digmax: longint);
+    function GetDigMax(const position: integer): Str8;
+    function iGetDigMax(const position: integer): longint;
+    procedure SetPrefilter(const position: integer; const prefilter: str80);
+    function GetPrefilter(const position: integer): str80;
+    procedure SetNumOfSamples(const position: integer; const numOfSamples: str8);
+    procedure SetNumOfSamples(const position: integer; const numOfSamples: longint);
+    function GetNumOfSamples(const position: integer): Str8;
+    function iGetNumOfSamples(const position: integer): longint;
   public
     constructor Create;
     destructor Destroy; override;
@@ -178,6 +200,13 @@ TEDFDoc = class
     property iPhysMin[i: integer]: longint read iGetPhysMin Write SetPhysMin;
     property PhysMax[i: integer]: Str8 read GetPhysMax Write SetPhysMax;
     property iPhysMax[i: integer]: longint read iGetPhysMax Write SetPhysMax;
+    property digMin[i: integer]: Str8 read GetdigMin Write SetdigMin;
+    property idigMin[i: integer]: longint read iGetdigMin Write SetdigMin;
+    property digMax[i: integer]: Str8 read GetdigMax Write SetdigMax;
+    property idigMax[i: integer]: longint read iGetdigMax Write SetdigMax;
+    property Prefilter[i: integer]: Str80 read GetPrefilter Write SetPrefilter;
+    property NumOfSamples[i: integer]: Str8 read GetNumOfSamples Write SetNumOfSamples;
+    property iNumOfSamples[i: integer]: longint read iGetNumOfSamples Write SetNumOfSamples;
     property StatusCode: integer Read status;
   end;
 
@@ -261,7 +290,6 @@ var
   sdString: Str8;
   theFormat: TFormatSettings;
 begin
-  //theFormat := DefaultFormatSettings;
   theFormat.DateSeparator := '.';
   theFormat.ShortDateFormat := 'dd.mm.yy';
   { TODO -oJWD : Adapt for special EDF convention for two-digits years: }
@@ -355,7 +383,7 @@ procedure TEDFDoc.SetNumOfDataRecs(const nr: longint);
 var
   nrString: Str8;
 begin
-  if nr > 99999999 then begin
+  if (nr < 0) or (nr > 99999999) then begin
     status := rangeErr;
     nrString := FloatToStr(NaN);
   end
@@ -388,7 +416,7 @@ procedure TEDFDoc.SetDurOfData(const dd: longint);
 var
   ddString: Str8;
 begin
-  if dd > 99999999 then begin
+  if (dd < 0) or (dd > 99999999) then begin
     status := rangeErr;
     ddString := FloatToStr(NaN);
   end
@@ -421,7 +449,7 @@ procedure TEDFDoc.SetNumOfSignals(const ns: integer);
 var
   nsString: Str4;
 begin
-  if ns > 9999 then begin
+  if (ns < 0) or (ns > 9999) then begin
     status := rangeErr;
     nsString := FloatToStr(NaN);
   end
@@ -454,7 +482,7 @@ var
 begin
   if ValidPosition(position, ns) then
   begin
-    if length(prLabel) < ns * 16 then // Label string to short?
+    if length(prLabel) < ns * 16 then // Label string too short?
       prLabel := PadRight(prLabel, ns * 16);
     filledString := PadRight(theLabel, 16); // fill with spaces for length 16
     prLabel := StuffString(prLabel, position * 16 + 1, 16, filledString);
@@ -483,7 +511,7 @@ var
 begin
   if ValidPosition(position, ns) then
   begin
-    if length(prTransducer) < ns * 80 then // Transducer string to short?
+    if length(prTransducer) < ns * 80 then // Transducer string too short?
       prTransducer := PadRight(prTransducer, ns * 80);
     filledString := PadRight(transducer, 80); // fill with spaces for length 16
     prTransducer := StuffString(prTransducer, position * 80 + 1, 80, filledString);
@@ -511,7 +539,7 @@ var
 begin
   if ValidPosition(position, ns) then
   begin
-    if length(prPhysDim) < ns * 8 then // PhysDim string to short?
+    if length(prPhysDim) < ns * 8 then // PhysDim string too short?
       prPhysDim := PadRight(prPhysDim, ns * 8);
     filledString := PadRight(dimension, 8); // fill with spaces for length 16
     prPhysDim := StuffString(prPhysDim, position * 8 + 1, 8, filledString);
@@ -539,7 +567,7 @@ var
 begin
   if ValidPosition(position, ns) then
   begin
-    if length(prPhysMin) < ns * 8 then // PhysMin string to short?
+    if length(prPhysMin) < ns * 8 then // PhysMin string too short?
       prPhysMin := PadRight(prPhysMin, ns * 8);
     filledString := PadRight(physmin, 8); // fill with spaces for length 16
     prPhysMin := StuffString(prPhysMin, position * 8 + 1, 8, filledString);
@@ -588,7 +616,7 @@ var
 begin
   if ValidPosition(position, ns) then
   begin
-    if length(prPhysMax) < ns * 8 then // PhysMax string to short?
+    if length(prPhysMax) < ns * 8 then // PhysMax string too short?
       prPhysMax := PadRight(prPhysMax, ns * 8);
     filledString := PadRight(physmax, 8); // fill with spaces for length 16
     prPhysMax := StuffString(prPhysMax, position * 8 + 1, 8, filledString);
@@ -627,6 +655,183 @@ var
 begin
   pmString := GetPhysMax(position);
   if not TryStrToInt(pmString, result) then
+    status := strFormatErr;
+end;
+
+procedure TEDFDoc.SetDigMin(const position: integer; const digmin: str8);
+var
+  filledString: str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    if length(prDigMin) < ns * 8 then // DigMin string too short?
+      prDigMin := PadRight(prDigMin, ns * 8);
+    filledString := PadRight(digmin, 8); // fill with spaces for length 16
+    prDigMin := StuffString(prDigMin, position * 8 + 1, 8, filledString);
+  end;
+end;
+
+procedure TEDFDoc.SetDigMin(const position: integer; const digmin: longint);
+var
+  dmString: Str8;
+begin
+  if (digmin > 99999999) or (digmin < -9999999) then begin
+    status := rangeErr;
+    dmString := FloatToStr(NaN);
+  end
+  else
+    dmString := FormatFloat(kZero8, digmin);
+  SetDigMin(position, dmString);
+end;
+
+function TEDFDoc.GetDigMin(const position: integer): Str8;
+var
+  subString: Str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    subString := copy(prDigMin, position * 8 + 1, 8);
+    result := TrimRight(subString);
+  end
+  else result := '';
+end;
+
+function TEDFDoc.iGetDigMin(const position: integer): longint;
+var
+  dmString: Str8;
+begin
+  dmString := GetDigMin(position);
+  if not TryStrToInt(dmString, result) then
+    status := strFormatErr;
+end;
+
+procedure TEDFDoc.SetDigMax(const position: integer; const digmax: str8);
+var
+  filledString: str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    if length(prDigMax) < ns * 8 then // DigMax string too short?
+      prDigMax := PadRight(prDigMax, ns * 8);
+    filledString := PadRight(digmax, 8); // fill with spaces for length 16
+    prDigMax := StuffString(prDigMax, position * 8 + 1, 8, filledString);
+  end;
+end;
+
+procedure TEDFDoc.SetDigMax(const position: integer; const digmax: longint);
+var
+  dmString: Str8;
+begin
+  if (digmax > 99999999) or (digmax < -9999999) then begin
+    status := rangeErr;
+    dmString := FloatToStr(NaN);
+  end
+  else
+    dmString := FormatFloat(kZero8, digmax);
+  SetDigMax(position, dmString);
+end;
+
+function TEDFDoc.GetDigMax(const position: integer): Str8;
+var
+  subString: Str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    subString := copy(prDigMax, position * 8 + 1, 8);
+    result := TrimRight(subString);
+  end
+  else result := '';
+end;
+
+function TEDFDoc.iGetDigMax(const position: integer): longint;
+var
+  dmString: Str8;
+begin
+  dmString := GetDigMax(position);
+  if not TryStrToInt(dmString, result) then
+    status := strFormatErr;
+end;
+
+procedure TEDFDoc.SetPrefilter(const position: integer; const prefilter: str80);
+var
+  filledString: str80;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    if length(prPrefilter) < ns * 80 then // Prefilter string too short?
+      prPrefilter := PadRight(prPrefilter, ns * 80);
+    filledString := PadRight(prefilter, 80); // fill with spaces for length 16
+    prPrefilter := StuffString(prPrefilter, position * 80 + 1, 80, filledString);
+  end;
+end;
+
+function TEDFDoc.GetPrefilter(const position: integer): str80;
+var
+  subString: Str80;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    subString := copy(prPrefilter, position * 80 + 1, 80);
+    result := TrimRight(subString);
+  end
+  else
+    result := '';
+end;
+
+procedure TEDFDoc.SetNumOfSamples(const position: integer;
+  const numOfSamples: str8);
+var
+  filledString: str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    if length(prNumOfSamples) < ns * 8 then // PhysMin string too short?
+      prNumOfSamples := PadRight(prNumOfSamples, ns * 8);
+    filledString := PadRight(numOfSamples, 8); // fill with spaces for length 16
+    prNumOfSamples := StuffString(prNumOfSamples, position * 8 + 1, 8, filledString);
+  end;
+end;
+
+procedure TEDFDoc.SetNumOfSamples(const position: integer;
+  const numOfSamples: longint);
+var
+  nsaString: Str8;
+begin
+  if (numOfSamples < 0) or (numOfSamples > 99999999) then begin
+    status := rangeErr;
+    nsaString := FloatToStr(NaN);
+  end
+  else
+    nsaString := FormatFloat(kZero8, numOfSamples);
+  SetNumOfSamples(position, nsaString);
+end;
+
+function TEDFDoc.GetNumOfSamples(const position: integer): Str8;
+var
+  subString: Str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    subString := copy(prNumOfSamples, position * 8 + 1, 8);
+    result := TrimRight(subString);
+  end
+  else result := '';
+end;
+
+function TEDFDoc.iGetNumOfSamples(const position: integer): longint;
+var
+  nsaString: Str8;
+begin
+  nsaString := GetNumOfSamples(position);
+  if not TryStrToInt(nsaString, result) then
     status := strFormatErr;
 end;
 

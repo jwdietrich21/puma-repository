@@ -35,9 +35,12 @@ uses
 
 type
 
+  { TControlTestCases }
+
   TControlTestCases = class(TTestCase)
   published
     procedure PositiveCheck;
+    procedure CodeVersionCheck;
   end;
 
   { TEDFplusDocTestCases }
@@ -57,6 +60,9 @@ type
     procedure TransducersCheck;
     procedure PhysDimsCheck;
     procedure PhysMinMaxCheck;
+    procedure DigMinMaxCheck;
+    procedure PreFilterCheck;
+    procedure NumOfSamplesCheck;
   end;
 
 implementation
@@ -68,6 +74,13 @@ procedure TControlTestCases.PositiveCheck;
 { Positive check, should always succeed }
 begin
   AssertNull('This test is bound to succeed', nil);
+end;
+
+procedure TControlTestCases.CodeVersionCheck;
+{ The subsequent tests are compatible with EDF Engine version 1.0 }
+begin
+  AssertEquals(1, EDFEngine_major);
+  AssertEquals(0, EDFEngine_minor);
 end;
 
 { TEDFplusDocTestCases }
@@ -221,6 +234,52 @@ begin
   AssertEquals(7, theDoc.iPhysMax[5]);
   theDoc.Destroy;
 end;
+
+procedure TEDFDocTestCases.DigMinMaxCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.NumOfSignals := 12;
+  theDoc.DigMin[3] := '-2048';
+  AssertEquals('-2048', theDoc.DigMin[3]);
+  theDoc.DigMax[3] := '2047';
+  AssertEquals('2047', theDoc.DigMax[3]);
+  theDoc.iDigMin[9] := -8192;
+  AssertEquals(-8192, theDoc.iDigMin[9]);
+  theDoc.iDigMax[9] := 8191;
+  AssertEquals(8191, theDoc.iDigMax[9]);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.PreFilterCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.NumOfSignals := 6;
+  theDoc.Prefilter[3] := 'HP:0.1Hz LP:75Hz';
+  AssertEquals('HP:0.1Hz LP:75Hz', theDoc.Prefilter[3]);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.NumOfSamplesCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.NumOfSignals := 4;
+  theDoc.NumOfSamples[0] := '15000';
+  AssertEquals('15000', theDoc.NumOfSamples[0]);
+  theDoc.NumOfSamples[1] := '3';
+  AssertEquals('3', theDoc.NumOfSamples[1]);
+  theDoc.iNumOfSamples[2] := 1300;
+  AssertEquals(1300, theDoc.iNumOfSamples[2]);
+  theDoc.iNumOfSamples[3] := 7;
+  AssertEquals(7, theDoc.iNumOfSamples[3]);
+  theDoc.Destroy;
+end;
+
 
 
 initialization
