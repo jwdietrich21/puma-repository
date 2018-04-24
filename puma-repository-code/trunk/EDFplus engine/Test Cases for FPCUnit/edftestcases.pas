@@ -56,6 +56,7 @@ type
     procedure LabelsCheck;
     procedure TransducersCheck;
     procedure PhysDimsCheck;
+    procedure PhysMinMaxCheck;
   end;
 
 implementation
@@ -201,6 +202,23 @@ begin
   theDoc.NumOfSignals := 12;
   theDoc.PhysDim[3] := 'mV';
   AssertEquals('mV', theDoc.PhysDim[3]);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.PhysMinMaxCheck;
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.NumOfSignals := 12;
+  theDoc.PhysMin[3] := '-3';
+  AssertEquals('-3', theDoc.PhysMin[3]);
+  theDoc.iPhysMin[7] := -5;
+  AssertEquals(-5, theDoc.iPhysMin[7]);
+  theDoc.PhysMax[3] := '3';
+  AssertEquals('3', theDoc.PhysMax[3]);
+  theDoc.iPhysMax[5] := 7;
+  AssertEquals(7, theDoc.iPhysMax[5]);
   theDoc.Destroy;
 end;
 

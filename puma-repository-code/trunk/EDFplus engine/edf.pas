@@ -4,7 +4,7 @@ unit EDF;
 
 { Pascal Units for Medical Applications }
 
-{ EDF+ base unit }
+{ EDF base unit }
 
 { Version 1.0 (Alpha Centauri) }
 
@@ -137,12 +137,21 @@ TEDFDoc = class
     function iGetNumOfSignals: integer;
     procedure SetNumOfSignals(const ns: Str4);
     procedure SetNumOfSignals(const ns: integer);
+    function ValidPosition(const position: integer; var ns: integer): boolean;
     procedure SetLabel(const position: integer; const theLabel: str16);
     function GetLabel(const position: integer): str16;
     procedure SetTransducer(const position: integer; const transducer: str80);
     function GetTransducer(const position: integer): str80;
     procedure SetPhysDim(const position: integer; const dimension: str8);
     function GetPhysDim(const position: integer): Str8;
+    procedure SetPhysMin(const position: integer; const physmin: str8);
+    procedure SetPhysMin(const position: integer; const physmin: longint);
+    function GetPhysMin(const position: integer): Str8;
+    function iGetPhysMin(const position: integer): longint;
+    procedure SetPhysMax(const position: integer; const physmax: str8);
+    procedure SetPhysMax(const position: integer; const physmax: longint);
+    function GetPhysMax(const position: integer): Str8;
+    function iGetPhysMax(const position: integer): longint;
   public
     constructor Create;
     destructor Destroy; override;
@@ -165,6 +174,10 @@ TEDFDoc = class
     property SignalLabel[i: integer]: Str16 read GetLabel Write SetLabel;
     property Transducer[i: integer]: Str80 read GetTransducer Write SetTransducer;
     property PhysDim[i: integer]: Str8 read GetPhysDim Write SetPhysDim;
+    property PhysMin[i: integer]: Str8 read GetPhysMin Write SetPhysMin;
+    property iPhysMin[i: integer]: longint read iGetPhysMin Write SetPhysMin;
+    property PhysMax[i: integer]: Str8 read GetPhysMax Write SetPhysMax;
+    property iPhysMax[i: integer]: longint read iGetPhysMax Write SetPhysMax;
     property StatusCode: integer Read status;
   end;
 
@@ -417,18 +430,29 @@ begin
   SetNumOfSignals(nsString);
 end;
 
+function TEDFDoc.ValidPosition(const position: integer; var ns: integer): boolean;
+begin
+  ns := 0;
+  if not TryStrToInt(prNumOfSignals, ns) then // valid number representation?
+    begin
+      status := strFormatErr;
+      result := false;
+    end
+  else if position > (ns - 1) then // outside range?
+  begin
+    status := rangeErr;
+    result := false;
+  end
+  else // no errors
+    result := true;
+end;
+
 procedure TEDFDoc.SetLabel(const position: integer; const theLabel: str16);
 var
   filledString: str16;
   ns: integer;
 begin
-  if not TryStrToInt(prNumOfSignals, ns) then
-    status := strFormatErr
-  else if position > (ns - 1) then // outside range?
-  begin
-    status := rangeErr;
-  end
-  else
+  if ValidPosition(position, ns) then
   begin
     if length(prLabel) < ns * 16 then // Label string to short?
       prLabel := PadRight(prLabel, ns * 16);
@@ -442,18 +466,13 @@ var
   subString: Str16;
   ns: integer;
 begin
-  if not TryStrToInt(prNumOfSignals, ns) then
-    status := strFormatErr
-  else if position > (ns - 1) then
-  begin
-    status := rangeErr;
-    result := '';
-  end
-  else
+  if ValidPosition(position, ns) then
   begin
     subString := copy(prLabel, position * 16 + 1, 16);
     result := TrimRight(subString);
-  end;
+  end
+  else
+    result := '';
 end;
 
 procedure TEDFDoc.SetTransducer(const position: integer; const transducer: str80
@@ -462,15 +481,9 @@ var
   filledString: str80;
   ns: integer;
 begin
-  if not TryStrToInt(prNumOfSignals, ns) then
-    status := strFormatErr
-  else if position > (ns - 1) then // outside range?
+  if ValidPosition(position, ns) then
   begin
-    status := rangeErr;
-  end
-  else
-  begin
-    if length(prTransducer) < ns * 80 then // Label string to short?
+    if length(prTransducer) < ns * 80 then // Transducer string to short?
       prTransducer := PadRight(prTransducer, ns * 80);
     filledString := PadRight(transducer, 80); // fill with spaces for length 16
     prTransducer := StuffString(prTransducer, position * 80 + 1, 80, filledString);
@@ -482,18 +495,13 @@ var
   subString: Str80;
   ns: integer;
 begin
-  if not TryStrToInt(prNumOfSignals, ns) then
-    status := strFormatErr
-  else if position > (ns - 1) then
-  begin
-    status := rangeErr;
-    result := '';
-  end
-  else
+  if ValidPosition(position, ns) then
   begin
     subString := copy(prTransducer, position * 80 + 1, 80);
     result := TrimRight(subString);
-  end;
+  end
+  else
+    result := '';
 end;
 
 procedure TEDFDoc.SetPhysDim(const position: integer; const dimension: str8);
@@ -501,15 +509,9 @@ var
   filledString: str8;
   ns: integer;
 begin
-  if not TryStrToInt(prNumOfSignals, ns) then
-    status := strFormatErr
-  else if position > (ns - 1) then // outside range?
+  if ValidPosition(position, ns) then
   begin
-    status := rangeErr;
-  end
-  else
-  begin
-    if length(prPhysDim) < ns * 8 then // Label string to short?
+    if length(prPhysDim) < ns * 8 then // PhysDim string to short?
       prPhysDim := PadRight(prPhysDim, ns * 8);
     filledString := PadRight(dimension, 8); // fill with spaces for length 16
     prPhysDim := StuffString(prPhysDim, position * 8 + 1, 8, filledString);
@@ -521,18 +523,111 @@ var
   subString: Str8;
   ns: integer;
 begin
-  if not TryStrToInt(prNumOfSignals, ns) then
-    status := strFormatErr
-  else if position > (ns - 1) then
-  begin
-    status := rangeErr;
-    result := '';
-  end
-  else
+  if ValidPosition(position, ns) then
   begin
     subString := copy(prPhysDim, position * 8 + 1, 8);
     result := TrimRight(subString);
+  end
+  else
+    result := '';
+end;
+
+procedure TEDFDoc.SetPhysMin(const position: integer; const physmin: str8);
+var
+  filledString: str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    if length(prPhysMin) < ns * 8 then // PhysMin string to short?
+      prPhysMin := PadRight(prPhysMin, ns * 8);
+    filledString := PadRight(physmin, 8); // fill with spaces for length 16
+    prPhysMin := StuffString(prPhysMin, position * 8 + 1, 8, filledString);
   end;
+end;
+
+procedure TEDFDoc.SetPhysMin(const position: integer; const physmin: longint);
+var
+  pmString: Str8;
+begin
+  if (physmin > 99999999) or (physmin < -9999999) then begin
+    status := rangeErr;
+    pmString := FloatToStr(NaN);
+  end
+  else
+    pmString := FormatFloat(kZero8, physmin);
+  SetPhysMin(position, pmString);
+end;
+
+function TEDFDoc.GetPhysMin(const position: integer): Str8;
+var
+  subString: Str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    subString := copy(prPhysMin, position * 8 + 1, 8);
+    result := TrimRight(subString);
+  end
+  else result := '';
+end;
+
+function TEDFDoc.iGetPhysMin(const position: integer): longint;
+var
+  pmString: Str8;
+begin
+  pmString := GetPhysMin(position);
+  if not TryStrToInt(pmString, result) then
+    status := strFormatErr;
+end;
+
+procedure TEDFDoc.SetPhysMax(const position: integer; const physmax: str8);
+var
+  filledString: str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    if length(prPhysMax) < ns * 8 then // PhysMax string to short?
+      prPhysMax := PadRight(prPhysMax, ns * 8);
+    filledString := PadRight(physmax, 8); // fill with spaces for length 16
+    prPhysMax := StuffString(prPhysMax, position * 8 + 1, 8, filledString);
+  end;
+end;
+
+procedure TEDFDoc.SetPhysMax(const position: integer; const physmax: longint);
+var
+  pmString: Str8;
+begin
+  if (physmax > 99999999) or (physmax < -9999999) then begin
+    status := rangeErr;
+    pmString := FloatToStr(NaN);
+  end
+  else
+    pmString := FormatFloat(kZero8, physmax);
+  SetPhysMax(position, pmString);
+end;
+
+function TEDFDoc.GetPhysMax(const position: integer): Str8;
+var
+  subString: Str8;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    subString := copy(prPhysMax, position * 8 + 1, 8);
+    result := TrimRight(subString);
+  end
+  else result := '';
+end;
+
+function TEDFDoc.iGetPhysMax(const position: integer): longint;
+var
+  pmString: Str8;
+begin
+  pmString := GetPhysMax(position);
+  if not TryStrToInt(pmString, result) then
+    status := strFormatErr;
 end;
 
 constructor TEDFDoc.Create;
