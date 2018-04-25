@@ -136,7 +136,7 @@ var
   theDoc: TEDFDoc;
 begin
   theDoc := TEDFDoc.Create;
-  AssertEquals(length(theDoc.header), StrToInt(theDoc.NumOfBytes));
+  AssertEquals(length(theDoc.header), StrToInt(Trim(theDoc.NumOfBytes)));
   AssertEquals(length(theDoc.header), theDoc.iNumOfBytes);
   theDoc.Destroy;
 end;

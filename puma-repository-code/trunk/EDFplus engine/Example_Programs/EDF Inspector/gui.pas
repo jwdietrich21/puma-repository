@@ -144,6 +144,7 @@ procedure TMainForm.OpenMenuItemClick(Sender: TObject);
 var
   i, ns: integer;
   Labels, Transducers, PhysDims, PhysMins, PhysMaxs: AnsiString;
+  DigMins, DigMaxs, Prefilters, NumsOfSamples: AnsiString;
 begin
   if EDFFileOpenDialog.Execute then
   begin
@@ -167,6 +168,10 @@ begin
     PhysDims := gEDFFile.PhysDim[0];
     PhysMins := gEDFFile.PhysMin[0];
     PhysMaxs := gEDFFile.PhysMax[0];
+    DigMins := gEDFFile.DigMin[0];
+    DigMaxs := gEDFFile.DigMax[0];
+    Prefilters := gEDFFile.Prefilter[0];
+    NumsOfSamples := gEDFFile.NumOfSamples[0];
     if TryStrToInt(TrimRight(gEDFFile.NumOfSignals), ns) and (ns > 0) then
     for i := 1 to ns do
       begin
@@ -175,12 +180,20 @@ begin
         PhysDims := PhysDims + ' | ' + gEDFFile.PhysDim[i];
         PhysMins := PhysMins + ' | ' + gEDFFile.PhysMin[i];
         PhysMaxs := PhysMaxs + ' | ' + gEDFFile.PhysMax[i];
+        DigMins := DigMins + ' | ' + gEDFFile.DigMin[i];
+        DigMaxs := DigMaxs + ' | ' + gEDFFile.DigMax[i];
+        Prefilters := Prefilters + ' | ' + gEDFFile.Prefilter[i];
+        NumsOfSamples := NumsOfSamples + ' | ' + gEDFFile.NumOfSamples[i];
       end;
     HeaderRecordValueListEditor.InsertRow('Labels', Labels, true);
     HeaderRecordValueListEditor.InsertRow('Transducers', Transducers, true);
     HeaderRecordValueListEditor.InsertRow('Physical Dimension', PhysDims, true);
     HeaderRecordValueListEditor.InsertRow('Physical Minimum', PhysMins, true);
     HeaderRecordValueListEditor.InsertRow('Physical Maximum', PhysMaxs, true);
+    HeaderRecordValueListEditor.InsertRow('Digital Minimum', DigMins, true);
+    HeaderRecordValueListEditor.InsertRow('Digital Maximum', DigMaxs, true);
+    HeaderRecordValueListEditor.InsertRow('Prefiltering', Prefilters, true);
+    HeaderRecordValueListEditor.InsertRow('Number of Samples', NumsOfSamples, true);
     HeaderRecordValueListEditor.InsertRow('Reserved', '', true);
     Statusbar1.Panels[0].Text := FEEDBACK_TEXT + IntToStr(gEDFFile.StatusCode);
   end;

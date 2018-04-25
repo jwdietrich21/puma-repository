@@ -258,7 +258,7 @@ var
   headerLength: str8;
   iHeaderLength: longint;
 begin
-  headerLength := kZero8;
+  headerLength := kEmpty8;
   mstream := TMemoryStream.Create;
   sstream := TStringStream.Create('');
   try
@@ -330,13 +330,13 @@ begin
     prLabel := ExtractedHeaderText(kVarStartPos, ns * 16);
     prTransducer := ExtractedHeaderText(kVarStartPos + ns * 16, ns * 80);   ;
     prPhysDim := ExtractedHeaderText(kVarStartPos + ns * (16 + 80), ns * 8);
-    prPhysMin := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 8), ns * 8); ;
-    prPhysMax := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16), ns * 8); ;
-    {prDigMin := '';
-    prDigMax := '';
-    prPrefilter := '';
-    prNumOfSamples := '';
-    prReserved2 := '';    }
+    prPhysMin := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 8), ns * 8);
+    prPhysMax := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16), ns * 8);
+    prDigMin := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 8), ns * 8);
+    prDigMax := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 16), ns * 8);
+    prPrefilter := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 24), ns * 8);
+    prNumOfSamples := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 32), ns * 8);
+    prReserved2 := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 40), ns * 8);
   end;
 end;
 
@@ -358,7 +358,7 @@ var
   headerLength: longint;
 begin
   headerLength := length(HeaderString);
-  prNumOfBytes := FormatFloat(kZero8, headerLength);
+  prNumOfBytes := PadRight(IntToStr(headerLength), 8);
 end;
 
 function TEDFDoc.HeaderString: AnsiString;
@@ -509,7 +509,7 @@ begin
     nrString := FloatToStr(NaN);
   end
   else
-    nrString := FormatFloat(kZero8, nr);
+    nrString := PadRight(IntToStr(nr), 8);
   SetNumOfDataRecs(nrString);
 end;
 
@@ -542,7 +542,7 @@ begin
     ddString := FloatToStr(NaN);
   end
   else
-    ddString := FormatFloat(kZero8, dd);
+    ddString := PadRight(IntToStr(dd), 8);
   SetDurOfData(ddString);
 end;
 
@@ -575,7 +575,7 @@ begin
     nsString := FloatToStr(NaN);
   end
   else
-    nsString := FormatFloat(kZero4, ns);
+    nsString := PadRight(IntToStr(ns), 4);
   SetNumOfSignals(nsString);
 end;
 
@@ -699,12 +699,12 @@ procedure TEDFDoc.SetPhysMin(const position: integer; const physmin: longint);
 var
   pmString: Str8;
 begin
-  if (physmin > 99999999) or (physmin < -9999999) then begin
+  if (physMin > 99999999) or (physMin < -9999999) then begin
     status := rangeErr;
     pmString := FloatToStr(NaN);
   end
   else
-    pmString := FormatFloat(kZero8, physmin);
+    pmString := PadRight(IntToStr(physMin), 8);
   SetPhysMin(position, pmString);
 end;
 
@@ -748,12 +748,12 @@ procedure TEDFDoc.SetPhysMax(const position: integer; const physmax: longint);
 var
   pmString: Str8;
 begin
-  if (physmax > 99999999) or (physmax < -9999999) then begin
+  if (physMax > 99999999) or (physMax < -9999999) then begin
     status := rangeErr;
     pmString := FloatToStr(NaN);
   end
   else
-    pmString := FormatFloat(kZero8, physmax);
+    pmString := PadRight(IntToStr(physMax), 8);
   SetPhysMax(position, pmString);
 end;
 
@@ -802,7 +802,7 @@ begin
     dmString := FloatToStr(NaN);
   end
   else
-    dmString := FormatFloat(kZero8, digmin);
+    dmString := PadRight(IntToStr(digMin), 8);
   SetDigMin(position, dmString);
 end;
 
@@ -851,7 +851,7 @@ begin
     dmString := FloatToStr(NaN);
   end
   else
-    dmString := FormatFloat(kZero8, digmax);
+    dmString := PadRight(IntToStr(digMax), 8);
   SetDigMax(position, dmString);
 end;
 
@@ -930,7 +930,7 @@ begin
     nsaString := FloatToStr(NaN);
   end
   else
-    nsaString := FormatFloat(kZero8, numOfSamples);
+    nsaString := PadRight(IntToStr(numOfSamples), 8);
   SetNumOfSamples(position, nsaString);
 end;
 
@@ -966,11 +966,11 @@ begin
   prLocalRecID := kEmpty80;
   prStartDate := kDefaultDate;
   prStartTime := kDefaultTime;
-  prNumOfBytes := kZero8;
+  prNumOfBytes := kEmpty8;
   prReserved := kEmpty44;
   prNumOfDataRecs := kUnknown;
-  prDurOfData := kZero8;
-  prNumOfSignals := kZero4;
+  prDurOfData := kEmpty8;
+  prNumOfSignals := kEmpty4;
   prLabel := kEmpty0;
   prTransducer := kEmpty0;
   prPhysDim := kEmpty0;
