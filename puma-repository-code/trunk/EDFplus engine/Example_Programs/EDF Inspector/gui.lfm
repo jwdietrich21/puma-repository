@@ -11,15 +11,15 @@ object MainForm: TMainForm
   LCLVersion = '1.8.0.6'
   object HeaderRecordValueListEditor: TValueListEditor
     Left = 8
-    Height = 571
+    Height = 560
     Top = 32
-    Width = 854
-    Anchors = [akTop, akLeft, akBottom]
-    Enabled = False
+    Width = 846
+    AlternateColor = clMoneyGreen
+    Anchors = [akTop, akLeft, akRight, akBottom]
     FixedCols = 0
     RowCount = 3
     TabOrder = 0
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor, goThumbTracking, goColSpanning]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking, goColSpanning, goDblClickAutoSize]
     Strings.Strings = (
       ''
       ''
@@ -30,7 +30,7 @@ object MainForm: TMainForm
     )
     ColWidths = (
       100
-      750
+      742
     )
   end
   object ToolBar1: TToolBar

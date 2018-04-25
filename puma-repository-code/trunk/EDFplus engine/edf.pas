@@ -93,6 +93,7 @@ const
   kNumOfDRecsPos  = 237;
   kDurOfDataPos   = 245;
   kNumOfSigPos    = 253;
+  kVarStartPos    = kNumOfSigPos + 4;
 
 type
 
@@ -326,12 +327,12 @@ begin
     end
   else
   begin
-    prLabel := ExtractedHeaderText(kNumOfSigPos + 4, ns * 16);
-    {prTransducer := '';
-    prPhysDim := '';
-    prPhysMin := '';
-    prPhysMax := '';
-    prDigMin := '';
+    prLabel := ExtractedHeaderText(kVarStartPos, ns * 16);
+    prTransducer := ExtractedHeaderText(kVarStartPos + ns * 16, ns * 80);   ;
+    prPhysDim := ExtractedHeaderText(kVarStartPos + ns * (16 + 80), ns * 8);
+    prPhysMin := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 8), ns * 8); ;
+    prPhysMax := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16), ns * 8); ;
+    {prDigMin := '';
     prDigMax := '';
     prPrefilter := '';
     prNumOfSamples := '';
