@@ -90,6 +90,7 @@ const
   kStartDatePos   = 169;
   kStartTimePos   = 177;
   kNumOfBytesPos  = 185;
+  kReservedPos    = 193;
   kNumOfDRecsPos  = 237;
   kDurOfDataPos   = 245;
   kNumOfSigPos    = 253;
@@ -148,6 +149,8 @@ TEDFDoc = class
     function GetNumOfBytes: Str8;
     function iGetNumOfBytes: longint;
     function GetNumOfDataRecs: Str8;
+    function GetReserved: Str44;
+    procedure SetReserved(const ReservedStr: Str44);
     function iGetNumOfDataRecs: longint;
     procedure SetNumOfDataRecs(const NumOfRecs: Str8);
     procedure SetNumOfDataRecs(const nr: longint);
@@ -188,6 +191,8 @@ TEDFDoc = class
     procedure SetNumOfSamples(const position: integer; const numOfSamples: longint);
     function GetNumOfSamples(const position: integer): Str8;
     function iGetNumOfSamples(const position: integer): longint;
+    procedure SetReserved2(const position: integer; const Reserved2Str: Str32);
+    function GetReserved2(const position: integer): Str32;
   public
     constructor Create;
     destructor Destroy; override;
@@ -201,6 +206,7 @@ TEDFDoc = class
     property dStartTime: TDateTime Read dGetStartTime Write SetStartTime;
     property NumOfBytes: Str8 Read GetNumOfBytes;
     property iNumOfBytes: longint Read iGetNumOfBytes;
+    property Reserved: Str44 Read GetReserved Write SetReserved;
     property NumOfDataRecs: Str8 Read GetNumOfDataRecs Write SetNumOfDataRecs;
     property iNumOfDataRecs: longint Read iGetNumOfDataRecs Write SetNumOfDataRecs;
     property DurationOfData: Str8 Read GetDurOfData Write SetDurOfData;
@@ -221,6 +227,7 @@ TEDFDoc = class
     property Prefilter[i: integer]: Str80 read GetPrefilter Write SetPrefilter;
     property NumOfSamples[i: integer]: Str8 read GetNumOfSamples Write SetNumOfSamples;
     property iNumOfSamples[i: integer]: longint read iGetNumOfSamples Write SetNumOfSamples;
+    property Reserved2[i: integer]: Str32 Read GetReserved2 Write SetReserved2;
     property StatusCode: integer Read status;
   end;
 
@@ -480,6 +487,17 @@ begin
     status := strFormatErr;
 end;
 
+function TEDFDoc.GetReserved: Str44;
+begin
+  result := ExtractedHeaderText(kReservedPos, 44);
+end;
+
+procedure TEDFDoc.SetReserved(const ReservedStr: Str44);
+begin
+  prReserved := ReservedStr;
+  CompileHeaderText;
+end;
+
 function TEDFDoc.GetNumOfDataRecs: Str8;
 begin
   result := ExtractedHeaderText(kNumOfDRecsPos, 8);
@@ -634,7 +652,7 @@ begin
   begin
     if length(prTransducer) < ns * 80 then // Transducer string too short?
       prTransducer := PadRight(prTransducer, ns * 80);
-    filledString := PadRight(transducer, 80); // fill with spaces for length 16
+    filledString := PadRight(transducer, 80); // fill with spaces for length 80
     prTransducer := StuffString(prTransducer, position * 80 + 1, 80, filledString);
   end;
 end;
@@ -662,7 +680,7 @@ begin
   begin
     if length(prPhysDim) < ns * 8 then // PhysDim string too short?
       prPhysDim := PadRight(prPhysDim, ns * 8);
-    filledString := PadRight(dimension, 8); // fill with spaces for length 16
+    filledString := PadRight(dimension, 8); // fill with spaces for length 8
     prPhysDim := StuffString(prPhysDim, position * 8 + 1, 8, filledString);
   end;
 end;
@@ -690,7 +708,7 @@ begin
   begin
     if length(prPhysMin) < ns * 8 then // PhysMin string too short?
       prPhysMin := PadRight(prPhysMin, ns * 8);
-    filledString := PadRight(physmin, 8); // fill with spaces for length 16
+    filledString := PadRight(physmin, 8); // fill with spaces for length 8
     prPhysMin := StuffString(prPhysMin, position * 8 + 1, 8, filledString);
   end;
 end;
@@ -739,7 +757,7 @@ begin
   begin
     if length(prPhysMax) < ns * 8 then // PhysMax string too short?
       prPhysMax := PadRight(prPhysMax, ns * 8);
-    filledString := PadRight(physmax, 8); // fill with spaces for length 16
+    filledString := PadRight(physmax, 8); // fill with spaces for length 8
     prPhysMax := StuffString(prPhysMax, position * 8 + 1, 8, filledString);
   end;
 end;
@@ -788,7 +806,7 @@ begin
   begin
     if length(prDigMin) < ns * 8 then // DigMin string too short?
       prDigMin := PadRight(prDigMin, ns * 8);
-    filledString := PadRight(digmin, 8); // fill with spaces for length 16
+    filledString := PadRight(digmin, 8); // fill with spaces for length 8
     prDigMin := StuffString(prDigMin, position * 8 + 1, 8, filledString);
   end;
 end;
@@ -837,7 +855,7 @@ begin
   begin
     if length(prDigMax) < ns * 8 then // DigMax string too short?
       prDigMax := PadRight(prDigMax, ns * 8);
-    filledString := PadRight(digmax, 8); // fill with spaces for length 16
+    filledString := PadRight(digmax, 8); // fill with spaces for length 8
     prDigMax := StuffString(prDigMax, position * 8 + 1, 8, filledString);
   end;
 end;
@@ -886,7 +904,7 @@ begin
   begin
     if length(prPrefilter) < ns * 80 then // Prefilter string too short?
       prPrefilter := PadRight(prPrefilter, ns * 80);
-    filledString := PadRight(prefilter, 80); // fill with spaces for length 16
+    filledString := PadRight(prefilter, 80); // fill with spaces for length 80
     prPrefilter := StuffString(prPrefilter, position * 80 + 1, 80, filledString);
   end;
 end;
@@ -915,7 +933,7 @@ begin
   begin
     if length(prNumOfSamples) < ns * 8 then // PhysMin string too short?
       prNumOfSamples := PadRight(prNumOfSamples, ns * 8);
-    filledString := PadRight(numOfSamples, 8); // fill with spaces for length 16
+    filledString := PadRight(numOfSamples, 8); // fill with spaces for length 8
     prNumOfSamples := StuffString(prNumOfSamples, position * 8 + 1, 8, filledString);
   end;
 end;
@@ -954,6 +972,35 @@ begin
   nsaString := GetNumOfSamples(position);
   if not TryStrToInt(Trim(nsaString), result) then
     status := strFormatErr;
+end;
+
+procedure TEDFDoc.SetReserved2(const position: integer;
+  const Reserved2Str: Str32);
+var
+  filledString: str80;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    if length(prReserved2) < ns * 32 then // Prefilter string too short?
+      prReserved2 := PadRight(prReserved2, ns * 32);
+    filledString := PadRight(prReserved2, 32); // fill with spaces for length 32
+    prReserved2 := StuffString(prReserved2, position * 32 + 1, 32, filledString);
+  end;
+end;
+
+function TEDFDoc.GetReserved2(const position: integer): Str32;
+var
+  subString: Str32;
+  ns: integer;
+begin
+  if ValidPosition(position, ns) then
+  begin
+    subString := copy(prReserved2, position * 32 + 1, 32);
+    result := Trim(subString);
+  end
+  else
+    result := '';
 end;
 
 constructor TEDFDoc.Create;

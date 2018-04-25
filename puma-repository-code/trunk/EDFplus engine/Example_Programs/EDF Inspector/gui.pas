@@ -144,7 +144,7 @@ procedure TMainForm.OpenMenuItemClick(Sender: TObject);
 var
   i, ns: integer;
   Labels, Transducers, PhysDims, PhysMins, PhysMaxs: AnsiString;
-  DigMins, DigMaxs, Prefilters, NumsOfSamples: AnsiString;
+  DigMins, DigMaxs, Prefilters, NumsOfSamples, Reserved2s: AnsiString;
 begin
   if EDFFileOpenDialog.Execute then
   begin
@@ -159,7 +159,7 @@ begin
     HeaderRecordValueListEditor.InsertRow('Start Date', gEDFFile.StartDate, true);
     HeaderRecordValueListEditor.InsertRow('Start Time', gEDFFile.StartTime, true);
     HeaderRecordValueListEditor.InsertRow('Number of Bytes', gEDFFile.NumOfBytes, true);
-    HeaderRecordValueListEditor.InsertRow('Reserved', '', true);
+    HeaderRecordValueListEditor.InsertRow('Reserved', gEDFFile.Reserved, true);
     HeaderRecordValueListEditor.InsertRow('Number of Records', gEDFFile.NumOfDataRecs, true);
     HeaderRecordValueListEditor.InsertRow('Duration of a Record', gEDFFile.DurationOfData, true);
     HeaderRecordValueListEditor.InsertRow('Number of Signals', gEDFFile.NumOfSignals, true);
@@ -172,6 +172,7 @@ begin
     DigMaxs := gEDFFile.DigMax[0];
     Prefilters := gEDFFile.Prefilter[0];
     NumsOfSamples := gEDFFile.NumOfSamples[0];
+    Reserved2s := GEDFFile.Reserved2[0];
     if TryStrToInt(TrimRight(gEDFFile.NumOfSignals), ns) and (ns > 0) then
     for i := 1 to ns do
       begin
@@ -184,6 +185,7 @@ begin
         DigMaxs := DigMaxs + ' | ' + gEDFFile.DigMax[i];
         Prefilters := Prefilters + ' | ' + gEDFFile.Prefilter[i];
         NumsOfSamples := NumsOfSamples + ' | ' + gEDFFile.NumOfSamples[i];
+        Reserved2s := Reserved2s + ' | ' + gEDFFile.Reserved2[i];
       end;
     HeaderRecordValueListEditor.InsertRow('Labels', Labels, true);
     HeaderRecordValueListEditor.InsertRow('Transducers', Transducers, true);
