@@ -33,16 +33,17 @@
         <CursorPos Y="2"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
-          <IsVisibleTab Value="True"/>
-          <WindowIndex Value="1"/>
-          <TopLine Value="92"/>
-          <CursorPos X="3" Y="365"/>
-        </ExtraEditor1>
-        <ExtraEditor2>
           <EditorIndex Value="-1"/>
           <WindowIndex Value="-1"/>
           <TopLine Value="253"/>
           <CursorPos X="29" Y="273"/>
+        </ExtraEditor1>
+        <ExtraEditor2>
+          <IsVisibleTab Value="True"/>
+          <EditorIndex Value="-1"/>
+          <WindowIndex Value="1"/>
+          <TopLine Value="92"/>
+          <CursorPos X="3" Y="365"/>
         </ExtraEditor2>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>

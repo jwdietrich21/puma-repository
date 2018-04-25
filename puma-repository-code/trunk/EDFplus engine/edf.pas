@@ -72,7 +72,9 @@ const
   kEDFVersion     : str8 = '0       ';
   kUnknown        : str8 = '-1      ';
   kEmpty0         = '';
+  kEmpty4         : str4 = '    ';
   kEmpty8         : str8 = '        ';
+  kEmpty16        : str16 = '                ';
   kEmpty44        : str44 = '                                            ';
   kEmpty80        : str80 = '                                                                                ';
   kZero4          : str4 = '0000';
@@ -263,7 +265,7 @@ begin
     mstream.LoadFromFile(aFileName);
     mstream.Seek(kNumOfBytesPos - 1, soFromBeginning);
     mstream.ReadBuffer(headerLength[1], 8);
-    headerLength := trimRight(headerLength);
+    headerLength := Trim(headerLength);
     mstream.Seek(0, soFromBeginning);
     if TryStrToInt(headerLength, iHeaderLength) then
     begin
@@ -308,7 +310,7 @@ begin
   prNumOfDataRecs := ExtractedHeaderText(kNumOfDRecsPos, 8);
   prDurOfData := ExtractedHeaderText(kDurOfDataPos, 8);
   prNumOfSignals := ExtractedHeaderText(kNumOfSigPos, 4);
-  if not TryStrToInt(TrimRight(prNumOfSignals), ns) then
+  if not TryStrToInt(Trim(prNumOfSignals), ns) then
     begin
       status := strFormatErr;
       prLabel := '';
@@ -473,7 +475,7 @@ var
   nbString: Str8;
 begin
   nbString := GetNumOfBytes;
-  if not TryStrToInt(nbString, result) then
+  if not TryStrToInt(Trim(nbString), result) then
     status := strFormatErr;
 end;
 
@@ -487,7 +489,7 @@ var
   nrString: Str8;
 begin
   nrString := GetNumOfDataRecs;
-  if not TryStrToInt(nrString, result) then
+  if not TryStrToInt(Trim(nrString), result) then
     status := strFormatErr;
 end;
 
@@ -520,7 +522,7 @@ var
   ddString: Str8;
 begin
   ddString := GetDurOfData;
-  if not TryStrToInt(ddString, result) then
+  if not TryStrToInt(Trim(ddString), result) then
     status := strFormatErr;
 end;
 
@@ -553,7 +555,7 @@ var
   nsString: Str4;
 begin
   nsString := GetNumOfSignals;
-  if not TryStrToInt(nsString, result) then
+  if not TryStrToInt(Trim(nsString), result) then
     status := strFormatErr;
 end;
 
@@ -579,7 +581,7 @@ end;
 function TEDFDoc.ValidPosition(const position: integer; var ns: integer): boolean;
 begin
   ns := 0;
-  if not TryStrToInt(TrimRight(NumOfSignals), ns) then // valid number representation?
+  if not TryStrToInt(Trim(NumOfSignals), ns) then // valid number representation?
     begin
       status := strFormatErr;
       result := false;
@@ -615,7 +617,7 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prLabel, position * 16 + 1, 16);
-    result := TrimRight(subString);
+    result := Trim(subString);
   end
   else
     result := '';
@@ -644,7 +646,7 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prTransducer, position * 80 + 1, 80);
-    result := TrimRight(subString);
+    result := Trim(subString);
   end
   else
     result := '';
@@ -672,7 +674,7 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prPhysDim, position * 8 + 1, 8);
-    result := TrimRight(subString);
+    result := Trim(subString);
   end
   else
     result := '';
@@ -713,7 +715,7 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prPhysMin, position * 8 + 1, 8);
-    result := TrimRight(subString);
+    result := Trim(subString);
   end
   else result := '';
 end;
@@ -723,7 +725,7 @@ var
   pmString: Str8;
 begin
   pmString := GetPhysMin(position);
-  if not TryStrToInt(pmString, result) then
+  if not TryStrToInt(Trim(pmString), result) then
     status := strFormatErr;
 end;
 
@@ -762,7 +764,7 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prPhysMax, position * 8 + 1, 8);
-    result := TrimRight(subString);
+    result := Trim(subString);
   end
   else result := '';
 end;
@@ -772,7 +774,7 @@ var
   pmString: Str8;
 begin
   pmString := GetPhysMax(position);
-  if not TryStrToInt(pmString, result) then
+  if not TryStrToInt(Trim(pmString), result) then
     status := strFormatErr;
 end;
 
@@ -811,7 +813,7 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prDigMin, position * 8 + 1, 8);
-    result := TrimRight(subString);
+    result := Trim(subString);
   end
   else result := '';
 end;
@@ -821,7 +823,7 @@ var
   dmString: Str8;
 begin
   dmString := GetDigMin(position);
-  if not TryStrToInt(dmString, result) then
+  if not TryStrToInt(Trim(dmString), result) then
     status := strFormatErr;
 end;
 
@@ -860,7 +862,7 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prDigMax, position * 8 + 1, 8);
-    result := TrimRight(subString);
+    result := Trim(subString);
   end
   else result := '';
 end;
@@ -870,7 +872,7 @@ var
   dmString: Str8;
 begin
   dmString := GetDigMax(position);
-  if not TryStrToInt(dmString, result) then
+  if not TryStrToInt(Trim(dmString), result) then
     status := strFormatErr;
 end;
 
@@ -896,7 +898,7 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prPrefilter, position * 80 + 1, 80);
-    result := TrimRight(subString);
+    result := Trim(subString);
   end
   else
     result := '';
@@ -939,7 +941,7 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prNumOfSamples, position * 8 + 1, 8);
-    result := TrimRight(subString);
+    result := Trim(subString);
   end
   else result := '';
 end;
@@ -949,7 +951,7 @@ var
   nsaString: Str8;
 begin
   nsaString := GetNumOfSamples(position);
-  if not TryStrToInt(nsaString, result) then
+  if not TryStrToInt(Trim(nsaString), result) then
     status := strFormatErr;
 end;
 
