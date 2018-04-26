@@ -192,7 +192,7 @@ begin
     NumsOfSamples := gEDFFile.NumOfSamples[0];
     Reserved2s := GEDFFile.Reserved2[0];
     if TryStrToInt(TrimRight(gEDFFile.NumOfSignals), ns) and (ns > 0) then
-    for i := 1 to ns do
+    for i := 1 to ns - 1 do
       begin
         Labels := Labels + ' | ' + gEDFFile.SignalLabel[i];
         Transducers := Transducers + ' | ' + gEDFFile.Transducer[i];

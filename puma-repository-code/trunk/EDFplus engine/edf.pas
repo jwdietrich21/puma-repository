@@ -379,9 +379,9 @@ begin
     prPhysMax := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16), ns * 8);
     prDigMin := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 8), ns * 8);
     prDigMax := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 16), ns * 8);
-    prPrefilter := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 24), ns * 8);
-    prNumOfSamples := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 32), ns * 8);
-    prReserved2 := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 40), ns * 8);
+    prPrefilter := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 24), ns * 80);
+    prNumOfSamples := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 24 + 80), ns * 8);
+    prReserved2 := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 24 + 80 + 8), ns * 8);
   end;
 end;
 
@@ -636,6 +636,7 @@ begin
 end;
 
 function TEDFDoc.ValidPosition(const position: integer; var ns: integer): boolean;
+{ Checks if index position for addressing signals is valid }
 begin
   ns := 0;
   if not TryStrToInt(Trim(NumOfSignals), ns) then // valid number representation?
