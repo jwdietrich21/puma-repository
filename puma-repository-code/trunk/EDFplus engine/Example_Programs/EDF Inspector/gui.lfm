@@ -4,14 +4,14 @@ object MainForm: TMainForm
   Top = 187
   Width = 862
   Caption = 'EDF Inspector'
-  ClientHeight = 638
+  ClientHeight = 618
   ClientWidth = 862
   Menu = MainMenu1
   OnCreate = FormCreate
-  LCLVersion = '1.8.2.0'
+  LCLVersion = '1.8.0.6'
   object HeaderRecordValueListEditor: TValueListEditor
     Left = 8
-    Height = 580
+    Height = 560
     Top = 32
     Width = 846
     AlternateColor = clMoneyGreen
@@ -30,7 +30,7 @@ object MainForm: TMainForm
     )
     ColWidths = (
       100
-      746
+      742
     )
   end
   object ToolBar1: TToolBar
@@ -84,8 +84,8 @@ object MainForm: TMainForm
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 15
-    Top = 623
+    Height = 23
+    Top = 595
     Width = 862
     Panels = <    
       item

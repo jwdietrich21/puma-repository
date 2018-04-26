@@ -149,7 +149,9 @@ begin
   if EDFFileOpenDialog.Execute then
   begin
     HeaderRecordValueListEditor.Strings.Clear;
-    ReadEDFFile(gEDFFile, UTF8ToSys(EDFFileOpenDialog.FileName));
+    if not assigned(gEDFFile) then
+      gEDFFile := TEDFDoc.Create;
+    gEDFFile.ReadFromFile(UTF8ToSys(EDFFileOpenDialog.FileName));
     MainForm.Caption := 'EDF Inspector: ' +
       ExtractFileName(EDFFileOpenDialog.FileName);
     HeaderRecordValueListEditor.Row := 0;
@@ -203,9 +205,10 @@ end;
 
 procedure TMainForm.QuitMenuItemClick(Sender: TObject);
 begin
+  if assigned(gEDFFile) then
+    gEDFFile.Free;
   application.Terminate;
 end;
-
 
 end.
 
