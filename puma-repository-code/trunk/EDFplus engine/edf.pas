@@ -102,9 +102,9 @@ type
 
 TEDFDoc = class
   private
-    FHeaderText: AnsiString;
+    FHeaderText: AnsiString;                          // Header record
     FDataRecord: Array of array of array of SmallInt; // dr * ns * nsa
-    // Fields of EDF and EDF+ header record
+    { Fields of EDF and EDF+ header record: }
     prVersion: str8;             // Version of data format
     prLocalPatID: str80;         // Local patient identification
     prLocalRecID: str80;         // Local recording identification
@@ -125,7 +125,7 @@ TEDFDoc = class
     prPrefilter: AnsiString;     // Prefiltering
     prNumOfSamples: AnsiString;  // Nr of samples in each data record
     prReserved2: AnsiString;     // Reserved
-    // Official EDF/EDF+ header record fields end here.
+    { Official EDF/EDF+ header record fields end here. }
     status:    integer;
   protected
     procedure CompileHeaderText;
@@ -148,9 +148,9 @@ TEDFDoc = class
     procedure SetStartTime(const Time: tDateTime);
     function GetNumOfBytes: Str8;
     function iGetNumOfBytes: longint;
-    function GetNumOfDataRecs: Str8;
     function GetReserved: Str44;
     procedure SetReserved(const ReservedStr: Str44);
+    function GetNumOfDataRecs: Str8;
     function iGetNumOfDataRecs: longint;
     procedure SetNumOfDataRecs(const NumOfRecs: Str8);
     procedure SetNumOfDataRecs(const nr: longint);
@@ -230,13 +230,50 @@ TEDFDoc = class
     property Reserved2[i: integer]: Str32 Read GetReserved2 Write SetReserved2;
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: AnsiString);
+    procedure ReadFromStream(const aStream: TStream);
   end;
 
-procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream; const aBaseURI: AnsiString);
-procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString);
+procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream; const aBaseURI: AnsiString); overload;
+procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream); overload;
+procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString); overload;
 procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: AnsiString);
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream; const aBaseURI: AnsiString); overload;
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString); overload;
 
 implementation
+
+procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mstream: TMemoryStream);
+{ reads a header record from a given memory stream }
+var
+  sstream: TStringStream;
+  headerLength: str8;
+  iHeaderLength: longint;
+begin
+  headerLength := kEmpty8;
+  sstream := TStringStream.Create('');
+  mstream.Seek(kNumOfBytesPos - 1, soFromBeginning);
+  mstream.ReadBuffer(headerLength[1], 8);
+  headerLength := Trim(headerLength);
+  mstream.Seek(0, soFromBeginning);
+  if TryStrToInt(headerLength, iHeaderLength) then
+  begin
+    sstream.CopyFrom(mstream, iHeaderLength);
+    sstream.Seek(0, soFromBeginning);
+    EDFDoc.FHeaderText := sstream.ReadString(iHeaderLength);
+    EDFDoc.ParseHeaderText;
+  end
+  else
+  begin
+    raise EConvertError.Create('');
+    EDFDoc.status := headermalform;
+  end;
+  sstream.Free;
+end;
+
+procedure ReadDateRecord(var EDFDoc: TEDFDoc; mstream: TMemoryStream);
+begin
+  { TODO -oJWD : still to be implemented }
+end;
 
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
   const aBaseURI: AnsiString);
@@ -249,7 +286,7 @@ begin
   begin
     aStream.Position := 0;
     mstream.CopyFrom(aStream, aStream.Size);
-    { TODO : Complete }
+    ReadHeaderRecord(EDFDoc, mstream);
   end
   else
   begin
@@ -258,42 +295,26 @@ begin
   mstream.Free;
 end;
 
+procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream);
+begin
+  REadEDFFile(EDFDoc, aStream, 'stream:');
+end;
+
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString);
 { reads and parses and EDF file from a file spsecified by name }
 var
   mstream: TMemoryStream;
-  sstream: TStringStream;
-  headerLength: str8;
-  iHeaderLength: longint;
 begin
-  headerLength := kEmpty8;
   mstream := TMemoryStream.Create;
-  sstream := TStringStream.Create('');
   try
     mstream.LoadFromFile(aFileName);
-    mstream.Seek(kNumOfBytesPos - 1, soFromBeginning);
-    mstream.ReadBuffer(headerLength[1], 8);
-    headerLength := Trim(headerLength);
-    mstream.Seek(0, soFromBeginning);
-    if TryStrToInt(headerLength, iHeaderLength) then
-    begin
-      sstream.CopyFrom(mstream, iHeaderLength);
-      sstream.Seek(0, soFromBeginning);
-      EDFDoc.FHeaderText := sstream.ReadString(iHeaderLength);
-      EDFDoc.ParseHeaderText;
-    end
-    else
-    begin
-      raise EConvertError.Create('');
-      EDFDoc.status := headermalform;
-    end;
+    ReadHeaderRecord(EDFDoc, mstream);
   except
     on E:Exception do
     begin
       EDFDoc.status := readErr; { create empty document with status code 7 }
     end;
   end;
-  sstream.Free;
   mstream.Free;
 end;
 
@@ -302,6 +323,17 @@ procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: AnsiString);
 begin
   EDFDoc := TEDFDoc.Create;
   ReadEDFFile(EDFDoc, aFileName);
+end;
+
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
+  const aBaseURI: AnsiString);
+begin
+  { TODO -oJWD : still to be implemented }
+end;
+
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString);
+begin
+  { TODO -oJWD : still to be implemented }
 end;
 
 procedure TEDFDoc.CompileHeaderText;
@@ -1045,6 +1077,11 @@ end;
 procedure TEDFDoc.ReadFromFile(const aFileName: AnsiString);
 begin
   ReadEDFFile(self, aFileName);
+end;
+
+procedure TEDFDoc.ReadFromStream(const aStream: TStream);
+begin
+  ReadEDFFile(self, aStream);
 end;
 
 end.

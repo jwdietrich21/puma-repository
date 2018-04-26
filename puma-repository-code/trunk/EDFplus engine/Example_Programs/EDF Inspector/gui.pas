@@ -158,13 +158,16 @@ var
   i, ns: integer;
   Labels, Transducers, PhysDims, PhysMins, PhysMaxs: AnsiString;
   DigMins, DigMaxs, Prefilters, NumsOfSamples, Reserved2s: AnsiString;
+  // fStream: TFileStream; // Alternative stream form for testing purposes
 begin
   if EDFFileOpenDialog.Execute then
   begin
     HeaderRecordValueListEditor.Strings.Clear;
     if not assigned(gEDFFile) then
       gEDFFile := TEDFDoc.Create;
+    // fStream := TFileStream.Create(UTF8ToSys(EDFFileOpenDialog.FileName), fmOpenRead); // testing
     gEDFFile.ReadFromFile(UTF8ToSys(EDFFileOpenDialog.FileName));
+    // gEDFFile.ReadFromStream(fStream); // for testing of stream variant
     MainForm.Caption := 'EDF Inspector: ' +
       ExtractFileName(EDFFileOpenDialog.FileName);
     HeaderRecordValueListEditor.Row := 0;
@@ -213,6 +216,7 @@ begin
     HeaderRecordValueListEditor.InsertRow('Number of Samples', NumsOfSamples, true);
     HeaderRecordValueListEditor.InsertRow('Reserved', '', true);
     Statusbar1.Panels[0].Text := FEEDBACK_TEXT + IntToStr(gEDFFile.StatusCode);
+    // fStream.Free; // for testing of stream functionality
   end;
 end;
 
