@@ -103,7 +103,7 @@ object MainForm: TMainForm
     object AppleMenu: TMenuItem
       Caption = ''
       object MacAboutItem: TMenuItem
-        Caption = 'About EDF Message Viewer'
+        Caption = 'About EDF Inspector'
         OnClick = MacAboutItemClick
       end
     end
