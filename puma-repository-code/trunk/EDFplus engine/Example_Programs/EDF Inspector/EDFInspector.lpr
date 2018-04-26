@@ -33,7 +33,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, GUI
+  Forms, pascalscript, GUI
   { you can add units after this };
 
 {$R *.res}

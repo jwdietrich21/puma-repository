@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ValEdit,
-  ComCtrls, Menus, LCLType, LazUTF8, EDF;
+  ComCtrls, Menus, LCLType, StdCtrls, ExtCtrls, LazUTF8, uPSComponent, EDF, Grids;
 
 const
   FEEDBACK_TEXT = '  Status Code: ';
@@ -57,6 +57,7 @@ type
     MacAboutItem: TMenuItem;
     MainMenu1: TMainMenu;
     EDFFileOpenDialog: TOpenDialog;
+    CellContentMemo: TMemo;
     NewButton: TToolButton;
     NewMenuItem: TMenuItem;
     OpenButton: TToolButton;
@@ -73,6 +74,8 @@ type
     WinAboutItem: TMenuItem;
     procedure CloseMenuItemClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure HeaderRecordValueListEditorSelectCell(Sender: TObject; aCol,
+      aRow: Integer; var CanSelect: Boolean);
     procedure MacAboutItemClick(Sender: TObject);
     procedure OpenMenuItemClick(Sender: TObject);
     procedure QuitMenuItemClick(Sender: TObject);
@@ -128,6 +131,16 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   AdaptMenus;
+end;
+
+procedure TMainForm.HeaderRecordValueListEditorSelectCell(Sender: TObject;
+  aCol, aRow: Integer; var CanSelect: Boolean);
+var
+  contentString: AnsiString;
+begin
+  contentString := HeaderRecordValueListEditor.Cells[1, aRow];
+  CellContentMemo.Lines.Clear;
+  CellContentMemo.Lines.AddText(contentString);
 end;
 
 procedure TMainForm.CloseMenuItemClick(Sender: TObject);

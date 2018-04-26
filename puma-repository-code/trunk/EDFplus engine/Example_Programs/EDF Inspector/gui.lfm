@@ -1,24 +1,27 @@
 object MainForm: TMainForm
-  Left = 303
-  Height = 638
-  Top = 187
-  Width = 862
+  Left = 249
+  Height = 610
+  Top = 107
+  Width = 812
   Caption = 'EDF Inspector'
-  ClientHeight = 618
-  ClientWidth = 862
+  ClientHeight = 590
+  ClientWidth = 812
   Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '1.8.0.6'
   object HeaderRecordValueListEditor: TValueListEditor
     Left = 8
-    Height = 560
+    Height = 412
     Top = 32
-    Width = 846
+    Width = 796
     AlternateColor = clMoneyGreen
     Anchors = [akTop, akLeft, akRight, akBottom]
     FixedCols = 0
+    MouseWheelOption = mwGrid
+    ParentBiDiMode = False
     RowCount = 3
     TabOrder = 0
+    OnSelectCell = HeaderRecordValueListEditorSelectCell
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goAlwaysShowEditor, goThumbTracking, goColSpanning, goDblClickAutoSize]
     Strings.Strings = (
       ''
@@ -30,14 +33,14 @@ object MainForm: TMainForm
     )
     ColWidths = (
       100
-      742
+      692
     )
   end
   object ToolBar1: TToolBar
     Left = 0
     Height = 26
     Top = 0
-    Width = 862
+    Width = 812
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 1
@@ -85,8 +88,8 @@ object MainForm: TMainForm
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 595
-    Width = 862
+    Top = 567
+    Width = 812
     Panels = <    
       item
         Text = '  Status Code: --'
@@ -96,6 +99,18 @@ object MainForm: TMainForm
         Width = 50
       end>
     SimplePanel = False
+  end
+  object CellContentMemo: TMemo
+    AnchorSideTop.Control = HeaderRecordValueListEditor
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 107
+    Top = 449
+    Width = 796
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Top = 5
+    ScrollBars = ssAutoBoth
+    TabOrder = 3
   end
   object MainMenu1: TMainMenu
     left = 768

@@ -103,7 +103,7 @@ type
 TEDFDoc = class
   private
     FHeaderText: AnsiString;
-    FDataRecord: Array of array of SmallInt;
+    FDataRecord: Array of array of array of SmallInt; // dr * ns * nsa
     // Fields of EDF and EDF+ header record
     prVersion: str8;             // Version of data format
     prLocalPatID: str80;         // Local patient identification
