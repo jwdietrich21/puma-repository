@@ -219,6 +219,7 @@ begin
     HeaderRecordValueListEditor.InsertRow('Reserved', '', true);
     Statusbar1.Panels[0].Text := FEEDBACK_TEXT + IntToStr(gEDFFile.StatusCode);
     Statusbar1.Panels[1].Text := SIZE_TEXT + IntToStr(gEDFFile.TotalSize) + BYTES_TEXT;
+    HeaderRecordValueListEditor.Row := 1;
     // fStream.Free; // for testing of stream functionality only
   end;
 end;

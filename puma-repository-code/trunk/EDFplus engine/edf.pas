@@ -196,6 +196,7 @@ TEDFDoc = class
   public
     constructor Create;
     destructor Destroy; override;
+    procedure Error;
     property version: Str8 Read GetVersion;
     property header: AnsiString Read FHeaderText;
     property LocalPatID: Str80 Read GetLocalPatID Write SetLocalPatID;
@@ -248,27 +249,39 @@ procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mstream: TMemoryStream);
 { reads a header record from a given memory stream }
 var
   sstream: TStringStream;
-  headerLength: str8;
+  headerLength, version: str8;
   iHeaderLength: longint;
 begin
   headerLength := kEmpty8;
   sstream := TStringStream.Create('');
-  mstream.Seek(kNumOfBytesPos - 1, soFromBeginning);
-  mstream.ReadBuffer(headerLength[1], 8);
-  headerLength := Trim(headerLength);
-  mstream.Seek(0, soFromBeginning);
-  if TryStrToInt(headerLength, iHeaderLength) then
+  mstream.Seek(kVersionPos - 1, soFromBeginning);
+  mstream.ReadBuffer(version[1], 8);
+  version := str8(version);
+  if version = kEDFVersion then
   begin
-    sstream.CopyFrom(mstream, iHeaderLength);
-    sstream.Seek(0, soFromBeginning);
-    EDFDoc.FHeaderText := sstream.ReadString(iHeaderLength);
-    EDFDoc.ParseHeaderText;
+    mstream.Seek(kNumOfBytesPos - 1, soFromBeginning);
+    mstream.ReadBuffer(headerLength[1], 8);
+    headerLength := Trim(headerLength);
+    mstream.Seek(0, soFromBeginning);
+    if TryStrToInt(headerLength, iHeaderLength) then
+    begin
+      sstream.CopyFrom(mstream, iHeaderLength);
+      sstream.Seek(0, soFromBeginning);
+      EDFDoc.FHeaderText := sstream.ReadString(iHeaderLength);
+      EDFDoc.ParseHeaderText;
+    end
+    else
+    begin
+      raise EConvertError.Create('');
+      EDFDoc.status := headermalform;
+    end;
   end
   else
-  begin
-    raise EConvertError.Create('');
-    EDFDoc.status := headermalform;
-  end;
+    begin
+      EDFDoc.status := unsuppVers;
+      EDFDoc.prVersion := version;
+      EDFDoc.Error;
+    end;
   sstream.Free;
 end;
 
@@ -308,7 +321,8 @@ begin
     aStream.Position := 0;
     mstream.CopyFrom(aStream, aStream.Size);
     ReadHeaderRecord(EDFDoc, mstream);
-    ReadDataRecord(EDFDoc, mstream);
+    if EDFDoc.status = noErr then
+      ReadDataRecord(EDFDoc, mstream);
   end
   else
   begin
@@ -331,7 +345,8 @@ begin
   try
     mstream.LoadFromFile(aFileName);
     ReadHeaderRecord(EDFDoc, mstream);
-    ReadDataRecord(EDFDoc, mstream);
+    if EDFDoc.status = noErr then
+      ReadDataRecord(EDFDoc, mstream);
   except
     on E:Exception do
     begin
@@ -1096,6 +1111,32 @@ end;
 destructor TEDFDoc.Destroy;
 begin
   inherited Destroy;
+end;
+
+procedure TEDFDoc.Error;
+{ Creates an empty record for read errors }
+begin
+  prNumOfDataRecs := kUnknown;
+  prLocalPatID := kEmpty80;
+  prLocalRecID := kEmpty80;
+  prStartDate := kUnknown;
+  prStartTime := kUnknown;
+  prNumOfBytes := kUnknown;
+  prReserved := kEmpty44;
+  prNumOfDataRecs := kUnknown;
+  prDurOfData := kUnknown;
+  prNumOfSignals := kEmpty4;
+  prLabel := kEmpty0;
+  prTransducer := kEmpty0;
+  prPhysDim := kEmpty0;
+  prPhysMin := kEmpty0;
+  prPhysMax := kEmpty0;
+  prDigMin := kEmpty0;
+  prDigMax := kEmpty0;
+  prPrefilter := kEmpty0;
+  prNumOfSamples := kEmpty0;
+  prReserved2 := kEmpty0;
+  CompileHeaderText;
 end;
 
 procedure TEDFDoc.ReadFromFile(const aFileName: AnsiString);
