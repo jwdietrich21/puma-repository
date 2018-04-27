@@ -274,6 +274,7 @@ begin
     begin
       raise EConvertError.Create('');
       EDFDoc.status := headermalform;
+      EDFDoc.Error;
     end;
   end
   else
@@ -285,27 +286,40 @@ begin
   sstream.Free;
 end;
 
-procedure ReadDataRecord(var EDFDoc: TEDFDoc; mstream: TMemoryStream);
+procedure ReadDataRecords(var EDFDoc: TEDFDoc; mstream: TMemoryStream);
 var
   i, k, m: longint;
-  j, l: integer;
+  imax, kmax: longint;
+  j: integer;
+  jmax: integer;
+  rawValue: SmallInt;
 begin
   if assigned(EDFDoc) and assigned(mstream) and (mstream.Size > 0) then
   begin
-    i := EDFDoc.iNumOfDataRecs;
-    j := EDFDoc.iNumOfSignals;
-    k := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
-    for l := 1 to j - 1 do
+    imax := EDFDoc.iNumOfDataRecs;
+    jmax := EDFDoc.iNumOfSignals;
+    kmax := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
+    for j := 1 to jmax - 1 do
     begin
-      m := EDFDoc.iNumOfSamples[l];
-      if m > k then
-        k := m;
+      m := EDFDoc.iNumOfSamples[j];
+      if m > kmax then
+        kmax := m;
     end;
-    SetLength(EDFDoc.FDataRecord, i, j, k);
-    EDFDoc.DataSize := i * j * k * SizeOf(SmallInt);
+    SetLength(EDFDoc.FDataRecord, imax, jmax, 2 * kmax);
+    EDFDoc.DataSize := imax * jmax * 2 * kmax * SizeOf(SmallInt);
     EDFDoc.TotalSize := EDFDoc.iGetNumOfBytes + EDFDoc.DataSize;
     mstream.Seek(0, soFromBeginning);
-  { TODO -oJWD : remainder of this procedure still to be implemented }
+    for i := 1 to imax do  // Records
+    for j := 1 to jmax do  // Signals
+    for k := 1 to 2 * kmax do  // Samples
+    begin
+      if odd(k) then
+      begin
+        mstream.Read(rawValue, 2);
+        EDFDoc.FDataRecord[i - 1, j - 1 , k - 1] := LEtoN(rawValue);
+      end;
+    end;
+  { TODO -oJWD : still to be improved }
   end;
 end;
 
@@ -322,7 +336,7 @@ begin
     mstream.CopyFrom(aStream, aStream.Size);
     ReadHeaderRecord(EDFDoc, mstream);
     if EDFDoc.status = noErr then
-      ReadDataRecord(EDFDoc, mstream);
+      ReadDataRecords(EDFDoc, mstream);
   end
   else
   begin
@@ -346,7 +360,7 @@ begin
     mstream.LoadFromFile(aFileName);
     ReadHeaderRecord(EDFDoc, mstream);
     if EDFDoc.status = noErr then
-      ReadDataRecord(EDFDoc, mstream);
+      ReadDataRecords(EDFDoc, mstream);
   except
     on E:Exception do
     begin
