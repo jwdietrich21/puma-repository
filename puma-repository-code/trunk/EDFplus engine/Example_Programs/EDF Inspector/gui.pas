@@ -36,6 +36,8 @@ uses
 
 const
   FEEDBACK_TEXT = '  Status Code: ';
+  SIZE_TEXT = '  Total Size of Data: ';
+  BYTES_TEXT = ' Bytes';
 
 type
 
@@ -216,7 +218,8 @@ begin
     HeaderRecordValueListEditor.InsertRow('Number of Samples', NumsOfSamples, true);
     HeaderRecordValueListEditor.InsertRow('Reserved', '', true);
     Statusbar1.Panels[0].Text := FEEDBACK_TEXT + IntToStr(gEDFFile.StatusCode);
-    // fStream.Free; // for testing of stream functionality
+    Statusbar1.Panels[1].Text := SIZE_TEXT + IntToStr(gEDFFile.TotalSize) + BYTES_TEXT;
+    // fStream.Free; // for testing of stream functionality only
   end;
 end;
 

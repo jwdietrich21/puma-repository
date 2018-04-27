@@ -231,6 +231,8 @@ TEDFDoc = class
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: AnsiString);
     procedure ReadFromStream(const aStream: TStream);
+  public
+    DataSize, TotalSize: longint;
   end;
 
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream; const aBaseURI: AnsiString); overload;
@@ -270,9 +272,28 @@ begin
   sstream.Free;
 end;
 
-procedure ReadDateRecord(var EDFDoc: TEDFDoc; mstream: TMemoryStream);
+procedure ReadDataRecord(var EDFDoc: TEDFDoc; mstream: TMemoryStream);
+var
+  i, k, m: longint;
+  j, l: integer;
 begin
-  { TODO -oJWD : still to be implemented }
+  if assigned(EDFDoc) and assigned(mstream) and (mstream.Size > 0) then
+  begin
+    i := EDFDoc.iNumOfDataRecs;
+    j := EDFDoc.iNumOfSignals;
+    k := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
+    for l := 1 to j - 1 do
+    begin
+      m := EDFDoc.iNumOfSamples[l];
+      if m > k then
+        k := m;
+    end;
+    SetLength(EDFDoc.FDataRecord, i, j, k);
+    EDFDoc.DataSize := i * j * k * SizeOf(SmallInt);
+    EDFDoc.TotalSize := EDFDoc.iGetNumOfBytes + EDFDoc.DataSize;
+    mstream.Seek(0, soFromBeginning);
+  { TODO -oJWD : remainder of this procedure still to be implemented }
+  end;
 end;
 
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
@@ -287,6 +308,7 @@ begin
     aStream.Position := 0;
     mstream.CopyFrom(aStream, aStream.Size);
     ReadHeaderRecord(EDFDoc, mstream);
+    ReadDataRecord(EDFDoc, mstream);
   end
   else
   begin
@@ -309,6 +331,7 @@ begin
   try
     mstream.LoadFromFile(aFileName);
     ReadHeaderRecord(EDFDoc, mstream);
+    ReadDataRecord(EDFDoc, mstream);
   except
     on E:Exception do
     begin
