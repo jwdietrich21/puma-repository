@@ -305,19 +305,16 @@ begin
       if m > kmax then
         kmax := m;
     end;
-    SetLength(EDFDoc.FDataRecord, imax, jmax, 2 * kmax);
-    EDFDoc.DataSize := imax * jmax * 2 * kmax * SizeOf(SmallInt);
+    SetLength(EDFDoc.FDataRecord, imax, jmax, kmax);
+    EDFDoc.DataSize := imax * jmax * kmax * SizeOf(SmallInt);
     EDFDoc.TotalSize := EDFDoc.iGetNumOfBytes + EDFDoc.DataSize;
     mstream.Seek(0, soFromBeginning);
     for i := 1 to imax do  // Records
     for j := 1 to jmax do  // Signals
-    for k := 1 to 2 * kmax do  // Samples
+    for k := 1 to kmax do  // Samples
     begin
-      if odd(k) then
-      begin
-        mstream.Read(rawValue, 2);
-        EDFDoc.FDataRecord[i - 1, j - 1 , k - 1] := LEtoN(rawValue);
-      end;
+      mstream.Read(rawValue, 2);
+      EDFDoc.FDataRecord[i - 1, j - 1, k - 1] := LEtoN(rawValue);
     end;
   { TODO -oJWD : still to be improved }
   end;
@@ -1125,6 +1122,7 @@ end;
 destructor TEDFDoc.Destroy;
 begin
   inherited Destroy;
+  self := nil;
 end;
 
 procedure TEDFDoc.Error;
