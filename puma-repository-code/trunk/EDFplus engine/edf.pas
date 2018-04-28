@@ -308,7 +308,7 @@ begin
     SetLength(EDFDoc.FDataRecord, imax, jmax, kmax);
     EDFDoc.DataSize := imax * jmax * kmax * SizeOf(SmallInt);
     EDFDoc.TotalSize := EDFDoc.iGetNumOfBytes + EDFDoc.DataSize;
-    mstream.Seek(0, soFromBeginning);
+    mstream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
     for i := 1 to imax do  // Records
     for j := 1 to jmax do  // Signals
     for k := 1 to kmax do  // Samples
