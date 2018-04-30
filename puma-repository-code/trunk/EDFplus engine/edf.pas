@@ -41,6 +41,7 @@ type
   str32 = string[32];
   str44 = string[44];
   str80 = string[80];
+  TDataRecord = Array of array of array of SmallInt;
 
 const
 
@@ -103,7 +104,7 @@ type
 TEDFDoc = class
   private
     FHeaderText: AnsiString;                          // Header record
-    FDataRecord: Array of array of array of SmallInt; // dr * ns * nsa
+    FDataRecord: TDataRecord; // dr * ns * nsa
     { Fields of EDF and EDF+ header record: }
     prVersion: str8;             // Version of data format
     prLocalPatID: str80;         // Local patient identification
@@ -193,6 +194,7 @@ TEDFDoc = class
     function iGetNumOfSamples(const position: integer): longint;
     procedure SetReserved2(const position: integer; const Reserved2Str: Str32);
     function GetReserved2(const position: integer): Str32;
+    procedure DimDataRecord;
   public
     constructor Create;
     destructor Destroy; override;
@@ -229,6 +231,7 @@ TEDFDoc = class
     property NumOfSamples[i: integer]: Str8 read GetNumOfSamples Write SetNumOfSamples;
     property iNumOfSamples[i: integer]: longint read iGetNumOfSamples Write SetNumOfSamples;
     property Reserved2[i: integer]: Str32 Read GetReserved2 Write SetReserved2;
+    property DataRecord: TDataRecord Read FDataRecord Write FDataRecord;
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: AnsiString);
     procedure ReadFromStream(const aStream: TStream);
@@ -619,6 +622,7 @@ procedure TEDFDoc.SetNumOfDataRecs(const NumOfRecs: Str8);
 begin
   prNumOfDataRecs := PadRight(NumOfRecs, 8);
   CompileHeaderText;
+  DimDataRecord;
 end;
 
 procedure TEDFDoc.SetNumOfDataRecs(const nr: longint);
@@ -713,6 +717,7 @@ begin
       prReserved2 := PadRight(prReserved2, ins * 32);
     prNumOfSignals := PadRight(ns, 4);
     CompileHeaderText;
+    DimDataRecord;
   end;
 end;
 
@@ -1097,6 +1102,7 @@ begin
     filledString := PadRight(numOfSamples, 8); // fill with spaces for length 8
     prNumOfSamples := StuffString(prNumOfSamples, position * 8 + 1, 8, filledString);
     CompileHeaderText;
+    DimDataRecord;
   end;
 end;
 
@@ -1165,6 +1171,28 @@ begin
   else
     result := '';
 end;
+
+procedure TEDFDoc.DimDataRecord;
+var
+  imax, kmax: longint;
+  jmax: integer;
+  j: integer;
+  m: longint;
+begin
+  imax := iNumOfDataRecs;
+  jmax := iNumOfSignals;
+  kmax := iNumOfSamples[0]; // maximum number of samples over all signals
+  for j := 1 to jmax - 1 do
+  begin
+    m := iNumOfSamples[j];
+    if m > kmax then
+      kmax := m;
+  end;
+  if imax < 0 then imax := 0;
+  if jmax < 0 then jmax := 0;
+  if kmax < 0 then kmax := 0;
+  SetLength(FDataRecord, imax, jmax, kmax);
+ end;
 
 constructor TEDFDoc.Create;
 begin

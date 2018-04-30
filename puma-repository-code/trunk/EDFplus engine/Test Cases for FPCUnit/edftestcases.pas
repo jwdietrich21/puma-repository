@@ -285,6 +285,7 @@ procedure TEDFDocTestCases.EDFFullDocTest;
 { very short and simple example, not EDF+-compliant }
 var
   theDoc: TEDFDoc;
+  j, k: integer;
 begin
   theDoc := TEDFDoc.Create;
   theDoc.LocalPatID := 'John Doe';
@@ -314,9 +315,15 @@ begin
   theDoc.iNumOfSamples[1] := 3;
   AssertEquals('test signal 2', theDoc.SignalLabel[1]);
   AssertEquals(3, theDoc.iNumOfSamples[1]);
+  for j := 1 to theDoc.iNumOfSignals do
+  for k := 1 to theDoc.iNumOfSamples[j - 1] do
+  begin
+    theDoc.DataRecord[0, j - 1, k - 1] := j * 100 + k;
+  end;
+  AssertEquals(130, theDoc.DataRecord[0, 0, 29]);
+  AssertEquals(201, theDoc.DataRecord[0, 1, 0]);
   theDoc.Destroy;
 end;
-
 
 
 initialization
