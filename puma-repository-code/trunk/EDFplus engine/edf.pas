@@ -170,13 +170,13 @@ TEDFDoc = class
     procedure SetPhysDim(const position: integer; const dimension: str8);
     function GetPhysDim(const position: integer): Str8;
     procedure SetPhysMin(const position: integer; const physmin: str8);
-    procedure SetPhysMin(const position: integer; const physmin: longint);
+    procedure SetPhysMin(const position: integer; const physmin: extended);
     function GetPhysMin(const position: integer): Str8;
-    function iGetPhysMin(const position: integer): longint;
+    function eGetPhysMin(const position: integer): extended;
     procedure SetPhysMax(const position: integer; const physmax: str8);
-    procedure SetPhysMax(const position: integer; const physmax: longint);
+    procedure SetPhysMax(const position: integer; const physmax: extended);
     function GetPhysMax(const position: integer): Str8;
-    function iGetPhysMax(const position: integer): longint;
+    function eGetPhysMax(const position: integer): extended;
     procedure SetDigMin(const position: integer; const digmin: str8);
     procedure SetDigMin(const position: integer; const digmin: longint);
     function GetDigMin(const position: integer): Str8;
@@ -218,9 +218,9 @@ TEDFDoc = class
     property Transducer[i: integer]: Str80 read GetTransducer Write SetTransducer;
     property PhysDim[i: integer]: Str8 read GetPhysDim Write SetPhysDim;
     property PhysMin[i: integer]: Str8 read GetPhysMin Write SetPhysMin;
-    property iPhysMin[i: integer]: longint read iGetPhysMin Write SetPhysMin;
+    property ePhysMin[i: integer]: extended read eGetPhysMin Write SetPhysMin;
     property PhysMax[i: integer]: Str8 read GetPhysMax Write SetPhysMax;
-    property iPhysMax[i: integer]: longint read iGetPhysMax Write SetPhysMax;
+    property ePhysMax[i: integer]: extended read eGetPhysMax Write SetPhysMax;
     property digMin[i: integer]: Str8 read GetdigMin Write SetdigMin;
     property idigMin[i: integer]: longint read iGetdigMin Write SetdigMin;
     property digMax[i: integer]: Str8 read GetdigMax Write SetdigMax;
@@ -850,17 +850,22 @@ begin
   end;
 end;
 
-procedure TEDFDoc.SetPhysMin(const position: integer; const physmin: longint);
+procedure TEDFDoc.SetPhysMin(const position: integer; const physmin: extended);
 var
   pmString: Str8;
+  oldFormatSettings: TFormatSettings;
 begin
-  { TODO -oJWD : should be real or extended }
   if (physMin > 99999999) or (physMin < -9999999) then begin
     status := rangeErr;
     pmString := FloatToStr(NaN);
   end
   else
-    pmString := IntToStr(physMin);
+  begin
+    oldFormatSettings := DefaultFormatSettings;
+    DefaultFormatSettings.DecimalSeparator := '.';
+    pmString := FloatToStr(physMin);
+    DefaultFormatSettings := oldFormatSettings;
+  end;
   SetPhysMin(position, pmString);
 end;
 
@@ -877,14 +882,17 @@ begin
   else result := '';
 end;
 
-function TEDFDoc.iGetPhysMin(const position: integer): longint;
+function TEDFDoc.eGetPhysMin(const position: integer): extended;
 var
   pmString: Str8;
+  oldFormatSettings: TFormatSettings;
 begin
-  { TODO -oJWD : should be real or extended }
   pmString := GetPhysMin(position);
-  if not TryStrToInt(Trim(pmString), result) then
+  oldFormatSettings := DefaultFormatSettings;
+  DefaultFormatSettings.DecimalSeparator := '.';
+  if not TryStrToFloat(Trim(pmString), result) then
     status := strFormatErr;
+  DefaultFormatSettings := oldFormatSettings;
 end;
 
 procedure TEDFDoc.SetPhysMax(const position: integer; const physmax: str8);
@@ -902,17 +910,22 @@ begin
   end;
 end;
 
-procedure TEDFDoc.SetPhysMax(const position: integer; const physmax: longint);
+procedure TEDFDoc.SetPhysMax(const position: integer; const physmax: extended);
 var
   pmString: Str8;
+  oldFormatSettings: TFormatSettings;
 begin
-  { TODO -oJWD : should be real or extended }
   if (physMax > 99999999) or (physMax < -9999999) then begin
     status := rangeErr;
     pmString := FloatToStr(NaN);
   end
   else
-    pmString := IntToStr(physMax);
+  begin
+    oldFormatSettings := DefaultFormatSettings;
+    DefaultFormatSettings.DecimalSeparator := '.';
+    pmString := FloatToStr(physMax);
+    DefaultFormatSettings := oldFormatSettings;
+  end;
   SetPhysMax(position, pmString);
 end;
 
@@ -929,14 +942,17 @@ begin
   else result := '';
 end;
 
-function TEDFDoc.iGetPhysMax(const position: integer): longint;
+function TEDFDoc.eGetPhysMax(const position: integer): extended;
 var
   pmString: Str8;
+  oldFormatSettings: TFormatSettings;
 begin
-  { TODO -oJWD : should be real or extended }
   pmString := GetPhysMax(position);
-  if not TryStrToInt(Trim(pmString), result) then
+  oldFormatSettings := DefaultFormatSettings;
+  DefaultFormatSettings.DecimalSeparator := '.';
+  if not TryStrToFloat(Trim(pmString), result) then
     status := strFormatErr;
+  DefaultFormatSettings := oldFormatSettings;
 end;
 
 procedure TEDFDoc.SetDigMin(const position: integer; const digmin: str8);

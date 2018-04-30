@@ -227,12 +227,12 @@ begin
   theDoc.NumOfSignals := 12;
   theDoc.PhysMin[3] := '-3';
   AssertEquals('-3', theDoc.PhysMin[3]);
-  theDoc.iPhysMin[7] := -5;
-  AssertEquals(-5, theDoc.iPhysMin[7]);
+  theDoc.ePhysMin[7] := -5;
+  AssertEquals(-5, theDoc.ePhysMin[7]);
   theDoc.PhysMax[3] := '3';
   AssertEquals('3', theDoc.PhysMax[3]);
-  theDoc.iPhysMax[5] := 7;
-  AssertEquals(7, theDoc.iPhysMax[5]);
+  theDoc.ePhysMax[5] := 7;
+  AssertEquals(7, theDoc.ePhysMax[5]);
   theDoc.Destroy;
 end;
 
@@ -300,10 +300,10 @@ begin
   theDoc.Transducer[1] := 'thermistor';
   theDoc.PhysDim[0] := 'mV';
   theDoc.PhysDim[1] := 'degreeC';
-  theDoc.iPhysMin[0] := -3;
-  theDoc.iPhysMax[0] := 3;
-  theDoc.iPhysMin[1] := 34;
-  theDoc.iPhysMax[1] := 41;
+  theDoc.ePhysMin[0] := -3.1;
+  theDoc.ePhysMax[0] := 3;
+  theDoc.ePhysMin[1] := 34.4;
+  theDoc.ePhysMax[1] := 40.2;
   theDoc.idigMin[0] := -2048;
   theDoc.idigMax[0] := 2047;
   theDoc.idigMin[1] := -2048;
