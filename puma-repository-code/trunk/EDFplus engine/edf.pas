@@ -480,7 +480,7 @@ end;
 
 procedure TEDFDoc.SetLocalPatID(const ID: Str80);
 begin
-  prLocalPatID := ID;
+  prLocalPatID := PadRight(ID, 80);
   CompileHeaderText;
 end;
 
@@ -491,7 +491,7 @@ end;
 
 procedure TEDFDoc.SetLocalRecID(const ID: Str80);
 begin
-  prLocalRecID := ID;
+  prLocalRecID := PadRight(ID, 80);
   CompileHeaderText;
 end;
 
@@ -516,7 +516,15 @@ end;
 
 procedure TEDFDoc.SetStartDate(const DateStr: Str8);
 begin
+  if length(DateStr) <> 8 then
+  begin
+    status := createErr;
+    prStartDate := '';
+  end
+  else
+  begin
   prStartDate := DateStr;
+  end;
   CompileHeaderText;
 end;
 
@@ -548,7 +556,15 @@ end;
 
 procedure TEDFDoc.SetStartTime(const TimeStr: Str8);
 begin
-  prStartTime := TimeStr;
+  if length(TimeStr) <> 8 then
+  begin
+    status := createErr;
+    prStartTime := '';
+  end
+  else
+  begin
+    prStartTime := TimeStr;
+  end;
   CompileHeaderText;
 end;
 
@@ -601,7 +617,7 @@ end;
 
 procedure TEDFDoc.SetNumOfDataRecs(const NumOfRecs: Str8);
 begin
-  prNumOfDataRecs := NumOfRecs;
+  prNumOfDataRecs := PadRight(NumOfRecs, 8);
   CompileHeaderText;
 end;
 
@@ -634,7 +650,7 @@ end;
 
 procedure TEDFDoc.SetDurOfData(const duration: Str8);
 begin
-  prDurOfData := duration;
+  prDurOfData := PadRight(duration, 8);
   CompileHeaderText;
 end;
 
@@ -667,7 +683,7 @@ end;
 
 procedure TEDFDoc.SetNumOfSignals(const ns: Str4);
 begin
-  prNumOfSignals := ns;
+  prNumOfSignals := PadRight(ns, 4);
   CompileHeaderText;
 end;
 

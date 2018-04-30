@@ -63,6 +63,7 @@ type
     procedure DigMinMaxCheck;
     procedure PreFilterCheck;
     procedure NumOfSamplesCheck;
+    procedure EDFFullDocTest;
   end;
 
 implementation
@@ -277,6 +278,27 @@ begin
   AssertEquals(1300, theDoc.iNumOfSamples[2]);
   theDoc.iNumOfSamples[3] := 7;
   AssertEquals(7, theDoc.iNumOfSamples[3]);
+  theDoc.Destroy;
+end;
+
+procedure TEDFDocTestCases.EDFFullDocTest;
+{ very short and simple example, not EDF+-compliant }
+var
+  theDoc: TEDFDoc;
+begin
+  theDoc := TEDFDoc.Create;
+  theDoc.LocalPatID := 'John Doe';
+  theDoc.LocalRecID := 'simulated test recording';
+  theDoc.dStartDate := now;
+  theDoc.dStartTime := now;
+  theDoc.iNumOfDataRecs := 1;
+  theDoc.iDurationOfData := 13;
+  theDoc.iNumOfSignals := 2;
+  theDoc.SignalLabel[0] := 'test signal 1';
+  theDoc.SignalLabel[1] := 'test signal 2';
+  theDoc.Transducer[0] := 'none';
+  theDoc.Transducer[1] := 'none';
+
   theDoc.Destroy;
 end;
 
