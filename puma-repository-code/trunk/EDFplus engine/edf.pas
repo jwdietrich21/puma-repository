@@ -597,7 +597,7 @@ end;
 
 procedure TEDFDoc.SetReserved(const ReservedStr: Str44);
 begin
-  prReserved := ReservedStr;
+  prReserved := PadRight(ReservedStr, 44);
   CompileHeaderText;
 end;
 
@@ -630,7 +630,7 @@ begin
     nrString := FloatToStr(NaN);
   end
   else
-    nrString := PadRight(IntToStr(nr), 8);
+    nrString := IntToStr(nr);
   SetNumOfDataRecs(nrString);
 end;
 
@@ -663,7 +663,7 @@ begin
     ddString := FloatToStr(NaN);
   end
   else
-    ddString := PadRight(IntToStr(dd), 8);
+    ddString := IntToStr(dd);
   SetDurOfData(ddString);
 end;
 
@@ -682,9 +682,38 @@ begin
 end;
 
 procedure TEDFDoc.SetNumOfSignals(const ns: Str4);
+var
+  ins: integer;
 begin
-  prNumOfSignals := PadRight(ns, 4);
-  CompileHeaderText;
+  if not TryStrToInt(Trim(ns), ins) then // valid number representation?
+    begin
+      status := strFormatErr;
+    end
+  else
+  begin
+    if length(prLabel) < ins * 16 then // Label string too short?
+      prLabel := PadRight(prLabel, ins * 16);
+    if length(prTransducer) < ins * 80 then // Transducer string too short?
+      prTransducer := PadRight(prTransducer, ins * 80);
+    if length(prPhysDim) < ins * 8 then // PhysDim string too short?
+      prPhysDim := PadRight(prPhysDim, ins * 8);
+    if length(prPhysMin) < ins * 8 then // PhysMin string too short?
+      prPhysMin := PadRight(prPhysMin, ins * 8);
+    if length(prPhysMax) < ins * 8 then // PhysMax string too short?
+      prPhysMax := PadRight(prPhysMax, ins * 8);
+    if length(prDigMin) < ins * 8 then // DigMin string too short?
+      prDigMin := PadRight(prDigMin, ins * 8);
+    if length(prDigMax) < ins * 8 then // DigMax string too short?
+      prDigMax := PadRight(prDigMax, ins * 8);
+    if length(prPrefilter) < ins * 80 then // Prefilter string too short?
+      prPrefilter := PadRight(prPrefilter, ins * 80);
+    if length(prNumOfSamples) < ins * 8 then // PhysMin string too short?
+      prNumOfSamples := PadRight(prNumOfSamples, ins * 8);
+    if length(prReserved2) < ins * 32 then // Prefilter string too short?
+      prReserved2 := PadRight(prReserved2, ins * 32);
+    prNumOfSignals := PadRight(ns, 4);
+    CompileHeaderText;
+  end;
 end;
 
 procedure TEDFDoc.SetNumOfSignals(const ns: integer);
@@ -696,7 +725,7 @@ begin
     nsString := FloatToStr(NaN);
   end
   else
-    nsString := PadRight(IntToStr(ns), 4);
+    nsString := IntToStr(ns);
   SetNumOfSignals(nsString);
 end;
 
@@ -729,6 +758,7 @@ begin
       prLabel := PadRight(prLabel, ns * 16);
     filledString := PadRight(theLabel, 16); // fill with spaces for length 16
     prLabel := StuffString(prLabel, position * 16 + 1, 16, filledString);
+    CompileHeaderText;
   end;
 end;
 
@@ -758,6 +788,7 @@ begin
       prTransducer := PadRight(prTransducer, ns * 80);
     filledString := PadRight(transducer, 80); // fill with spaces for length 80
     prTransducer := StuffString(prTransducer, position * 80 + 1, 80, filledString);
+    CompileHeaderText;
   end;
 end;
 
@@ -786,6 +817,7 @@ begin
       prPhysDim := PadRight(prPhysDim, ns * 8);
     filledString := PadRight(dimension, 8); // fill with spaces for length 8
     prPhysDim := StuffString(prPhysDim, position * 8 + 1, 8, filledString);
+    CompileHeaderText;
   end;
 end;
 
@@ -814,6 +846,7 @@ begin
       prPhysMin := PadRight(prPhysMin, ns * 8);
     filledString := PadRight(physmin, 8); // fill with spaces for length 8
     prPhysMin := StuffString(prPhysMin, position * 8 + 1, 8, filledString);
+    CompileHeaderText;
   end;
 end;
 
@@ -821,12 +854,13 @@ procedure TEDFDoc.SetPhysMin(const position: integer; const physmin: longint);
 var
   pmString: Str8;
 begin
+  { TODO -oJWD : should be real or extended }
   if (physMin > 99999999) or (physMin < -9999999) then begin
     status := rangeErr;
     pmString := FloatToStr(NaN);
   end
   else
-    pmString := PadRight(IntToStr(physMin), 8);
+    pmString := IntToStr(physMin);
   SetPhysMin(position, pmString);
 end;
 
@@ -847,6 +881,7 @@ function TEDFDoc.iGetPhysMin(const position: integer): longint;
 var
   pmString: Str8;
 begin
+  { TODO -oJWD : should be real or extended }
   pmString := GetPhysMin(position);
   if not TryStrToInt(Trim(pmString), result) then
     status := strFormatErr;
@@ -863,6 +898,7 @@ begin
       prPhysMax := PadRight(prPhysMax, ns * 8);
     filledString := PadRight(physmax, 8); // fill with spaces for length 8
     prPhysMax := StuffString(prPhysMax, position * 8 + 1, 8, filledString);
+    CompileHeaderText;
   end;
 end;
 
@@ -870,12 +906,13 @@ procedure TEDFDoc.SetPhysMax(const position: integer; const physmax: longint);
 var
   pmString: Str8;
 begin
+  { TODO -oJWD : should be real or extended }
   if (physMax > 99999999) or (physMax < -9999999) then begin
     status := rangeErr;
     pmString := FloatToStr(NaN);
   end
   else
-    pmString := PadRight(IntToStr(physMax), 8);
+    pmString := IntToStr(physMax);
   SetPhysMax(position, pmString);
 end;
 
@@ -896,6 +933,7 @@ function TEDFDoc.iGetPhysMax(const position: integer): longint;
 var
   pmString: Str8;
 begin
+  { TODO -oJWD : should be real or extended }
   pmString := GetPhysMax(position);
   if not TryStrToInt(Trim(pmString), result) then
     status := strFormatErr;
@@ -912,6 +950,7 @@ begin
       prDigMin := PadRight(prDigMin, ns * 8);
     filledString := PadRight(digmin, 8); // fill with spaces for length 8
     prDigMin := StuffString(prDigMin, position * 8 + 1, 8, filledString);
+    CompileHeaderText;
   end;
 end;
 
@@ -924,7 +963,7 @@ begin
     dmString := FloatToStr(NaN);
   end
   else
-    dmString := PadRight(IntToStr(digMin), 8);
+    dmString := IntToStr(digMin);
   SetDigMin(position, dmString);
 end;
 
@@ -961,6 +1000,7 @@ begin
       prDigMax := PadRight(prDigMax, ns * 8);
     filledString := PadRight(digmax, 8); // fill with spaces for length 8
     prDigMax := StuffString(prDigMax, position * 8 + 1, 8, filledString);
+    CompileHeaderText;
   end;
 end;
 
@@ -973,7 +1013,7 @@ begin
     dmString := FloatToStr(NaN);
   end
   else
-    dmString := PadRight(IntToStr(digMax), 8);
+    dmString := IntToStr(digMax);
   SetDigMax(position, dmString);
 end;
 
@@ -1010,6 +1050,7 @@ begin
       prPrefilter := PadRight(prPrefilter, ns * 80);
     filledString := PadRight(prefilter, 80); // fill with spaces for length 80
     prPrefilter := StuffString(prPrefilter, position * 80 + 1, 80, filledString);
+    CompileHeaderText;
   end;
 end;
 
@@ -1039,6 +1080,7 @@ begin
       prNumOfSamples := PadRight(prNumOfSamples, ns * 8);
     filledString := PadRight(numOfSamples, 8); // fill with spaces for length 8
     prNumOfSamples := StuffString(prNumOfSamples, position * 8 + 1, 8, filledString);
+    CompileHeaderText;
   end;
 end;
 
@@ -1052,7 +1094,7 @@ begin
     nsaString := FloatToStr(NaN);
   end
   else
-    nsaString := PadRight(IntToStr(numOfSamples), 8);
+    nsaString := IntToStr(numOfSamples);
   SetNumOfSamples(position, nsaString);
 end;
 
@@ -1090,6 +1132,7 @@ begin
       prReserved2 := PadRight(prReserved2, ns * 32);
     filledString := PadRight(prReserved2, 32); // fill with spaces for length 32
     prReserved2 := StuffString(prReserved2, position * 32 + 1, 32, filledString);
+    CompileHeaderText;
   end;
 end;
 

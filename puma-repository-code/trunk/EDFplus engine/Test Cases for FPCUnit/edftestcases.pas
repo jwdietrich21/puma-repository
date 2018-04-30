@@ -296,9 +296,24 @@ begin
   theDoc.iNumOfSignals := 2;
   theDoc.SignalLabel[0] := 'test signal 1';
   theDoc.SignalLabel[1] := 'test signal 2';
-  theDoc.Transducer[0] := 'none';
-  theDoc.Transducer[1] := 'none';
-
+  theDoc.Transducer[0] := 'AgAgCl electrode';
+  theDoc.Transducer[1] := 'thermistor';
+  theDoc.PhysDim[0] := 'mV';
+  theDoc.PhysDim[1] := 'degreeC';
+  theDoc.iPhysMin[0] := -3;
+  theDoc.iPhysMax[0] := 3;
+  theDoc.iPhysMin[1] := 34;
+  theDoc.iPhysMax[1] := 41;
+  theDoc.idigMin[0] := -2048;
+  theDoc.idigMax[0] := 2047;
+  theDoc.idigMin[1] := -2048;
+  theDoc.idigMax[1] := 2047;
+  theDoc.Prefilter[0] := 'none';
+  theDoc.Prefilter[1] := 'LP:0.1Hz';
+  theDoc.iNumOfSamples[0] := 31;
+  theDoc.iNumOfSamples[1] := 3;
+  AssertEquals('test signal 2', theDoc.SignalLabel[1]);
+  AssertEquals(3, theDoc.iNumOfSamples[1]);
   theDoc.Destroy;
 end;
 
