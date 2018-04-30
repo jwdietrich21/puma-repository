@@ -97,14 +97,16 @@ const
   kNumOfSigPos    = 253;
   kVarStartPos    = kNumOfSigPos + 4;
 
+  kMaxRecordBytes = 61440;
+
 type
 
 { TEDFDoc }
 
 TEDFDoc = class
   private
-    FHeaderText: AnsiString;                          // Header record
-    FDataRecord: TDataRecord; // dr * ns * nsa
+    FHeaderText: AnsiString;     // Header record
+    FDataRecord: TDataRecord;    // dr * ns * nsa
     { Fields of EDF and EDF+ header record: }
     prVersion: str8;             // Version of data format
     prLocalPatID: str80;         // Local patient identification
@@ -319,7 +321,6 @@ begin
       mstream.Read(rawValue, 2);
       EDFDoc.FDataRecord[i - 1, j - 1, k - 1] := LEtoN(rawValue);
     end;
-  { TODO -oJWD : still to be improved }
   end;
 end;
 
@@ -510,8 +511,7 @@ var
 begin
   theFormat.DateSeparator := '.';
   theFormat.ShortDateFormat := 'dd.mm.yy';
-  { TODO -oJWD : Adapt for special EDF convention for two-digits years: }
-  theFormat.TwoDigitYearCenturyWindow := 85;  // correct?
+  theFormat.TwoDigitYearCenturyWindow := 85; // EDF convention
   sdString := GetStartDate;
   if not TryStrToDate(sdString, result, theFormat) then
     status := strFormatErr;
@@ -534,10 +534,13 @@ end;
 procedure TEDFDoc.SetStartDate(const Date: tDateTime);
 var
   sdString: Str8;
+  oldFormatSettings: TFormatSettings;
 begin
+  oldFormatSettings := DefaultFormatSettings;
+  DefaultFormatSettings.TwoDigitYearCenturyWindow := 85; // EDF convention
   sdString := FormatDateTime('dd.mm.yy', Date);
-  { TODO -oJWD : Adapt for special EDF convention for two-digits years }
   SetStartDate(sdString);
+  DefaultFormatSettings := oldFormatSettings;
 end;
 
 function TEDFDoc.GetStartTime: Str8;
