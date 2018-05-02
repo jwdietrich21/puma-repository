@@ -31,7 +31,8 @@ unit DataRecordGrid;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Grids, EDF;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Grids,
+  ComCtrls, EDF;
 
 type
 
@@ -39,6 +40,8 @@ type
 
   TValuesGridForm = class(TForm)
     DataGrid: TStringGrid;
+    ProgressBar1: TProgressBar;
+    StatusBar1: TStatusBar;
   private
 
   public
@@ -65,6 +68,7 @@ var
 begin
   if assigned(theEDFFile) then
   begin
+    DataGrid.BeginUpdate;
     DataGrid.Cells[0, 0] := 'n';
     DataGrid.Columns.Clear;
     imax := high(theEDFFile.DataRecord);        // Records
@@ -72,7 +76,6 @@ begin
     kmax := high(theEDFFile.DataRecord[0, 0]);  // Samples
     mmax := (imax + 1) * (kmax + 1);
     DataGrid.RowCount := mmax;
-    DataGrid.BeginUpdate;
     for j := 0 to jmax do
     begin
       c := DataGrid.Columns.Add;
@@ -85,14 +88,19 @@ begin
     m := 1;
     DataGrid.BeginUpdate;
     for i := 0 to imax do  // Records
-    for j := 0 to jmax do  // Signals
-    for k := 0 to kmax do  // Samples
     begin
-      rawValue := theEDFFile.DataRecord[i, j, k];
-      DataGrid.Cells[j + 1, m] := IntToStr(RawValue);
-      m := i * kmax + k;
+      for j := 0 to jmax do  // Signals
+      for k := 0 to kmax do  // Samples
+      begin
+        rawValue := theEDFFile.DataRecord[i, j, k];
+        DataGrid.Cells[j + 1, m] := IntToStr(RawValue);
+        m := i * kmax + k;
+      end;
+      ProgressBar1.Position := trunc(i / imax * 100);
+      application.ProcessMessages;
     end;
     DataGrid.EndUpdate;
+    DataGrid.TopRow := 1;
   end;
 end;
 

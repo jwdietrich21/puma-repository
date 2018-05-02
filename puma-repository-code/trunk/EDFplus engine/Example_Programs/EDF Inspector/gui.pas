@@ -226,9 +226,12 @@ begin
     application.ProcessMessages;
     cursor := crHourGlass;
     ValuesGridForm.Cursor := crHourGlass;
+    ValuesGridForm.DataGrid.Cursor := crHourGlass;
     ValuesGridForm.ShowDataRecord(gEDFFile);
+    ValuesGridForm.DataGrid.Cursor := crCross;
     ValuesGridForm.Cursor := crDefault;
     cursor := crDefault;
+    ValuesGridForm.ProgressBar1.Position := 0;
     // fStream.Free; // for testing of stream functionality only
   end;
 end;

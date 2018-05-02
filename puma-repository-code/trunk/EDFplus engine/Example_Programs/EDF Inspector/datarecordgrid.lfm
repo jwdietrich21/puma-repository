@@ -2,17 +2,18 @@ object ValuesGridForm: TValuesGridForm
   Left = 468
   Height = 342
   Top = 378
-  Width = 628
+  Width = 632
   Caption = 'Data Records'
   ClientHeight = 342
-  ClientWidth = 628
+  ClientWidth = 632
   LCLVersion = '1.8.0.6'
   Visible = True
   object DataGrid: TStringGrid
+    Cursor = crCross
     Left = 0
-    Height = 344
+    Height = 322
     Top = 0
-    Width = 634
+    Width = 633
     AlternateColor = clSkyBlue
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoEdit = False
@@ -48,5 +49,19 @@ object ValuesGridForm: TValuesGridForm
       113
       114
     )
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 319
+    Width = 632
+    Panels = <>
+  end
+  object ProgressBar1: TProgressBar
+    Left = 16
+    Height = 14
+    Top = 325
+    Width = 592
+    TabOrder = 2
   end
 end
