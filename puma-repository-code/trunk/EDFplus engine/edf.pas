@@ -1017,14 +1017,25 @@ procedure TEDFDoc.SetDigMax(const position: integer; const digmax: str8);
 var
   filledString: str8;
   ns: integer;
+  idm: longint;
 begin
   if ValidPosition(position, ns) then
   begin
-    if length(prDigMax) < ns * 8 then // DigMax string too short?
-      prDigMax := PadRight(prDigMax, ns * 8);
-    filledString := PadRight(digmax, 8); // fill with spaces for length 8
-    prDigMax := StuffString(prDigMax, position * 8 + 1, 8, filledString);
-    CompileHeaderText;
+    if not TryStrToInt(Trim(digmax), idm) then
+      status := strFormatErr
+    else
+    begin
+      if idm <= iDigMin[position] then // EDF+ dditional specification #5
+        status := sizemismatch
+      else
+      begin
+        if length(prDigMax) < ns * 8 then // DigMax string too short?
+          prDigMax := PadRight(prDigMax, ns * 8);
+        filledString := PadRight(digmax, 8); // fill with spaces for length 8
+        prDigMax := StuffString(prDigMax, position * 8 + 1, 8, filledString);
+        CompileHeaderText;
+      end;
+    end;
   end;
 end;
 
