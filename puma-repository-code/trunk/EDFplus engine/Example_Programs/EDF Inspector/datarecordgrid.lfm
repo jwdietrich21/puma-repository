@@ -1,0 +1,53 @@
+object ValuesGridForm: TValuesGridForm
+  Left = 468
+  Height = 342
+  Top = 378
+  Width = 628
+  Caption = 'Data Records'
+  ClientHeight = 342
+  ClientWidth = 628
+  LCLVersion = '1.8.0.6'
+  Visible = True
+  object StringGrid1: TStringGrid
+    Left = 0
+    Height = 344
+    Top = 0
+    Width = 634
+    AlternateColor = clSkyBlue
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoEdit = False
+    AutoFillColumns = True
+    ColCount = 6
+    Columns = <    
+      item
+        Title.Caption = 'Signal 0'
+        Width = 113
+      end    
+      item
+        Title.Caption = 'Signal 1'
+        Width = 113
+      end    
+      item
+        Title.Caption = 'Signal 2'
+        Width = 113
+      end    
+      item
+        Title.Caption = 'Signal 3'
+        Width = 113
+      end    
+      item
+        Title.Caption = 'Signal 4'
+        Width = 114
+      end>
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goColSpanning, goDblClickAutoSize, goSmoothScroll]
+    TabOrder = 0
+    ColWidths = (
+      64
+      113
+      113
+      113
+      113
+      114
+    )
+  end
+end

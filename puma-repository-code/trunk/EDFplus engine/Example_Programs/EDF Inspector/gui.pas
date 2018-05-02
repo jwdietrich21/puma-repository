@@ -32,12 +32,14 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ValEdit,
-  ComCtrls, Menus, LCLType, StdCtrls, ExtCtrls, LazUTF8, uPSComponent, EDF, Grids;
+  ComCtrls, Menus, LCLType, StdCtrls, ExtCtrls, LazUTF8, uPSComponent, Grids,
+  DataRecordGrid, EDF;
 
 const
   FEEDBACK_TEXT = '  Status Code: ';
   SIZE_TEXT = '  Total Size of Data: ';
   BYTES_TEXT = ' Bytes';
+  MAIN_FORM_TITLE = 'EDF Inspector';
 
 type
 
@@ -170,7 +172,7 @@ begin
     // fStream := TFileStream.Create(UTF8ToSys(EDFFileOpenDialog.FileName), fmOpenRead); // testing
     gEDFFile.ReadFromFile(UTF8ToSys(EDFFileOpenDialog.FileName));
     // gEDFFile.ReadFromStream(fStream); // for testing of stream variant
-    MainForm.Caption := 'EDF Inspector: ' +
+    MainForm.Caption := MAIN_FORM_TITLE + ': Header Record of ' +
       ExtractFileName(EDFFileOpenDialog.FileName);
     HeaderRecordValueListEditor.Row := 0;
     HeaderRecordValueListEditor.InsertRow('Version', gEDFFile.version, true);
@@ -220,6 +222,7 @@ begin
     Statusbar1.Panels[0].Text := FEEDBACK_TEXT + IntToStr(gEDFFile.StatusCode);
     Statusbar1.Panels[1].Text := SIZE_TEXT + IntToStr(gEDFFile.TotalSize) + BYTES_TEXT;
     HeaderRecordValueListEditor.Row := 1;
+    ValuesGridForm.Visible := true;
     // fStream.Free; // for testing of stream functionality only
   end;
 end;

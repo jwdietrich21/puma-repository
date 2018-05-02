@@ -33,7 +33,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, pascalscript, GUI
+  Forms, pascalscript, GUI, DataRecordGrid
   { you can add units after this };
 
 {$R *.res}
@@ -43,6 +43,8 @@ begin
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(TValuesGridForm, ValuesGridForm);
+  ValuesGridForm.Visible := false;
   Application.Run;
 end.
 
