@@ -31,18 +31,18 @@ unit DataRecordGrid;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Grids;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Grids, EDF;
 
 type
 
   { TValuesGridForm }
 
   TValuesGridForm = class(TForm)
-    StringGrid1: TStringGrid;
+    DataGrid: TStringGrid;
   private
 
   public
-
+    procedure ShowDataRecord(theEDFFile: TEDFDoc);
   end;
 
 var
@@ -51,6 +51,50 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TValuesGridForm }
+
+procedure TValuesGridForm.ShowDataRecord(theEDFFile: TEDFDoc);
+var
+  i, k, m: longint;
+  imax, kmax, mmax: longint;
+  j: integer;
+  jmax: integer;
+  rawValue: SmallInt;
+  c: TGridColumn;
+begin
+  if assigned(theEDFFile) then
+  begin
+    DataGrid.Cells[0, 0] := 'n';
+    DataGrid.Columns.Clear;
+    imax := high(theEDFFile.DataRecord);        // Records
+    jmax := high(theEDFFile.DataRecord[0]);     // Signals
+    kmax := high(theEDFFile.DataRecord[0, 0]);  // Samples
+    mmax := (imax + 1) * (kmax + 1);
+    DataGrid.RowCount := mmax;
+    DataGrid.BeginUpdate;
+    for j := 0 to jmax do
+    begin
+      c := DataGrid.Columns.Add;
+      c.Title.Caption := theEDFFile.SignalLabel[j];
+    end;
+    for m := 1 to mmax - 1 do
+    DataGrid.Cells[0, m] := IntToStr(m);
+    DataGrid.EndUpdate;
+    application.ProcessMessages;
+    m := 1;
+    DataGrid.BeginUpdate;
+    for i := 0 to imax do  // Records
+    for j := 0 to jmax do  // Signals
+    for k := 0 to kmax do  // Samples
+    begin
+      rawValue := theEDFFile.DataRecord[i, j, k];
+      DataGrid.Cells[j + 1, m] := IntToStr(RawValue);
+      m := i * kmax + k;
+    end;
+    DataGrid.EndUpdate;
+  end;
+end;
 
 end.
 

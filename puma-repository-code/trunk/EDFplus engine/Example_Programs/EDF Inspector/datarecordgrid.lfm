@@ -8,7 +8,7 @@ object ValuesGridForm: TValuesGridForm
   ClientWidth = 628
   LCLVersion = '1.8.0.6'
   Visible = True
-  object StringGrid1: TStringGrid
+  object DataGrid: TStringGrid
     Left = 0
     Height = 344
     Top = 0
@@ -16,7 +16,6 @@ object ValuesGridForm: TValuesGridForm
     AlternateColor = clSkyBlue
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoEdit = False
-    AutoFillColumns = True
     ColCount = 6
     Columns = <    
       item

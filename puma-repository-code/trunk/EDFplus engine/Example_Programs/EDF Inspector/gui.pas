@@ -223,6 +223,12 @@ begin
     Statusbar1.Panels[1].Text := SIZE_TEXT + IntToStr(gEDFFile.TotalSize) + BYTES_TEXT;
     HeaderRecordValueListEditor.Row := 1;
     ValuesGridForm.Visible := true;
+    application.ProcessMessages;
+    cursor := crHourGlass;
+    ValuesGridForm.Cursor := crHourGlass;
+    ValuesGridForm.ShowDataRecord(gEDFFile);
+    ValuesGridForm.Cursor := crDefault;
+    cursor := crDefault;
     // fStream.Free; // for testing of stream functionality only
   end;
 end;

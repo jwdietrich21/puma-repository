@@ -14,7 +14,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="67"/>
+      <BuildNr Value="73"/>
       <Attributes pvaDebug="True" pvaPreRelease="True"/>
       <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="EDF Inspector" InternalName="PUMA EDF Inspector 1.0.0 (Alpha Centauri)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="EDF Inspector" ProductVersion="1.0.0 Pre-Alpha"/>
     </VersionInfo>
@@ -63,6 +63,7 @@
         <Filename Value="datarecordgrid.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ValuesGridForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="DataRecordGrid"/>
       </Unit4>
