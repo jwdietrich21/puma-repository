@@ -200,6 +200,8 @@ TEDFDoc = class
     function GetReserved2(const position: integer): Str32;
     function GetAdjustmentFactor(const position: integer): extended;
     procedure DimDataRecord;
+    function GetScaled(const aRecord: longint; aSignal: integer; aSample: longint): Single;
+    function GetUnscaled(const aRecord: longint; aSignal: integer; aSample: longint): SmallInt;
   public
     constructor Create;
     destructor Destroy; override;
@@ -239,6 +241,8 @@ TEDFDoc = class
     property RawDataRecord: TRawDataRecord Read FRawDataRecord Write FRawDataRecord;
     property ScaledDataRecord: TScaledDataRecord Read FScaledDataRecord Write FScaledDataRecord;
     property AdjustmentFactor[i: integer]: extended Read GetAdjustmentFactor;
+    property Scaled[aRecord: longint; aSignal: integer; sSample: longint]: single Read GetScaled;
+    property UnScaled[aRecord: longint; aSignal: integer; sSample: longint]: SmallInt Read GetUnscaled;
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: AnsiString);
     procedure ReadFromStream(const aStream: TStream);
@@ -303,20 +307,25 @@ var
   j: integer;
   jmax: integer;
   rawValue: SmallInt;
-  calibrator: array of Extended;
+  calibrator, physmins: array of extended;
+  digmins: array of longint;
 begin
   if assigned(EDFDoc) and assigned(mstream) and (mstream.Size > 0) then
   begin
     imax := EDFDoc.iNumOfDataRecs;
     jmax := EDFDoc.iNumOfSignals;
     kmax := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
-    setlength(calibrator, jmax);
+    SetLength(calibrator, jmax);
+    SetLength(physmins, jmax);
+    SetLength(digmins, jmax);
     for j := 0 to jmax - 1 do
     begin
       m := EDFDoc.iNumOfSamples[j];
       if m > kmax then
         kmax := m;
-      calibrator[j] := EDFDoc.AdjustmentFactor[j];
+      calibrator[j] := EDFDoc.AdjustmentFactor[j]; // pre-calculating these
+      physmins[j] := EDFDoc.ePhysMin[j];           // values improves speed
+      digmins[j] := EDFDoc.idigMin[j];
     end;
     SetLength(EDFDoc.FRawDataRecord, imax, jmax, kmax);
     SetLength(EDFDoc.FScaledDataRecord, imax, jmax, kmax);
@@ -329,8 +338,10 @@ begin
     begin
       mstream.Read(rawValue, 2);
       EDFDoc.FRawDataRecord[i, j, k] := LEtoN(rawValue);
-      EDFDoc.ScaledDataRecord[i, j, k] :=
-        calibrator[j] * EDFDoc.FRawDataRecord[i, j, k];
+      EDFDoc.ScaledDataRecord[i, j, k] := physmins[j] +
+        calibrator[j] * (EDFDoc.FRawDataRecord[i, j, k] - digmins[j]);
+      {Much slower alternative: EDFDoc.ScaledDataRecord[i, j, k] :=
+        EDFDoc.Scaled[i, j, k];}
     end;
   end;
 end;
@@ -1199,8 +1210,8 @@ end;
 
 function TEDFDoc.GetAdjustmentFactor(const position: integer): extended;
 begin
-  result := ePhysMax[position] / iDigMax[position];
-  { TODO -oJWD : still not finished }
+  result := (ePhysMax[position] - ePhysMin[position]) /
+            (iDigMax[position] - iDigMin[Position]);
 end;
 
 procedure TEDFDoc.DimDataRecord;
@@ -1224,6 +1235,20 @@ begin
   if kmax < 0 then kmax := 0;
   SetLength(FRawDataRecord, imax, jmax, kmax);
  end;
+
+function TEDFDoc.GetScaled(const aRecord: longint; aSignal: integer;
+  aSample: longint): Single;
+begin
+  result := ePhysMin[aSignal] + AdjustmentFactor[aSignal] *
+        (FRawDataRecord[aRecord, aSignal, aSample] - iDigMin[aSignal]);
+end;
+
+function TEDFDoc.GetUnscaled(const aRecord: longint; aSignal: integer;
+  aSample: longint): SmallInt;
+begin
+  result := Round(iDigMin[aSignal] + (FScaledDataRecord[aRecord, aSignal, aSample] -
+         ePhysMin[aSignal]) / AdjustmentFactor[aSignal]);
+end;
 
 constructor TEDFDoc.Create;
 begin
