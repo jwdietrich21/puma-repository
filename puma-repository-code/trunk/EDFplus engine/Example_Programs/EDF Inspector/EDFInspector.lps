@@ -151,7 +151,7 @@
         <UsageCount Value="10"/>
       </Unit15>
       <Unit16>
-        <Filename Value="../../../../../../../../../../../lazarus/lcl/grids.pas"/>
+        <Filename Value="/lazarus/lcl/grids.pas"/>
         <UnitName Value="Grids"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="9610"/>

@@ -1,17 +1,17 @@
 object ValuesGridForm: TValuesGridForm
-  Left = 468
+  Left = 479
   Height = 342
-  Top = 378
+  Top = 348
   Width = 632
   Caption = 'Data Records'
   ClientHeight = 342
   ClientWidth = 632
-  LCLVersion = '1.8.0.6'
+  LCLVersion = '1.8.2.0'
   Visible = True
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 319
+    Height = 15
+    Top = 327
     Width = 632
     Panels = <>
   end
@@ -36,14 +36,14 @@ object ValuesGridForm: TValuesGridForm
     object TabSheet1: TTabSheet
       Hint = 'Raw data from digitizer'
       Caption = 'Raw Data'
-      ClientHeight = 294
-      ClientWidth = 624
+      ClientHeight = 281
+      ClientWidth = 626
       object RawDataGrid: TStringGrid
         Cursor = crCross
         Left = 0
-        Height = 296
+        Height = 281
         Top = 0
-        Width = 628
+        Width = 624
         AlternateColor = clSkyBlue
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoEdit = False
@@ -77,14 +77,14 @@ object ValuesGridForm: TValuesGridForm
     object TabSheet2: TTabSheet
       Hint = 'Scaled (physical) data'
       Caption = 'Scaled Data'
-      ClientHeight = 294
-      ClientWidth = 624
+      ClientHeight = 281
+      ClientWidth = 626
       object ScaledDataGrid: TStringGrid
         Cursor = crCross
         Left = 0
-        Height = 296
+        Height = 281
         Top = 0
-        Width = 628
+        Width = 624
         AlternateColor = clSkyBlue
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoEdit = False
