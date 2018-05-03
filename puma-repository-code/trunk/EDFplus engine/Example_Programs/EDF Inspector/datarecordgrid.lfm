@@ -62,6 +62,7 @@ object ValuesGridForm: TValuesGridForm
     Height = 14
     Top = 325
     Width = 592
+    Anchors = [akLeft, akBottom]
     TabOrder = 2
   end
 end

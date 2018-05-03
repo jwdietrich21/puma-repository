@@ -71,9 +71,9 @@ begin
     DataGrid.BeginUpdate;
     DataGrid.Cells[0, 0] := 'n';
     DataGrid.Columns.Clear;
-    imax := high(theEDFFile.DataRecord);        // Records
-    jmax := high(theEDFFile.DataRecord[0]);     // Signals
-    kmax := high(theEDFFile.DataRecord[0, 0]);  // Samples
+    imax := high(theEDFFile.RawDataRecord);        // Records
+    jmax := high(theEDFFile.RawDataRecord[0]);     // Signals
+    kmax := high(theEDFFile.RawDataRecord[0, 0]);  // Samples
     mmax := (imax + 1) * (kmax + 1);
     DataGrid.RowCount := mmax;
     for j := 0 to jmax do
@@ -92,7 +92,7 @@ begin
       for j := 0 to jmax do  // Signals
       for k := 0 to kmax do  // Samples
       begin
-        rawValue := theEDFFile.DataRecord[i, j, k];
+        rawValue := theEDFFile.RawDataRecord[i, j, k];
         DataGrid.Cells[j + 1, m] := IntToStr(RawValue);
         m := i * kmax + k;
       end;

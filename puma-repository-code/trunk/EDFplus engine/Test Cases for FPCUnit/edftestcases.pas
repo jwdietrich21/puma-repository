@@ -318,10 +318,10 @@ begin
   for j := 1 to theDoc.iNumOfSignals do
   for k := 1 to theDoc.iNumOfSamples[j - 1] do
   begin
-    theDoc.DataRecord[0, j - 1, k - 1] := j * 100 + k;
+    theDoc.RawDataRecord[0, j - 1, k - 1] := j * 100 + k;
   end;
-  AssertEquals(130, theDoc.DataRecord[0, 0, 29]);
-  AssertEquals(201, theDoc.DataRecord[0, 1, 0]);
+  AssertEquals(130, theDoc.RawDataRecord[0, 0, 29]);
+  AssertEquals(201, theDoc.RawDataRecord[0, 1, 0]);
   theDoc.Destroy;
 end;
 

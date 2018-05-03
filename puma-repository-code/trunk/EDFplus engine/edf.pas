@@ -41,7 +41,8 @@ type
   str32 = string[32];
   str44 = string[44];
   str80 = string[80];
-  TDataRecord = Array of array of array of SmallInt;
+  TRawDataRecord = Array of array of array of SmallInt;
+  TScaledDataRecord = Array of array of array of Single;
 
 const
 
@@ -106,7 +107,8 @@ type
 TEDFDoc = class
   private
     FHeaderText: AnsiString;     // Header record
-    FDataRecord: TDataRecord;    // dr * ns * nsa
+    FRawDataRecord: TRawDataRecord;    // digitizer output, dr * ns * nsa
+    FScaledDataRecord: TScaledDataRecord;  // reconstructed biological data
     { Fields of EDF and EDF+ header record: }
     prVersion: str8;             // Version of data format
     prLocalPatID: str80;         // Local patient identification
@@ -196,6 +198,7 @@ TEDFDoc = class
     function iGetNumOfSamples(const position: integer): longint;
     procedure SetReserved2(const position: integer; const Reserved2Str: Str32);
     function GetReserved2(const position: integer): Str32;
+    function GetAdjustmentFactor(const position: integer): extended;
     procedure DimDataRecord;
   public
     constructor Create;
@@ -233,7 +236,9 @@ TEDFDoc = class
     property NumOfSamples[i: integer]: Str8 read GetNumOfSamples Write SetNumOfSamples;
     property iNumOfSamples[i: integer]: longint read iGetNumOfSamples Write SetNumOfSamples;
     property Reserved2[i: integer]: Str32 Read GetReserved2 Write SetReserved2;
-    property DataRecord: TDataRecord Read FDataRecord Write FDataRecord;
+    property RawDataRecord: TRawDataRecord Read FRawDataRecord Write FRawDataRecord;
+    property ScaledDataRecord: TScaledDataRecord Read FScaledDataRecord Write FScaledDataRecord;
+    property AdjustmentFactor[i: integer]: extended Read GetAdjustmentFactor;
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: AnsiString);
     procedure ReadFromStream(const aStream: TStream);
@@ -298,28 +303,34 @@ var
   j: integer;
   jmax: integer;
   rawValue: SmallInt;
+  calibrator: array of Extended;
 begin
   if assigned(EDFDoc) and assigned(mstream) and (mstream.Size > 0) then
   begin
     imax := EDFDoc.iNumOfDataRecs;
     jmax := EDFDoc.iNumOfSignals;
     kmax := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
-    for j := 1 to jmax - 1 do
+    setlength(calibrator, jmax);
+    for j := 0 to jmax - 1 do
     begin
       m := EDFDoc.iNumOfSamples[j];
       if m > kmax then
         kmax := m;
+      calibrator[j] := EDFDoc.AdjustmentFactor[j];
     end;
-    SetLength(EDFDoc.FDataRecord, imax, jmax, kmax);
+    SetLength(EDFDoc.FRawDataRecord, imax, jmax, kmax);
+    SetLength(EDFDoc.FScaledDataRecord, imax, jmax, kmax);
     EDFDoc.DataSize := imax * jmax * kmax * SizeOf(SmallInt);
     EDFDoc.TotalSize := EDFDoc.iGetNumOfBytes + EDFDoc.DataSize;
     mstream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
-    for i := 1 to imax do  // Records
-    for j := 1 to jmax do  // Signals
-    for k := 1 to kmax do  // Samples
+    for i := 0 to imax - 1 do  // Records
+    for j := 0 to jmax - 1 do  // Signals
+    for k := 0 to kmax - 1 do  // Samples
     begin
       mstream.Read(rawValue, 2);
-      EDFDoc.FDataRecord[i - 1, j - 1, k - 1] := LEtoN(rawValue);
+      EDFDoc.FRawDataRecord[i, j, k] := LEtoN(rawValue);
+      EDFDoc.ScaledDataRecord[i, j, k] :=
+        calibrator[j] * EDFDoc.FRawDataRecord[i, j, k];
     end;
   end;
 end;
@@ -1186,6 +1197,12 @@ begin
     result := '';
 end;
 
+function TEDFDoc.GetAdjustmentFactor(const position: integer): extended;
+begin
+  result := ePhysMax[position] / iDigMax[position];
+  { TODO -oJWD : still not finished }
+end;
+
 procedure TEDFDoc.DimDataRecord;
 var
   imax, kmax: longint;
@@ -1205,7 +1222,7 @@ begin
   if imax < 0 then imax := 0;
   if jmax < 0 then jmax := 0;
   if kmax < 0 then kmax := 0;
-  SetLength(FDataRecord, imax, jmax, kmax);
+  SetLength(FRawDataRecord, imax, jmax, kmax);
  end;
 
 constructor TEDFDoc.Create;
