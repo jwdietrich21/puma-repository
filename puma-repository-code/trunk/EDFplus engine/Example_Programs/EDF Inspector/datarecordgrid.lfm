@@ -8,48 +8,6 @@ object ValuesGridForm: TValuesGridForm
   ClientWidth = 632
   LCLVersion = '1.8.0.6'
   Visible = True
-  object DataGrid: TStringGrid
-    Cursor = crCross
-    Left = 0
-    Height = 322
-    Top = 0
-    Width = 633
-    AlternateColor = clSkyBlue
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    AutoEdit = False
-    ColCount = 6
-    Columns = <    
-      item
-        Title.Caption = 'Signal 0'
-        Width = 113
-      end    
-      item
-        Title.Caption = 'Signal 1'
-        Width = 113
-      end    
-      item
-        Title.Caption = 'Signal 2'
-        Width = 113
-      end    
-      item
-        Title.Caption = 'Signal 3'
-        Width = 113
-      end    
-      item
-        Title.Caption = 'Signal 4'
-        Width = 114
-      end>
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goColSpanning, goDblClickAutoSize, goSmoothScroll]
-    TabOrder = 0
-    ColWidths = (
-      64
-      113
-      113
-      113
-      113
-      114
-    )
-  end
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
@@ -63,6 +21,99 @@ object ValuesGridForm: TValuesGridForm
     Top = 325
     Width = 592
     Anchors = [akLeft, akBottom]
+    TabOrder = 1
+  end
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 320
+    Top = 0
+    Width = 632
+    ActivePage = TabSheet1
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 0
     TabOrder = 2
+    OnChange = PageControl1Change
+    object TabSheet1: TTabSheet
+      Hint = 'Raw data from digitizer'
+      Caption = 'Raw Data'
+      ClientHeight = 294
+      ClientWidth = 624
+      object RawDataGrid: TStringGrid
+        Cursor = crCross
+        Left = 0
+        Height = 296
+        Top = 0
+        Width = 628
+        AlternateColor = clSkyBlue
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        AutoEdit = False
+        ColCount = 6
+        Columns = <        
+          item
+            Title.Caption = 'Signal 0'
+            Width = 113
+          end        
+          item
+            Title.Caption = 'Signal 1'
+            Width = 113
+          end        
+          item
+            Title.Caption = 'Signal 2'
+            Width = 113
+          end        
+          item
+            Title.Caption = 'Signal 3'
+            Width = 113
+          end        
+          item
+            Title.Caption = 'Signal 4'
+            Width = 114
+          end>
+        MouseWheelOption = mwGrid
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goColSpanning, goDblClickAutoSize, goSmoothScroll]
+        TabOrder = 0
+      end
+    end
+    object TabSheet2: TTabSheet
+      Hint = 'Scaled (physical) data'
+      Caption = 'Scaled Data'
+      ClientHeight = 294
+      ClientWidth = 624
+      object ScaledDataGrid: TStringGrid
+        Cursor = crCross
+        Left = 0
+        Height = 296
+        Top = 0
+        Width = 628
+        AlternateColor = clSkyBlue
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        AutoEdit = False
+        ColCount = 6
+        Columns = <        
+          item
+            Title.Caption = 'Signal 0'
+            Width = 113
+          end        
+          item
+            Title.Caption = 'Signal 1'
+            Width = 113
+          end        
+          item
+            Title.Caption = 'Signal 2'
+            Width = 113
+          end        
+          item
+            Title.Caption = 'Signal 3'
+            Width = 113
+          end        
+          item
+            Title.Caption = 'Signal 4'
+            Width = 114
+          end>
+        MouseWheelOption = mwGrid
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goColSpanning, goDblClickAutoSize, goSmoothScroll]
+        TabOrder = 0
+      end
+    end
   end
 end

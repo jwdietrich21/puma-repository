@@ -39,13 +39,21 @@ type
   { TValuesGridForm }
 
   TValuesGridForm = class(TForm)
-    DataGrid: TStringGrid;
+    RawDataGrid: TStringGrid;
+    ScaledDataGrid: TStringGrid;
+    PageControl1: TPageControl;
     ProgressBar1: TProgressBar;
     StatusBar1: TStatusBar;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    procedure PageControl1Change(Sender: TObject);
   private
 
   public
-    procedure ShowDataRecord(theEDFFile: TEDFDoc);
+    procedure ShowDataRecord;
+  public
+    ScaledDataReady: boolean;
+    openFile: TEDFDoc;
   end;
 
 var
@@ -57,7 +65,60 @@ implementation
 
 { TValuesGridForm }
 
-procedure TValuesGridForm.ShowDataRecord(theEDFFile: TEDFDoc);
+procedure TValuesGridForm.PageControl1Change(Sender: TObject);
+var
+  i, k, m: longint;
+  imax, kmax, mmax: longint;
+  j: integer;
+  jmax: integer;
+  scaledValue: single;
+  c: TGridColumn;
+begin
+  if (PageControl1.TabIndex = 1) and not ScaledDataReady then
+  begin
+    if assigned(openFile) then
+    begin
+      ProgressBar1.Position := 0;
+      ScaledDataGrid.BeginUpdate;
+      ScaledDataGrid.Cells[0, 0] := 'n';
+      ScaledDataGrid.Columns.Clear;
+      imax := high(openFile.ScaledDataRecord);        // Records
+      jmax := high(openFile.ScaledDataRecord[0]);     // Signals
+      kmax := high(openFile.ScaledDataRecord[0, 0]);  // Samples
+      mmax := (imax + 1) * (kmax + 1);
+      ScaledDataGrid.RowCount := mmax;
+      for j := 0 to jmax do
+      begin
+        c := ScaledDataGrid.Columns.Add;
+        c.Title.Caption := openFile.SignalLabel[j];
+      end;
+      for m := 1 to mmax - 1 do
+      ScaledDataGrid.Cells[0, m] := IntToStr(m);
+      ScaledDataGrid.EndUpdate;
+      application.ProcessMessages;
+      m := 1;
+      ScaledDataGrid.BeginUpdate;
+      for i := 0 to imax do  // Records
+      begin
+        for j := 0 to jmax do  // Signals
+        for k := 0 to kmax do  // Samples
+        begin
+          scaledValue := openFile.ScaledDataRecord[i, j, k];
+          ScaledDataGrid.Cells[j + 1, m] := FloatToStrF(scaledValue, ffGeneral, 3, 2);
+          m := i * kmax + k;
+        end;
+        ProgressBar1.Position := trunc(i / imax * 100);
+        application.ProcessMessages;
+      end;
+      ScaledDataGrid.EndUpdate;
+      ScaledDataGrid.TopRow := 1;
+      ProgressBar1.Position := 0;
+      ValuesGridForm.ScaledDataReady := true;
+    end;
+  end;
+end;
+
+procedure TValuesGridForm.ShowDataRecord;
 var
   i, k, m: longint;
   imax, kmax, mmax: longint;
@@ -66,41 +127,41 @@ var
   rawValue: SmallInt;
   c: TGridColumn;
 begin
-  if assigned(theEDFFile) then
+  if assigned(openFile) then
   begin
-    DataGrid.BeginUpdate;
-    DataGrid.Cells[0, 0] := 'n';
-    DataGrid.Columns.Clear;
-    imax := high(theEDFFile.RawDataRecord);        // Records
-    jmax := high(theEDFFile.RawDataRecord[0]);     // Signals
-    kmax := high(theEDFFile.RawDataRecord[0, 0]);  // Samples
+    RawDataGrid.BeginUpdate;
+    RawDataGrid.Cells[0, 0] := 'n';
+    RawDataGrid.Columns.Clear;
+    imax := high(openFile.RawDataRecord);        // Records
+    jmax := high(openFile.RawDataRecord[0]);     // Signals
+    kmax := high(openFile.RawDataRecord[0, 0]);  // Samples
     mmax := (imax + 1) * (kmax + 1);
-    DataGrid.RowCount := mmax;
+    RawDataGrid.RowCount := mmax;
     for j := 0 to jmax do
     begin
-      c := DataGrid.Columns.Add;
-      c.Title.Caption := theEDFFile.SignalLabel[j];
+      c := RawDataGrid.Columns.Add;
+      c.Title.Caption := openFile.SignalLabel[j];
     end;
     for m := 1 to mmax - 1 do
-    DataGrid.Cells[0, m] := IntToStr(m);
-    DataGrid.EndUpdate;
+    RawDataGrid.Cells[0, m] := IntToStr(m);
+    RawDataGrid.EndUpdate;
     application.ProcessMessages;
     m := 1;
-    DataGrid.BeginUpdate;
+    RawDataGrid.BeginUpdate;
     for i := 0 to imax do  // Records
     begin
       for j := 0 to jmax do  // Signals
       for k := 0 to kmax do  // Samples
       begin
-        rawValue := theEDFFile.RawDataRecord[i, j, k];
-        DataGrid.Cells[j + 1, m] := IntToStr(RawValue);
+        rawValue := openFile.RawDataRecord[i, j, k];
+        RawDataGrid.Cells[j + 1, m] := IntToStr(RawValue);
         m := i * kmax + k;
       end;
       ProgressBar1.Position := trunc(i / imax * 100);
       application.ProcessMessages;
     end;
-    DataGrid.EndUpdate;
-    DataGrid.TopRow := 1;
+    RawDataGrid.EndUpdate;
+    RawDataGrid.TopRow := 1;
   end;
 end;
 

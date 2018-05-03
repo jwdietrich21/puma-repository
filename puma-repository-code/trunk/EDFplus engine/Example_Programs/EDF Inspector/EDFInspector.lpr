@@ -45,6 +45,7 @@ begin
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TValuesGridForm, ValuesGridForm);
   ValuesGridForm.Visible := false;
+  ValuesGridForm.ScaledDataReady := false;
   Application.Run;
 end.
 

@@ -172,6 +172,8 @@ begin
     // fStream := TFileStream.Create(UTF8ToSys(EDFFileOpenDialog.FileName), fmOpenRead); // testing
     gEDFFile.ReadFromFile(UTF8ToSys(EDFFileOpenDialog.FileName));
     // gEDFFile.ReadFromStream(fStream); // for testing of stream variant
+    ValuesGridForm.openFile := gEDFFile;
+    ValuesGridForm.ScaledDataReady := false;
     MainForm.Caption := MAIN_FORM_TITLE + ': Header Record of ' +
       ExtractFileName(EDFFileOpenDialog.FileName);
     HeaderRecordValueListEditor.Row := 0;
@@ -226,9 +228,11 @@ begin
     application.ProcessMessages;
     cursor := crHourGlass;
     ValuesGridForm.Cursor := crHourGlass;
-    ValuesGridForm.DataGrid.Cursor := crHourGlass;
-    ValuesGridForm.ShowDataRecord(gEDFFile);
-    ValuesGridForm.DataGrid.Cursor := crCross;
+    ValuesGridForm.RawDataGrid.Cursor := crHourGlass;
+    ValuesGridForm.ScaledDataGrid.Cursor := crHourGlass;
+    ValuesGridForm.ShowDataRecord;
+    ValuesGridForm.RawDataGrid.Cursor := crCross;
+    ValuesGridForm.ScaledDataGrid.Cursor := crCross;
     ValuesGridForm.Cursor := crDefault;
     cursor := crDefault;
     ValuesGridForm.ProgressBar1.Position := 0;
