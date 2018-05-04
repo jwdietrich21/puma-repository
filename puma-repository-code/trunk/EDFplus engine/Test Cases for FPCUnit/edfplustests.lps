@@ -26,7 +26,9 @@
         <Filename Value="edftestcases.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDFTestCases"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
+        <TopLine Value="298"/>
         <CursorPos Y="2"/>
         <UsageCount Value="51"/>
         <Loaded Value="True"/>
@@ -35,7 +37,6 @@
         <Filename Value="..\edf.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDF"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>

@@ -334,7 +334,7 @@ begin
     mstream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
     for i := 0 to imax - 1 do  // Records
     for j := 0 to jmax - 1 do  // Signals
-    for k := 0 to kmax - 1 do  // Samples
+    for k := 0 to EDFDoc.iNumOfSamples[j] - 1 do  // Samples
     begin
       mstream.Read(rawValue, 2);
       EDFDoc.FRawDataRecord[i, j, k] := LEtoN(rawValue);

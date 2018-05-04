@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, EDF;
+  Dialogs, StdCtrls, ColorBox, EDF;
 
 type
 
@@ -40,8 +40,15 @@ type
 
   TPlotForm = class(TForm)
     Chart1: TChart;
+    Chart2: TChart;
+    ColorListBox1: TColorListBox;
+    ColorListBox2: TColorListBox;
     ComboBox1: TComboBox;
-    ySeries: TLineSeries;
+    ComboBox2: TComboBox;
+    ySeries1: TLineSeries;
+    ySeries2: TLineSeries;
+    procedure ColorListBox1Click(Sender: TObject);
+    procedure ColorListBox2Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
   private
 
@@ -65,6 +72,16 @@ begin
   DrawTimeSeries;
 end;
 
+procedure TPlotForm.ColorListBox1Click(Sender: TObject);
+begin
+  ySeries1.SeriesColor := ColorListBox1.Selected;
+end;
+
+procedure TPlotForm.ColorListBox2Click(Sender: TObject);
+begin
+  ySeries2.SeriesColor := ColorListBox2.Selected;
+end;
+
 procedure TPlotForm.DrawTimeSeries;
 var
   scaledValue: single;
@@ -76,19 +93,33 @@ begin
   kmax := high(openFile.ScaledDataRecord[0, 0]);  // Samples
   m := 1;
   j := ComboBox1.ItemIndex;
-  ySeries.BeginUpdate;
-  ySeries.Clear;
-  for i := 0 to 10 {imax} do  // Records
+  ySeries1.BeginUpdate;
+  ySeries1.Clear;
+  for i := 0 to 15 {imax} do  // Records
   begin
     for k := 0 to kmax do  // Samples
     begin
       scaledValue := openFile.ScaledDataRecord[i, j, k];
-      ySeries.AddXY(m, scaledValue);
+      ySeries1.AddXY(m, scaledValue);
       m := 2 + i * kmax + k;
     end;
     application.ProcessMessages;
   end;
-  ySeries.EndUpdate;
+  ySeries1.EndUpdate;
+  j := ComboBox2.ItemIndex;
+  ySeries2.BeginUpdate;
+  ySeries2.Clear;
+  for i := 0 to 15 {imax} do  // Records
+  begin
+    for k := 0 to kmax do  // Samples
+    begin
+      scaledValue := openFile.ScaledDataRecord[i, j, k];
+      ySeries2.AddXY(m, scaledValue);
+      m := 2 + i * kmax + k;
+    end;
+    application.ProcessMessages;
+  end;
+  ySeries2.EndUpdate;
 end;
 
 procedure TPlotForm.ShowPlot;
@@ -99,11 +130,15 @@ begin
   if assigned(openFile) then
   begin
     jmax := high(openFile.ScaledDataRecord[0]);     // Signals
+    ComboBox1.Items.Clear;
+    ComboBox2.Items.Clear;
     for j := 0 to jmax do
     begin
       ComboBox1.Items.Add(openFile.SignalLabel[j]);
+      ComboBox2.Items.Add(openFile.SignalLabel[j]);
     end;
     ComboBox1.ItemIndex := 0;
+    ComboBox2.ItemIndex := 1;
     DrawTimeSeries;
   end;
 end;
