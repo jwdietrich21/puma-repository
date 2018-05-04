@@ -48,6 +48,7 @@ object PlotForm: TPlotForm
     Top = 24
     Width = 100
     ItemHeight = 13
+    OnChange = ComboBox1Change
     TabOrder = 1
     Text = 'ComboBox1'
   end

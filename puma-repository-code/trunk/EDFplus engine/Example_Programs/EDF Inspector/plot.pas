@@ -42,10 +42,12 @@ type
     Chart1: TChart;
     ComboBox1: TComboBox;
     ySeries: TLineSeries;
+    procedure ComboBox1Change(Sender: TObject);
   private
 
   public
     openFile: TEDFDoc;
+    procedure DrawTimeSeries;
     procedure ShowPlot;
   end;
 
@@ -58,41 +60,54 @@ implementation
 
 { TPlotForm }
 
+procedure TPlotForm.ComboBox1Change(Sender: TObject);
+begin
+  DrawTimeSeries;
+end;
+
+procedure TPlotForm.DrawTimeSeries;
+var
+  scaledValue: single;
+  imax, kmax: longint;
+  m, k, i: longint;
+  j: integer;
+begin
+  imax := high(openFile.ScaledDataRecord);        // Records
+  kmax := high(openFile.ScaledDataRecord[0, 0]);  // Samples
+  m := 1;
+  j := ComboBox1.ItemIndex;
+  ySeries.BeginUpdate;
+  ySeries.Clear;
+  for i := 0 to 10 {imax} do  // Records
+  begin
+    for k := 0 to kmax do  // Samples
+    begin
+      scaledValue := openFile.ScaledDataRecord[i, j, k];
+      ySeries.AddXY(m, scaledValue);
+      m := 2 + i * kmax + k;
+    end;
+    application.ProcessMessages;
+  end;
+  ySeries.EndUpdate;
+end;
+
 procedure TPlotForm.ShowPlot;
 var
-  i, k, m: longint;
-  imax, kmax, mmax: longint;
   j: integer;
   jmax: integer;
-  scaledValue: single;
 begin
   if assigned(openFile) then
   begin
-    imax := high(openFile.ScaledDataRecord);        // Records
     jmax := high(openFile.ScaledDataRecord[0]);     // Signals
-    kmax := high(openFile.ScaledDataRecord[0, 0]);  // Samples
-    mmax := (imax + 1) * (kmax + 1);
     for j := 0 to jmax do
     begin
       ComboBox1.Items.Add(openFile.SignalLabel[j]);
     end;
     ComboBox1.ItemIndex := 0;
-    m := 1;
-    ySeries.BeginUpdate;
-    for i := 0 to 10 {imax} do  // Records
-    begin
-      for j := 0 to jmax do  // Signals
-      for k := 0 to kmax do  // Samples
-      begin
-        scaledValue := openFile.ScaledDataRecord[i, j, k];
-        ySeries.AddXY(m, scaledValue);
-        m := 2 + i * kmax + k;
-      end;
-      application.ProcessMessages;
-    end;
-    ySeries.EndUpdate;
+    DrawTimeSeries;
   end;
 end;
+
 
 end.
 
