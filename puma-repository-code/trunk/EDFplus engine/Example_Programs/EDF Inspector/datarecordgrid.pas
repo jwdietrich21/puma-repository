@@ -50,10 +50,9 @@ type
   private
 
   public
-    procedure ShowDataRecord;
-  public
     ScaledDataReady: boolean;
     openFile: TEDFDoc;
+    procedure ShowDataRecord;
   end;
 
 var

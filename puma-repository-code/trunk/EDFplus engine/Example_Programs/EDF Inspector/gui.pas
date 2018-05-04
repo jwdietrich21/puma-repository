@@ -33,7 +33,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ValEdit,
   ComCtrls, Menus, LCLType, StdCtrls, ExtCtrls, LazUTF8, uPSComponent, Grids,
-  DataRecordGrid, EDF;
+  EDF, DataRecordGrid, Plot;
 
 const
   FEEDBACK_TEXT = '  Status Code: ';
@@ -173,6 +173,7 @@ begin
     gEDFFile.ReadFromFile(UTF8ToSys(EDFFileOpenDialog.FileName));
     // gEDFFile.ReadFromStream(fStream); // for testing of stream variant
     ValuesGridForm.openFile := gEDFFile;
+    PlotForm.openFile := gEDFFile;
     ValuesGridForm.ScaledDataReady := false;
     MainForm.Caption := MAIN_FORM_TITLE + ': Header Record of ' +
       ExtractFileName(EDFFileOpenDialog.FileName);
@@ -224,6 +225,7 @@ begin
     Statusbar1.Panels[0].Text := FEEDBACK_TEXT + IntToStr(gEDFFile.StatusCode);
     Statusbar1.Panels[1].Text := SIZE_TEXT + IntToStr(gEDFFile.TotalSize) + BYTES_TEXT;
     HeaderRecordValueListEditor.Row := 1;
+    PlotForm.Visible := true;
     ValuesGridForm.Visible := true;
     application.ProcessMessages;
     cursor := crHourGlass;
@@ -231,6 +233,7 @@ begin
     ValuesGridForm.RawDataGrid.Cursor := crHourGlass;
     ValuesGridForm.ScaledDataGrid.Cursor := crHourGlass;
     ValuesGridForm.ShowDataRecord;
+    PlotForm.ShowPlot;
     ValuesGridForm.RawDataGrid.Cursor := crCross;
     ValuesGridForm.ScaledDataGrid.Cursor := crCross;
     ValuesGridForm.Cursor := crDefault;
