@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, ColorBox, EDF;
+  Dialogs, StdCtrls, ColorBox, Spin, EDF;
 
 type
 
@@ -45,11 +45,13 @@ type
     ColorListBox2: TColorListBox;
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
+    SpinEdit1: TSpinEdit;
     ySeries1: TLineSeries;
     ySeries2: TLineSeries;
     procedure ColorListBox1Click(Sender: TObject);
     procedure ColorListBox2Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
+    procedure SpinEdit1Change(Sender: TObject);
   private
 
   public
@@ -72,6 +74,11 @@ begin
   DrawTimeSeries;
 end;
 
+procedure TPlotForm.SpinEdit1Change(Sender: TObject);
+begin
+  DrawTimeSeries;
+end;
+
 procedure TPlotForm.ColorListBox1Click(Sender: TObject);
 begin
   ySeries1.SeriesColor := ColorListBox1.Selected;
@@ -85,17 +92,16 @@ end;
 procedure TPlotForm.DrawTimeSeries;
 var
   scaledValue: single;
-  imax, kmax: longint;
+  kmax: longint;
   m, k, i: longint;
   j: integer;
 begin
-  imax := high(openFile.ScaledDataRecord);        // Records
   kmax := high(openFile.ScaledDataRecord[0, 0]);  // Samples
   m := 1;
   j := ComboBox1.ItemIndex;
   ySeries1.BeginUpdate;
   ySeries1.Clear;
-  for i := 0 to 15 {imax} do  // Records
+  for i := 0 to SpinEdit1.Value do  // Records
   begin
     for k := 0 to kmax do  // Samples
     begin
@@ -106,10 +112,11 @@ begin
     application.ProcessMessages;
   end;
   ySeries1.EndUpdate;
+  m := 1;
   j := ComboBox2.ItemIndex;
   ySeries2.BeginUpdate;
   ySeries2.Clear;
-  for i := 0 to 15 {imax} do  // Records
+  for i := 0 to SpinEdit1.Value do  // Records
   begin
     for k := 0 to kmax do  // Samples
     begin
@@ -125,13 +132,16 @@ end;
 procedure TPlotForm.ShowPlot;
 var
   j: integer;
+  imax: longint;
   jmax: integer;
 begin
   if assigned(openFile) then
   begin
+    imax := high(openFile.ScaledDataRecord);        // Records
     jmax := high(openFile.ScaledDataRecord[0]);     // Signals
     ComboBox1.Items.Clear;
     ComboBox2.Items.Clear;
+    SpinEdit1.MaxValue := imax;
     for j := 0 to jmax do
     begin
       ComboBox1.Items.Add(openFile.SignalLabel[j]);

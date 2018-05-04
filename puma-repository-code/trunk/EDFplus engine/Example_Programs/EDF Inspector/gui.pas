@@ -227,6 +227,8 @@ begin
     HeaderRecordValueListEditor.Row := 1;
     PlotForm.Visible := true;
     ValuesGridForm.Visible := true;
+    PlotForm.BringToFront;
+    ValuesGridForm.BringToFront;
     application.ProcessMessages;
     cursor := crHourGlass;
     ValuesGridForm.Cursor := crHourGlass;
