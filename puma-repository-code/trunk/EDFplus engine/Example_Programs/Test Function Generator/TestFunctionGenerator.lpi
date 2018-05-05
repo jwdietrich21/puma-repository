@@ -15,9 +15,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="3"/>
+      <BuildNr Value="6"/>
       <Attributes pvaDebug="True" pvaPreRelease="True"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="Test Function Generator" InternalName="PUMA EDF Test Function Generator 1.0 (Alpha Centauri)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="Test Function Generator for EDF Engine" ProductVersion="1.0.0.0"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="Test Function Generator" InternalName="PUMA EDF Test Function Generator 1.0 (Alpha Centauri)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="Test Function Generator for EDF Engine" ProductVersion="1.0.0"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -30,12 +30,15 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="1">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="LCL"/>
+        <PackageName Value="TAChartLazarusPkg"/>
       </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="TestFunctionGenerator.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -48,6 +51,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="GUI"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="..\..\edf.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="EDF"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -58,6 +66,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\.."/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

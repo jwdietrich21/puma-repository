@@ -1,20 +1,20 @@
 object MainForm: TMainForm
-  Left = 177
-  Height = 558
-  Top = 174
-  Width = 922
+  Left = 258
+  Height = 394
+  Top = 172
+  Width = 814
   Caption = 'Test Function Generator for EDF Engine'
-  ClientHeight = 538
-  ClientWidth = 922
+  ClientHeight = 394
+  ClientWidth = 814
   Color = clWhite
   Menu = MainMenu1
   OnCreate = FormCreate
-  LCLVersion = '1.8.0.6'
+  LCLVersion = '1.8.2.0'
   object ToolBar1: TToolBar
     Left = 0
     Height = 26
     Top = 0
-    Width = 922
+    Width = 814
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 0
@@ -57,9 +57,151 @@ object MainForm: TMainForm
       ShowHint = True
     end
   end
+  object Chart1: TChart
+    Left = 16
+    Height = 296
+    Top = 88
+    Width = 781
+    AxisList = <    
+      item
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelFont.Orientation = 900
+        Title.LabelBrush.Style = bsClear
+      end    
+      item
+        Intervals.MaxLength = 100
+        Alignment = calBottom
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Range.Max = 10
+        Range.UseMax = True
+        Range.UseMin = True
+        Title.Visible = True
+        Title.Caption = 't'
+        Title.LabelBrush.Style = bsClear
+      end>
+    BackColor = clWhite
+    Foot.Brush.Color = clBtnFace
+    Foot.Font.Color = clBlue
+    Title.Brush.Color = clBtnFace
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'TAChart'
+    )
+    Anchors = [akTop, akLeft, akRight]
+    Color = clWhite
+    object ySeries1: TLineSeries
+      Title = 'y'
+      LinePen.Color = clGreen
+      LinePen.Width = 2
+    end
+  end
+  object FunctionComboBox: TComboBox
+    Left = 16
+    Height = 21
+    Top = 57
+    Width = 232
+    ItemHeight = 0
+    Items.Strings = (
+      'Sine Wave'
+      'Square Wave'
+      'Sawtooth Wave (Ramp)'
+      'Simulated ECG'
+    )
+    TabOrder = 2
+    Text = 'Function'
+  end
+  object HzLabel: TLabel
+    Left = 360
+    Height = 16
+    Top = 61
+    Width = 17
+    Caption = 'Hz'
+    ParentColor = False
+  end
+  object AULabel: TLabel
+    Left = 472
+    Height = 16
+    Top = 62
+    Width = 18
+    Caption = 'AU'
+    ParentColor = False
+  end
+  object FreqSpinEdit: TFloatSpinEdit
+    Left = 288
+    Height = 16
+    Top = 61
+    Width = 65
+    DecimalPlaces = 1
+    Increment = 0.1
+    MaxValue = 100
+    MinValue = 0.1
+    TabOrder = 3
+    Value = 1
+  end
+  object FreqSpinEdit1: TFloatSpinEdit
+    Left = 400
+    Height = 16
+    Top = 61
+    Width = 65
+    DecimalPlaces = 1
+    Increment = 0.1
+    MaxValue = 100
+    MinValue = 0
+    TabOrder = 4
+    Value = 1
+  end
+  object DurEdit: TSpinEdit
+    Left = 520
+    Height = 16
+    Top = 61
+    Width = 65
+    MinValue = 1
+    TabOrder = 5
+    Value = 10
+  end
+  object SecLabel: TLabel
+    Left = 592
+    Height = 16
+    Top = 61
+    Width = 21
+    Caption = 'sec'
+    ParentColor = False
+  end
+  object FreqLabel: TLabel
+    Left = 288
+    Height = 13
+    Top = 40
+    Width = 58
+    Caption = 'Frequency:'
+    Font.Height = 11
+    ParentColor = False
+    ParentFont = False
+  end
+  object AmpLabel: TLabel
+    Left = 400
+    Height = 13
+    Top = 40
+    Width = 59
+    Caption = 'Amplitude:'
+    Font.Height = 11
+    ParentColor = False
+    ParentFont = False
+  end
+  object DurLabel: TLabel
+    Left = 520
+    Height = 13
+    Top = 40
+    Width = 50
+    Caption = 'Duration:'
+    Font.Height = 11
+    ParentColor = False
+    ParentFont = False
+  end
   object MainMenu1: TMainMenu
-    left = 796
-    top = 44
+    left = 616
+    top = 120
     object AppleMenu: TMenuItem
       Caption = ''
       object MacAboutItem: TMenuItem
@@ -141,8 +283,8 @@ object MainForm: TMainForm
     end
   end
   object ImageList1: TImageList
-    left = 796
-    top = 116
+    left = 528
+    top = 120
     Bitmap = {
       4C690400000010000000100000009E9E9EA3818181FF818181FF818181FF8181
       81FF818181FF818181FF818181FF818181FF7C8C8CFF729F9FFF6AAEAFFF36E4

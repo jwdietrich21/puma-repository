@@ -1,12 +1,38 @@
 unit GUI;
 
+{ PUMA Repository }
+
+{ Pascal Units for Medical Applications }
+
+{ Test Function Generator }
+
+{ Version 1.0 (Alpha Centauri) }
+
+{ (c) Johannes W. Dietrich, 1994 - 2018 }
+{ (c) Ludwig Maximilian University of Munich 1995 - 2002 }
+{ (c) University of Ulm Hospitals 2002-2004 }
+{ (c) Ruhr University of Bochum 2005 - 2018 }
+
+{ Parser and compiler for EDF and EDF+ data files }
+
+{ Source code released under the BSD License }
+
+{ See the file "license.txt", included in this distribution, }
+{ for details about the copyright. }
+{ Current versions and additional information are available from }
+{ http://puma-repository.sf.net }
+
+{ This program is distributed in the hope that it will be useful, }
+{ but WITHOUT ANY WARRANTY; without even the implied warranty of }
+{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
+
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Menus, LCLType;
+  Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
+  Dialogs, ComCtrls, Menus, LCLType, StdCtrls, ExtCtrls, Spin, EditBtn, EDF;
 
 type
 
@@ -14,7 +40,15 @@ type
 
   TMainForm = class(TForm)
     AppleMenu: TMenuItem;
+    FreqLabel: TLabel;
+    AmpLabel: TLabel;
+    DurLabel: TLabel;
+    SecLabel: TLabel;
+    Chart1: TChart;
     CloseMenuItem: TMenuItem;
+    FreqSpinEdit: TFloatSpinEdit;
+    FreqSpinEdit1: TFloatSpinEdit;
+    FunctionComboBox: TComboBox;
     CopyMenuItem: TMenuItem;
     CutMenuItem: TMenuItem;
     Divider11: TMenuItem;
@@ -23,7 +57,9 @@ type
     EditMenu: TMenuItem;
     FileMenu: TMenuItem;
     HelpMenu: TMenuItem;
+    AULabel: TLabel;
     ImageList1: TImageList;
+    HzLabel: TLabel;
     MacAboutItem: TMenuItem;
     MainMenu1: TMainMenu;
     NewButton: TToolButton;
@@ -36,9 +72,11 @@ type
     SaveAsButton: TToolButton;
     SaveButton: TToolButton;
     SaveMenuItem: TMenuItem;
+    DurEdit: TSpinEdit;
     ToolBar1: TToolBar;
     UndoMenuItem: TMenuItem;
     WinAboutItem: TMenuItem;
+    ySeries1: TLineSeries;
     procedure CloseMenuItemClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure MacAboutItemClick(Sender: TObject);
