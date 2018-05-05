@@ -36,6 +36,12 @@ uses
 
 type
 
+  tTSType = (sine, square, saw, ecg);
+  tTimeSeries = record
+    time: array of real;
+    values: array of real;
+  end;
+
   { TMainForm }
 
   TMainForm = class(TForm)
@@ -47,7 +53,7 @@ type
     Chart1: TChart;
     CloseMenuItem: TMenuItem;
     FreqSpinEdit: TFloatSpinEdit;
-    FreqSpinEdit1: TFloatSpinEdit;
+    AmpSpinEdit: TFloatSpinEdit;
     FunctionComboBox: TComboBox;
     CopyMenuItem: TMenuItem;
     CutMenuItem: TMenuItem;
@@ -72,13 +78,17 @@ type
     SaveAsButton: TToolButton;
     SaveButton: TToolButton;
     SaveMenuItem: TMenuItem;
-    DurEdit: TSpinEdit;
+    DurSpinEdit: TSpinEdit;
     ToolBar1: TToolBar;
     UndoMenuItem: TMenuItem;
     WinAboutItem: TMenuItem;
     ySeries1: TLineSeries;
     procedure CloseMenuItemClick(Sender: TObject);
+    procedure DurSpinEditChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure AmpSpinEditChange(Sender: TObject);
+    procedure FreqSpinEditChange(Sender: TObject);
+    procedure FunctionComboBoxChange(Sender: TObject);
     procedure MacAboutItemClick(Sender: TObject);
     procedure QuitMenuItemClick(Sender: TObject);
     procedure WinAboutItemClick(Sender: TObject);
@@ -86,7 +96,8 @@ type
   private
 
   public
-
+    timeSeries: tTimeSeries;
+    procedure DrawFunction;
   end;
 
 var
@@ -96,11 +107,47 @@ implementation
 
 {$R *.lfm}
 
+function GetTimeSeries(const theType: tTSType; const amplitude, frequency: double;
+                    const duration: integer): tTimeSeries;
+var
+  i: integer;
+begin
+  case theType of
+  sine:
+    begin
+
+    end;
+  square:
+    begin
+
+    end;
+  saw:
+    begin
+
+    end;
+  ecg:
+    begin
+
+    end;
+  end;
+end;
+
 { TMainForm }
 
 procedure TMainForm.SaveMenuItemClick(Sender: TObject);
 begin
 
+end;
+
+procedure TMainForm.DrawFunction;
+var
+  theType: tTSType;
+begin
+  if FunctionComboBox.ItemIndex >= 0 then
+  begin
+    theType := tTSType(FunctionComboBox.ItemIndex);
+    timeSeries := GetTimeSeries(theType, AmpSpinEdit.Value, FreqSpinEdit.Value, DurSpinEdit.Value);
+  end;
 end;
 
 procedure AdaptMenus;
@@ -135,9 +182,29 @@ begin
   AdaptMenus;
 end;
 
+procedure TMainForm.AmpSpinEditChange(Sender: TObject);
+begin
+  DrawFunction;
+end;
+
+procedure TMainForm.FreqSpinEditChange(Sender: TObject);
+begin
+  DrawFunction;
+end;
+
+procedure TMainForm.FunctionComboBoxChange(Sender: TObject);
+begin
+  DrawFunction;
+end;
+
 procedure TMainForm.CloseMenuItemClick(Sender: TObject);
 begin
   application.Terminate;
+end;
+
+procedure TMainForm.DurSpinEditChange(Sender: TObject);
+begin
+  DrawFunction;
 end;
 
 procedure TMainForm.MacAboutItemClick(Sender: TObject);
