@@ -84,24 +84,25 @@ object MainForm: TMainForm
     BackColor = clWhite
     Foot.Brush.Color = clBtnFace
     Foot.Font.Color = clBlue
-    Title.Brush.Color = clBtnFace
+    Title.Brush.Color = clNone
     Title.Font.Color = clBlue
     Title.Text.Strings = (
-      'TAChart'
+      '1'
     )
+    Title.Visible = True
     Anchors = [akTop, akLeft, akRight]
     Color = clWhite
-    object ySeries1: TLineSeries
+    object ySeries: TLineSeries
       Title = 'y'
       LinePen.Color = clGreen
       LinePen.Width = 2
     end
   end
   object FunctionComboBox: TComboBox
-    Left = 16
+    Left = 232
     Height = 21
     Top = 57
-    Width = 232
+    Width = 208
     ItemHeight = 0
     Items.Strings = (
       'Sine Wave'
@@ -114,7 +115,7 @@ object MainForm: TMainForm
     Text = 'Function'
   end
   object HzLabel: TLabel
-    Left = 360
+    Left = 535
     Height = 16
     Top = 61
     Width = 17
@@ -122,7 +123,7 @@ object MainForm: TMainForm
     ParentColor = False
   end
   object AULabel: TLabel
-    Left = 472
+    Left = 647
     Height = 16
     Top = 62
     Width = 18
@@ -130,7 +131,7 @@ object MainForm: TMainForm
     ParentColor = False
   end
   object FreqSpinEdit: TFloatSpinEdit
-    Left = 288
+    Left = 463
     Height = 16
     Top = 61
     Width = 65
@@ -143,7 +144,7 @@ object MainForm: TMainForm
     Value = 1
   end
   object AmpSpinEdit: TFloatSpinEdit
-    Left = 400
+    Left = 575
     Height = 16
     Top = 61
     Width = 65
@@ -156,7 +157,7 @@ object MainForm: TMainForm
     Value = 1
   end
   object DurSpinEdit: TSpinEdit
-    Left = 520
+    Left = 695
     Height = 16
     Top = 61
     Width = 65
@@ -164,10 +165,10 @@ object MainForm: TMainForm
     MinValue = 1
     OnChange = DurSpinEditChange
     TabOrder = 5
-    Value = 60
+    Value = 10
   end
   object SecLabel: TLabel
-    Left = 592
+    Left = 767
     Height = 16
     Top = 61
     Width = 21
@@ -175,7 +176,7 @@ object MainForm: TMainForm
     ParentColor = False
   end
   object FreqLabel: TLabel
-    Left = 288
+    Left = 463
     Height = 13
     Top = 40
     Width = 58
@@ -185,7 +186,7 @@ object MainForm: TMainForm
     ParentFont = False
   end
   object AmpLabel: TLabel
-    Left = 400
+    Left = 575
     Height = 13
     Top = 40
     Width = 59
@@ -195,7 +196,7 @@ object MainForm: TMainForm
     ParentFont = False
   end
   object DurLabel: TLabel
-    Left = 520
+    Left = 695
     Height = 13
     Top = 40
     Width = 50
@@ -203,6 +204,45 @@ object MainForm: TMainForm
     Font.Height = 11
     ParentColor = False
     ParentFont = False
+  end
+  object HeaderControl1: THeaderControl
+    Left = 56
+    Height = 22
+    Top = 56
+    Width = 152
+    DragReorder = False
+    Sections = <    
+      item
+        Alignment = taLeftJustify
+        Text = '1'
+        Width = 30
+        Visible = True
+      end    
+      item
+        Alignment = taLeftJustify
+        Text = '2'
+        Width = 30
+        Visible = True
+      end    
+      item
+        Alignment = taLeftJustify
+        Text = '3'
+        Width = 30
+        Visible = True
+      end    
+      item
+        Alignment = taLeftJustify
+        Text = '4'
+        Width = 30
+        Visible = True
+      end    
+      item
+        Alignment = taLeftJustify
+        Text = '5'
+        Width = 30
+        Visible = True
+      end>
+    OnSectionClick = HeaderControl1SectionClick
   end
   object MainMenu1: TMainMenu
     left = 616
