@@ -404,11 +404,13 @@ procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
   const aBaseURI: AnsiString);
 begin
   { TODO -oJWD : still to be implemented }
+  { NtoLE }
 end;
 
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString);
 begin
   { TODO -oJWD : still to be implemented }
+  { NtoLE }
 end;
 
 procedure TEDFDoc.CompileHeaderText;
@@ -1236,6 +1238,7 @@ begin
   if jmax < 0 then jmax := 0;
   if kmax < 0 then kmax := 0;
   SetLength(FRawDataRecord, imax, jmax, kmax);
+  SetLength(FScaledDataRecord, imax, jmax, kmax);
  end;
 
 function TEDFDoc.GetScaled(const aRecord: longint; aSignal: integer;

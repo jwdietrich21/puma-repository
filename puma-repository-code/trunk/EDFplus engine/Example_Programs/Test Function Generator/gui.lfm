@@ -1,12 +1,14 @@
 object MainForm: TMainForm
   Left = 258
-  Height = 394
+  Height = 400
   Top = 172
-  Width = 814
+  Width = 780
   Caption = 'Test Function Generator for EDF Engine'
-  ClientHeight = 374
-  ClientWidth = 814
+  ClientHeight = 380
+  ClientWidth = 780
   Color = clWhite
+  Constraints.MinHeight = 400
+  Constraints.MinWidth = 780
   Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '1.8.0.6'
@@ -14,7 +16,7 @@ object MainForm: TMainForm
     Left = 0
     Height = 26
     Top = 0
-    Width = 814
+    Width = 780
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 0
@@ -60,9 +62,9 @@ object MainForm: TMainForm
   end
   object Chart1: TChart
     Left = 16
-    Height = 296
+    Height = 283
     Top = 88
-    Width = 781
+    Width = 747
     AxisList = <    
       item
         Minors = <>
@@ -87,7 +89,7 @@ object MainForm: TMainForm
       '1'
     )
     Title.Visible = True
-    Anchors = [akTop, akLeft, akRight]
+    Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWhite
     object ySeries: TLineSeries
       Title = 'y'
@@ -96,7 +98,7 @@ object MainForm: TMainForm
     end
   end
   object FunctionComboBox: TComboBox
-    Left = 232
+    Left = 191
     Height = 21
     Top = 57
     Width = 208
@@ -112,7 +114,7 @@ object MainForm: TMainForm
     Text = 'Function'
   end
   object HzLabel: TLabel
-    Left = 535
+    Left = 494
     Height = 13
     Top = 61
     Width = 13
@@ -120,7 +122,7 @@ object MainForm: TMainForm
     ParentColor = False
   end
   object AULabel: TLabel
-    Left = 647
+    Left = 606
     Height = 13
     Top = 62
     Width = 15
@@ -128,7 +130,7 @@ object MainForm: TMainForm
     ParentColor = False
   end
   object FreqSpinEdit: TFloatSpinEdit
-    Left = 463
+    Left = 422
     Height = 21
     Top = 61
     Width = 65
@@ -141,7 +143,7 @@ object MainForm: TMainForm
     Value = 1
   end
   object AmpSpinEdit: TFloatSpinEdit
-    Left = 575
+    Left = 534
     Height = 21
     Top = 61
     Width = 65
@@ -154,7 +156,7 @@ object MainForm: TMainForm
     Value = 1
   end
   object DurSpinEdit: TSpinEdit
-    Left = 695
+    Left = 654
     Height = 21
     Top = 61
     Width = 65
@@ -165,7 +167,7 @@ object MainForm: TMainForm
     Value = 10
   end
   object SecLabel: TLabel
-    Left = 767
+    Left = 726
     Height = 13
     Top = 61
     Width = 17
@@ -173,37 +175,37 @@ object MainForm: TMainForm
     ParentColor = False
   end
   object FreqLabel: TLabel
-    Left = 463
-    Height = 9
+    Left = 422
+    Height = 12
     Top = 40
-    Width = 38
+    Width = 47
     Caption = 'Frequency:'
-    Font.Height = 11
+    Font.Height = 12
     ParentColor = False
     ParentFont = False
   end
   object AmpLabel: TLabel
-    Left = 575
-    Height = 9
+    Left = 534
+    Height = 12
     Top = 40
-    Width = 36
+    Width = 45
     Caption = 'Amplitude:'
-    Font.Height = 11
+    Font.Height = 12
     ParentColor = False
     ParentFont = False
   end
   object DurLabel: TLabel
     Left = 695
-    Height = 9
+    Height = 12
     Top = 40
-    Width = 31
+    Width = 38
     Caption = 'Duration:'
-    Font.Height = 11
+    Font.Height = 12
     ParentColor = False
     ParentFont = False
   end
   object HeaderControl1: THeaderControl
-    Left = 56
+    Left = 16
     Height = 22
     Top = 56
     Width = 152

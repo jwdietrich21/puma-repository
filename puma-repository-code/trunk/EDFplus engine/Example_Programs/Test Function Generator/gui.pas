@@ -363,8 +363,15 @@ end;
 function TMainForm.EDFDoc: TEDFDoc;
 { Creates a rather simple EDF document for testing and demonstration purposes }
 var
-  i: integer;
+  i, k: longint;
+  imax, kmax: longint;
+  j: integer;
+  jmax: integer;
+  maxDur, RecordBytes: integer;
 begin
+  RecordBytes := 0;
+  kmax := 0;
+  maxDur := 0;
   result := TEDFDoc.Create;
   result.LocalPatID := '01234567 M 12-MAY-1904 John Doe';
   result.LocalRecID := 'Startdate ' + UpperCase(FormatDateTime('dd-mmm-yyyy', now))
@@ -372,20 +379,21 @@ begin
   { TODO -oJWD : Date should be formatted in English }
   result.dStartDate := now;
   result.dStartTime := now;
-  result.iNumOfDataRecs := 0;
-  result.iDurationOfData := 0;
-  result.iNumOfSignals := 5;
+  result.iNumOfSignals := length(signalRecord);
   for i := 0 to FunctionComboBox.Items.Count - 1 do
   begin
+    if signalRecord[i].duration > maxDur then
+      maxDur := signalRecord[i].duration;
+    RecordBytes := RecordBytes + length(signalRecord[i].timeSeries.values) * 2;
     result.SignalLabel[i] := FunctionComboBox.Items[i];
     result.Transducer[i] := 'Simulated time series';
-    result.PhysDim[i] := '';
+    result.PhysDim[i] := 'AU';
     if length(signalRecord[i].timeSeries.values) > 0 then
     begin
       result.PhysMin[i] := MinValue(signalRecord[i].timeSeries.values);
       result.PhysMax[i] := MaxValue(signalRecord[i].timeSeries.values);
-      result.digMin[i] := result.PhysMin[i];
-      result.digMax[i] := result.PhysMax[i];
+      result.digMin[i] := round(result.ePhysMin[i] * 100);
+      result.digMax[i] := round(result.ePhysMax[i] * 100);
     end
     else
     begin
@@ -395,7 +403,19 @@ begin
       result.digMax[i] := 0;
     end;
     result.Prefilter[i] := 'None';
-    result.iNumOfSamples[i] := 0;
+    result.iNumOfSamples[i] := length(signalRecord[i].timeSeries.time);
+    if result.iNumOfSamples[i] > kmax then
+      kmax := result.iNumOfSamples[i];
+  end;
+  imax := 1 + RecordBytes div kMaxRecordBytes;
+  result.iNumOfDataRecs := imax;
+  result.iDurationOfData := maxDur;
+  jmax := result.iNumOfSignals;
+  for i := 0 to imax - 1 do
+  for j := 0 to jmax - 1 do
+  for k := 0 to kmax - 1 do
+  begin
+    result.ScaledDataRecord[i, j, k] := signalRecord[i].timeSeries.values[k];
   end;
 end;
 
