@@ -658,6 +658,8 @@ begin
     status := rangeErr;
     nrString := FloatToStr(NaN);
   end
+  else if nr = 0 then
+    nrString := kUnknown
   else
     nrString := IntToStr(nr);
   SetNumOfDataRecs(nrString);

@@ -32,8 +32,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
-  Dialogs, ComCtrls, Menus, LCLType, StdCtrls, ExtCtrls, Spin, EditBtn,
-  ButtonPanel, EDF;
+  Dialogs, ComCtrls, Menus, LCLType, LazUTF8, StdCtrls, ExtCtrls, Spin,
+  EditBtn, ButtonPanel, Math, EDF;
 
 type
 
@@ -58,6 +58,7 @@ type
     AmpLabel: TLabel;
     DurLabel: TLabel;
     HeaderControl1: THeaderControl;
+    SaveDialog1: TSaveDialog;
     SecLabel: TLabel;
     Chart1: TChart;
     CloseMenuItem: TMenuItem;
@@ -94,7 +95,9 @@ type
     ySeries: TLineSeries;
     procedure CloseMenuItemClick(Sender: TObject);
     procedure GetParameters;
+    procedure SaveButtonClick(Sender: TObject);
     procedure SetParameters;
+    function EDFDoc: TEDFDoc;
     procedure DurSpinEditChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure AmpSpinEditChange(Sender: TObject);
@@ -233,8 +236,14 @@ end;
 { TMainForm }
 
 procedure TMainForm.SaveMenuItemClick(Sender: TObject);
+var
+  theDoc: TEDFDoc;
 begin
-
+  theDoc := EDFDoc;
+  if SaveDialog1.Execute then
+  begin
+    WriteEDFFile(theDoc, UTF8ToSys(SaveDialog1.FileName));
+  end;
 end;
 
 procedure TMainForm.DrawFunction;
@@ -251,7 +260,9 @@ begin
     for i := 0 to length(SignalRecord[signal].timeSeries.time) - 1 do
       ySeries.AddXY(SignalRecord[signal].timeSeries.time[i], SignalRecord[signal].timeSeries.values[i]);
     ySeries.EndUpdate;
-  end;
+  end
+  else
+    ySeries.Clear;
 end;
 
 procedure AdaptMenus;
@@ -336,6 +347,11 @@ begin
   SignalRecord[signal].duration := DurSpinEdit.Value;
 end;
 
+procedure TMainForm.SaveButtonClick(Sender: TObject);
+begin
+  SaveMenuItemClick(Sender);
+end;
+
 procedure TMainForm.SetParameters;
 begin
   FunctionComboBox.ItemIndex := longint(SignalRecord[signal].basicFunction);
@@ -343,6 +359,46 @@ begin
   AmpSpinEdit.Value := SignalRecord[signal].amplitude;
   DurSpinEdit.Value := SignalRecord[signal].duration;
 end;
+
+function TMainForm.EDFDoc: TEDFDoc;
+{ Creates a rather simple EDF document for testing and demonstration purposes }
+var
+  i: integer;
+begin
+  result := TEDFDoc.Create;
+  result.LocalPatID := '01234567 M 12-MAY-1904 John Doe';
+  result.LocalRecID := 'Startdate ' + UpperCase(FormatDateTime('dd-mmm-yyyy', now))
+                       + ' 98765 Dr. Frankenstayn EDF_Engine';
+  { TODO -oJWD : Date should be formatted in English }
+  result.dStartDate := now;
+  result.dStartTime := now;
+  result.iNumOfDataRecs := 0;
+  result.iDurationOfData := 0;
+  result.iNumOfSignals := 5;
+  for i := 0 to FunctionComboBox.Items.Count - 1 do
+  begin
+    result.SignalLabel[i] := FunctionComboBox.Items[i];
+    result.Transducer[i] := 'Simulated time series';
+    result.PhysDim[i] := '';
+    if length(signalRecord[i].timeSeries.values) > 0 then
+    begin
+      result.PhysMin[i] := MinValue(signalRecord[i].timeSeries.values);
+      result.PhysMax[i] := MaxValue(signalRecord[i].timeSeries.values);
+      result.digMin[i] := result.PhysMin[i];
+      result.digMax[i] := result.PhysMax[i];
+    end
+    else
+    begin
+      result.PhysMin[i] := 0;
+      result.PhysMax[i] := 0;
+      result.digMin[i] := 0;
+      result.digMax[i] := 0;
+    end;
+    result.Prefilter[i] := 'None';
+    result.iNumOfSamples[i] := 0;
+  end;
+end;
+
 
 procedure TMainForm.DurSpinEditChange(Sender: TObject);
 begin
