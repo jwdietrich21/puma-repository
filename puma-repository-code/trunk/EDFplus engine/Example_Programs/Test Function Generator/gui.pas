@@ -363,14 +363,14 @@ end;
 function TMainForm.EDFDoc: TEDFDoc;
 { Creates a rather simple EDF document for testing and demonstration purposes }
 var
-  i, k: longint;
-  imax, kmax: longint;
+  i, k, m: longint;
+  imax, kmax, Samples: longint;
   j: integer;
   jmax: integer;
   maxDur, RecordBytes: integer;
 begin
   RecordBytes := 0;
-  kmax := 0;
+  Samples := 0;
   maxDur := 0;
   result := TEDFDoc.Create;
   result.LocalPatID := '01234567 M 12-MAY-1904 John Doe';
@@ -404,18 +404,21 @@ begin
     end;
     result.Prefilter[i] := 'None';
     result.iNumOfSamples[i] := length(signalRecord[i].timeSeries.time);
-    if result.iNumOfSamples[i] > kmax then
-      kmax := result.iNumOfSamples[i];
+    if result.iNumOfSamples[i] > Samples then
+      Samples := result.iNumOfSamples[i];
   end;
-  imax := 1 + RecordBytes div kMaxRecordBytes;
+  imax := 1 + RecordBytes div kMaxRecordBytes; // Number of records
   result.iNumOfDataRecs := imax;
   result.iDurationOfData := maxDur;
-  jmax := result.iNumOfSignals;
+  jmax := result.iNumOfSignals;                // Number of signals
+  kmax := Samples div imax;                    // Number of samples
   for i := 0 to imax - 1 do
   for j := 0 to jmax - 1 do
   for k := 0 to kmax - 1 do
   begin
-    result.ScaledDataRecord[i, j, k] := signalRecord[i].timeSeries.values[k];
+    m := i * kmax + k;
+    result.ScaledDataRecord[i, j, k] := signalRecord[i].timeSeries.values[m];
+    result.RawDataRecord[i, j, k] := result.Unscaled[i, j, k];
   end;
 end;
 

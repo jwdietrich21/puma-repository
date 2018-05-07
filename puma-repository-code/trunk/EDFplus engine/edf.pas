@@ -1214,8 +1214,10 @@ end;
 
 function TEDFDoc.GetAdjustmentFactor(const position: integer): extended;
 begin
-  result := (ePhysMax[position] - ePhysMin[position]) /
-            (iDigMax[position] - iDigMin[Position]);
+  if iDigMax[position] - iDigMin[Position] > 0 then
+    result := (ePhysMax[position] - ePhysMin[position]) /
+            (iDigMax[position] - iDigMin[Position])
+  else result := Math.NaN;
 end;
 
 procedure TEDFDoc.DimDataRecord;
@@ -1244,14 +1246,20 @@ begin
 function TEDFDoc.GetScaled(const aRecord: longint; aSignal: integer;
   aSample: longint): Single;
 begin
-  result := ePhysMin[aSignal] + AdjustmentFactor[aSignal] *
+  if isNaN(AdjustmentFactor[aSignal]) then
+    result := Math.NaN
+  else
+    result := ePhysMin[aSignal] + AdjustmentFactor[aSignal] *
         (FRawDataRecord[aRecord, aSignal, aSample] - iDigMin[aSignal]);
 end;
 
 function TEDFDoc.GetUnscaled(const aRecord: longint; aSignal: integer;
   aSample: longint): SmallInt;
 begin
-  result := Round(iDigMin[aSignal] + (FScaledDataRecord[aRecord, aSignal, aSample] -
+  if isNaN(AdjustmentFactor[aSignal]) then
+    result := 0
+  else
+    result := Round(iDigMin[aSignal] + (FScaledDataRecord[aRecord, aSignal, aSample] -
          ePhysMin[aSignal]) / AdjustmentFactor[aSignal]);
 end;
 

@@ -462,6 +462,10 @@ object MainForm: TMainForm
     }
   end
   object SaveDialog1: TSaveDialog
+    Title = 'Safe file as...'
+    DefaultExt = '.edf'
+    Filter = 'European Data Format (EDF)|*.edf|All Files|*.*'
+    Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     left = 704
     top = 120
   end

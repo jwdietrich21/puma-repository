@@ -172,7 +172,7 @@
         <UsageCount Value="11"/>
       </Unit17>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="plot.pas"/>
         <Caret Line="28"/>
@@ -283,16 +283,12 @@
       </Position27>
       <Position28>
         <Filename Value="datarecordgrid.pas"/>
-        <Caret Line="110" Column="43" TopLine="121"/>
+        <Caret Line="168" TopLine="121"/>
       </Position28>
       <Position29>
-        <Filename Value="datarecordgrid.pas"/>
-        <Caret Line="168" TopLine="121"/>
-      </Position29>
-      <Position30>
         <Filename Value="gui.pas"/>
         <Caret Line="230" Column="27" TopLine="206"/>
-      </Position30>
+      </Position29>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
