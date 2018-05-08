@@ -259,29 +259,29 @@ procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString); overlo
 
 implementation
 
-procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mstream: TMemoryStream);
+procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
 { reads a header record from a given memory stream }
 var
-  sstream: TStringStream;
+  sStream: TStringStream;
   headerLength, version: str8;
   iHeaderLength: longint;
 begin
   headerLength := kEmpty8;
-  sstream := TStringStream.Create('');
-  mstream.Seek(kVersionPos - 1, soFromBeginning);
-  mstream.ReadBuffer(version[1], 8);
+  sStream := TStringStream.Create('');
+  mStream.Seek(kVersionPos - 1, soFromBeginning);
+  mStream.ReadBuffer(version[1], 8);
   version := str8(version);
   if version = kEDFVersion then
   begin
-    mstream.Seek(kNumOfBytesPos - 1, soFromBeginning);
-    mstream.ReadBuffer(headerLength[1], 8);
+    mStream.Seek(kNumOfBytesPos - 1, soFromBeginning);
+    mStream.ReadBuffer(headerLength[1], 8);
     headerLength := Trim(headerLength);
-    mstream.Seek(0, soFromBeginning);
+    mStream.Seek(0, soFromBeginning);
     if TryStrToInt(headerLength, iHeaderLength) then
     begin
-      sstream.CopyFrom(mstream, iHeaderLength);
-      sstream.Seek(0, soFromBeginning);
-      EDFDoc.FHeaderText := sstream.ReadString(iHeaderLength);
+      sStream.CopyFrom(mStream, iHeaderLength);
+      sStream.Seek(0, soFromBeginning);
+      EDFDoc.FHeaderText := sStream.ReadString(iHeaderLength);
       EDFDoc.ParseHeaderText;
     end
     else
@@ -297,10 +297,10 @@ begin
       EDFDoc.prVersion := version;
       EDFDoc.Error;
     end;
-  sstream.Free;
+  sStream.Free;
 end;
 
-procedure ReadDataRecords(var EDFDoc: TEDFDoc; mstream: TMemoryStream);
+procedure ReadDataRecords(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
 var
   i, k, m: longint;
   imax, kmax: longint;
@@ -310,7 +310,7 @@ var
   calibrator, physmins: array of extended;
   digmins: array of longint;
 begin
-  if assigned(EDFDoc) and assigned(mstream) and (mstream.Size > 0) then
+  if assigned(EDFDoc) and assigned(mStream) and (mStream.Size > 0) then
   begin
     imax := EDFDoc.iNumOfDataRecs;
     jmax := EDFDoc.iNumOfSignals;
@@ -331,12 +331,12 @@ begin
     SetLength(EDFDoc.FScaledDataRecord, imax, jmax, kmax);
     EDFDoc.DataSize := imax * jmax * kmax * SizeOf(SmallInt);
     EDFDoc.TotalSize := EDFDoc.iGetNumOfBytes + EDFDoc.DataSize;
-    mstream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
+    mStream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
     for i := 0 to imax - 1 do  // Records
     for j := 0 to jmax - 1 do  // Signals
     for k := 0 to EDFDoc.iNumOfSamples[j] - 1 do  // Samples
     begin
-      mstream.Read(rawValue, 2);
+      mStream.Read(rawValue, 2);
       EDFDoc.FRawDataRecord[i, j, k] := LEtoN(rawValue);
       EDFDoc.ScaledDataRecord[i, j, k] := physmins[j] +
         calibrator[j] * (EDFDoc.FRawDataRecord[i, j, k] - digmins[j]);
@@ -346,26 +346,48 @@ begin
   end;
 end;
 
+procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
+{ writes a header record to a given memory stream }
+var
+  sStream: TStringStream;
+  iHeaderLength: longint;
+begin
+  sStream := TStringStream.Create(EDFDoc.header);
+  {sStream.Seek(0, soFromBeginning);
+  sStream.WriteString(EDFDoc.header);}
+  iHeaderLength := length(sStream.DataString);
+  mStream.Seek(0, soFromBeginning);
+  sStream.Seek(0, soFromBeginning);
+  mStream.CopyFrom(sStream, iHeaderLength);
+  mStream.Seek(iHeaderLength, soFromBeginning);
+end;
+
+procedure WriteDataRecords(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
+begin
+  { TODO -oJWD : Still to be implemented }
+  { Mind NtoLE! }
+end;
+
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
   const aBaseURI: AnsiString);
 { reads and parses an EDF file from an URI }
 var
-  mstream: TMemoryStream;
+  mStream: TMemoryStream;
 begin
-  mstream := TMemoryStream.Create;
+  mStream := TMemoryStream.Create;
   if aStream.Size > 0 then
   begin
     aStream.Position := 0;
-    mstream.CopyFrom(aStream, aStream.Size);
-    ReadHeaderRecord(EDFDoc, mstream);
+    mStream.CopyFrom(aStream, aStream.Size);
+    ReadHeaderRecord(EDFDoc, mStream);
     if EDFDoc.status = noErr then
-      ReadDataRecords(EDFDoc, mstream);
+      ReadDataRecords(EDFDoc, mStream);
   end
   else
   begin
     EDFDoc.status := readErr; { create empty document with status code 7 }
   end;
-  mstream.Free;
+  mStream.Free;
 end;
 
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream);
@@ -376,21 +398,21 @@ end;
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString);
 { reads and parses and EDF file from a file spsecified by name }
 var
-  mstream: TMemoryStream;
+  mStream: TMemoryStream;
 begin
-  mstream := TMemoryStream.Create;
+  mStream := TMemoryStream.Create;
   try
-    mstream.LoadFromFile(aFileName);
-    ReadHeaderRecord(EDFDoc, mstream);
+    mStream.LoadFromFile(aFileName);
+    ReadHeaderRecord(EDFDoc, mStream);
     if EDFDoc.status = noErr then
-      ReadDataRecords(EDFDoc, mstream);
+      ReadDataRecords(EDFDoc, mStream);
   except
     on E:Exception do
     begin
       EDFDoc.status := readErr; { create empty document with status code 7 }
     end;
   end;
-  mstream.Free;
+  mStream.Free;
 end;
 
 procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: AnsiString);
@@ -408,9 +430,20 @@ begin
 end;
 
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString);
+var
+  mStream: TMemoryStream;
 begin
-  { TODO -oJWD : still to be implemented }
-  { NtoLE }
+  mStream := TMemoryStream.Create;
+  if assigned(EDFDoc) then
+  try
+    WriteHeaderRecord(EDFDoc, mStream);
+    if EDFDoc.status = noErr then
+      WriteDataRecords(EDFDoc, mStream);
+    mStream.SaveToFile(aFileName);
+  except
+    EDFDoc.status := saveErr;
+  end;
+  mStream.Free;
 end;
 
 procedure TEDFDoc.CompileHeaderText;

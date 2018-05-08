@@ -406,6 +406,7 @@ begin
     result.iNumOfSamples[i] := length(signalRecord[i].timeSeries.time);
     if result.iNumOfSamples[i] > Samples then
       Samples := result.iNumOfSamples[i];
+      { TODO -oJWD : Sample count should be signal-specific }
   end;
   imax := 1 + RecordBytes div kMaxRecordBytes; // Number of records
   result.iNumOfDataRecs := imax;
