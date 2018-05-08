@@ -375,9 +375,30 @@ begin
 end;
 
 procedure WriteDataRecords(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
+var
+  i, k, m: longint;
+  imax, kmax: longint;
+  j:    integer;
+  jmax: integer;
+  rawValue: smallint;
 begin
-  { TODO -oJWD : Still to be implemented }
-  { Mind NtoLE! }
+  if assigned(EDFDoc) and assigned(mStream) then
+    if (mStream.Size > 0) then
+    begin
+      imax := EDFDoc.iNumOfDataRecs;
+      jmax := EDFDoc.iNumOfSignals;
+      kmax := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
+      mStream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
+      for i := 0 to imax - 1 do    // Records
+        for j := 0 to jmax - 1 do  // Signals
+          for k := 0 to EDFDoc.iNumOfSamples[j] - 1 do  // Samples
+          begin
+            rawValue := EDFDoc.FRawDataRecord[i, j, k];
+            mStream.Write(NtoLe(rawValue), 2);
+          end;
+    end
+    else
+      EDFDoc.status := saveErr;
 end;
 
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
@@ -438,7 +459,7 @@ procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
   const aBaseURI: ansistring);
 begin
   { TODO -oJWD : still to be implemented }
-  { NtoLE }
+  { Mind NtoLE! }
 end;
 
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring);
@@ -450,8 +471,10 @@ begin
     try
       WriteHeaderRecord(EDFDoc, mStream);
       if EDFDoc.status = noErr then
+      begin
         WriteDataRecords(EDFDoc, mStream);
-      mStream.SaveToFile(aFileName);
+        mStream.SaveToFile(aFileName);
+      end;
     except
       EDFDoc.status := saveErr;
     end;
@@ -1108,7 +1131,7 @@ begin
       status := strFormatErr
     else
     begin
-      if idm <= iDigMin[position] then // EDF+ dditional specification #5
+      if (idm <> 0) and (idm <= iDigMin[position]) then // EDF+ dditional specification #5
         status := sizemismatch
       else
       begin
@@ -1230,6 +1253,7 @@ begin
   end
   else
     Result := '';
+  if Result = '' then Result := '0       ';
 end;
 
 function TEDFDoc.iGetNumOfSamples(const position: integer): longint;
