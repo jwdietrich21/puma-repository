@@ -36,21 +36,23 @@ uses
 type
 
   str4 = string[4];
-  str8  = string[8];
+  str8 = string[8];
   str16 = string[16];
   str32 = string[32];
   str44 = string[44];
   str80 = string[80];
-  TRawDataRecord = Array of array of array of SmallInt;
-  TScaledDataRecord = Array of array of array of Single;
+
+  TRawDataRecord    = array of array of array of smallint;
+  TScaledDataRecord = array of array of array of single;
 
 const
 
-  EDFEngine_major = 1;
-  EDFEngine_minor = 0;
+  EDFEngine_major   = 1;
+  EDFEngine_minor   = 0;
   EDFEngine_release = 0;
-  EDFEngine_patch = 0;
-  EDFEngine_fullversion = ((EDFEngine_major *  100 + EDFEngine_minor) * 100 + EDFEngine_release) * 100 + EDFEngine_patch;
+  EDFEngine_patch   = 0;
+  EDFEngine_fullversion = ((EDFEngine_major * 100 + EDFEngine_minor) *
+    100 + EDFEngine_release) * 100 + EDFEngine_patch;
   EDFEngine_version = '1.0.0.0';
   EDFEngine_internalversion = 'Alpha Centauri';
 
@@ -58,55 +60,56 @@ const
   ksLF   = #10;
   ksCRLF = #13#10;
 
-  noErr          = 0;
-  headermalform  = 1;
-  termErr        = 2;
-  sizemismatch   = 3;
-  unsuppVers     = 4;
-  emptydata      = 5;
-  saveErr        = 6;
-  readErr        = 7;
-  createErr      = 9;
-  rangeErr       = 10;
-  strRangeErr    = 11;
-  strFormatErr   = 12;
+  noErr      = 0;
+  headermalform = 1;
+  termErr    = 2;
+  sizemismatch = 3;
+  unsuppVers = 4;
+  emptydata  = 5;
+  saveErr    = 6;
+  readErr    = 7;
+  createErr  = 9;
+  rangeErr   = 10;
+  strRangeErr = 11;
+  strFormatErr = 12;
 
-  kEDFVersion     : str8 = '0       ';
-  kUnknown        : str8 = '-1      ';
-  kEmpty0         = '';
-  kEmpty4         : str4 = '    ';
-  kEmpty8         : str8 = '        ';
-  kEmpty16        : str16 = '                ';
-  kEmpty44        : str44 = '                                            ';
-  kEmpty80        : str80 = '                                                                                ';
-  kZero4          : str4 = '0000';
-  kZero8          : str8 = '00000000';
-  kDefaultDate    : str8 = '01.01.85';
-  kDefaultTime    : str8 = '00.00.00';
-  kStartDate      = 'Startdate';
+  kEDFVersion: str8 = '0       ';
+  kUnknown: str8 = '-1      ';
+  kEmpty0      = '';
+  kEmpty4: str4 = '    ';
+  kEmpty8: str8 = '        ';
+  kEmpty16: str16 = '                ';
+  kEmpty44: str44 = '                                            ';
+  kEmpty80: str80 =
+    '                                                                                ';
+  kZero4: str4 = '0000';
+  kZero8: str8 = '00000000';
+  kDefaultDate: str8 = '01.01.85';
+  kDefaultTime: str8 = '00.00.00';
+  kStartDate   = 'Startdate';
   kEDFAnnotations = 'EDF Annotations';
 
-  kVersionPos     = 1;
-  kLocalPatIDPos  = 9;
-  kLocalRecIDPos  = 89;
-  kStartDatePos   = 169;
-  kStartTimePos   = 177;
-  kNumOfBytesPos  = 185;
-  kReservedPos    = 193;
-  kNumOfDRecsPos  = 237;
-  kDurOfDataPos   = 245;
-  kNumOfSigPos    = 253;
-  kVarStartPos    = kNumOfSigPos + 4;
+  kVersionPos    = 1;
+  kLocalPatIDPos = 9;
+  kLocalRecIDPos = 89;
+  kStartDatePos  = 169;
+  kStartTimePos  = 177;
+  kNumOfBytesPos = 185;
+  kReservedPos   = 193;
+  kNumOfDRecsPos = 237;
+  kDurOfDataPos  = 245;
+  kNumOfSigPos   = 253;
+  kVarStartPos   = kNumOfSigPos + 4;
 
   kMaxRecordBytes = 61440;
 
 type
 
-{ TEDFDoc }
+  { TEDFDoc }
 
-TEDFDoc = class
+  TEDFDoc = class
   private
-    FHeaderText: AnsiString;     // Header record
+    FHeaderText: ansistring;     // Header record
     FRawDataRecord: TRawDataRecord;    // digitizer output, dr * ns * nsa
     FScaledDataRecord: TScaledDataRecord;  // reconstructed biological data
     { Fields of EDF and EDF+ header record: }
@@ -120,24 +123,24 @@ TEDFDoc = class
     prNumOfDataRecs: str8;       // Number of data records
     prDurOfData: str8;           // Duration of a data record
     prNumOfSignals: str4;        // Number of signals in data record
-    prLabel: AnsiString;         // Label for signal
-    prTransducer: AnsiString;    // Transducer type
-    prPhysDim: AnsiString;       // Physical dimension
-    prPhysMin: AnsiString;       // Physical minimum
-    prPhysMax: AnsiString;       // Physical maximum
-    prDigMin: AnsiString;        // Digital minimum
-    prDigMax: AnsiString;        // Ditial maximum
-    prPrefilter: AnsiString;     // Prefiltering
-    prNumOfSamples: AnsiString;  // Nr of samples in each data record
-    prReserved2: AnsiString;     // Reserved
+    prLabel: ansistring;         // Label for signal
+    prTransducer: ansistring;    // Transducer type
+    prPhysDim: ansistring;       // Physical dimension
+    prPhysMin: ansistring;       // Physical minimum
+    prPhysMax: ansistring;       // Physical maximum
+    prDigMin: ansistring;        // Digital minimum
+    prDigMax: ansistring;        // Ditial maximum
+    prPrefilter: ansistring;     // Prefiltering
+    prNumOfSamples: ansistring;  // Nr of samples in each data record
+    prReserved2: ansistring;     // Reserved
     { Official EDF/EDF+ header record fields end here. }
-    status:    integer;
+    status: integer;
   protected
     procedure CompileHeaderText;
     procedure ParseHeaderText;
-    function ExtractedHeaderText(const start, count: integer): AnsiString;
+    function ExtractedHeaderText(const start, Count: integer): ansistring;
     procedure CalcHeaderLength;
-    function HeaderString: AnsiString;
+    function HeaderString: ansistring;
     function GetVersion: Str8;
     function GetLocalPatID: Str80;
     procedure SetLocalPatID(const ID: Str80);
@@ -200,14 +203,16 @@ TEDFDoc = class
     function GetReserved2(const position: integer): Str32;
     function GetAdjustmentFactor(const position: integer): extended;
     procedure DimDataRecord;
-    function GetScaled(const aRecord: longint; aSignal: integer; aSample: longint): Single;
-    function GetUnscaled(const aRecord: longint; aSignal: integer; aSample: longint): SmallInt;
+    function GetScaled(const aRecord: longint; aSignal: integer;
+      aSample: longint): single;
+    function GetUnscaled(const aRecord: longint; aSignal: integer;
+      aSample: longint): smallint;
   public
     constructor Create;
     destructor Destroy; override;
     procedure Error;
     property version: Str8 Read GetVersion;
-    property header: AnsiString Read FHeaderText;
+    property header: ansistring Read FHeaderText;
     property LocalPatID: Str80 Read GetLocalPatID Write SetLocalPatID;
     property LocalRecID: Str80 Read GetLocalRecID Write SetLocalRecID;
     property StartDate: Str8 Read GetStartDate Write SetStartDate;
@@ -221,41 +226,47 @@ TEDFDoc = class
     property iNumOfDataRecs: longint Read iGetNumOfDataRecs Write SetNumOfDataRecs;
     property DurationOfData: Str8 Read GetDurOfData Write SetDurOfData;
     property iDurationOfData: longint Read iGetDurOfData Write SetDurOfData;
-    property NumOfSignals: Str4 read GetNumOfSignals Write SetNumOfSignals;
+    property NumOfSignals: Str4 Read GetNumOfSignals Write SetNumOfSignals;
     property iNumOfSignals: integer Read iGetNumOfSignals Write SetNumOfSignals;
-    property SignalLabel[i: integer]: Str16 read GetLabel Write SetLabel;
-    property Transducer[i: integer]: Str80 read GetTransducer Write SetTransducer;
-    property PhysDim[i: integer]: Str8 read GetPhysDim Write SetPhysDim;
-    property PhysMin[i: integer]: Str8 read GetPhysMin Write SetPhysMin;
-    property ePhysMin[i: integer]: extended read eGetPhysMin Write SetPhysMin;
-    property PhysMax[i: integer]: Str8 read GetPhysMax Write SetPhysMax;
-    property ePhysMax[i: integer]: extended read eGetPhysMax Write SetPhysMax;
-    property digMin[i: integer]: Str8 read GetdigMin Write SetdigMin;
-    property idigMin[i: integer]: longint read iGetdigMin Write SetdigMin;
-    property digMax[i: integer]: Str8 read GetdigMax Write SetdigMax;
-    property idigMax[i: integer]: longint read iGetdigMax Write SetdigMax;
-    property Prefilter[i: integer]: Str80 read GetPrefilter Write SetPrefilter;
-    property NumOfSamples[i: integer]: Str8 read GetNumOfSamples Write SetNumOfSamples;
-    property iNumOfSamples[i: integer]: longint read iGetNumOfSamples Write SetNumOfSamples;
+    property SignalLabel[i: integer]: Str16 Read GetLabel Write SetLabel;
+    property Transducer[i: integer]: Str80 Read GetTransducer Write SetTransducer;
+    property PhysDim[i: integer]: Str8 Read GetPhysDim Write SetPhysDim;
+    property PhysMin[i: integer]: Str8 Read GetPhysMin Write SetPhysMin;
+    property ePhysMin[i: integer]: extended Read eGetPhysMin Write SetPhysMin;
+    property PhysMax[i: integer]: Str8 Read GetPhysMax Write SetPhysMax;
+    property ePhysMax[i: integer]: extended Read eGetPhysMax Write SetPhysMax;
+    property digMin[i: integer]: Str8 Read GetdigMin Write SetdigMin;
+    property idigMin[i: integer]: longint Read iGetdigMin Write SetdigMin;
+    property digMax[i: integer]: Str8 Read GetdigMax Write SetdigMax;
+    property idigMax[i: integer]: longint Read iGetdigMax Write SetdigMax;
+    property Prefilter[i: integer]: Str80 Read GetPrefilter Write SetPrefilter;
+    property NumOfSamples[i: integer]: Str8 Read GetNumOfSamples Write SetNumOfSamples;
+    property iNumOfSamples[i: integer]: longint
+      Read iGetNumOfSamples Write SetNumOfSamples;
     property Reserved2[i: integer]: Str32 Read GetReserved2 Write SetReserved2;
     property RawDataRecord: TRawDataRecord Read FRawDataRecord Write FRawDataRecord;
-    property ScaledDataRecord: TScaledDataRecord Read FScaledDataRecord Write FScaledDataRecord;
+    property ScaledDataRecord: TScaledDataRecord
+      Read FScaledDataRecord Write FScaledDataRecord;
     property AdjustmentFactor[i: integer]: extended Read GetAdjustmentFactor;
-    property Scaled[aRecord: longint; aSignal: integer; sSample: longint]: single Read GetScaled;
-    property UnScaled[aRecord: longint; aSignal: integer; sSample: longint]: SmallInt Read GetUnscaled;
+    property Scaled[aRecord: longint; aSignal: integer;
+      sSample: longint]: single Read GetScaled;
+    property UnScaled[aRecord: longint; aSignal: integer;
+      sSample: longint]: smallint Read GetUnscaled;
     property StatusCode: integer Read status;
-    procedure ReadFromFile(const aFileName: AnsiString);
+    procedure ReadFromFile(const aFileName: ansistring);
     procedure ReadFromStream(const aStream: TStream);
   public
     DataSize, TotalSize: longint;
   end;
 
-procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream; const aBaseURI: AnsiString); overload;
+procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
+  const aBaseURI: ansistring); overload;
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream); overload;
-procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString); overload;
-procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: AnsiString);
-procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream; const aBaseURI: AnsiString); overload;
-procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString); overload;
+procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
+procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: ansistring);
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
+  const aBaseURI: ansistring); overload;
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 
 implementation
 
@@ -267,7 +278,7 @@ var
   iHeaderLength: longint;
 begin
   headerLength := kEmpty8;
-  sStream := TStringStream.Create('');
+  sStream      := TStringStream.Create('');
   mStream.Seek(kVersionPos - 1, soFromBeginning);
   mStream.ReadBuffer(version[1], 8);
   version := str8(version);
@@ -292,11 +303,11 @@ begin
     end;
   end
   else
-    begin
-      EDFDoc.status := unsuppVers;
-      EDFDoc.prVersion := version;
-      EDFDoc.Error;
-    end;
+  begin
+    EDFDoc.status    := unsuppVers;
+    EDFDoc.prVersion := version;
+    EDFDoc.Error;
+  end;
   sStream.Free;
 end;
 
@@ -304,46 +315,49 @@ procedure ReadDataRecords(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
 var
   i, k, m: longint;
   imax, kmax: longint;
-  j: integer;
+  j:    integer;
   jmax: integer;
-  rawValue: SmallInt;
+  rawValue: smallint;
   calibrator, physmins: array of extended;
   digmins: array of longint;
 begin
-  if assigned(EDFDoc) and assigned(mStream) and (mStream.Size > 0) then
-  begin
-    imax := EDFDoc.iNumOfDataRecs;
-    jmax := EDFDoc.iNumOfSignals;
-    kmax := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
-    SetLength(calibrator, jmax);
-    SetLength(physmins, jmax);
-    SetLength(digmins, jmax);
-    for j := 0 to jmax - 1 do
+  if assigned(EDFDoc) and assigned(mStream) then
+    if (mStream.Size > 0) then
     begin
-      m := EDFDoc.iNumOfSamples[j];
-      if m > kmax then
-        kmax := m;
-      calibrator[j] := EDFDoc.AdjustmentFactor[j]; // pre-calculating these
-      physmins[j] := EDFDoc.ePhysMin[j];           // values improves speed
-      digmins[j] := EDFDoc.idigMin[j];
-    end;
-    SetLength(EDFDoc.FRawDataRecord, imax, jmax, kmax);
-    SetLength(EDFDoc.FScaledDataRecord, imax, jmax, kmax);
-    EDFDoc.DataSize := imax * jmax * kmax * SizeOf(SmallInt);
-    EDFDoc.TotalSize := EDFDoc.iGetNumOfBytes + EDFDoc.DataSize;
-    mStream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
-    for i := 0 to imax - 1 do  // Records
-    for j := 0 to jmax - 1 do  // Signals
-    for k := 0 to EDFDoc.iNumOfSamples[j] - 1 do  // Samples
-    begin
-      mStream.Read(rawValue, 2);
-      EDFDoc.FRawDataRecord[i, j, k] := LEtoN(rawValue);
-      EDFDoc.ScaledDataRecord[i, j, k] := physmins[j] +
-        calibrator[j] * (EDFDoc.FRawDataRecord[i, j, k] - digmins[j]);
-      {Much slower alternative: EDFDoc.ScaledDataRecord[i, j, k] :=
-        EDFDoc.Scaled[i, j, k];}
-    end;
-  end;
+      imax := EDFDoc.iNumOfDataRecs;
+      jmax := EDFDoc.iNumOfSignals;
+      kmax := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
+      SetLength(calibrator, jmax);
+      SetLength(physmins, jmax);
+      SetLength(digmins, jmax);
+      for j := 0 to jmax - 1 do
+      begin
+        m := EDFDoc.iNumOfSamples[j];
+        if m > kmax then
+          kmax      := m;
+        calibrator[j] := EDFDoc.AdjustmentFactor[j]; // pre-calculating these
+        physmins[j] := EDFDoc.ePhysMin[j];           // values improves speed
+        digmins[j]  := EDFDoc.idigMin[j];
+      end;
+      SetLength(EDFDoc.FRawDataRecord, imax, jmax, kmax);
+      SetLength(EDFDoc.FScaledDataRecord, imax, jmax, kmax);
+      EDFDoc.DataSize  := imax * jmax * kmax * SizeOf(smallint);
+      EDFDoc.TotalSize := EDFDoc.iGetNumOfBytes + EDFDoc.DataSize;
+      mStream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
+      for i := 0 to imax - 1 do    // Records
+        for j := 0 to jmax - 1 do  // Signals
+          for k := 0 to EDFDoc.iNumOfSamples[j] - 1 do  // Samples
+          begin
+            mStream.Read(rawValue, 2);
+            EDFDoc.FRawDataRecord[i, j, k]   := LEtoN(rawValue);
+            EDFDoc.ScaledDataRecord[i, j, k] :=
+              physmins[j] + calibrator[j] * (EDFDoc.FRawDataRecord[i, j, k] - digmins[j]);
+            {Much slower alternative: EDFDoc.ScaledDataRecord[i, j, k] :=
+             EDFDoc.Scaled[i, j, k];}
+          end;
+    end
+    else
+      EDFDoc.status := emptydata;
 end;
 
 procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
@@ -353,8 +367,6 @@ var
   iHeaderLength: longint;
 begin
   sStream := TStringStream.Create(EDFDoc.header);
-  {sStream.Seek(0, soFromBeginning);
-  sStream.WriteString(EDFDoc.header);}
   iHeaderLength := length(sStream.DataString);
   mStream.Seek(0, soFromBeginning);
   sStream.Seek(0, soFromBeginning);
@@ -369,7 +381,7 @@ begin
 end;
 
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
-  const aBaseURI: AnsiString);
+  const aBaseURI: ansistring);
 { reads and parses an EDF file from an URI }
 var
   mStream: TMemoryStream;
@@ -395,7 +407,7 @@ begin
   REadEDFFile(EDFDoc, aStream, 'stream:');
 end;
 
-procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString);
+procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring);
 { reads and parses and EDF file from a file spsecified by name }
 var
   mStream: TMemoryStream;
@@ -407,7 +419,7 @@ begin
     if EDFDoc.status = noErr then
       ReadDataRecords(EDFDoc, mStream);
   except
-    on E:Exception do
+    on E: Exception do
     begin
       EDFDoc.status := readErr; { create empty document with status code 7 }
     end;
@@ -415,7 +427,7 @@ begin
   mStream.Free;
 end;
 
-procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: AnsiString);
+procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: ansistring);
 { reads and parses and EDF file from a file spsecified by name }
 begin
   EDFDoc := TEDFDoc.Create;
@@ -423,26 +435,26 @@ begin
 end;
 
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
-  const aBaseURI: AnsiString);
+  const aBaseURI: ansistring);
 begin
   { TODO -oJWD : still to be implemented }
   { NtoLE }
 end;
 
-procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: AnsiString);
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring);
 var
   mStream: TMemoryStream;
 begin
   mStream := TMemoryStream.Create;
   if assigned(EDFDoc) then
-  try
-    WriteHeaderRecord(EDFDoc, mStream);
-    if EDFDoc.status = noErr then
-      WriteDataRecords(EDFDoc, mStream);
-    mStream.SaveToFile(aFileName);
-  except
-    EDFDoc.status := saveErr;
-  end;
+    try
+      WriteHeaderRecord(EDFDoc, mStream);
+      if EDFDoc.status = noErr then
+        WriteDataRecords(EDFDoc, mStream);
+      mStream.SaveToFile(aFileName);
+    except
+      EDFDoc.status := saveErr;
+    end;
   mStream.Free;
 end;
 
@@ -456,50 +468,54 @@ procedure TEDFDoc.ParseHeaderText;
 var
   ns: integer;
 begin
-  prVersion := ExtractedHeaderText(kVersionPos, 8);
-  prLocalPatID := ExtractedHeaderText(kLocalPatIDPos, 80);  ;
-  prLocalRecID := ExtractedHeaderText(kLocalRecIDPos, 80);
-  prStartDate := ExtractedHeaderText(kStartDatePos, 8);
-  prStartTime := ExtractedHeaderText(kStartTimePos, 8);
-  prNumOfBytes := ExtractedHeaderText(kNumOfBytesPos, 8);
-  prReserved := '';
+  prVersion    := ExtractedHeaderText(kVersionPos, 8);
+  prLocalPatID := ExtractedHeaderText(kLocalPatIDPos, 80);
+  ;
+  prLocalRecID    := ExtractedHeaderText(kLocalRecIDPos, 80);
+  prStartDate     := ExtractedHeaderText(kStartDatePos, 8);
+  prStartTime     := ExtractedHeaderText(kStartTimePos, 8);
+  prNumOfBytes    := ExtractedHeaderText(kNumOfBytesPos, 8);
+  prReserved      := '';
   prNumOfDataRecs := ExtractedHeaderText(kNumOfDRecsPos, 8);
-  prDurOfData := ExtractedHeaderText(kDurOfDataPos, 8);
-  prNumOfSignals := ExtractedHeaderText(kNumOfSigPos, 4);
+  prDurOfData     := ExtractedHeaderText(kDurOfDataPos, 8);
+  prNumOfSignals  := ExtractedHeaderText(kNumOfSigPos, 4);
   if not TryStrToInt(Trim(prNumOfSignals), ns) then
-    begin
-      status := strFormatErr;
-      prLabel := '';
-      prTransducer := '';
-      prPhysDim := '';
-      prPhysMin := '';
-      prPhysMax := '';
-      prDigMin := '';
-      prDigMax := '';
-      prPrefilter := '';
-      prNumOfSamples := '';
-      prReserved2 := '';
-    end
+  begin
+    status      := strFormatErr;
+    prLabel     := '';
+    prTransducer := '';
+    prPhysDim   := '';
+    prPhysMin   := '';
+    prPhysMax   := '';
+    prDigMin    := '';
+    prDigMax    := '';
+    prPrefilter := '';
+    prNumOfSamples := '';
+    prReserved2 := '';
+  end
   else
   begin
-    prLabel := ExtractedHeaderText(kVarStartPos, ns * 16);
-    prTransducer := ExtractedHeaderText(kVarStartPos + ns * 16, ns * 80);   ;
-    prPhysDim := ExtractedHeaderText(kVarStartPos + ns * (16 + 80), ns * 8);
-    prPhysMin := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 8), ns * 8);
-    prPhysMax := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16), ns * 8);
-    prDigMin := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 8), ns * 8);
-    prDigMax := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 16), ns * 8);
+    prLabel      := ExtractedHeaderText(kVarStartPos, ns * 16);
+    prTransducer := ExtractedHeaderText(kVarStartPos + ns * 16, ns * 80);
+    ;
+    prPhysDim   := ExtractedHeaderText(kVarStartPos + ns * (16 + 80), ns * 8);
+    prPhysMin   := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 8), ns * 8);
+    prPhysMax   := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16), ns * 8);
+    prDigMin    := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 8), ns * 8);
+    prDigMax    := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 16), ns * 8);
     prPrefilter := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 24), ns * 80);
-    prNumOfSamples := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 24 + 80), ns * 8);
-    prReserved2 := ExtractedHeaderText(kVarStartPos + ns * (16 + 80 + 16 + 24 + 80 + 8), ns * 8);
+    prNumOfSamples := ExtractedHeaderText(kVarStartPos + ns *
+      (16 + 80 + 16 + 24 + 80), ns * 8);
+    prReserved2 := ExtractedHeaderText(kVarStartPos + ns *
+      (16 + 80 + 16 + 24 + 80 + 8), ns * 8);
   end;
 end;
 
-function TEDFDoc.ExtractedHeaderText(const start, count: integer): AnsiString;
+function TEDFDoc.ExtractedHeaderText(const start, Count: integer): ansistring;
 begin
-  if (start >= 0) and (count >= 0) and (length(FHeaderText) >= start + count - 1) then
+  if (start >= 0) and (Count >= 0) and (length(FHeaderText) >= start + Count - 1) then
   begin
-    Result := copy(FHeaderText, start, count);
+    Result := copy(FHeaderText, start, Count);
   end
   else
   begin
@@ -516,17 +532,17 @@ begin
   prNumOfBytes := PadRight(IntToStr(headerLength), 8);
 end;
 
-function TEDFDoc.HeaderString: AnsiString;
+function TEDFDoc.HeaderString: ansistring;
 var
-  chunk1, chunk2: AnsiString;
+  chunk1, chunk2: ansistring;
 begin
   chunk1 := prVersion + prLocalPatID + prLocalRecID + prStartDate +
-            prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
-            prDurOfData;
-  chunk2 := prNumOfSignals + prLabel + prTransducer +
-            prPhysDim + prPhysMin + prPhysMax + prDigMin + prDigMax +
-            prPrefilter + prNumOfSamples + prReserved2;
-  result := chunk1 + chunk2;
+    prStartTime + prNumOfBytes + prReserved + prNumOfDataRecs +
+    prDurOfData;
+  chunk2 := prNumOfSignals + prLabel + prTransducer + prPhysDim +
+    prPhysMin + prPhysMax + prDigMin + prDigMax + prPrefilter +
+    prNumOfSamples + prReserved2;
+  Result := chunk1 + chunk2;
 end;
 
 function TEDFDoc.GetVersion: Str8;
@@ -536,7 +552,7 @@ end;
 
 function TEDFDoc.GetLocalPatID: Str80;
 begin
-  result := ExtractedHeaderText(kLocalPatIDPos, 80);
+  Result := ExtractedHeaderText(kLocalPatIDPos, 80);
 end;
 
 procedure TEDFDoc.SetLocalPatID(const ID: Str80);
@@ -547,7 +563,7 @@ end;
 
 function TEDFDoc.GetLocalRecID: Str80;
 begin
-  result := ExtractedHeaderText(kLocalRecIDPos, 80);
+  Result := ExtractedHeaderText(kLocalRecIDPos, 80);
 end;
 
 procedure TEDFDoc.SetLocalRecID(const ID: Str80);
@@ -558,19 +574,19 @@ end;
 
 function TEDFDoc.GetStartDate: Str8;
 begin
-  result := ExtractedHeaderText(kStartDatePos, 8);
+  Result := ExtractedHeaderText(kStartDatePos, 8);
 end;
 
 function TEDFDoc.dGetStartDate: tDateTime;
 var
-  sdString: Str8;
+  sdString:  Str8;
   theFormat: TFormatSettings;
 begin
   theFormat.DateSeparator := '.';
   theFormat.ShortDateFormat := 'dd.mm.yy';
   theFormat.TwoDigitYearCenturyWindow := 85; // EDF convention
   sdString := GetStartDate;
-  if not TryStrToDate(sdString, result, theFormat) then
+  if not TryStrToDate(sdString, Result, theFormat) then
     status := strFormatErr;
 end;
 
@@ -578,12 +594,12 @@ procedure TEDFDoc.SetStartDate(const DateStr: Str8);
 begin
   if length(DateStr) <> 8 then
   begin
-    status := createErr;
+    status      := createErr;
     prStartDate := '';
   end
   else
   begin
-  prStartDate := DateStr;
+    prStartDate := DateStr;
   end;
   CompileHeaderText;
 end;
@@ -602,18 +618,18 @@ end;
 
 function TEDFDoc.GetStartTime: Str8;
 begin
-  result := ExtractedHeaderText(kStartTimePos, 8);
+  Result := ExtractedHeaderText(kStartTimePos, 8);
 end;
 
 function TEDFDoc.dGetStartTime: tDateTime;
 var
-  stString: Str8;
+  stString:  Str8;
   theFormat: TFormatSettings;
 begin
   theFormat.TimeSeparator := '.';
   theFormat.ShortTimeFormat := 'hh.nn.ss';
   stString := GetStartTime;
-  if not TryStrToTime(stString, result, theFormat) then
+  if not TryStrToTime(stString, Result, theFormat) then
     status := strFormatErr;
 end;
 
@@ -621,7 +637,7 @@ procedure TEDFDoc.SetStartTime(const TimeStr: Str8);
 begin
   if length(TimeStr) <> 8 then
   begin
-    status := createErr;
+    status      := createErr;
     prStartTime := '';
   end
   else
@@ -641,7 +657,7 @@ end;
 
 function TEDFDoc.GetNumOfBytes: Str8;
 begin
-  result := ExtractedHeaderText(kNumOfBytesPos, 8);
+  Result := ExtractedHeaderText(kNumOfBytesPos, 8);
 end;
 
 function TEDFDoc.iGetNumOfBytes: longint;
@@ -649,13 +665,13 @@ var
   nbString: Str8;
 begin
   nbString := GetNumOfBytes;
-  if not TryStrToInt(Trim(nbString), result) then
+  if not TryStrToInt(Trim(nbString), Result) then
     status := strFormatErr;
 end;
 
 function TEDFDoc.GetReserved: Str44;
 begin
-  result := ExtractedHeaderText(kReservedPos, 44);
+  Result := ExtractedHeaderText(kReservedPos, 44);
 end;
 
 procedure TEDFDoc.SetReserved(const ReservedStr: Str44);
@@ -666,7 +682,7 @@ end;
 
 function TEDFDoc.GetNumOfDataRecs: Str8;
 begin
-  result := ExtractedHeaderText(kNumOfDRecsPos, 8);
+  Result := ExtractedHeaderText(kNumOfDRecsPos, 8);
 end;
 
 function TEDFDoc.iGetNumOfDataRecs: longint;
@@ -674,7 +690,7 @@ var
   nrString: Str8;
 begin
   nrString := GetNumOfDataRecs;
-  if not TryStrToInt(Trim(nrString), result) then
+  if not TryStrToInt(Trim(nrString), Result) then
     status := strFormatErr;
 end;
 
@@ -689,8 +705,9 @@ procedure TEDFDoc.SetNumOfDataRecs(const nr: longint);
 var
   nrString: Str8;
 begin
-  if (nr < 0) or (nr > 99999999) then begin
-    status := rangeErr;
+  if (nr < 0) or (nr > 99999999) then
+  begin
+    status   := rangeErr;
     nrString := FloatToStr(NaN);
   end
   else if nr = 0 then
@@ -702,7 +719,7 @@ end;
 
 function TEDFDoc.GetDurOfData: Str8;
 begin
-  result := ExtractedHeaderText(kDurOfDataPos, 8);
+  Result := ExtractedHeaderText(kDurOfDataPos, 8);
 end;
 
 function TEDFDoc.iGetDurOfData: longint;
@@ -710,7 +727,7 @@ var
   ddString: Str8;
 begin
   ddString := GetDurOfData;
-  if not TryStrToInt(Trim(ddString), result) then
+  if not TryStrToInt(Trim(ddString), Result) then
     status := strFormatErr;
 end;
 
@@ -724,8 +741,9 @@ procedure TEDFDoc.SetDurOfData(const dd: longint);
 var
   ddString: Str8;
 begin
-  if (dd < 0) or (dd > 99999999) then begin
-    status := rangeErr;
+  if (dd < 0) or (dd > 99999999) then
+  begin
+    status   := rangeErr;
     ddString := FloatToStr(NaN);
   end
   else
@@ -735,7 +753,7 @@ end;
 
 function TEDFDoc.GetNumOfSignals: Str4;
 begin
-  result := ExtractedHeaderText(kNumOfSigPos, 4);
+  Result := ExtractedHeaderText(kNumOfSigPos, 4);
 end;
 
 function TEDFDoc.iGetNumOfSignals: integer;
@@ -743,7 +761,7 @@ var
   nsString: Str4;
 begin
   nsString := GetNumOfSignals;
-  if not TryStrToInt(Trim(nsString), result) then
+  if not TryStrToInt(Trim(nsString), Result) then
     status := strFormatErr;
 end;
 
@@ -752,9 +770,9 @@ var
   ins: integer;
 begin
   if not TryStrToInt(Trim(ns), ins) then // valid number representation?
-    begin
-      status := strFormatErr;
-    end
+  begin
+    status := strFormatErr;
+  end
   else
   begin
     if length(prLabel) < ins * 16 then // Label string too short?
@@ -776,7 +794,7 @@ begin
     if length(prNumOfSamples) < ins * 8 then // PhysMin string too short?
       prNumOfSamples := PadRight(prNumOfSamples, ins * 8);
     if length(prReserved2) < ins * 32 then // Prefilter string too short?
-      prReserved2 := PadRight(prReserved2, ins * 32);
+      prReserved2  := PadRight(prReserved2, ins * 32);
     prNumOfSignals := PadRight(ns, 4);
     CompileHeaderText;
     DimDataRecord;
@@ -787,8 +805,9 @@ procedure TEDFDoc.SetNumOfSignals(const ns: integer);
 var
   nsString: Str4;
 begin
-  if (ns < 0) or (ns > 9999) then begin
-    status := rangeErr;
+  if (ns < 0) or (ns > 9999) then
+  begin
+    status   := rangeErr;
     nsString := FloatToStr(NaN);
   end
   else
@@ -797,21 +816,21 @@ begin
 end;
 
 function TEDFDoc.ValidPosition(const position: integer; var ns: integer): boolean;
-{ Checks if index position for addressing signals is valid }
+  { Checks if index position for addressing signals is valid }
 begin
   ns := 0;
   if not TryStrToInt(Trim(NumOfSignals), ns) then // valid number representation?
-    begin
-      status := strFormatErr;
-      result := false;
-    end
+  begin
+    status := strFormatErr;
+    Result := False;
+  end
   else if position > (ns - 1) then // outside range?
   begin
     status := rangeErr;
-    result := false;
+    Result := False;
   end
   else // no errors
-    result := true;
+    Result := True;
 end;
 
 procedure TEDFDoc.SetLabel(const position: integer; const theLabel: str16);
@@ -822,9 +841,9 @@ begin
   if ValidPosition(position, ns) then
   begin
     if length(prLabel) < ns * 16 then // Label string too short?
-      prLabel := PadRight(prLabel, ns * 16);
+      prLabel    := PadRight(prLabel, ns * 16);
     filledString := PadRight(theLabel, 16); // fill with spaces for length 16
-    prLabel := StuffString(prLabel, position * 16 + 1, 16, filledString);
+    prLabel      := StuffString(prLabel, position * 16 + 1, 16, filledString);
     CompileHeaderText;
   end;
 end;
@@ -837,14 +856,13 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prLabel, position * 16 + 1, 16);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
   else
-    result := '';
+    Result := '';
 end;
 
-procedure TEDFDoc.SetTransducer(const position: integer; const transducer: str80
-  );
+procedure TEDFDoc.SetTransducer(const position: integer; const transducer: str80);
 var
   filledString: str80;
   ns: integer;
@@ -853,8 +871,8 @@ begin
   begin
     if length(prTransducer) < ns * 80 then // Transducer string too short?
       prTransducer := PadRight(prTransducer, ns * 80);
-    filledString := PadRight(transducer, 80); // fill with spaces for length 80
-    prTransducer := StuffString(prTransducer, position * 80 + 1, 80, filledString);
+    filledString   := PadRight(transducer, 80); // fill with spaces for length 80
+    prTransducer   := StuffString(prTransducer, position * 80 + 1, 80, filledString);
     CompileHeaderText;
   end;
 end;
@@ -867,10 +885,10 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prTransducer, position * 80 + 1, 80);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
   else
-    result := '';
+    Result := '';
 end;
 
 procedure TEDFDoc.SetPhysDim(const position: integer; const dimension: str8);
@@ -881,9 +899,9 @@ begin
   if ValidPosition(position, ns) then
   begin
     if length(prPhysDim) < ns * 8 then // PhysDim string too short?
-      prPhysDim := PadRight(prPhysDim, ns * 8);
+      prPhysDim  := PadRight(prPhysDim, ns * 8);
     filledString := PadRight(dimension, 8); // fill with spaces for length 8
-    prPhysDim := StuffString(prPhysDim, position * 8 + 1, 8, filledString);
+    prPhysDim    := StuffString(prPhysDim, position * 8 + 1, 8, filledString);
     CompileHeaderText;
   end;
 end;
@@ -896,10 +914,10 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prPhysDim, position * 8 + 1, 8);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
   else
-    result := '';
+    Result := '';
 end;
 
 procedure TEDFDoc.SetPhysMin(const position: integer; const physmin: str8);
@@ -910,9 +928,9 @@ begin
   if ValidPosition(position, ns) then
   begin
     if length(prPhysMin) < ns * 8 then // PhysMin string too short?
-      prPhysMin := PadRight(prPhysMin, ns * 8);
+      prPhysMin  := PadRight(prPhysMin, ns * 8);
     filledString := PadRight(physmin, 8); // fill with spaces for length 8
-    prPhysMin := StuffString(prPhysMin, position * 8 + 1, 8, filledString);
+    prPhysMin    := StuffString(prPhysMin, position * 8 + 1, 8, filledString);
     CompileHeaderText;
   end;
 end;
@@ -922,8 +940,9 @@ var
   pmString: Str8;
   oldFormatSettings: TFormatSettings;
 begin
-  if (physMin > 99999999) or (physMin < -9999999) then begin
-    status := rangeErr;
+  if (physMin > 99999999) or (physMin < -9999999) then
+  begin
+    status   := rangeErr;
     pmString := FloatToStr(NaN);
   end
   else
@@ -944,9 +963,10 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prPhysMin, position * 8 + 1, 8);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
-  else result := '';
+  else
+    Result := '';
 end;
 
 function TEDFDoc.eGetPhysMin(const position: integer): extended;
@@ -957,7 +977,7 @@ begin
   pmString := GetPhysMin(position);
   oldFormatSettings := DefaultFormatSettings;
   DefaultFormatSettings.DecimalSeparator := '.';
-  if not TryStrToFloat(Trim(pmString), result) then
+  if not TryStrToFloat(Trim(pmString), Result) then
     status := strFormatErr;
   DefaultFormatSettings := oldFormatSettings;
 end;
@@ -970,9 +990,9 @@ begin
   if ValidPosition(position, ns) then
   begin
     if length(prPhysMax) < ns * 8 then // PhysMax string too short?
-      prPhysMax := PadRight(prPhysMax, ns * 8);
+      prPhysMax  := PadRight(prPhysMax, ns * 8);
     filledString := PadRight(physmax, 8); // fill with spaces for length 8
-    prPhysMax := StuffString(prPhysMax, position * 8 + 1, 8, filledString);
+    prPhysMax    := StuffString(prPhysMax, position * 8 + 1, 8, filledString);
     CompileHeaderText;
   end;
 end;
@@ -982,8 +1002,9 @@ var
   pmString: Str8;
   oldFormatSettings: TFormatSettings;
 begin
-  if (physMax > 99999999) or (physMax < -9999999) then begin
-    status := rangeErr;
+  if (physMax > 99999999) or (physMax < -9999999) then
+  begin
+    status   := rangeErr;
     pmString := FloatToStr(NaN);
   end
   else
@@ -1004,9 +1025,10 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prPhysMax, position * 8 + 1, 8);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
-  else result := '';
+  else
+    Result := '';
 end;
 
 function TEDFDoc.eGetPhysMax(const position: integer): extended;
@@ -1017,7 +1039,7 @@ begin
   pmString := GetPhysMax(position);
   oldFormatSettings := DefaultFormatSettings;
   DefaultFormatSettings.DecimalSeparator := '.';
-  if not TryStrToFloat(Trim(pmString), result) then
+  if not TryStrToFloat(Trim(pmString), Result) then
     status := strFormatErr;
   DefaultFormatSettings := oldFormatSettings;
 end;
@@ -1030,9 +1052,9 @@ begin
   if ValidPosition(position, ns) then
   begin
     if length(prDigMin) < ns * 8 then // DigMin string too short?
-      prDigMin := PadRight(prDigMin, ns * 8);
+      prDigMin   := PadRight(prDigMin, ns * 8);
     filledString := PadRight(digmin, 8); // fill with spaces for length 8
-    prDigMin := StuffString(prDigMin, position * 8 + 1, 8, filledString);
+    prDigMin     := StuffString(prDigMin, position * 8 + 1, 8, filledString);
     CompileHeaderText;
   end;
 end;
@@ -1041,8 +1063,9 @@ procedure TEDFDoc.SetDigMin(const position: integer; const digmin: longint);
 var
   dmString: Str8;
 begin
-  if (digmin > 99999999) or (digmin < -9999999) then begin
-    status := rangeErr;
+  if (digmin > 99999999) or (digmin < -9999999) then
+  begin
+    status   := rangeErr;
     dmString := FloatToStr(NaN);
   end
   else
@@ -1058,9 +1081,10 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prDigMin, position * 8 + 1, 8);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
-  else result := '';
+  else
+    Result := '';
 end;
 
 function TEDFDoc.iGetDigMin(const position: integer): longint;
@@ -1068,14 +1092,14 @@ var
   dmString: Str8;
 begin
   dmString := GetDigMin(position);
-  if not TryStrToInt(Trim(dmString), result) then
+  if not TryStrToInt(Trim(dmString), Result) then
     status := strFormatErr;
 end;
 
 procedure TEDFDoc.SetDigMax(const position: integer; const digmax: str8);
 var
   filledString: str8;
-  ns: integer;
+  ns:  integer;
   idm: longint;
 begin
   if ValidPosition(position, ns) then
@@ -1089,9 +1113,9 @@ begin
       else
       begin
         if length(prDigMax) < ns * 8 then // DigMax string too short?
-          prDigMax := PadRight(prDigMax, ns * 8);
+          prDigMax   := PadRight(prDigMax, ns * 8);
         filledString := PadRight(digmax, 8); // fill with spaces for length 8
-        prDigMax := StuffString(prDigMax, position * 8 + 1, 8, filledString);
+        prDigMax     := StuffString(prDigMax, position * 8 + 1, 8, filledString);
         CompileHeaderText;
       end;
     end;
@@ -1102,8 +1126,9 @@ procedure TEDFDoc.SetDigMax(const position: integer; const digmax: longint);
 var
   dmString: Str8;
 begin
-  if (digmax > 99999999) or (digmax < -9999999) then begin
-    status := rangeErr;
+  if (digmax > 99999999) or (digmax < -9999999) then
+  begin
+    status   := rangeErr;
     dmString := FloatToStr(NaN);
   end
   else
@@ -1119,9 +1144,10 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prDigMax, position * 8 + 1, 8);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
-  else result := '';
+  else
+    Result := '';
 end;
 
 function TEDFDoc.iGetDigMax(const position: integer): longint;
@@ -1129,7 +1155,7 @@ var
   dmString: Str8;
 begin
   dmString := GetDigMax(position);
-  if not TryStrToInt(Trim(dmString), result) then
+  if not TryStrToInt(Trim(dmString), Result) then
     status := strFormatErr;
 end;
 
@@ -1142,8 +1168,8 @@ begin
   begin
     if length(prPrefilter) < ns * 80 then // Prefilter string too short?
       prPrefilter := PadRight(prPrefilter, ns * 80);
-    filledString := PadRight(prefilter, 80); // fill with spaces for length 80
-    prPrefilter := StuffString(prPrefilter, position * 80 + 1, 80, filledString);
+    filledString  := PadRight(prefilter, 80); // fill with spaces for length 80
+    prPrefilter   := StuffString(prPrefilter, position * 80 + 1, 80, filledString);
     CompileHeaderText;
   end;
 end;
@@ -1156,14 +1182,13 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prPrefilter, position * 80 + 1, 80);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
   else
-    result := '';
+    Result := '';
 end;
 
-procedure TEDFDoc.SetNumOfSamples(const position: integer;
-  const numOfSamples: str8);
+procedure TEDFDoc.SetNumOfSamples(const position: integer; const numOfSamples: str8);
 var
   filledString: str8;
   ns: integer;
@@ -1172,20 +1197,20 @@ begin
   begin
     if length(prNumOfSamples) < ns * 8 then // PhysMin string too short?
       prNumOfSamples := PadRight(prNumOfSamples, ns * 8);
-    filledString := PadRight(numOfSamples, 8); // fill with spaces for length 8
-    prNumOfSamples := StuffString(prNumOfSamples, position * 8 + 1, 8, filledString);
+    filledString     := PadRight(numOfSamples, 8); // fill with spaces for length 8
+    prNumOfSamples   := StuffString(prNumOfSamples, position * 8 + 1, 8, filledString);
     CompileHeaderText;
     DimDataRecord;
   end;
 end;
 
-procedure TEDFDoc.SetNumOfSamples(const position: integer;
-  const numOfSamples: longint);
+procedure TEDFDoc.SetNumOfSamples(const position: integer; const numOfSamples: longint);
 var
   nsaString: Str8;
 begin
-  if (numOfSamples < 0) or (numOfSamples > 99999999) then begin
-    status := rangeErr;
+  if (numOfSamples < 0) or (numOfSamples > 99999999) then
+  begin
+    status    := rangeErr;
     nsaString := FloatToStr(NaN);
   end
   else
@@ -1201,9 +1226,10 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prNumOfSamples, position * 8 + 1, 8);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
-  else result := '';
+  else
+    Result := '';
 end;
 
 function TEDFDoc.iGetNumOfSamples(const position: integer): longint;
@@ -1211,12 +1237,11 @@ var
   nsaString: Str8;
 begin
   nsaString := GetNumOfSamples(position);
-  if not TryStrToInt(Trim(nsaString), result) then
+  if not TryStrToInt(Trim(nsaString), Result) then
     status := strFormatErr;
 end;
 
-procedure TEDFDoc.SetReserved2(const position: integer;
-  const Reserved2Str: Str32);
+procedure TEDFDoc.SetReserved2(const position: integer; const Reserved2Str: Str32);
 var
   filledString: str80;
   ns: integer;
@@ -1225,8 +1250,8 @@ begin
   begin
     if length(prReserved2) < ns * 32 then // Prefilter string too short?
       prReserved2 := PadRight(prReserved2, ns * 32);
-    filledString := PadRight(prReserved2, 32); // fill with spaces for length 32
-    prReserved2 := StuffString(prReserved2, position * 32 + 1, 32, filledString);
+    filledString  := PadRight(prReserved2, 32); // fill with spaces for length 32
+    prReserved2   := StuffString(prReserved2, position * 32 + 1, 32, filledString);
     CompileHeaderText;
   end;
 end;
@@ -1239,26 +1264,27 @@ begin
   if ValidPosition(position, ns) then
   begin
     subString := copy(prReserved2, position * 32 + 1, 32);
-    result := Trim(subString);
+    Result    := Trim(subString);
   end
   else
-    result := '';
+    Result := '';
 end;
 
 function TEDFDoc.GetAdjustmentFactor(const position: integer): extended;
 begin
   if iDigMax[position] - iDigMin[Position] > 0 then
-    result := (ePhysMax[position] - ePhysMin[position]) /
-            (iDigMax[position] - iDigMin[Position])
-  else result := Math.NaN;
+    Result := (ePhysMax[position] - ePhysMin[position]) /
+      (iDigMax[position] - iDigMin[Position])
+  else
+    Result := Math.NaN;
 end;
 
 procedure TEDFDoc.DimDataRecord;
 var
   imax, kmax: longint;
   jmax: integer;
-  j: integer;
-  m: longint;
+  j:    integer;
+  m:    longint;
 begin
   imax := iNumOfDataRecs;
   jmax := iNumOfSignals;
@@ -1269,55 +1295,59 @@ begin
     if m > kmax then
       kmax := m;
   end;
-  if imax < 0 then imax := 0;
-  if jmax < 0 then jmax := 0;
-  if kmax < 0 then kmax := 0;
+  if imax < 0 then
+    imax := 0;
+  if jmax < 0 then
+    jmax := 0;
+  if kmax < 0 then
+    kmax := 0;
   SetLength(FRawDataRecord, imax, jmax, kmax);
   SetLength(FScaledDataRecord, imax, jmax, kmax);
- end;
+end;
 
 function TEDFDoc.GetScaled(const aRecord: longint; aSignal: integer;
-  aSample: longint): Single;
+  aSample: longint): single;
 begin
   if isNaN(AdjustmentFactor[aSignal]) then
-    result := Math.NaN
+    Result := Math.NaN
   else
-    result := ePhysMin[aSignal] + AdjustmentFactor[aSignal] *
-        (FRawDataRecord[aRecord, aSignal, aSample] - iDigMin[aSignal]);
+    Result := ePhysMin[aSignal] + AdjustmentFactor[aSignal] *
+      (FRawDataRecord[aRecord, aSignal, aSample] - iDigMin[aSignal]);
 end;
 
 function TEDFDoc.GetUnscaled(const aRecord: longint; aSignal: integer;
-  aSample: longint): SmallInt;
+  aSample: longint): smallint;
 begin
   if isNaN(AdjustmentFactor[aSignal]) then
-    result := 0
+    Result := 0
   else
-    result := Round(iDigMin[aSignal] + (FScaledDataRecord[aRecord, aSignal, aSample] -
-         ePhysMin[aSignal]) / AdjustmentFactor[aSignal]);
+    Result := Round(iDigMin[aSignal] +
+      (FScaledDataRecord[aRecord, aSignal, aSample] - ePhysMin[aSignal]) /
+      AdjustmentFactor[aSignal]);
 end;
 
 constructor TEDFDoc.Create;
 begin
   inherited Create;
-  status := 0;
-  prVersion := kEDFVersion;
+  status      := 0;
+  prVersion   := kEDFVersion;
   prNumOfDataRecs := kUnknown;
   prLocalPatID := kEmpty80;
   prLocalRecID := kEmpty80;
   prStartDate := kDefaultDate;
   prStartTime := kDefaultTime;
   prNumOfBytes := kEmpty8;
-  prReserved := kEmpty44;
+  prReserved  := kEmpty44;
   prNumOfDataRecs := kUnknown;
   prDurOfData := kEmpty8;
   prNumOfSignals := kEmpty4;
-  prLabel := kEmpty0;
+  prLabel     := kEmpty0;
   prTransducer := kEmpty0;
-  prPhysDim := kEmpty0;
-  prPhysMin := kEmpty0;
-  prPhysMax := kEmpty0;
-  prDigMin := kEmpty0;
-  prDigMax := kEmpty0;
+  prPhysDim   := kEmpty0;
+  prPhysMin   := kEmpty0;
+  prPhysMax   := kEmpty0;
+  prDigMin    := kEmpty0;
+  prDigMax    := kEmpty0;
   prPrefilter := kEmpty0;
   prNumOfSamples := kEmpty0;
   prReserved2 := kEmpty0;
@@ -1336,27 +1366,27 @@ begin
   prNumOfDataRecs := kUnknown;
   prLocalPatID := kEmpty80;
   prLocalRecID := kEmpty80;
-  prStartDate := kUnknown;
-  prStartTime := kUnknown;
+  prStartDate  := kUnknown;
+  prStartTime  := kUnknown;
   prNumOfBytes := kUnknown;
-  prReserved := kEmpty44;
+  prReserved   := kEmpty44;
   prNumOfDataRecs := kUnknown;
-  prDurOfData := kUnknown;
+  prDurOfData  := kUnknown;
   prNumOfSignals := kEmpty4;
-  prLabel := kEmpty0;
+  prLabel      := kEmpty0;
   prTransducer := kEmpty0;
-  prPhysDim := kEmpty0;
-  prPhysMin := kEmpty0;
-  prPhysMax := kEmpty0;
-  prDigMin := kEmpty0;
-  prDigMax := kEmpty0;
-  prPrefilter := kEmpty0;
+  prPhysDim    := kEmpty0;
+  prPhysMin    := kEmpty0;
+  prPhysMax    := kEmpty0;
+  prDigMin     := kEmpty0;
+  prDigMax     := kEmpty0;
+  prPrefilter  := kEmpty0;
   prNumOfSamples := kEmpty0;
-  prReserved2 := kEmpty0;
+  prReserved2  := kEmpty0;
   CompileHeaderText;
 end;
 
-procedure TEDFDoc.ReadFromFile(const aFileName: AnsiString);
+procedure TEDFDoc.ReadFromFile(const aFileName: ansistring);
 begin
   ReadEDFFile(self, aFileName);
 end;
@@ -1367,4 +1397,3 @@ begin
 end;
 
 end.
-

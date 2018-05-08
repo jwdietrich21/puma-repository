@@ -8,7 +8,7 @@ object PlotForm: TPlotForm
   ClientWidth = 652
   Color = clWhite
   Constraints.MinHeight = 395
-  LCLVersion = '1.8.2.0'
+  LCLVersion = '1.8.0.6'
   object Chart1: TChart
     Left = 16
     Height = 184
@@ -16,22 +16,18 @@ object PlotForm: TPlotForm
     Width = 497
     AxisList = <    
       item
-        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Title.LabelFont.Orientation = 900
-        Title.LabelBrush.Style = bsClear
       end    
       item
         Intervals.MaxLength = 100
         Alignment = calBottom
-        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Range.Max = 10
         Range.UseMax = True
         Range.UseMin = True
         Title.Visible = True
         Title.Caption = 't'
-        Title.LabelBrush.Style = bsClear
       end>
     BackColor = clWhite
     Foot.Brush.Color = clBtnFace
@@ -55,7 +51,7 @@ object PlotForm: TPlotForm
     Top = 24
     Width = 100
     Anchors = [akTop, akRight]
-    ItemHeight = 0
+    ItemHeight = 13
     OnChange = ComboBox1Change
     TabOrder = 1
     Text = 'ComboBox1'
@@ -67,22 +63,18 @@ object PlotForm: TPlotForm
     Width = 497
     AxisList = <    
       item
-        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Title.LabelFont.Orientation = 900
-        Title.LabelBrush.Style = bsClear
       end    
       item
         Intervals.MaxLength = 100
         Alignment = calBottom
-        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Range.Max = 10
         Range.UseMax = True
         Range.UseMin = True
         Title.Visible = True
         Title.Caption = 't'
-        Title.LabelBrush.Style = bsClear
       end>
     BackColor = clWhite
     Foot.Brush.Color = clBtnFace
@@ -106,7 +98,7 @@ object PlotForm: TPlotForm
     Top = 216
     Width = 100
     Anchors = [akTop, akRight]
-    ItemHeight = 0
+    ItemHeight = 13
     OnChange = ComboBox1Change
     TabOrder = 3
     Text = 'ComboBox2'
@@ -133,7 +125,7 @@ object PlotForm: TPlotForm
   end
   object SpinEdit1: TSpinEdit
     Left = 528
-    Height = 16
+    Height = 21
     Top = 178
     Width = 96
     OnChange = SpinEdit1Change
