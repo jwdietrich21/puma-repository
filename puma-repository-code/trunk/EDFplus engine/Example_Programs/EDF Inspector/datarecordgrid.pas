@@ -97,7 +97,7 @@ begin
       application.ProcessMessages;
       m := 1;
       ScaledDataGrid.BeginUpdate;
-      for i := 0 to imax do  // Records
+      for i := 0 to imax do    // Records
       begin
         for j := 0 to jmax do  // Signals
         for k := 0 to kmax do  // Samples
@@ -148,7 +148,7 @@ begin
     application.ProcessMessages;
     m := 1;
     RawDataGrid.BeginUpdate;
-    for i := 0 to imax do  // Records
+    for i := 0 to imax do    // Records
     begin
       for j := 0 to jmax do  // Signals
       for k := 0 to kmax do  // Samples

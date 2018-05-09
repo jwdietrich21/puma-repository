@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="18">
+    <Units Count="20">
       <Unit0>
         <Filename Value="EDFInspector.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -21,8 +21,7 @@
         <UnitName Value="GUI"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="167"/>
-        <CursorPos X="13" Y="173"/>
+        <CursorPos Y="2"/>
         <UsageCount Value="46"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -65,8 +64,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="DataRecordGrid"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="80"/>
-        <CursorPos Y="109"/>
+        <CursorPos Y="2"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -173,128 +171,141 @@
         <CursorPos Y="9628"/>
         <UsageCount Value="11"/>
       </Unit17>
+      <Unit18>
+        <Filename Value="../../../../../../../../../../../lazarus/lcl/include/application.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="353"/>
+        <CursorPos X="12" Y="375"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="../../../../../../../../../../../lazarus/lcl/interfacebase.pp"/>
+        <UnitName Value="InterfaceBase"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="211"/>
+        <UsageCount Value="10"/>
+      </Unit19>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="plot.pas"/>
-        <Caret Line="85" TopLine="58"/>
+        <Caret Line="110" TopLine="92"/>
       </Position1>
       <Position2>
         <Filename Value="plot.pas"/>
-        <Caret Line="88" TopLine="58"/>
+        <Caret Line="111" TopLine="92"/>
       </Position2>
       <Position3>
         <Filename Value="plot.pas"/>
-        <Caret Line="75" Column="19" TopLine="59"/>
+        <Caret Line="112" TopLine="92"/>
       </Position3>
       <Position4>
         <Filename Value="plot.pas"/>
-        <Caret Line="49" Column="42" TopLine="45"/>
+        <Caret Line="110" TopLine="92"/>
       </Position4>
       <Position5>
         <Filename Value="plot.pas"/>
-        <Caret Line="100" Column="19" TopLine="70"/>
+        <Caret Line="111" TopLine="92"/>
       </Position5>
       <Position6>
         <Filename Value="plot.pas"/>
-        <Caret Line="49" Column="29" TopLine="31"/>
+        <Caret Line="112" TopLine="92"/>
       </Position6>
       <Position7>
         <Filename Value="plot.pas"/>
-        <Caret Line="71" Column="23" TopLine="47"/>
+        <Caret Line="110" TopLine="92"/>
       </Position7>
       <Position8>
-        <Filename Value="../../edf.pas"/>
-        <Caret Line="337" Column="41" TopLine="308"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="111" TopLine="92"/>
       </Position8>
       <Position9>
         <Filename Value="plot.pas"/>
-        <Caret Line="81" Column="19" TopLine="72"/>
+        <Caret Line="112" TopLine="92"/>
       </Position9>
       <Position10>
         <Filename Value="plot.pas"/>
-        <Caret Line="83" Column="19" TopLine="74"/>
+        <Caret Line="110" TopLine="92"/>
       </Position10>
       <Position11>
         <Filename Value="plot.pas"/>
-        <Caret Line="114" Column="44" TopLine="97"/>
+        <Caret Line="111" TopLine="92"/>
       </Position11>
       <Position12>
         <Filename Value="plot.pas"/>
-        <Caret Line="115" Column="44" TopLine="98"/>
+        <Caret Line="112" TopLine="92"/>
       </Position12>
       <Position13>
         <Filename Value="plot.pas"/>
-        <Caret Line="114" Column="44" TopLine="97"/>
+        <Caret Line="110" TopLine="92"/>
       </Position13>
       <Position14>
         <Filename Value="plot.pas"/>
-        <Caret Line="115" Column="44" TopLine="98"/>
+        <Caret Line="114" TopLine="92"/>
       </Position14>
       <Position15>
         <Filename Value="plot.pas"/>
-        <Caret Line="122" Column="44" TopLine="105"/>
+        <Caret Line="108" TopLine="92"/>
       </Position15>
       <Position16>
         <Filename Value="plot.pas"/>
-        <Caret Line="77" Column="49" TopLine="75"/>
+        <Caret Line="110" TopLine="92"/>
       </Position16>
       <Position17>
         <Filename Value="plot.pas"/>
-        <Caret Line="82" Column="35" TopLine="65"/>
+        <Caret Line="106" TopLine="92"/>
       </Position17>
       <Position18>
         <Filename Value="plot.pas"/>
-        <Caret Line="118" Column="3" TopLine="83"/>
+        <Caret Line="114" TopLine="92"/>
       </Position18>
       <Position19>
         <Filename Value="plot.pas"/>
-        <Caret Line="108" Column="36" TopLine="76"/>
+        <Caret Line="108" TopLine="92"/>
       </Position19>
       <Position20>
         <Filename Value="plot.pas"/>
-        <Caret Line="119" Column="35" TopLine="91"/>
+        <Caret Line="110" TopLine="92"/>
       </Position20>
       <Position21>
-        <Filename Value="../../edf.pas"/>
-        <Caret Line="337" Column="41" TopLine="309"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="155" TopLine="125"/>
       </Position21>
       <Position22>
-        <Filename Value="datarecordgrid.pas"/>
-        <Caret Line="168" TopLine="121"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="110" TopLine="92"/>
       </Position22>
       <Position23>
-        <Filename Value="gui.pas"/>
-        <Caret Line="230" Column="27" TopLine="206"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="106" TopLine="92"/>
       </Position23>
       <Position24>
-        <Filename Value="gui.pas"/>
-        <Caret Line="2"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="114" TopLine="92"/>
       </Position24>
       <Position25>
-        <Filename Value="datarecordgrid.pas"/>
-        <Caret Line="160" Column="3" TopLine="132"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="114" TopLine="92"/>
       </Position25>
       <Position26>
-        <Filename Value="../../edf.pas"/>
-        <Caret Line="66" Column="12" TopLine="40"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="108" TopLine="92"/>
       </Position26>
       <Position27>
-        <Filename Value="../../edf.pas"/>
-        <Caret Line="349" Column="36" TopLine="326"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="110" TopLine="92"/>
       </Position27>
       <Position28>
-        <Filename Value="gui.pas"/>
-        <Caret Line="2"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="155" TopLine="125"/>
       </Position28>
-      <Position29>
-        <Filename Value="datarecordgrid.pas"/>
-        <Caret Line="2" Column="7" TopLine="76"/>
-      </Position29>
-      <Position30>
-        <Filename Value="gui.pas"/>
-        <Caret Line="2" TopLine="163"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <Watches Count="1">
+      <Item1>
+        <Expression Value="gEDFFile.status"/>
+      </Item1>
+    </Watches>
+  </Debugging>
 </CONFIG>

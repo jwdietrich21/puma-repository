@@ -364,7 +364,7 @@ function TMainForm.EDFDoc: TEDFDoc;
 { Creates a rather simple EDF document for testing and demonstration purposes }
 var
   i, k, m: longint;
-  imax, kmax, Samples: longint;
+  imax, kmax, Samples, signalIndex: longint;
   j: integer;
   jmax: integer;
   maxDur, RecordBytes: integer;
@@ -380,33 +380,45 @@ begin
   result.dStartDate := now;
   result.dStartTime := now;
   result.iNumOfSignals := length(signalRecord);
-  for j := 0 to FunctionComboBox.Items.Count - 1 do
+  for j := 0 to result.iNumOfSignals - 1 do
   begin
     if signalRecord[j].duration > maxDur then
       maxDur := signalRecord[j].duration;
     RecordBytes := RecordBytes + length(signalRecord[j].timeSeries.values) * 2;
-    result.SignalLabel[j] := FunctionComboBox.Items[j];
-    result.Transducer[j] := 'Simulated time series';
-    result.PhysDim[j] := 'AU';
-    if length(signalRecord[j].timeSeries.values) > 0 then
+    signalIndex := longint(signalRecord[j].basicFunction);
+    if signalIndex >= 0 then
     begin
-      result.PhysMin[j] := MinValue(signalRecord[j].timeSeries.values);
-      result.PhysMax[j] := MaxValue(signalRecord[j].timeSeries.values);
-      result.digMin[j] := round(result.ePhysMin[j] * 100);
-      result.digMax[j] := round(result.ePhysMax[j] * 100);
+      result.SignalLabel[j] := FunctionComboBox.Items[signalIndex];
+      result.Transducer[j] := 'Simulated time series';
+      result.PhysDim[j] := 'AU';
+      if length(signalRecord[j].timeSeries.values) > 0 then
+      begin
+        result.PhysMin[j] := MinValue(signalRecord[j].timeSeries.values);
+        result.PhysMax[j] := MaxValue(signalRecord[j].timeSeries.values);
+        result.digMin[j] := round(result.ePhysMin[j] * 100);
+        result.digMax[j] := round(result.ePhysMax[j] * 100);
+      end
+      else
+      begin
+        result.PhysMin[j] := -1;
+        result.PhysMax[j] := 0;
+        result.digMin[j] := -1;
+        result.digMax[j] := 0;
+      end;
+      result.Prefilter[j] := 'None';
+      result.iNumOfSamples[j] := length(signalRecord[j].timeSeries.time);
+      if result.iNumOfSamples[j] > Samples then
+        Samples := result.iNumOfSamples[j];
+        { TODO -oJWD : Sample count should be signal-specific }
     end
     else
     begin
-      result.PhysMin[j] := 0;
+      result.PhysMin[j] := -1;
       result.PhysMax[j] := 0;
-      result.digMin[j] := 0;
+      result.digMin[j] := -1;
       result.digMax[j] := 0;
+      result.iNumOfSamples[j] := 0;
     end;
-    result.Prefilter[j] := 'None';
-    result.iNumOfSamples[j] := length(signalRecord[j].timeSeries.time);
-    if result.iNumOfSamples[j] > Samples then
-      Samples := result.iNumOfSamples[j];
-      { TODO -oJWD : Sample count should be signal-specific }
   end;
   imax := 1 + RecordBytes div kMaxRecordBytes; // Number of records
   result.iNumOfDataRecs := imax;
