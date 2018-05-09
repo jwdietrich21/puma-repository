@@ -106,7 +106,8 @@ begin
           ScaledDataGrid.Cells[j + 1, m] := FloatToStrF(scaledValue, ffGeneral, 3, 2);
           m := i * kmax + k;
         end;
-        ProgressBar1.Position := trunc(i / imax * 100);
+        if imax > 0 then
+          ProgressBar1.Position := trunc(i / imax * 100);
         application.ProcessMessages;
       end;
       ScaledDataGrid.EndUpdate;

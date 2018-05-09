@@ -380,32 +380,32 @@ begin
   result.dStartDate := now;
   result.dStartTime := now;
   result.iNumOfSignals := length(signalRecord);
-  for i := 0 to FunctionComboBox.Items.Count - 1 do
+  for j := 0 to FunctionComboBox.Items.Count - 1 do
   begin
-    if signalRecord[i].duration > maxDur then
-      maxDur := signalRecord[i].duration;
-    RecordBytes := RecordBytes + length(signalRecord[i].timeSeries.values) * 2;
-    result.SignalLabel[i] := FunctionComboBox.Items[i];
-    result.Transducer[i] := 'Simulated time series';
-    result.PhysDim[i] := 'AU';
-    if length(signalRecord[i].timeSeries.values) > 0 then
+    if signalRecord[j].duration > maxDur then
+      maxDur := signalRecord[j].duration;
+    RecordBytes := RecordBytes + length(signalRecord[j].timeSeries.values) * 2;
+    result.SignalLabel[j] := FunctionComboBox.Items[j];
+    result.Transducer[j] := 'Simulated time series';
+    result.PhysDim[j] := 'AU';
+    if length(signalRecord[j].timeSeries.values) > 0 then
     begin
-      result.PhysMin[i] := MinValue(signalRecord[i].timeSeries.values);
-      result.PhysMax[i] := MaxValue(signalRecord[i].timeSeries.values);
-      result.digMin[i] := round(result.ePhysMin[i] * 100);
-      result.digMax[i] := round(result.ePhysMax[i] * 100);
+      result.PhysMin[j] := MinValue(signalRecord[j].timeSeries.values);
+      result.PhysMax[j] := MaxValue(signalRecord[j].timeSeries.values);
+      result.digMin[j] := round(result.ePhysMin[j] * 100);
+      result.digMax[j] := round(result.ePhysMax[j] * 100);
     end
     else
     begin
-      result.PhysMin[i] := 0;
-      result.PhysMax[i] := 0;
-      result.digMin[i] := 0;
-      result.digMax[i] := 0;
+      result.PhysMin[j] := 0;
+      result.PhysMax[j] := 0;
+      result.digMin[j] := 0;
+      result.digMax[j] := 0;
     end;
-    result.Prefilter[i] := 'None';
-    result.iNumOfSamples[i] := length(signalRecord[i].timeSeries.time);
-    if result.iNumOfSamples[i] > Samples then
-      Samples := result.iNumOfSamples[i];
+    result.Prefilter[j] := 'None';
+    result.iNumOfSamples[j] := length(signalRecord[j].timeSeries.time);
+    if result.iNumOfSamples[j] > Samples then
+      Samples := result.iNumOfSamples[j];
       { TODO -oJWD : Sample count should be signal-specific }
   end;
   imax := 1 + RecordBytes div kMaxRecordBytes; // Number of records
@@ -418,8 +418,11 @@ begin
   for k := 0 to kmax - 1 do
   begin
     m := i * kmax + k;
-    result.ScaledDataRecord[i, j, k] := signalRecord[i].timeSeries.values[m];
-    result.RawDataRecord[i, j, k] := result.Unscaled[i, j, k];
+    if result.iNumOfSamples[j] > 0 then
+    begin
+      result.ScaledDataRecord[i, j, k] := signalRecord[i].timeSeries.values[m];
+      result.RawDataRecord[i, j, k] := result.Unscaled[i, j, k];
+    end;
   end;
 end;
 
