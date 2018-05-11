@@ -336,9 +336,14 @@ procedure TEDFPlusDocTestCases.EDFFullDocTest;
 var
   theDoc: TEDFplusDoc;
   j, k: integer;
+  PatData: TLocalPatRecord;
 begin
   theDoc := TEDFPlusDoc.Create;
-  theDoc.LocalPatID := 'Lieschen Müller';
+  PatData.Name := 'Lieschen Müller';
+  PatData.HospitalCode := '01234567 54321';
+  PatData.Sex := 'F';
+  PatData.BirthDate := '31-Dec-1913';
+  theDoc.LocalPatID := PatData;
   theDoc.LocalRecID := 'simulated test recording';
   theDoc.dStartDate := now;
   theDoc.dStartTime := now;
@@ -363,6 +368,7 @@ begin
   theDoc.Prefilter[1] := 'LP:0.1Hz';
   theDoc.iNumOfSamples[0] := 31;
   theDoc.iNumOfSamples[1] := 3;
+  AssertEquals('31-Dec-1913', theDoc.LocalPatID.BirthDate);
   AssertEquals('test signal 2', theDoc.SignalLabel[1]);
   AssertEquals(3, theDoc.iNumOfSamples[1]);
   for j := 1 to theDoc.iNumOfSignals do

@@ -35,16 +35,49 @@ uses
 
 type
 
-{ TEDFplusDoc }
+  str11 = string[11];
 
-TEDFplusDoc = class(TEDFDoc)
-  public
-    constructor Create;
-    destructor Destroy; override;
+  TLocalPatRecord = record
+    HospitalCode: Str80;
+    Sex: char;
+    BirthDate: Str11;
+    Name: Str80;
   end;
+
+  { TEDFplusDoc }
+
+  TEDFplusDoc = class(TEDFDoc)
+    protected
+      function GetLocalPatID: TLocalPatRecord;
+      procedure SetLocalPatID(const ID: TLocalPatRecord);
+    public
+      constructor Create;
+      destructor Destroy; override;
+      property LocalPatID: TLocalPatRecord read GetLocalPatID write SetLocalPatID;
+    end;
 
 
 implementation
+
+function TEDFplusDoc.GetLocalPatID: TLocalPatRecord;
+var
+  containerString: Str80;
+begin
+  containerString := inherited;
+  Result.HospitalCode := AnsiReplaceText(ExtractDelimited(1, containerString, [' ']), '_', ' ');
+  Result.Sex := char(ExtractDelimited(2, containerString, [' '])[1]);
+  Result.BirthDate := ExtractDelimited(3, containerString, [' ']); ;
+  Result.Name := AnsiReplaceText(ExtractDelimited(4, containerString, [' ']), '_', ' ');
+end;
+
+procedure TEDFplusDoc.SetLocalPatID(const ID: TLocalPatRecord);
+var
+  containerString: Str80;
+begin
+  containerString := AnsiReplaceText(ID.HospitalCode, ' ', '_') + ' ' +
+    ID.Sex + ' ' + ID.BirthDate + ' ' + AnsiReplaceText(ID.Name, ' ', '_');
+  inherited SetLocalPatID(containerString);
+end;
 
 constructor TEDFplusDoc.Create;
 begin
