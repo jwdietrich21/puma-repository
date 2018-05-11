@@ -3,13 +3,13 @@
   <ProjectSession>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="20">
+    <Units Count="21">
       <Unit0>
         <Filename Value="EDFInspector.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="4"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -19,10 +19,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="GUI"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -30,6 +29,7 @@
         <Filename Value="../../edf.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDF"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos Y="2"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
@@ -44,7 +44,7 @@
           <TopLine Value="1215"/>
           <CursorPos X="28" Y="1242"/>
         </ExtraEditor2>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -54,7 +54,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
       </Unit3>
       <Unit4>
         <Filename Value="datarecordgrid.pas"/>
@@ -65,7 +65,7 @@
         <UnitName Value="DataRecordGrid"/>
         <EditorIndex Value="2"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit4>
@@ -78,7 +78,7 @@
         <UnitName Value="Plot"/>
         <EditorIndex Value="1"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit5>
@@ -185,127 +185,145 @@
         <CursorPos X="3" Y="211"/>
         <UsageCount Value="10"/>
       </Unit19>
+      <Unit20>
+        <Filename Value="../../../../../../../../../../../lazarus/lcl/include/spinedit.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="209"/>
+        <CursorPos Y="227"/>
+        <UsageCount Value="10"/>
+      </Unit20>
     </Units>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="plot.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Caret Line="108" TopLine="89"/>
       </Position1>
       <Position2>
         <Filename Value="plot.pas"/>
-        <Caret Line="111" TopLine="92"/>
+        <Caret Line="115" TopLine="89"/>
       </Position2>
       <Position3>
         <Filename Value="plot.pas"/>
-        <Caret Line="112" TopLine="92"/>
+        <Caret Line="107" Column="73" TopLine="89"/>
       </Position3>
       <Position4>
         <Filename Value="plot.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Caret Line="105" TopLine="89"/>
       </Position4>
       <Position5>
         <Filename Value="plot.pas"/>
-        <Caret Line="111" TopLine="92"/>
+        <Caret Line="111" TopLine="89"/>
       </Position5>
       <Position6>
         <Filename Value="plot.pas"/>
-        <Caret Line="112" TopLine="92"/>
+        <Caret Line="118" TopLine="89"/>
       </Position6>
       <Position7>
         <Filename Value="plot.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Caret Line="111" TopLine="89"/>
       </Position7>
       <Position8>
         <Filename Value="plot.pas"/>
-        <Caret Line="111" TopLine="92"/>
+        <Caret Line="118" TopLine="89"/>
       </Position8>
       <Position9>
         <Filename Value="plot.pas"/>
-        <Caret Line="112" TopLine="92"/>
+        <Caret Line="111" TopLine="89"/>
       </Position9>
       <Position10>
         <Filename Value="plot.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Caret Line="118" TopLine="89"/>
       </Position10>
       <Position11>
         <Filename Value="plot.pas"/>
-        <Caret Line="111" TopLine="92"/>
+        <Caret Line="111" TopLine="89"/>
       </Position11>
       <Position12>
         <Filename Value="plot.pas"/>
-        <Caret Line="112" TopLine="92"/>
+        <Caret Line="118" TopLine="89"/>
       </Position12>
       <Position13>
         <Filename Value="plot.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Caret Line="107" TopLine="89"/>
       </Position13>
       <Position14>
         <Filename Value="plot.pas"/>
-        <Caret Line="114" TopLine="92"/>
+        <Caret Line="108" TopLine="89"/>
       </Position14>
       <Position15>
         <Filename Value="plot.pas"/>
-        <Caret Line="108" TopLine="92"/>
+        <Caret Line="111" TopLine="89"/>
       </Position15>
       <Position16>
         <Filename Value="plot.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Caret Line="118" TopLine="89"/>
       </Position16>
       <Position17>
         <Filename Value="plot.pas"/>
-        <Caret Line="106" TopLine="92"/>
+        <Caret Line="107" TopLine="89"/>
       </Position17>
       <Position18>
         <Filename Value="plot.pas"/>
-        <Caret Line="114" TopLine="92"/>
+        <Caret Line="108" TopLine="89"/>
       </Position18>
       <Position19>
         <Filename Value="plot.pas"/>
-        <Caret Line="108" TopLine="92"/>
+        <Caret Line="111" TopLine="89"/>
       </Position19>
       <Position20>
         <Filename Value="plot.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Caret Line="118" TopLine="89"/>
       </Position20>
       <Position21>
         <Filename Value="plot.pas"/>
-        <Caret Line="155" TopLine="125"/>
+        <Caret Line="107" TopLine="89"/>
       </Position21>
       <Position22>
         <Filename Value="plot.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Caret Line="108" TopLine="89"/>
       </Position22>
       <Position23>
         <Filename Value="plot.pas"/>
-        <Caret Line="106" TopLine="92"/>
+        <Caret Line="111" TopLine="89"/>
       </Position23>
       <Position24>
         <Filename Value="plot.pas"/>
-        <Caret Line="114" TopLine="92"/>
+        <Caret Line="118" TopLine="89"/>
       </Position24>
       <Position25>
         <Filename Value="plot.pas"/>
-        <Caret Line="114" TopLine="92"/>
+        <Caret Line="107" TopLine="89"/>
       </Position25>
       <Position26>
         <Filename Value="plot.pas"/>
-        <Caret Line="108" TopLine="92"/>
+        <Caret Line="108" TopLine="89"/>
       </Position26>
       <Position27>
         <Filename Value="plot.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Caret Line="111" TopLine="89"/>
       </Position27>
       <Position28>
         <Filename Value="plot.pas"/>
-        <Caret Line="155" TopLine="125"/>
+        <Caret Line="118" TopLine="89"/>
       </Position28>
+      <Position29>
+        <Filename Value="plot.pas"/>
+        <Caret Line="107" TopLine="89"/>
+      </Position29>
+      <Position30>
+        <Filename Value="plot.pas"/>
+        <Caret Line="111" TopLine="89"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <Watches Count="1">
+    <Watches Count="2">
       <Item1>
         <Expression Value="gEDFFile.status"/>
       </Item1>
+      <Item2>
+        <Expression Value="openFile.FScaledDataRecord"/>
+      </Item2>
     </Watches>
   </Debugging>
 </CONFIG>

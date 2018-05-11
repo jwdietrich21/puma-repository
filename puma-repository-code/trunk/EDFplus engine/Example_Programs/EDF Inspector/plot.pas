@@ -98,13 +98,17 @@ var
 begin
   if openFile.StatusCode = noErr then
   begin
-    kmax := high(openFile.ScaledDataRecord[0, 0]);  // Samples
     m := 1;
     j := ComboBox1.ItemIndex;
     ySeries1.BeginUpdate;
     ySeries1.Clear;
     for i := 0 to SpinEdit1.Value do  // Records
     begin
+      if i > high(openFile.ScaledDataRecord) then // data not available?
+        kmax := 0
+      else
+        kmax := high(openFile.ScaledDataRecord[i, j]);  // Samples
+      if kmax > 0 then
       for k := 0 to kmax do  // Samples
       begin
         scaledValue := openFile.ScaledDataRecord[i, j, k];
@@ -120,7 +124,12 @@ begin
     ySeries2.Clear;
     for i := 0 to SpinEdit1.Value do  // Records
     begin
-      for k := 0 to kmax do  // Samples
+      if i > high(openFile.ScaledDataRecord) then // data not available?
+        kmax := 0
+      else
+        kmax := high(openFile.ScaledDataRecord[i, j]);  // Samples
+     if kmax > 0 then
+     for k := 0 to kmax do  // Samples
       begin
         scaledValue := openFile.ScaledDataRecord[i, j, k];
         ySeries2.AddXY(m, scaledValue);
