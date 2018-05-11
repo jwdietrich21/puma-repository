@@ -31,7 +31,7 @@ unit EDFTestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, EDF;
+  Classes, SysUtils, fpcunit, testutils, testregistry, EDF, EDFplus;
 
 type
 
@@ -42,8 +42,6 @@ type
     procedure PositiveCheck;
     procedure CodeVersionCheck;
   end;
-
-  { TEDFplusDocTestCases }
 
   { TEDFDocTestCases }
 
@@ -66,8 +64,15 @@ type
     procedure EDFFullDocTest;
   end;
 
-implementation
+  { TEDFplusDocTestCases }
 
+  TEDFPlusDocTestCases = class(TTestCase)
+  published
+    procedure EDFFullDocTest;
+  end;
+
+
+implementation
 
 { -- Base functionality test -- }
 
@@ -325,10 +330,56 @@ begin
   theDoc.Destroy;
 end;
 
+{ TEDFPlusDocTestCases }
+
+procedure TEDFPlusDocTestCases.EDFFullDocTest;
+var
+  theDoc: TEDFplusDoc;
+  j, k: integer;
+begin
+  theDoc := TEDFPlusDoc.Create;
+  theDoc.LocalPatID := 'Lieschen Müller';
+  theDoc.LocalRecID := 'simulated test recording';
+  theDoc.dStartDate := now;
+  theDoc.dStartTime := now;
+  theDoc.iNumOfDataRecs := 1;
+  theDoc.iDurationOfData := 13;
+  theDoc.iNumOfSignals := 2;
+  theDoc.SignalLabel[0] := 'test signal 1';
+  theDoc.SignalLabel[1] := 'test signal 2';
+  theDoc.Transducer[0] := 'AgAgCl electrode';
+  theDoc.Transducer[1] := 'thermistor';
+  theDoc.PhysDim[0] := 'mV';
+  theDoc.PhysDim[1] := 'degreeC';
+  theDoc.ePhysMin[0] := -3.1;
+  theDoc.ePhysMax[0] := 3;
+  theDoc.ePhysMin[1] := 34.4;
+  theDoc.ePhysMax[1] := 40.2;
+  theDoc.idigMin[0] := -2048;
+  theDoc.idigMax[0] := 2047;
+  theDoc.idigMin[1] := -2048;
+  theDoc.idigMax[1] := 2047;
+  theDoc.Prefilter[0] := 'none';
+  theDoc.Prefilter[1] := 'LP:0.1Hz';
+  theDoc.iNumOfSamples[0] := 31;
+  theDoc.iNumOfSamples[1] := 3;
+  AssertEquals('test signal 2', theDoc.SignalLabel[1]);
+  AssertEquals(3, theDoc.iNumOfSamples[1]);
+  for j := 1 to theDoc.iNumOfSignals do
+  for k := 1 to theDoc.iNumOfSamples[j - 1] do
+  begin
+    theDoc.RawDataRecord[0, j - 1, k - 1] := j * 100 + k;
+  end;
+  AssertEquals(130, theDoc.RawDataRecord[0, 0, 29]);
+  AssertEquals(201, theDoc.RawDataRecord[0, 1, 0]);
+  theDoc.Destroy;
+end;
+
 
 initialization
 
   RegisterTest(TControlTestCases);
   RegisterTest(TEDFDocTestCases);
+  RegisterTest(TEDFPlusDocTestCases);
 end.
 
