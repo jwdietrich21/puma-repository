@@ -103,6 +103,9 @@ const
 
   kMaxRecordBytes = 61440;
 
+  kShortEnglishMonths: array[1..12] of string = ('Jan', 'Feb', 'Mar', 'Apr',
+  'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+
 type
 
   { TEDFDoc }

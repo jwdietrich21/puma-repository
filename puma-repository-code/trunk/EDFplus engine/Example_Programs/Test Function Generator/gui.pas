@@ -368,7 +368,10 @@ var
   j: integer;
   jmax: integer;
   maxDur, RecordBytes: integer;
+  oldFormatSettings: TFormatSettings;
 begin
+  oldFormatSettings := DefaultFormatSettings;
+  DefaultFormatSettings.ShortMonthNames := kShortEnglishMonths;
   RecordBytes := 0;
   Samples := 0;
   maxDur := 0;
@@ -376,7 +379,6 @@ begin
   result.LocalPatID := '01234567 M 12-MAY-1904 John Doe';
   result.LocalRecID := 'Startdate ' + UpperCase(FormatDateTime('dd-mmm-yyyy', now))
                        + ' 98765 Dr. Frankenstayn EDF_Engine';
-  { TODO -oJWD : Date should be formatted in English }
   result.dStartDate := now;
   result.dStartTime := now;
   result.iNumOfSignals := length(signalRecord);
@@ -424,7 +426,7 @@ begin
   result.iNumOfDataRecs := imax;
   result.iDurationOfData := maxDur;
   jmax := result.iNumOfSignals;                // Number of signals
-  kmax := Samples div imax;                    // Number of samples
+  kmax := Samples div imax;                    // Number of samples per record
   for i := 0 to imax - 1 do
   for j := 0 to jmax - 1 do
   for k := 0 to kmax - 1 do
@@ -432,10 +434,11 @@ begin
     m := i * kmax + k;
     if result.iNumOfSamples[j] > 0 then
     begin
-      result.ScaledDataRecord[i, j, k] := signalRecord[i].timeSeries.values[m];
+      result.ScaledDataRecord[i, j, k] := signalRecord[j].timeSeries.values[m];
       result.RawDataRecord[i, j, k] := result.Unscaled[i, j, k];
     end;
   end;
+  DefaultFormatSettings := oldFormatSettings;
 end;
 
 
