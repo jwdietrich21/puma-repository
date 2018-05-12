@@ -137,8 +137,8 @@ type
     prNumOfSamples: ansistring;  // Nr of samples in each data record
     prReserved2: ansistring;     // Reserved
     { Official EDF/EDF+ header record fields end here. }
-    status: integer;
   protected
+    status: integer;
     procedure CompileHeaderText;
     procedure ParseHeaderText;
     function ExtractedHeaderText(const start, Count: integer): ansistring;
@@ -633,13 +633,11 @@ end;
 procedure TEDFDoc.SetStartDate(const Date: tDateTime);
 var
   sdString: Str8;
-  oldFormatSettings: TFormatSettings;
+  theFormat: TFormatSettings;
 begin
-  oldFormatSettings := DefaultFormatSettings;
-  DefaultFormatSettings.TwoDigitYearCenturyWindow := 85; // EDF convention
-  sdString := FormatDateTime('dd.mm.yy', Date);
+  theFormat.TwoDigitYearCenturyWindow := 85; // EDF convention
+  sdString := FormatDateTime('dd.mm.yy', Date, theFormat);
   SetStartDate(sdString);
-  DefaultFormatSettings := oldFormatSettings;
 end;
 
 function TEDFDoc.GetStartTime: Str8;
@@ -964,7 +962,7 @@ end;
 procedure TEDFDoc.SetPhysMin(const position: integer; const physmin: extended);
 var
   pmString: Str8;
-  oldFormatSettings: TFormatSettings;
+  theFormat: TFormatSettings;
 begin
   if (physMin > 99999999) or (physMin < -9999999) then
   begin
@@ -973,10 +971,8 @@ begin
   end
   else
   begin
-    oldFormatSettings := DefaultFormatSettings;
-    DefaultFormatSettings.DecimalSeparator := '.';
-    pmString := FloatToStr(physMin);
-    DefaultFormatSettings := oldFormatSettings;
+    theFormat.DecimalSeparator := '.';
+    pmString := FloatToStr(physMin, theFormat);
   end;
   SetPhysMin(position, pmString);
 end;
@@ -998,14 +994,12 @@ end;
 function TEDFDoc.eGetPhysMin(const position: integer): extended;
 var
   pmString: Str8;
-  oldFormatSettings: TFormatSettings;
+  theFormat: TFormatSettings;
 begin
   pmString := GetPhysMin(position);
-  oldFormatSettings := DefaultFormatSettings;
-  DefaultFormatSettings.DecimalSeparator := '.';
-  if not TryStrToFloat(Trim(pmString), Result) then
+  theFormat.DecimalSeparator := '.';
+  if not TryStrToFloat(Trim(pmString), Result, theFormat) then
     status := strFormatErr;
-  DefaultFormatSettings := oldFormatSettings;
 end;
 
 procedure TEDFDoc.SetPhysMax(const position: integer; const physmax: str8);
@@ -1026,7 +1020,7 @@ end;
 procedure TEDFDoc.SetPhysMax(const position: integer; const physmax: extended);
 var
   pmString: Str8;
-  oldFormatSettings: TFormatSettings;
+  theFormat: TFormatSettings;
 begin
   if (physMax > 99999999) or (physMax < -9999999) then
   begin
@@ -1035,10 +1029,8 @@ begin
   end
   else
   begin
-    oldFormatSettings := DefaultFormatSettings;
-    DefaultFormatSettings.DecimalSeparator := '.';
-    pmString := FloatToStr(physMax);
-    DefaultFormatSettings := oldFormatSettings;
+    theFormat.DecimalSeparator := '.';
+    pmString := FloatToStr(physMax, theFormat);
   end;
   SetPhysMax(position, pmString);
 end;
@@ -1060,14 +1052,12 @@ end;
 function TEDFDoc.eGetPhysMax(const position: integer): extended;
 var
   pmString: Str8;
-  oldFormatSettings: TFormatSettings;
+  theFormat: TFormatSettings;
 begin
   pmString := GetPhysMax(position);
-  oldFormatSettings := DefaultFormatSettings;
-  DefaultFormatSettings.DecimalSeparator := '.';
-  if not TryStrToFloat(Trim(pmString), Result) then
+  theFormat.DecimalSeparator := '.';
+  if not TryStrToFloat(Trim(pmString), Result, theFormat) then
     status := strFormatErr;
-  DefaultFormatSettings := oldFormatSettings;
 end;
 
 procedure TEDFDoc.SetDigMin(const position: integer; const digmin: str8);

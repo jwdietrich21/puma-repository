@@ -68,7 +68,8 @@ type
 
   TEDFPlusDocTestCases = class(TTestCase)
   published
-    procedure EDFFullDocTest;
+    procedure EDFFullDocTest1;
+    procedure EDFFullDocTest2;
   end;
 
 
@@ -332,7 +333,7 @@ end;
 
 { TEDFPlusDocTestCases }
 
-procedure TEDFPlusDocTestCases.EDFFullDocTest;
+procedure TEDFPlusDocTestCases.EDFFullDocTest1;
 var
   theDoc: TEDFplusDoc;
   j, k: integer;
@@ -342,7 +343,7 @@ begin
   PatData.Name := 'Lieschen Müller';
   PatData.HospitalCode := '01234567 54321';
   PatData.Sex := 'F';
-  PatData.BirthDate := '31-Dec-1913';
+  PatData.sBirthDate := '31-Dec-1913';
   theDoc.LocalPatID := PatData;
   theDoc.LocalRecID := 'simulated test recording';
   theDoc.dStartDate := now;
@@ -368,7 +369,7 @@ begin
   theDoc.Prefilter[1] := 'LP:0.1Hz';
   theDoc.iNumOfSamples[0] := 31;
   theDoc.iNumOfSamples[1] := 3;
-  AssertEquals('31-Dec-1913', theDoc.LocalPatID.BirthDate);
+  AssertEquals('31-Dec-1913', theDoc.LocalPatID.sBirthDate);
   AssertEquals('test signal 2', theDoc.SignalLabel[1]);
   AssertEquals(3, theDoc.iNumOfSamples[1]);
   for j := 1 to theDoc.iNumOfSignals do
@@ -381,6 +382,54 @@ begin
   theDoc.Destroy;
 end;
 
+procedure TEDFPlusDocTestCases.EDFFullDocTest2;
+var
+  theDoc: TEDFplusDoc;
+  j, k: integer;
+  PatData: TLocalPatRecord;
+begin
+  theDoc := TEDFPlusDoc.Create;
+  PatData.Name := 'Max Mustermann';
+  PatData.HospitalCode := '01234568 54322';
+  PatData.Sex := 'F';
+  PatData.dBirthDate := EncodeDate(1908, 07, 31);
+  theDoc.LocalPatID := PatData;
+  theDoc.LocalRecID := 'simulated test recording';
+  theDoc.dStartDate := now;
+  theDoc.dStartTime := now;
+  theDoc.iNumOfDataRecs := 1;
+  theDoc.iDurationOfData := 13;
+  theDoc.iNumOfSignals := 2;
+  theDoc.SignalLabel[0] := 'test signal 1';
+  theDoc.SignalLabel[1] := 'test signal 2';
+  theDoc.Transducer[0] := 'AgAgCl electrode';
+  theDoc.Transducer[1] := 'thermistor';
+  theDoc.PhysDim[0] := 'mV';
+  theDoc.PhysDim[1] := 'degreeC';
+  theDoc.ePhysMin[0] := -3.1;
+  theDoc.ePhysMax[0] := 3;
+  theDoc.ePhysMin[1] := 34.4;
+  theDoc.ePhysMax[1] := 40.2;
+  theDoc.idigMin[0] := -2048;
+  theDoc.idigMax[0] := 2047;
+  theDoc.idigMin[1] := -2048;
+  theDoc.idigMax[1] := 2047;
+  theDoc.Prefilter[0] := 'none';
+  theDoc.Prefilter[1] := 'LP:0.1Hz';
+  theDoc.iNumOfSamples[0] := 31;
+  theDoc.iNumOfSamples[1] := 3;
+  AssertEquals(EncodeDate(1908, 07, 31), theDoc.dLocalPatID.dBirthDate);
+  AssertEquals('test signal 2', theDoc.SignalLabel[1]);
+  AssertEquals(3, theDoc.iNumOfSamples[1]);
+  for j := 1 to theDoc.iNumOfSignals do
+  for k := 1 to theDoc.iNumOfSamples[j - 1] do
+  begin
+    theDoc.RawDataRecord[0, j - 1, k - 1] := j * 100 + k;
+  end;
+  AssertEquals(130, theDoc.RawDataRecord[0, 0, 29]);
+  AssertEquals(201, theDoc.RawDataRecord[0, 1, 0]);
+  theDoc.Destroy;
+end;
 
 initialization
 

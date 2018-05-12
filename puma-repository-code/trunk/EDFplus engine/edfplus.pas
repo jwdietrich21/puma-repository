@@ -40,8 +40,10 @@ type
   TLocalPatRecord = record
     HospitalCode: Str80;
     Sex: char;
-    BirthDate: Str11;
     Name: Str80;
+    case UseDateTime: boolean of
+      true: (dBirthDate: TDateTime);
+      false: (sBirthDate: Str11);
   end;
 
   { TEDFplusDoc }
@@ -49,11 +51,13 @@ type
   TEDFplusDoc = class(TEDFDoc)
     protected
       function GetLocalPatID: TLocalPatRecord;
+      function dGetLocalPatID: TLocalPatRecord;
       procedure SetLocalPatID(const ID: TLocalPatRecord);
     public
       constructor Create;
       destructor Destroy; override;
       property LocalPatID: TLocalPatRecord read GetLocalPatID write SetLocalPatID;
+      property dLocalPatID: TLocalPatRecord read dGetLocalPatID write SetLocalPatID;
     end;
 
 
@@ -66,7 +70,31 @@ begin
   containerString := inherited;
   Result.HospitalCode := AnsiReplaceText(ExtractDelimited(1, containerString, [' ']), '_', ' ');
   Result.Sex := char(ExtractDelimited(2, containerString, [' '])[1]);
-  Result.BirthDate := ExtractDelimited(3, containerString, [' ']); ;
+  Result.sBirthDate := ExtractDelimited(3, containerString, [' ']);
+  Result.Name := AnsiReplaceText(ExtractDelimited(4, containerString, [' ']), '_', ' ');
+end;
+
+function TEDFplusDoc.dGetLocalPatID: TLocalPatRecord;
+var
+  containerString: Str80;
+  theDateString, MonthStr: String;
+  theYear, theMonth, theDay: integer;
+begin
+  containerString := inherited GetLocalPatID;
+  Result.HospitalCode := AnsiReplaceText(ExtractDelimited(1, containerString, [' ']), '_', ' ');
+  Result.Sex := char(ExtractDelimited(2, containerString, [' '])[1]);
+  theDateString := ExtractDelimited(3, containerString, [' ']);
+  if not TryStrToInt(LeftStr(theDateString, 2), theDay) then
+    self.status := strFormatErr;
+  MonthStr := MidStr(theDateString, 4, 3);
+  theMonth := 0;
+  repeat
+    theMonth := theMonth + 1;
+  until (MonthStr = kShortEnglishMonths[theMonth]) or (theMonth > 11);
+  if not TryStrToInt(RightStr(theDateString, 4), theYear) then
+    self.status := strFormatErr;
+  // FPC functions don't support three-characters shorts months on macOS
+  Result.dBirthDate := EncodeDate(theYear, theMonth, theDay);
   Result.Name := AnsiReplaceText(ExtractDelimited(4, containerString, [' ']), '_', ' ');
 end;
 
@@ -74,8 +102,13 @@ procedure TEDFplusDoc.SetLocalPatID(const ID: TLocalPatRecord);
 var
   containerString: Str80;
 begin
-  containerString := AnsiReplaceText(ID.HospitalCode, ' ', '_') + ' ' +
-    ID.Sex + ' ' + ID.BirthDate + ' ' + AnsiReplaceText(ID.Name, ' ', '_');
+  if ID.UseDateTime or (ID.sBirthDate = '') then
+    containerString := AnsiReplaceText(ID.HospitalCode, ' ', '_') + ' ' +
+    ID.Sex + ' ' + FormatDateTime('dd-mmm-yyyy', ID.dBirthDate) + ' ' +
+    AnsiReplaceText(ID.Name, ' ', '_')
+  else
+    containerString := AnsiReplaceText(ID.HospitalCode, ' ', '_') + ' ' +
+    ID.Sex + ' ' + ID.sBirthDate + ' ' + AnsiReplaceText(ID.Name, ' ', '_');
   inherited SetLocalPatID(containerString);
 end;
 
