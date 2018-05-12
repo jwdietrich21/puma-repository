@@ -79,22 +79,27 @@ var
   containerString: Str80;
   theDateString, MonthStr: String;
   theYear, theMonth, theDay: integer;
+  theFormat: TFormatSettings;
 begin
+  theFormat.DateSeparator := '-';
+  theFormat.ShortDateFormat := 'dd-mmm-yyyy';
   containerString := inherited GetLocalPatID;
   Result.HospitalCode := AnsiReplaceText(ExtractDelimited(1, containerString, [' ']), '_', ' ');
   Result.Sex := char(ExtractDelimited(2, containerString, [' '])[1]);
   theDateString := ExtractDelimited(3, containerString, [' ']);
-  if not TryStrToInt(LeftStr(theDateString, 2), theDay) then
-    self.status := strFormatErr;
-  MonthStr := MidStr(theDateString, 4, 3);
-  theMonth := 0;
-  repeat
-    theMonth := theMonth + 1;
-  until (MonthStr = kShortEnglishMonths[theMonth]) or (theMonth > 11);
-  if not TryStrToInt(RightStr(theDateString, 4), theYear) then
-    self.status := strFormatErr;
-  // FPC functions don't support three-characters shorts months on macOS
-  Result.dBirthDate := EncodeDate(theYear, theMonth, theDay);
+  if not TryStrToDate(theDateString, Result.dBirthDate, theFormat) then
+  begin
+    if not TryStrToInt(LeftStr(theDateString, 2), theDay) then
+      self.status := strFormatErr;
+    MonthStr := MidStr(theDateString, 4, 3);
+    theMonth := 0;
+    repeat
+      theMonth := theMonth + 1;
+    until (MonthStr = kShortEnglishMonths[theMonth]) or (theMonth > 11);
+    if not TryStrToInt(RightStr(theDateString, 4), theYear) then
+      self.status := strFormatErr;
+    Result.dBirthDate := EncodeDate(theYear, theMonth, theDay);
+  end;
   Result.Name := AnsiReplaceText(ExtractDelimited(4, containerString, [' ']), '_', ' ');
 end;
 
