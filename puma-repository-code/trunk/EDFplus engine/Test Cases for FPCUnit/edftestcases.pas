@@ -338,6 +338,7 @@ var
   theDoc: TEDFplusDoc;
   j, k: integer;
   PatData: TLocalPatRecord;
+  RecData: TLocalRecRecord;
 begin
   theDoc := TEDFPlusDoc.Create;
   PatData.Name := 'Lieschen Müller';
@@ -345,9 +346,14 @@ begin
   PatData.Sex := 'F';
   PatData.sBirthDate := '31-Dec-1913';
   theDoc.LocalPatID := PatData;
-  theDoc.LocalRecID := 'simulated test recording';
-  theDoc.dStartDate := now;
-  theDoc.dStartTime := now;
+  RecData.sStartDate := '13-May-1991';
+  RecData.HospitalAdminCode := 'BN 01 01189';
+  RecData.InvestigatorID := 'JWD';
+  RecData.Equipment := 'Lazarus and Free Pascal';
+  theDoc.LocalRecID := RecData;
+  theDoc.StartDate := '13.05.91';
+  theDoc.StartTime := '19.01.13';
+  theDoc.RecordingType := EDF_C;
   theDoc.iNumOfDataRecs := 1;
   theDoc.iDurationOfData := 13;
   theDoc.iNumOfSignals := 2;
@@ -370,6 +376,8 @@ begin
   theDoc.iNumOfSamples[0] := 31;
   theDoc.iNumOfSamples[1] := 3;
   AssertEquals('31-Dec-1913', theDoc.LocalPatID.sBirthDate);
+  AssertEquals('BN 01 01189', theDoc.LocalRecID.HospitalAdminCode);
+  AssertTrue(theDoc.RecordingType = EDF_C);
   AssertEquals('test signal 2', theDoc.SignalLabel[1]);
   AssertEquals(3, theDoc.iNumOfSamples[1]);
   for j := 1 to theDoc.iNumOfSignals do
@@ -387,16 +395,21 @@ var
   theDoc: TEDFplusDoc;
   j, k: integer;
   PatData: TLocalPatRecord;
+  RecData: TLocalRecRecord;
 begin
   theDoc := TEDFPlusDoc.Create;
   PatData.Name := 'Max Mustermann';
   PatData.HospitalCode := '01234568 54322';
   PatData.Sex := 'F';
-  PatData.dBirthDate := EncodeDate(1908, 07, 31);
+  PatData.dBirthDate := EncodeDate(1908, 05, 31);
   theDoc.LocalPatID := PatData;
-  theDoc.LocalRecID := 'simulated test recording';
-  theDoc.dStartDate := now;
-  theDoc.dStartTime := now;
+  RecData.dStartDate := EncodeDate(1969, 07, 21);
+  RecData.HospitalAdminCode := 'BN_01_01189';
+  RecData.InvestigatorID := 'JWD';
+  RecData.Equipment := 'Lazarus and Free Pascal';
+  theDoc.LocalRecID := RecData;
+  theDoc.dStartDate := RecData.dStartDate;
+  theDoc.dStartTime := EncodeTime(2, 56, 20, 0);
   theDoc.iNumOfDataRecs := 1;
   theDoc.iDurationOfData := 13;
   theDoc.iNumOfSignals := 2;
@@ -418,7 +431,8 @@ begin
   theDoc.Prefilter[1] := 'LP:0.1Hz';
   theDoc.iNumOfSamples[0] := 31;
   theDoc.iNumOfSamples[1] := 3;
-  AssertEquals(EncodeDate(1908, 07, 31), theDoc.dLocalPatID.dBirthDate);
+  AssertEquals(EncodeDate(1908, 05, 31), theDoc.dLocalPatID.dBirthDate);
+  AssertEquals(EncodeDate(1969, 07, 21), theDoc.dLocalRecID.dStartDate);
   AssertEquals('test signal 2', theDoc.SignalLabel[1]);
   AssertEquals(3, theDoc.iNumOfSamples[1]);
   for j := 1 to theDoc.iNumOfSignals do

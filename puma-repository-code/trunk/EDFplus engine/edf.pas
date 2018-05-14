@@ -86,7 +86,6 @@ const
   kZero8: str8 = '00000000';
   kDefaultDate: str8 = '01.01.85';
   kDefaultTime: str8 = '00.00.00';
-  kStartDate   = 'Startdate';
   kEDFAnnotations = 'EDF Annotations';
 
   kVersionPos    = 1;
