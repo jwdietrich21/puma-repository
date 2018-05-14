@@ -209,6 +209,8 @@ type
       aSample: longint): single;
     function GetUnscaled(const aRecord: longint; aSignal: integer;
       aSample: longint): smallint;
+    function GetTimePoint(const aSignal: integer; const aSample: longint): real;
+    function GetTimeStamp(const aSignal: integer; const aSample: longint): TDateTime;
   public
     constructor Create;
     destructor Destroy; override;
@@ -254,6 +256,8 @@ type
       sSample: longint]: single Read GetScaled;
     property UnScaled[aRecord: longint; aSignal: integer;
       sSample: longint]: smallint Read GetUnscaled;
+    property TimePoint[i: integer; j: longint]: real Read GetTimePoint;
+    property TimeStamp[i: integer; j: longint]: real Read GetTimeStamp;
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: ansistring);
     procedure ReadFromStream(const aStream: TStream);
@@ -1340,6 +1344,18 @@ begin
     Result := Round(iDigMin[aSignal] +
       (FScaledDataRecord[aRecord, aSignal, aSample] - ePhysMin[aSignal]) /
       AdjustmentFactor[aSignal]);
+end;
+
+function TEDFDoc.GetTimePoint(const aSignal: integer; const aSample: longint): real;
+{ delivers time point of a sample in seconds since beginning }
+begin
+  result := aSample / iNumOfSamples[aSignal] * iDurationOfData;
+end;
+
+function TEDFDoc.GetTimeStamp(const aSignal: integer; const aSample: longint
+  ): TDateTime;
+begin
+  result := IncSecond(ComposeDateTime(dStartDate, dStartTime), trunc(TimePoint[aSignal, aSample]));
 end;
 
 constructor TEDFDoc.Create;
