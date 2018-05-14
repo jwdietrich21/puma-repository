@@ -59,9 +59,9 @@ type
 
 const
 
-  kStartDate   = 'Startdate';
-  kContinuous  = 'EDF+C';
-  kInterrupted = 'EDF+D';
+  kStartDate       = 'Startdate';
+  kContinuous      = 'EDF+C';
+  kDiscontinuous   = 'EDF+D';
 
 type
 
@@ -233,7 +233,7 @@ function TEDFplusDoc.GetRecordingType: TRecordingType;
 begin
   if UpperCase(LeftStr(Reserved, 5)) = kContinuous then
     result := EDF_C
-  else if UpperCase(LeftStr(Reserved, 5)) = kInterrupted then
+  else if UpperCase(LeftStr(Reserved, 5)) = kDiscontinuous then
     result := EDF_D
   else
     result := EDF_U;
@@ -242,9 +242,12 @@ end;
 procedure TEDFplusDoc.SetRecordingType(const theType: TRecordingType);
 begin
   case theType of
-  EDF_C: Reserved := PadRight(kContinuous, 44);
-  EDF_D: Reserved := PadRight(kInterrupted, 44);
-  otherwise Reserved := kEmpty44;
+  EDF_C:
+    Reserved := PadRight(kContinuous, 44);
+  EDF_D:
+    Reserved := PadRight(kDiscontinuous, 44);
+  otherwise
+    Reserved := kEmpty44;
   end;
 end;
 
