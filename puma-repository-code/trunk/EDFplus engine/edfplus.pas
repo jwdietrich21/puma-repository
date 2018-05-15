@@ -54,8 +54,13 @@ type
       true: (dStartDate: TDateTime);
       false: (sStartDate: Str11);
   end;
+  TTALRecord = record
+    onset, duration: real;
+    comment: TStringList;
+  end;
 
   TRecordingType = (EDF_C, EDF_D, EDF_U);
+  TAnnotation = array of array of TTALRecord;
 
 const
 
@@ -87,6 +92,7 @@ type
       procedure SetLocalRecID(const ID: TLocalRecRecord);
       function GetRecordingType: TRecordingType;
       procedure SetRecordingType(const theType: TRecordingType);
+      function GetAnnotations: TAnnotation;
     public
       constructor Create;
       destructor Destroy; override;
@@ -95,6 +101,7 @@ type
       property LocalRecID: TLocalRecRecord read GetLocalRecID write SetLocalRecID;
       property dLocalRecID: TLocalRecRecord read dGetLocalRecID write SetLocalRecID;
       property RecordingType: TRecordingType read GetRecordingType write SetRecordingType;
+      //property Annotation[i: integer; j: longint]: TTALRecord read GetAnnotations;
     end;
 
 
@@ -258,6 +265,37 @@ begin
     Reserved := PadRight(kDiscontinuous, 44);
   otherwise
     Reserved := kEmpty44;
+  end;
+end;
+
+function TEDFplusDoc.GetAnnotations: TAnnotation;
+var
+  i, k, m: longint;
+  imax, kmax: longint;
+  j, l:    integer;
+  jmax: integer;
+  ch: smallint;
+begin
+  imax := iNumOfDataRecs;
+  jmax := iNumOfSignals;
+  l := -1;
+  for j := 0 to jmax - 1 do
+    begin
+      if SignalLabel[j] = kAnnotationsHead then
+      l := j;
+    end;
+  if l >= 0 then
+  begin
+    kmax := iNumOfSamples[l];
+    for i := 0 to imax - 1 do
+      for k := 0 to kmax - 1 do
+        begin
+          ch := RawDataRecord[i, l, k];
+          if ch > 31 then
+          begin
+
+          end;
+        end;
   end;
 end;
 
