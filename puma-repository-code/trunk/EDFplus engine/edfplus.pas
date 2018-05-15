@@ -56,7 +56,7 @@ type
   end;
   TTALRecord = record
     onset, duration: real;
-    comment: TStringList;
+    comment: array of string;
   end;
 
   TRecordingType = (EDF_C, EDF_D, EDF_U);
@@ -275,10 +275,30 @@ var
   j, l:    integer;
   jmax: integer;
   ch: smallint;
+  chunk: String;
+
+  function emptyAnnotation: TTALRecord;
+  begin
+    SetLength(result.comment, 1);
+    result.comment[0] := '';
+    result.onset := -1;
+    result.duration := -1;
+  end;
+
+  function NextCh: smallint;
+  var
+    ch: smallint;
+  begin
+    ch := RawDataRecord[i, l, k];
+    inc(k);
+    Result:=ch;
+  end;
+
 begin
   imax := iNumOfDataRecs;
   jmax := iNumOfSignals;
   l := -1;
+  chunk := '';
   for j := 0 to jmax - 1 do
     begin
       if SignalLabel[j] = kAnnotationsHead then
@@ -288,14 +308,39 @@ begin
   begin
     kmax := iNumOfSamples[l];
     for i := 0 to imax - 1 do
-      for k := 0 to kmax - 1 do
-        begin
-          ch := RawDataRecord[i, l, k];
-          if ch > 31 then
+      begin
+        SetLength(result[i, l].comment, 5); // to be adapted
+        repeat
+          ch := NextCh;
+          if ch < 20 then
           begin
-
+            status := annotErr;
+            result[i, j] := emptyAnnotation;
+            break;
           end;
-        end;
+          if (chr(ch) <> '+') and (chr(ch) <> '-') and (k < 2) then
+          begin
+            status := annotErr;
+            result[i, j] := emptyAnnotation;
+            break;
+          end;
+          while ch > 45 do
+            begin
+              chunk := chunk + chr(ch);
+              ch := NextCh;
+            end;
+          if ch = 20 then
+          begin
+            result[i, l].duration := StrToFloat(chunk);
+            chunk := '';
+          end;
+          if ch = 21 then
+          begin
+            result[i, l].onset := StrToFloat(chunk);
+            chunk := '';
+          end;
+        until (ch = 0) or (k = kmax - 1);
+      end;
   end;
 end;
 

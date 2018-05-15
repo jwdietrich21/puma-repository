@@ -60,18 +60,19 @@ const
   ksLF   = #10;
   ksCRLF = #13#10;
 
-  noErr      = 0;
+  noErr         = 0;
   headermalform = 1;
-  termErr    = 2;
-  sizemismatch = 3;
-  unsuppVers = 4;
-  emptydata  = 5;
-  saveErr    = 6;
-  readErr    = 7;
-  createErr  = 9;
-  rangeErr   = 10;
-  strRangeErr = 11;
-  strFormatErr = 12;
+  termErr       = 2;
+  sizemismatch  = 3;
+  unsuppVers    = 4;
+  emptydata     = 5;
+  saveErr       = 6;
+  readErr       = 7;
+  createErr     = 9;
+  rangeErr      = 10;
+  strRangeErr   = 11;
+  strFormatErr  = 12;
+  annotErr      = 13;
 
   kEDFVersion: str8 = '0       ';
   kUnknown: str8 = '-1      ';
