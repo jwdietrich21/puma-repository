@@ -62,6 +62,16 @@ const
   kStartDate       = 'Startdate';
   kContinuous      = 'EDF+C';
   kDiscontinuous   = 'EDF+D';
+  kAnnotationsHead = 'EDF Annotations';
+
+  kAnnotationsDMin = -32768;
+  kAnnotationsDMax = 32767;
+  kAnnotationsPMin = -1;
+  kAnnotationsPMax = 1;
+
+  TALOnset         = chr(21);
+  TALDuration      = chr(20);
+  TALTerminator    = chr(0);
 
 type
 

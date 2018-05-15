@@ -210,7 +210,8 @@ type
     function GetUnscaled(const aRecord: longint; aSignal: integer;
       aSample: longint): smallint;
     function GetTimePoint(const aSignal: integer; const aSample: longint): real;
-    function GetTimeStamp(const aSignal: integer; const aSample: longint): TDateTime;
+    function GetTimeStamp(const aRecord: longint; const aSignal: integer; const aSample: longint): TDateTime;
+    function GetRecordingTime: longint;
   public
     constructor Create;
     destructor Destroy; override;
@@ -257,7 +258,8 @@ type
     property UnScaled[aRecord: longint; aSignal: integer;
       sSample: longint]: smallint Read GetUnscaled;
     property TimePoint[i: integer; j: longint]: real Read GetTimePoint;
-    property TimeStamp[i: integer; j: longint]: real Read GetTimeStamp;
+    property TimeStamp[i: longint; j: integer; k: longint]: real Read GetTimeStamp;
+    property RecordingTime: longint Read GetRecordingTime;
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: ansistring);
     procedure ReadFromStream(const aStream: TStream);
@@ -1347,15 +1349,20 @@ begin
 end;
 
 function TEDFDoc.GetTimePoint(const aSignal: integer; const aSample: longint): real;
-{ delivers time point of a sample in seconds since beginning }
+{ delivers time point of a sample in seconds since beginning relative to record }
 begin
   result := aSample / iNumOfSamples[aSignal] * iDurationOfData;
 end;
 
-function TEDFDoc.GetTimeStamp(const aSignal: integer; const aSample: longint
+function TEDFDoc.GetTimeStamp(const aRecord: longint; const aSignal: integer; const aSample: longint
   ): TDateTime;
 begin
-  result := IncSecond(ComposeDateTime(dStartDate, dStartTime), trunc(TimePoint[aSignal, aSample]));
+  result := IncSecond(ComposeDateTime(dStartDate, dStartTime), aRecord * iDurationOfData + trunc(TimePoint[aSignal, aSample]));
+end;
+
+function TEDFDoc.GetRecordingTime: longint;
+begin
+  result := iNumOfDataRecs * iDurationOfData;
 end;
 
 constructor TEDFDoc.Create;

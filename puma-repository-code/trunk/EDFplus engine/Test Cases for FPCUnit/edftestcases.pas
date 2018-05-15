@@ -437,8 +437,8 @@ begin
   AssertEquals(3, theDoc.iNumOfSamples[1]);
   AssertEquals(0, theDoc.TimePoint[0, 0]);
   AssertEquals(13, theDoc.TimePoint[0, 31]);
-  AssertEquals(ComposeDateTime(theDoc.dStartDate, theDoc.dStartTime), theDoc.TimeStamp[0, 0]);
-  AssertEquals(IncSecond(ComposeDateTime(theDoc.dStartDate, theDoc.dStartTime), trunc(theDoc.TimePoint[1, 3])), theDoc.TimeStamp[1, 3]);
+  AssertEquals(ComposeDateTime(theDoc.dStartDate, theDoc.dStartTime), theDoc.TimeStamp[0, 0, 0]);
+  AssertEquals(IncSecond(ComposeDateTime(theDoc.dStartDate, theDoc.dStartTime), trunc(theDoc.TimePoint[1, 3])), theDoc.TimeStamp[0, 1, 3]);
   for j := 1 to theDoc.iNumOfSignals do
   for k := 1 to theDoc.iNumOfSamples[j - 1] do
   begin
