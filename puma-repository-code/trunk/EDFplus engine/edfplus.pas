@@ -83,6 +83,8 @@ type
   { TEDFplusDoc }
 
   TEDFplusDoc = class(TEDFDoc)
+    private
+      FAnnotations: TAnnotation;
     protected
       function GetLocalPatID: TLocalPatRecord;
       function dGetLocalPatID: TLocalPatRecord;
@@ -93,6 +95,8 @@ type
       function GetRecordingType: TRecordingType;
       procedure SetRecordingType(const theType: TRecordingType);
       function GetAnnotations: TAnnotation;
+      function GetAnnotation(const i: longint; const j: integer): TTALRecord;
+      procedure SetAnnotations;
     public
       constructor Create;
       destructor Destroy; override;
@@ -101,7 +105,8 @@ type
       property LocalRecID: TLocalRecRecord read GetLocalRecID write SetLocalRecID;
       property dLocalRecID: TLocalRecRecord read dGetLocalRecID write SetLocalRecID;
       property RecordingType: TRecordingType read GetRecordingType write SetRecordingType;
-      //property Annotation[i: integer; j: longint]: TTALRecord read GetAnnotations;
+      property Annotation[i: longint; j: integer]: TTALRecord read GetAnnotation;
+      procedure AddAnnotation(const i: longint; const theAnnotation: TTALRecord);
     end;
 
 
@@ -270,12 +275,13 @@ end;
 
 function TEDFplusDoc.GetAnnotations: TAnnotation;
 var
-  i, k, m: longint;
+  i, k: longint;
   imax, kmax: longint;
-  j, l:    integer;
+  j, l, m, n, s:    integer;
   jmax: integer;
   ch: smallint;
-  chunk: String;
+  subString, compString: String;
+  theFormat: TFormatSettings;
 
   function emptyAnnotation: TTALRecord;
   begin
@@ -294,64 +300,177 @@ var
     Result:=ch;
   end;
 
+  function MaxComments: integer;
+  var
+    c1, c2: longint;
+  begin
+    result := 0;
+    for c1 := 0 to imax - 1 do
+    for c2 := 0 to kmax - 1 do
+    begin
+      if RawDataRecord[c1, l, c2] = 0 then
+      inc(result);
+    end
+  end;
+
 begin
+  theFormat.DecimalSeparator := '.';
   imax := iNumOfDataRecs;
   jmax := iNumOfSignals;
   l := -1;
-  chunk := '';
-  for j := 0 to jmax - 1 do
+  m := 0;
+  s := 0;
+  subString := '';
+  for j := 0 to jmax - 1 do // find annotation signal
     begin
       if SignalLabel[j] = kAnnotationsHead then
       l := j;
     end;
   if l >= 0 then
   begin
-    kmax := iNumOfSamples[l];
+    kmax := iNumOfSamples[l] * 2; // Number of chars = 2 * number of smallints
+    SetLength(result, imax);
+    SetLength(result[0], MaxComments);
     for i := 0 to imax - 1 do
       begin
-        SetLength(result[i, l].comment, 5); // to be adapted
-        repeat
+        repeat // read timestamp offset of record start
           ch := NextCh;
           if ch < 20 then
           begin
             status := annotErr;
-            result[i, j] := emptyAnnotation;
+            result[i,s] := emptyAnnotation;
             break;
           end;
           if (chr(ch) <> '+') and (chr(ch) <> '-') and (k < 2) then
           begin
             status := annotErr;
-            result[i, j] := emptyAnnotation;
+            result[i,s] := emptyAnnotation;
             break;
           end;
           while ch > 45 do
             begin
-              chunk := chunk + chr(ch);
+              subString := subString + chr(ch);
+              ch := NextCh;
+            end;
+        until (ch = 20) or (k = kmax - 1);
+        if ch = 20 then
+        begin
+          ch := NextCh;
+          if ch = 20 then
+            begin
+              if TryStrToFloat(subString, result[i,s].duration, theFormat) then
+                m := 1
+              else
+              begin
+                status := annotErr;
+                result[i,s] := emptyAnnotation;
+                break;
+              end
+            end
+          else
+            begin
+              status := annotErr;
+              result[i,s] := emptyAnnotation;
+              break;
+            end;
+          subString := '';
+        end;
+        repeat // read remaining annotations
+          ch := NextCh;
+          if ch < 20 then
+          begin
+            status := annotErr;
+            result[i,s] := emptyAnnotation;
+            break;
+          end;
+          if (m = 0) and (chr(ch) <> '+') and (chr(ch) <> '-') and (k < 2) then
+          begin
+            status := annotErr;
+            result[i,s] := emptyAnnotation;
+            break;
+          end;
+          while ch > 42 do
+            begin
+              subString := subString + chr(ch);
               ch := NextCh;
             end;
           if ch = 20 then
           begin
-            result[i, l].duration := StrToFloat(chunk);
-            chunk := '';
+            if m = 0 then
+            begin
+              if TryStrToFloat(subString, result[i,s].duration, theFormat) then
+                m := 1
+              else
+              begin
+                status := annotErr;
+                result[i,s] := emptyAnnotation;
+                break;
+              end
+            end
+            else
+            begin
+              compString := subString + #9;
+              subString := '';
+              inc(m);
+            end;
           end;
           if ch = 21 then
           begin
-            result[i, l].onset := StrToFloat(chunk);
-            chunk := '';
+            if TryStrToFloat(subString, result[i,s].onset, theFormat) then
+              m := 1
+            else
+            begin
+              status := annotErr;
+              result[i,s] := emptyAnnotation;
+              break;
+            end
           end;
-        until (ch = 0) or (k = kmax - 1);
+          if ch = 0 then
+          begin
+            SetLength(result[i,s].comment, m);
+            for n := 0 to m - 1 do
+              result[i,s].comment[n] := ExtractDelimited(n, compString, [#9]);
+            m := 0;
+            inc(s);
+          end;
+        until k = kmax - 1;
       end;
   end;
+end;
+
+function TEDFplusDoc.GetAnnotation(const i: longint; const j: integer): TTALRecord;
+begin
+  if length(FAnnotations) = 0 then
+    FAnnotations := GetAnnotations;
+  result := FAnnotations[i, j];
+end;
+
+procedure TEDFplusDoc.SetAnnotations;
+begin
+
 end;
 
 constructor TEDFplusDoc.Create;
 begin
   inherited Create;
+  SetLength(FAnnotations, 0);
 end;
 
 destructor TEDFplusDoc.Destroy;
 begin
   inherited Destroy;
+end;
+
+procedure TEDFplusDoc.AddAnnotation(const i: longint; const theAnnotation: TTALRecord);
+begin
+  SetLength(FAnnotations[i], length(FAnnotations[i]) + 1);
+  with FAnnotations[i, length(FAnnotations[i]) - 1] do // zero-based
+    begin
+      duration := theAnnotation.duration;
+      onset := theAnnotation.onset;
+      comment := theAnnotation.comment;
+    end;
+  SetAnnotations;
 end;
 
 end.

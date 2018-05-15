@@ -259,7 +259,7 @@ type
     property UnScaled[aRecord: longint; aSignal: integer;
       sSample: longint]: smallint Read GetUnscaled;
     property TimePoint[i: integer; j: longint]: real Read GetTimePoint;
-    property TimeStamp[i: longint; j: integer; k: longint]: real Read GetTimeStamp;
+    property TimeStamp[i: longint; j: integer; k: longint]: TDateTime Read GetTimeStamp;
     property RecordingTime: longint Read GetRecordingTime;
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: ansistring);
