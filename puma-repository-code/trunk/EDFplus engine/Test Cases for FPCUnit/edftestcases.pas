@@ -31,7 +31,7 @@ unit EDFTestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry, DateUtils, EDF, EDFplus;
+  Classes, SysUtils, fpcunit, testregistry, DateUtils, Math, EDF, EDFplus;
 
 type
 
@@ -70,6 +70,7 @@ type
   published
     procedure EDFFullDocTest1;
     procedure EDFFullDocTest2;
+    procedure TALTest;
   end;
 
 
@@ -398,7 +399,7 @@ begin
   theDoc := TEDFPlusDoc.Create;
   PatData.Name := 'Max Mustermann';
   PatData.HospitalCode := '01234568 54322';
-  PatData.Sex := 'F';
+  PatData.Sex := 'M';
   PatData.dBirthDate := EncodeDate(1908, 05, 31);
   theDoc.LocalPatID := PatData;
   RecData.dStartDate := EncodeDate(1969, 07, 21);
@@ -444,6 +445,66 @@ begin
   end;
   AssertEquals(130, theDoc.RawDataRecord[0, 0, 29]);
   AssertEquals(201, theDoc.RawDataRecord[0, 1, 0]);
+  theDoc.Destroy;
+end;
+
+procedure TEDFPlusDocTestCases.TALTest;
+var
+  theDoc: TEDFplusDoc;
+  PatData: TLocalPatRecord;
+  RecData: TLocalRecRecord;
+  Annotation: TTALRecord;
+begin
+  theDoc := TEDFPlusDoc.Create;
+  PatData.Name := 'John Doe';
+  PatData.HospitalCode := '98765432 14567';
+  PatData.Sex := 'M';
+  PatData.dBirthDate := EncodeDate(1900, 05, 13);
+  theDoc.LocalPatID := PatData;
+  RecData.dStartDate := EncodeDate(1969, 07, 21);
+  RecData.HospitalAdminCode := 'BN_01_01190';
+  RecData.InvestigatorID := 'JWD';
+  RecData.Equipment := 'Lazarus and Free Pascal';
+  theDoc.LocalRecID := RecData;
+  theDoc.dStartDate := RecData.dStartDate;
+  theDoc.dStartTime := EncodeTime(2, 56, 20, 0);
+  theDoc.iNumOfDataRecs := 1;
+  theDoc.iDurationOfData := 13;
+  theDoc.iNumOfSignals := 2;
+  theDoc.SignalLabel[0] := 'test signal 1';
+  theDoc.SignalLabel[1] := 'test signal 2';
+  theDoc.Transducer[0] := 'AgAgCl electrode';
+  theDoc.Transducer[1] := 'thermistor';
+  theDoc.PhysDim[0] := 'mV';
+  theDoc.PhysDim[1] := 'degreeC';
+  theDoc.ePhysMin[0] := -3.1;
+  theDoc.ePhysMax[0] := 3;
+  theDoc.ePhysMin[1] := 34.4;
+  theDoc.ePhysMax[1] := 40.2;
+  theDoc.idigMin[0] := -2048;
+  theDoc.idigMax[0] := 2047;
+  theDoc.idigMin[1] := -2048;
+  theDoc.idigMax[1] := 2047;
+  theDoc.Prefilter[0] := 'none';
+  theDoc.Prefilter[1] := 'LP:0.1Hz';
+  theDoc.iNumOfSamples[0] := 31;
+  theDoc.iNumOfSamples[1] := 3;
+  Annotation.onset := NaN;
+  Annotation.duration := 13;
+  SetLength(Annotation.comment, 1);
+  Annotation.comment[0] := 'Recording starts';
+  theDoc.AddAnnotation(0, Annotation);
+  Annotation.onset := 0;
+  Annotation.duration := 660;
+  SetLength(Annotation.comment, 1);
+  Annotation.comment[0] := 'Sleep Stage W';
+  theDoc.AddAnnotation(0, Annotation);
+  Annotation.onset := 993.2;
+  Annotation.duration := 1.2;
+  SetLength(Annotation.comment, 2);
+  Annotation.comment[0] := 'Limb movement';
+  Annotation.comment[1] := 'R + L leg';
+  theDoc.AddAnnotation(0, Annotation);
   theDoc.Destroy;
 end;
 

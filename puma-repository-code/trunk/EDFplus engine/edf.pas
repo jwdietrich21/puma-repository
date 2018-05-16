@@ -286,6 +286,7 @@ var
   headerLength, version: str8;
   iHeaderLength: longint;
 begin
+  version := kEmpty8;
   headerLength := kEmpty8;
   sStream      := TStringStream.Create('');
   mStream.Seek(kVersionPos - 1, soFromBeginning);
@@ -330,15 +331,16 @@ var
   calibrator, physmins: array of extended;
   digmins: array of longint;
 begin
+  rawValue := 0;
   if assigned(EDFDoc) and assigned(mStream) then
     if (mStream.Size > 0) then
     begin
       imax := EDFDoc.iNumOfDataRecs;
       jmax := EDFDoc.iNumOfSignals;
-      kmax := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
       SetLength(calibrator, jmax);
       SetLength(physmins, jmax);
       SetLength(digmins, jmax);
+      kmax := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
       for j := 0 to jmax - 1 do
       begin
         m := EDFDoc.iNumOfSamples[j];
@@ -385,8 +387,8 @@ end;
 
 procedure WriteDataRecords(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
 var
-  i, k, m: longint;
-  imax, kmax: longint;
+  i, k: longint;
+  imax: longint;
   j:    integer;
   jmax: integer;
   rawValue: smallint;
@@ -396,7 +398,6 @@ begin
     begin
       imax := EDFDoc.iNumOfDataRecs;
       jmax := EDFDoc.iNumOfSignals;
-      kmax := EDFDoc.iNumOfSamples[0]; // maximum number of samples over all signals
       mStream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
       for i := 0 to imax - 1 do    // Records
         for j := 0 to jmax - 1 do  // Signals

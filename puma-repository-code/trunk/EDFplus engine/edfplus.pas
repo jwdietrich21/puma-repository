@@ -110,7 +110,7 @@ type
       property dLocalRecID: TLocalRecRecord read dGetLocalRecID write SetLocalRecID;
       property RecordingType: TRecordingType read GetRecordingType write SetRecordingType;
       property Annotation[i: longint; j: integer]: TTALRecord read GetAnnotation;
-      procedure AddAnnotation(const i: longint; const theAnnotation: TTALRecord);
+      procedure AddAnnotation(const aRecord: longint; const theAnnotation: TTALRecord);
     end;
 
 
@@ -453,15 +453,18 @@ end;
 procedure TEDFplusDoc.SetAnnotations;
 var
   i, k: longint;
-  j, l, m: integer;
-  imax: longint;
+  j, l: integer;
+  imax, kmax, m: longint;
   jmax: integer;
   onsetString, durationString, annotString, compString: String;
   theFormat: TFormatSettings;
+  rawData: TRawDataRecord;
 
   procedure SetCh(const ch : smallint);
   begin
-    RawDataRecord[i, l, k] := ch;
+    if k > length(rawData[i, l - 1]) - 1 then
+      SetLength(rawData[i, l - 1], k + 1);
+    rawData[i, l - 1, k] := ch;
     inc(k);
   end;
 
@@ -479,39 +482,53 @@ begin
   theFormat.DecimalSeparator := '.';
   imax := iNumOfDataRecs;
   jmax := iNumOfSignals;
+  kmax := iNumOfSamples[0]; // maximum number of samples over all signals
+  for j := 0 to jmax - 1 do
+  begin
+    m := iNumOfSamples[j];
+    if m > kmax then
+      kmax      := m;
+  end;
+  SetLength(rawData, imax, jmax, kmax);
+  l := -1;
+  k := 0;
   for j := 0 to jmax - 1 do // find annotation signal
     begin
       if SignalLabel[j] = kAnnotationsHead then
       l := j;
     end;
-  if l = 0 then
+  if l < 0 then
   begin
-    //Create new signal for annotations
-  end
-  else
+    // create new signal for annotations
+    iNumOfSignals := jmax + 1;
+    l := jmax + 1;
+  end;
+  rawData := RawDataRecord;
+  for i := 0 to imax - 1 do
   begin
-    for i := 0 to imax - 1 do
+    jmax := length(FAnnotations[i]);
+    for j := 0 to jmax - 1 do
     begin
-      jmax := length(FAnnotations[i]);
-      for j := 0 to jmax - 1 do
-      begin
-        if IsNan(FAnnotations[i,j].onset) then
-          onsetString := ''
-        else
-          onsetString := FloatToStr(FAnnotations[i,j].onset, theFormat) + TALOnset;
-        if IsNan(FAnnotations[i,j].duration) then
-          durationString := ''
-        else
+      if IsNan(FAnnotations[i,j].onset) then
+        onsetString := ''
+      else
+        onsetString := FloatToStr(FAnnotations[i,j].onset, theFormat) + TALOnset;
+      if IsNan(FAnnotations[i,j].duration) then
+        durationString := ''
+      else
+        begin
           durationString := FloatToStr(FAnnotations[i,j].duration, theFormat) + TALDuration;
-        annotString := '';
-        for m := 0 to length(FAnnotations[i,j].comment) - 1 do
-          annotString := annotString + TALDuration + FAnnotations[i,j].comment[m];
-        annotString := annotString + TALDuration;
-        compString := onsetString + durationString + annotString + TALTerminator;
-        SetString(compString);
-      end;
+          if k = 0 then
+            durationString := durationString + TALDuration; // marker for record gap
+        end;
+      annotString := '';
+      for m := 0 to length(FAnnotations[i,j].comment) - 1 do
+        annotString := annotString + FAnnotations[i,j].comment[m] + TALDuration;
+      compString := onsetString + durationString + annotString + TALTerminator;
+      SetString(compString);
     end;
   end;
+  RawDataRecord := rawData;
 end;
 
 constructor TEDFplusDoc.Create;
@@ -525,10 +542,12 @@ begin
   inherited Destroy;
 end;
 
-procedure TEDFplusDoc.AddAnnotation(const i: longint; const theAnnotation: TTALRecord);
+procedure TEDFplusDoc.AddAnnotation(const aRecord: longint; const theAnnotation: TTALRecord);
 begin
-  SetLength(FAnnotations[i], length(FAnnotations[i]) + 1);
-    FAnnotations[i, length(FAnnotations[i]) - 1] := theAnnotation;
+  if length(FAnnotations) < aRecord + 1 then
+    SetLength(FAnnotations, aRecord + 1);
+  SetLength(FAnnotations[aRecord], length(FAnnotations[aRecord]) + 1);
+  FAnnotations[aRecord, length(FAnnotations[aRecord]) - 1] := theAnnotation;
   SetAnnotations;
 end;
 
