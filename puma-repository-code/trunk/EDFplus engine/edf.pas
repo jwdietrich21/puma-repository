@@ -31,7 +31,7 @@ unit EDF;
 interface
 
 uses
-  Classes, SysUtils, StrUtils, Math, URIParser, DateUtils;
+  Classes, SysUtils, StrUtils, Math, DateUtils;
 
 type
 

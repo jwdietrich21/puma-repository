@@ -31,7 +31,7 @@ unit EDFTestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, DateUtils, EDF, EDFplus;
+  Classes, SysUtils, fpcunit, testregistry, DateUtils, EDF, EDFplus;
 
 type
 
@@ -109,7 +109,6 @@ const
   TestDate1 = '19.04.18';
 var
   theDoc: TEDFDoc;
-  startDateString: Str8;
   TestDate2: TDateTime;
 begin
   theDoc := TEDFDoc.Create;
@@ -126,7 +125,6 @@ const
   TestTime1 = '13.21.23';
 var
   theDoc: TEDFDoc;
-  startTimeString: Str8;
   TestTime2: TDateTime;
 begin
   theDoc := TEDFDoc.Create;

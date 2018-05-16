@@ -31,7 +31,7 @@ unit EDFplus;
 interface
 
 uses
-  Classes, SysUtils, StrUtils, Math, URIParser, DateUtils, EDF;
+  Classes, SysUtils, StrUtils, Math, DateUtils, EDF;
 
 type
 
@@ -74,9 +74,13 @@ const
   kAnnotationsPMin = -1;
   kAnnotationsPMax = 1;
 
-  TALOnset         = chr(21);
-  TALDuration      = chr(20);
-  TALTerminator    = chr(0);
+  OnsetMarker      = 21;
+  DurationMarker   = 20;
+  Terminator       = 0;
+
+  TALOnset         = chr(OnsetMarker);
+  TALDuration      = chr(DurationMarker);
+  TALTerminator    = chr(Terminator);
 
 type
 
@@ -318,13 +322,14 @@ begin
   imax := iNumOfDataRecs;
   jmax := iNumOfSignals;
   l := -1;
+  k := 0;
   m := 0;
   s := 0;
   subString := '';
   for j := 0 to jmax - 1 do // find annotation signal
     begin
       if SignalLabel[j] = kAnnotationsHead then
-      l := j;
+        l := j;
     end;
   if l >= 0 then
   begin
@@ -335,7 +340,7 @@ begin
       begin
         repeat // read timestamp offset of record start
           ch := NextCh;
-          if ch < 20 then
+          if ch < DurationMarker then
           begin
             status := annotErr;
             result[i,s] := emptyAnnotation;
@@ -352,11 +357,11 @@ begin
               subString := subString + chr(ch);
               ch := NextCh;
             end;
-        until (ch = 20) or (k = kmax - 1);
-        if ch = 20 then
+        until (ch = DurationMarker) or (k = kmax - 1);
+        if ch = DurationMarker then
         begin
           ch := NextCh;
-          if ch = 20 then
+          if ch = DurationMarker then
             begin
               if TryStrToFloat(subString, result[i,s].duration, theFormat) then
                 m := 1
@@ -377,7 +382,7 @@ begin
         end;
         repeat // read remaining annotations
           ch := NextCh;
-          if ch < 20 then
+          if ch < DurationMarker then
           begin
             status := annotErr;
             result[i,s] := emptyAnnotation;
@@ -394,7 +399,7 @@ begin
               subString := subString + chr(ch);
               ch := NextCh;
             end;
-          if ch = 20 then
+          if ch = DurationMarker then
           begin
             if m = 0 then
             begin
@@ -414,7 +419,7 @@ begin
               inc(m);
             end;
           end;
-          if ch = 21 then
+          if ch = OnsetMarker then
           begin
             if TryStrToFloat(subString, result[i,s].onset, theFormat) then
               m := 1
@@ -425,7 +430,7 @@ begin
               break;
             end
           end;
-          if ch = 0 then
+          if ch = Terminator then
           begin
             SetLength(result[i,s].comment, m);
             for n := 0 to m - 1 do
@@ -446,8 +451,67 @@ begin
 end;
 
 procedure TEDFplusDoc.SetAnnotations;
-begin
+var
+  i, k: longint;
+  j, l, m: integer;
+  imax: longint;
+  jmax: integer;
+  onsetString, durationString, annotString, compString: String;
+  theFormat: TFormatSettings;
 
+  procedure SetCh(const ch : smallint);
+  begin
+    RawDataRecord[i, l, k] := ch;
+    inc(k);
+  end;
+
+  procedure SetString(const theString: String);
+  var
+    p: longint;
+  begin
+    for p := 1 to length(theString) do
+    begin
+      SetCh(ord(theString[p]));
+    end;
+  end;
+
+begin
+  theFormat.DecimalSeparator := '.';
+  imax := iNumOfDataRecs;
+  jmax := iNumOfSignals;
+  for j := 0 to jmax - 1 do // find annotation signal
+    begin
+      if SignalLabel[j] = kAnnotationsHead then
+      l := j;
+    end;
+  if l = 0 then
+  begin
+    //Create new signal for annotations
+  end
+  else
+  begin
+    for i := 0 to imax - 1 do
+    begin
+      jmax := length(FAnnotations[i]);
+      for j := 0 to jmax - 1 do
+      begin
+        if IsNan(FAnnotations[i,j].onset) then
+          onsetString := ''
+        else
+          onsetString := FloatToStr(FAnnotations[i,j].onset, theFormat) + TALOnset;
+        if IsNan(FAnnotations[i,j].duration) then
+          durationString := ''
+        else
+          durationString := FloatToStr(FAnnotations[i,j].duration, theFormat) + TALDuration;
+        annotString := '';
+        for m := 0 to length(FAnnotations[i,j].comment) - 1 do
+          annotString := annotString + TALDuration + FAnnotations[i,j].comment[m];
+        annotString := annotString + TALDuration;
+        compString := onsetString + durationString + annotString + TALTerminator;
+        SetString(compString);
+      end;
+    end;
+  end;
 end;
 
 constructor TEDFplusDoc.Create;
@@ -464,12 +528,7 @@ end;
 procedure TEDFplusDoc.AddAnnotation(const i: longint; const theAnnotation: TTALRecord);
 begin
   SetLength(FAnnotations[i], length(FAnnotations[i]) + 1);
-  with FAnnotations[i, length(FAnnotations[i]) - 1] do // zero-based
-    begin
-      duration := theAnnotation.duration;
-      onset := theAnnotation.onset;
-      comment := theAnnotation.comment;
-    end;
+    FAnnotations[i, length(FAnnotations[i]) - 1] := theAnnotation;
   SetAnnotations;
 end;
 
