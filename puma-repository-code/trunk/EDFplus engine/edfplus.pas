@@ -100,6 +100,7 @@ type
       procedure SetRecordingType(const theType: TRecordingType);
       function GetAnnotations: TAnnotation;
       function GetAnnotation(const i: longint; const j: integer): TTALRecord;
+      function GetRecordStart(const i: longint): real;
       procedure SetAnnotations;
     public
       constructor Create;
@@ -111,6 +112,7 @@ type
       property RecordingType: TRecordingType read GetRecordingType write SetRecordingType;
       property Annotation[aRecord: longint; index: integer]: TTALRecord read GetAnnotation;
       procedure AddAnnotation(const aRecord: longint; const theAnnotation: TTALRecord);
+      property RecordStart[aRecord: longint]: real read GetRecordStart;
     end;
 
 
@@ -453,6 +455,14 @@ begin
   if length(FAnnotations) = 0 then
     FAnnotations := GetAnnotations;
   result := FAnnotations[i, j];
+end;
+
+function TEDFplusDoc.GetRecordStart(const i: longint): real;
+var
+  anAnnotation: TTALRecord;
+begin
+  anAnnotation := Annotation[i, 0];
+  result := anAnnotation.duration;
 end;
 
 procedure TEDFplusDoc.SetAnnotations;

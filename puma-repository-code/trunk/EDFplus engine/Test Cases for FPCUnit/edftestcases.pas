@@ -519,6 +519,7 @@ begin
   AssertEquals(Annotation3.duration, Annotation6.duration);
   AssertEquals(Annotation3.comment[0], Annotation6.comment[0]);
   AssertEquals(Annotation3.comment[1], Annotation6.comment[1]);
+  AssertEquals(theDoc.RecordStart[0], 13);
   theDoc.Destroy;
 end;
 
