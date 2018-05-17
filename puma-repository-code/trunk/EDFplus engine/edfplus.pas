@@ -109,7 +109,7 @@ type
       property LocalRecID: TLocalRecRecord read GetLocalRecID write SetLocalRecID;
       property dLocalRecID: TLocalRecRecord read dGetLocalRecID write SetLocalRecID;
       property RecordingType: TRecordingType read GetRecordingType write SetRecordingType;
-      property Annotation[i: longint; j: integer]: TTALRecord read GetAnnotation;
+      property Annotation[aRecord: longint; index: integer]: TTALRecord read GetAnnotation;
       procedure AddAnnotation(const aRecord: longint; const theAnnotation: TTALRecord);
     end;
 
@@ -134,6 +134,7 @@ var
   theYear, theMonth, theDay: integer;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   theFormat.DateSeparator := '-';
   theFormat.ShortDateFormat := 'dd-mmm-yyyy';
   theFormat.ShortMonthNames := kShortEnglishMonths;
@@ -162,6 +163,7 @@ var
   containerString: Str80;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   if ID.UseDateTime or (ID.sBirthDate = '') then
   begin
     theFormat.DateSeparator := '-';
@@ -201,6 +203,7 @@ var
   theYear, theMonth, theDay: integer;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   theFormat.DateSeparator := '-';
   theFormat.ShortDateFormat := 'dd-mmm-yyyy';
   theFormat.ShortMonthNames := kShortEnglishMonths;
@@ -229,6 +232,7 @@ var
   containerString: Str80;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   if ID.UseDateTime or (ID.sStartDate = '') then
   begin
     theFormat.DateSeparator := '-';
@@ -318,6 +322,7 @@ var
   end;
 
 begin
+  theFormat := DefaultFormatSettings;
   theFormat.DecimalSeparator := '.';
   imax := iNumOfDataRecs;
   jmax := iNumOfSignals;
@@ -479,6 +484,7 @@ var
   end;
 
 begin
+  theFormat := DefaultFormatSettings;
   theFormat.DecimalSeparator := '.';
   imax := iNumOfDataRecs;
   jmax := iNumOfSignals;

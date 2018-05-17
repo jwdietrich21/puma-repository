@@ -234,32 +234,32 @@ type
     property iDurationOfData: longint Read iGetDurOfData Write SetDurOfData;
     property NumOfSignals: Str4 Read GetNumOfSignals Write SetNumOfSignals;
     property iNumOfSignals: integer Read iGetNumOfSignals Write SetNumOfSignals;
-    property SignalLabel[i: integer]: Str16 Read GetLabel Write SetLabel;
-    property Transducer[i: integer]: Str80 Read GetTransducer Write SetTransducer;
-    property PhysDim[i: integer]: Str8 Read GetPhysDim Write SetPhysDim;
-    property PhysMin[i: integer]: Str8 Read GetPhysMin Write SetPhysMin;
-    property ePhysMin[i: integer]: extended Read eGetPhysMin Write SetPhysMin;
-    property PhysMax[i: integer]: Str8 Read GetPhysMax Write SetPhysMax;
-    property ePhysMax[i: integer]: extended Read eGetPhysMax Write SetPhysMax;
-    property digMin[i: integer]: Str8 Read GetdigMin Write SetdigMin;
-    property idigMin[i: integer]: longint Read iGetdigMin Write SetdigMin;
-    property digMax[i: integer]: Str8 Read GetdigMax Write SetdigMax;
-    property idigMax[i: integer]: longint Read iGetdigMax Write SetdigMax;
-    property Prefilter[i: integer]: Str80 Read GetPrefilter Write SetPrefilter;
-    property NumOfSamples[i: integer]: Str8 Read GetNumOfSamples Write SetNumOfSamples;
-    property iNumOfSamples[i: integer]: longint
+    property SignalLabel[aSignal: integer]: Str16 Read GetLabel Write SetLabel;
+    property Transducer[aSignal: integer]: Str80 Read GetTransducer Write SetTransducer;
+    property PhysDim[aSignal: integer]: Str8 Read GetPhysDim Write SetPhysDim;
+    property PhysMin[aSignal: integer]: Str8 Read GetPhysMin Write SetPhysMin;
+    property ePhysMin[aSignal: integer]: extended Read eGetPhysMin Write SetPhysMin;
+    property PhysMax[aSignal: integer]: Str8 Read GetPhysMax Write SetPhysMax;
+    property ePhysMax[aSignal: integer]: extended Read eGetPhysMax Write SetPhysMax;
+    property digMin[aSignal: integer]: Str8 Read GetdigMin Write SetdigMin;
+    property idigMin[aSignal: integer]: longint Read iGetdigMin Write SetdigMin;
+    property digMax[aSignal: integer]: Str8 Read GetdigMax Write SetdigMax;
+    property idigMax[aSignal: integer]: longint Read iGetdigMax Write SetdigMax;
+    property Prefilter[aSignal: integer]: Str80 Read GetPrefilter Write SetPrefilter;
+    property NumOfSamples[aSignal: integer]: Str8 Read GetNumOfSamples Write SetNumOfSamples;
+    property iNumOfSamples[aSignal: integer]: longint
       Read iGetNumOfSamples Write SetNumOfSamples;
-    property Reserved2[i: integer]: Str32 Read GetReserved2 Write SetReserved2;
+    property Reserved2[aSignal: integer]: Str32 Read GetReserved2 Write SetReserved2;
     property RawDataRecord: TRawDataRecord Read FRawDataRecord Write FRawDataRecord;
     property ScaledDataRecord: TScaledDataRecord
       Read FScaledDataRecord Write FScaledDataRecord;
-    property AdjustmentFactor[i: integer]: extended Read GetAdjustmentFactor;
+    property AdjustmentFactor[aSignal: integer]: extended Read GetAdjustmentFactor;
     property Scaled[aRecord: longint; aSignal: integer;
       sSample: longint]: single Read GetScaled;
     property UnScaled[aRecord: longint; aSignal: integer;
       sSample: longint]: smallint Read GetUnscaled;
-    property TimePoint[i: integer; j: longint]: real Read GetTimePoint;
-    property TimeStamp[i: longint; j: integer; k: longint]: TDateTime Read GetTimeStamp;
+    property TimePoint[aSignal: integer; aSample: longint]: real Read GetTimePoint;
+    property TimeStamp[aRecord: longint; aSignal: integer; aSample: longint]: TDateTime Read GetTimeStamp;
     property RecordingTime: longint Read GetRecordingTime;
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: ansistring);
@@ -615,6 +615,7 @@ var
   sdString:  Str8;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   theFormat.DateSeparator := '.';
   theFormat.ShortDateFormat := 'dd.mm.yy';
   theFormat.TwoDigitYearCenturyWindow := 85; // EDF convention
@@ -642,6 +643,7 @@ var
   sdString: Str8;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   theFormat.TwoDigitYearCenturyWindow := 85; // EDF convention
   sdString := FormatDateTime('dd.mm.yy', Date, theFormat);
   SetStartDate(sdString);
@@ -657,6 +659,7 @@ var
   stString:  Str8;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   theFormat.TimeSeparator := '.';
   theFormat.ShortTimeFormat := 'hh.nn.ss';
   stString := GetStartTime;
@@ -971,6 +974,7 @@ var
   pmString: Str8;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   if (physMin > 99999999) or (physMin < -9999999) then
   begin
     status   := rangeErr;
@@ -1003,6 +1007,7 @@ var
   pmString: Str8;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   pmString := GetPhysMin(position);
   theFormat.DecimalSeparator := '.';
   if not TryStrToFloat(Trim(pmString), Result, theFormat) then
@@ -1029,6 +1034,7 @@ var
   pmString: Str8;
   theFormat: TFormatSettings;
 begin
+  theFormat := DefaultFormatSettings;
   if (physMax > 99999999) or (physMax < -9999999) then
   begin
     status   := rangeErr;
@@ -1061,8 +1067,9 @@ var
   pmString: Str8;
   theFormat: TFormatSettings;
 begin
-  pmString := GetPhysMax(position);
+  theFormat := DefaultFormatSettings;
   theFormat.DecimalSeparator := '.';
+  pmString := GetPhysMax(position);
   if not TryStrToFloat(Trim(pmString), Result, theFormat) then
     status := strFormatErr;
 end;
