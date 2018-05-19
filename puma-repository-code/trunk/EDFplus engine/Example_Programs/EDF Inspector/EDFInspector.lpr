@@ -28,17 +28,27 @@ program EDFInspector;
 
 {$mode objfpc}{$H+}
 
+{ $DEFINE debug}
+
 uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, pascalscript, tachartlazaruspkg, GUI, DataRecordGrid, Plot
-  { you can add units after this };
+  {$IFDEF debug}
+  , SysUtils
+  {$ENDIF}
+;
 
 {$R *.res}
 
 begin
+  {$IFDEF debug}
+  if FileExists('heaptrace.trc') then
+    DeleteFile('heaptrace.trc');
+  SetHeapTraceOutput('heaptrace.trc');
+  {$ENDIF}
   Application.Title := 'EDF Inspector';
   RequireDerivedFormResource := True;
   Application.Initialize;

@@ -8,6 +8,7 @@
       <Unit0>
         <Filename Value="edfplustests.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos Y="2"/>
         <UsageCount Value="79"/>
@@ -33,9 +34,8 @@
         <Filename Value="edftestcases.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDFTestCases"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="24" Y="2"/>
         <UsageCount Value="80"/>
         <Loaded Value="True"/>
       </Unit2>
