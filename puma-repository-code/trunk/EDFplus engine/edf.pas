@@ -850,9 +850,9 @@ begin
 end;
 
 function TEDFDoc.ValidPosition(const position: integer; var ns: integer): boolean;
-  { Checks if index position for addressing signals is valid }
+  { Checks if index position for addressing signals is valid and returns number of signals }
 begin
-  ns := 0;
+  ns := -1;
   if not TryStrToInt(Trim(NumOfSignals), ns) then // valid number representation?
   begin
     status := strFormatErr;
@@ -1281,7 +1281,7 @@ begin
   begin
     if length(prReserved2) < ns * 32 then // Prefilter string too short?
       prReserved2 := PadRight(prReserved2, ns * 32);
-    filledString  := PadRight(prReserved2, 32); // fill with spaces for length 32
+    filledString  := PadRight(Reserved2Str, 32); // fill with spaces for length 32
     prReserved2   := StuffString(prReserved2, position * 32 + 1, 32, filledString);
     CompileHeaderText;
   end;
@@ -1366,7 +1366,7 @@ end;
 function TEDFDoc.GetTimeStamp(const aRecord: longint; const aSignal: integer; const aSample: longint
   ): TDateTime;
 begin
-  result := IncSecond(ComposeDateTime(dStartDate, dStartTime), aRecord * iDurationOfData + trunc(TimePoint[aSignal, aSample]));
+  result := IncSecond(ComposeDateTime(dStartDate, dStartTime), aRecord * int64(iDurationOfData) + trunc(TimePoint[aSignal, aSample]));
 end;
 
 function TEDFDoc.GetRecordingTime: longint;

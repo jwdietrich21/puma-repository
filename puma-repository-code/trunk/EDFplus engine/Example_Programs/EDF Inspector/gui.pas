@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ValEdit,
-  ComCtrls, Menus, LCLType, StdCtrls, ExtCtrls, LazUTF8, uPSComponent, Grids,
+  ComCtrls, Menus, LCLType, StdCtrls, ExtCtrls, LazUTF8, Grids,
   EDF, DataRecordGrid, Plot;
 
 const

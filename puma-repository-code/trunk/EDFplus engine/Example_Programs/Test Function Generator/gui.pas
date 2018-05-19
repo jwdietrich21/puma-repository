@@ -33,7 +33,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
   Dialogs, ComCtrls, Menus, LCLType, LazUTF8, StdCtrls, ExtCtrls, Spin,
-  EditBtn, ButtonPanel, Math, EDF;
+  EditBtn, Math, EDF;
 
 type
 

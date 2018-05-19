@@ -4,14 +4,14 @@ object MainForm: TMainForm
   Top = 172
   Width = 780
   Caption = 'Test Function Generator for EDF Engine'
-  ClientHeight = 380
+  ClientHeight = 400
   ClientWidth = 780
   Color = clWhite
   Constraints.MinHeight = 400
   Constraints.MinWidth = 780
   Menu = MainMenu1
   OnCreate = FormCreate
-  LCLVersion = '1.8.0.6'
+  LCLVersion = '1.8.2.0'
   object ToolBar1: TToolBar
     Left = 0
     Height = 26
@@ -62,23 +62,27 @@ object MainForm: TMainForm
   end
   object Chart1: TChart
     Left = 16
-    Height = 283
+    Height = 303
     Top = 88
     Width = 747
     AxisList = <    
       item
+        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Title.LabelFont.Orientation = 900
+        Title.LabelBrush.Style = bsClear
       end    
       item
         Intervals.MaxLength = 100
         Alignment = calBottom
+        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Range.Max = 10
         Range.UseMax = True
         Range.UseMin = True
         Title.Visible = True
         Title.Caption = 't'
+        Title.LabelBrush.Style = bsClear
       end>
     BackColor = clWhite
     Foot.Brush.Color = clBtnFace
@@ -100,9 +104,10 @@ object MainForm: TMainForm
   object FunctionComboBox: TComboBox
     Left = 191
     Height = 21
+    Hint = 'Select type of function here.'
     Top = 57
     Width = 208
-    ItemHeight = 13
+    ItemHeight = 0
     Items.Strings = (
       'Sine Wave'
       'Square Wave'
@@ -110,28 +115,30 @@ object MainForm: TMainForm
       'Simulated ECG'
     )
     OnChange = FunctionComboBoxChange
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 2
     Text = 'Function'
   end
   object HzLabel: TLabel
     Left = 494
-    Height = 13
+    Height = 16
     Top = 61
-    Width = 13
+    Width = 17
     Caption = 'Hz'
     ParentColor = False
   end
   object AULabel: TLabel
     Left = 606
-    Height = 13
+    Height = 16
     Top = 62
-    Width = 15
+    Width = 18
     Caption = 'AU'
     ParentColor = False
   end
   object FreqSpinEdit: TFloatSpinEdit
     Left = 422
-    Height = 21
+    Height = 16
     Top = 61
     Width = 65
     DecimalPlaces = 1
@@ -144,7 +151,7 @@ object MainForm: TMainForm
   end
   object AmpSpinEdit: TFloatSpinEdit
     Left = 534
-    Height = 21
+    Height = 16
     Top = 61
     Width = 65
     DecimalPlaces = 1
@@ -157,7 +164,7 @@ object MainForm: TMainForm
   end
   object DurSpinEdit: TSpinEdit
     Left = 654
-    Height = 21
+    Height = 16
     Top = 61
     Width = 65
     MaxValue = 3600
@@ -168,17 +175,17 @@ object MainForm: TMainForm
   end
   object SecLabel: TLabel
     Left = 726
-    Height = 13
+    Height = 16
     Top = 61
-    Width = 17
+    Width = 21
     Caption = 'sec'
     ParentColor = False
   end
   object FreqLabel: TLabel
     Left = 422
-    Height = 12
+    Height = 15
     Top = 40
-    Width = 47
+    Width = 63
     Caption = 'Frequency:'
     Font.Height = 12
     ParentColor = False
@@ -186,9 +193,9 @@ object MainForm: TMainForm
   end
   object AmpLabel: TLabel
     Left = 534
-    Height = 12
+    Height = 15
     Top = 40
-    Width = 45
+    Width = 64
     Caption = 'Amplitude:'
     Font.Height = 12
     ParentColor = False
@@ -196,9 +203,9 @@ object MainForm: TMainForm
   end
   object DurLabel: TLabel
     Left = 695
-    Height = 12
+    Height = 15
     Top = 40
-    Width = 38
+    Width = 55
     Caption = 'Duration:'
     Font.Height = 12
     ParentColor = False
@@ -207,6 +214,7 @@ object MainForm: TMainForm
   object HeaderControl1: THeaderControl
     Left = 16
     Height = 22
+    Hint = 'Select one of up to five time series here.'
     Top = 56
     Width = 152
     DragReorder = False
@@ -242,6 +250,8 @@ object MainForm: TMainForm
         Visible = True
       end>
     OnSectionClick = HeaderControl1SectionClick
+    ShowHint = True
+    ParentShowHint = False
   end
   object MainMenu1: TMainMenu
     left = 616
