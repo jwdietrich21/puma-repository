@@ -173,7 +173,7 @@ type
     function iGetNumOfSignals: integer;
     procedure SetNumOfSignals(const ns: Str4);
     procedure SetNumOfSignals(const ns: integer);
-    function ValidPosition(const position: integer; var ns: integer): boolean;
+    function ValidPosition(const position: integer; out ns: integer): boolean;
     procedure SetLabel(const position: integer; const theLabel: str16);
     function GetLabel(const position: integer): str16;
     procedure SetTransducer(const position: integer; const transducer: str80);
@@ -273,8 +273,8 @@ procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream); overload;
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: ansistring);
-procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
-  const aBaseURI: ansistring); overload;
+{procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
+  const aBaseURI: ansistring); overload; }{ TODO -oJWD : still to be implemented }
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 
 implementation
@@ -465,12 +465,12 @@ begin
   ReadEDFFile(EDFDoc, aFileName);
 end;
 
-procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
+{procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
   const aBaseURI: ansistring);
 begin
-  { TODO -oJWD : still to be implemented }
-  { Mind NtoLE! }
-end;
+end;  }
+{ TODO -oJWD : still to be implemented }
+{ Mind NtoLE! }
 
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring);
 var
@@ -849,7 +849,7 @@ begin
   SetNumOfSignals(nsString);
 end;
 
-function TEDFDoc.ValidPosition(const position: integer; var ns: integer): boolean;
+function TEDFDoc.ValidPosition(const position: integer; out ns: integer): boolean;
   { Checks if index position for addressing signals is valid and returns number of signals }
 begin
   ns := -1;
@@ -1405,7 +1405,6 @@ end;
 destructor TEDFDoc.Destroy;
 begin
   inherited Destroy;
-  self := nil;
 end;
 
 procedure TEDFDoc.Error;
