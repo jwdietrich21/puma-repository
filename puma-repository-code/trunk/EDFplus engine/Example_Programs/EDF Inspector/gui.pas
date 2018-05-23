@@ -74,6 +74,9 @@ type
     SaveMenuItem: TMenuItem;
     StatusBar1: TStatusBar;
     ToolBar1: TToolBar;
+    Divider1: TToolButton;
+    RecordsButton: TToolButton;
+    TimeSeriesPlotButton: TToolButton;
     UndoMenuItem: TMenuItem;
     WinAboutItem: TMenuItem;
     procedure CloseMenuItemClick(Sender: TObject);
@@ -83,6 +86,8 @@ type
     procedure MacAboutItemClick(Sender: TObject);
     procedure OpenMenuItemClick(Sender: TObject);
     procedure QuitMenuItemClick(Sender: TObject);
+    procedure RecordsButtonClick(Sender: TObject);
+    procedure TimeSeriesPlotButtonClick(Sender: TObject);
     procedure WinAboutItemClick(Sender: TObject);
   private
 
@@ -250,6 +255,16 @@ begin
   if assigned(gEDFFile) then
     gEDFFile.Free;
   application.Terminate;
+end;
+
+procedure TMainForm.RecordsButtonClick(Sender: TObject);
+begin
+  ValuesGridForm.Show;
+end;
+
+procedure TMainForm.TimeSeriesPlotButtonClick(Sender: TObject);
+begin
+  PlotForm.Show;
 end;
 
 end.

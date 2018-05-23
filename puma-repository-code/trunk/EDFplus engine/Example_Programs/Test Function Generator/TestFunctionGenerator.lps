@@ -8,7 +8,6 @@
       <Unit0>
         <Filename Value="TestFunctionGenerator.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <CursorPos Y="2"/>
         <UsageCount Value="39"/>
@@ -21,6 +20,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="GUI"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <CursorPos Y="2"/>
         <ExtraEditorCount Value="1"/>
@@ -74,123 +74,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="658" Column="29" TopLine="628"/>
+        <Caret Line="1004" Column="29" TopLine="974"/>
       </Position1>
       <Position2>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="972" Column="29" TopLine="942"/>
+        <Caret Line="1030" Column="29" TopLine="1000"/>
       </Position2>
       <Position3>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1004" Column="29" TopLine="974"/>
+        <Caret Line="1062" Column="29" TopLine="1032"/>
       </Position3>
       <Position4>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1030" Column="29" TopLine="1000"/>
+        <Caret Line="2" Column="8"/>
       </Position4>
       <Position5>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1062" Column="29" TopLine="1032"/>
+        <Caret Line="616" Column="29" TopLine="586"/>
       </Position5>
       <Position6>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="2" Column="8"/>
+        <Caret Line="643" Column="29" TopLine="613"/>
       </Position6>
       <Position7>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="616" Column="29" TopLine="586"/>
+        <Caret Line="658" Column="29" TopLine="628"/>
       </Position7>
       <Position8>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="643" Column="29" TopLine="613"/>
+        <Caret Line="972" Column="29" TopLine="942"/>
       </Position8>
       <Position9>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="658" Column="29" TopLine="628"/>
+        <Caret Line="1004" Column="29" TopLine="974"/>
       </Position9>
       <Position10>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="972" Column="29" TopLine="942"/>
+        <Caret Line="1030" Column="29" TopLine="1000"/>
       </Position10>
       <Position11>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1004" Column="29" TopLine="974"/>
+        <Caret Line="1062" Column="29" TopLine="1032"/>
       </Position11>
       <Position12>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1030" Column="29" TopLine="1000"/>
+        <Caret Line="2" Column="17"/>
       </Position12>
       <Position13>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1062" Column="29" TopLine="1032"/>
+        <Caret Line="618" Column="3" TopLine="586"/>
       </Position13>
       <Position14>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="2" Column="17"/>
+        <Caret Line="646" Column="41" TopLine="614"/>
       </Position14>
       <Position15>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="618" Column="3" TopLine="586"/>
+        <Caret Line="662" Column="41" TopLine="630"/>
       </Position15>
       <Position16>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="646" Column="41" TopLine="614"/>
+        <Caret Line="977" Column="41" TopLine="957"/>
       </Position16>
       <Position17>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="662" Column="41" TopLine="630"/>
+        <Caret Line="1011" Column="3" TopLine="978"/>
       </Position17>
       <Position18>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="977" Column="41" TopLine="957"/>
+        <Caret Line="1038" Column="3" TopLine="1005"/>
       </Position18>
       <Position19>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1011" Column="3" TopLine="978"/>
+        <Caret Line="1071" TopLine="1038"/>
       </Position19>
       <Position20>
-        <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1038" Column="3" TopLine="1005"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1071" TopLine="1038"/>
-      </Position21>
-      <Position22>
         <Filename Value="gui.pas"/>
         <Caret Line="417" Column="7" TopLine="390"/>
+      </Position20>
+      <Position21>
+        <Filename Value="gui.pas"/>
+        <Caret Line="2" Column="8"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\..\edf.pas"/>
+        <Caret Line="616" Column="32" TopLine="598"/>
       </Position22>
       <Position23>
         <Filename Value="gui.pas"/>
-        <Caret Line="2" Column="8"/>
+        <Caret Line="2"/>
       </Position23>
       <Position24>
         <Filename Value="..\..\edf.pas"/>
-        <Caret Line="616" Column="32" TopLine="598"/>
+        <Caret Line="1295" Column="32" TopLine="1271"/>
       </Position24>
       <Position25>
         <Filename Value="gui.pas"/>
-        <Caret Line="2"/>
+        <Caret Line="106" Column="41" TopLine="82"/>
       </Position25>
       <Position26>
-        <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1295" Column="32" TopLine="1271"/>
+        <Filename Value="gui.pas"/>
+        <Caret Line="331" Column="3" TopLine="328"/>
       </Position26>
       <Position27>
-        <Filename Value="gui.pas"/>
-        <Caret Line="106" Column="41" TopLine="82"/>
+        <Filename Value="..\..\edf.pas"/>
+        <Caret Line="1295" Column="32" TopLine="1271"/>
       </Position27>
       <Position28>
         <Filename Value="gui.pas"/>
-        <Caret Line="331" Column="3" TopLine="328"/>
+        <Caret Line="36" Column="12" TopLine="12"/>
       </Position28>
       <Position29>
-        <Filename Value="..\..\edf.pas"/>
-        <Caret Line="1295" Column="32" TopLine="1271"/>
+        <Filename Value="TestFunctionGenerator.lpr"/>
+        <Caret Line="2"/>
       </Position29>
       <Position30>
         <Filename Value="gui.pas"/>
-        <Caret Line="36" Column="12" TopLine="12"/>
+        <Caret Line="106" Column="41" TopLine="81"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
