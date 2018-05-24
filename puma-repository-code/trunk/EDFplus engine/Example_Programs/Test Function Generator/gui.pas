@@ -117,7 +117,13 @@ type
     procedure DrawFunction;
   end;
 
+{$IFDEF FPC}
+{$IFDEF VER3}
 operator mod(const a, b: real) c: real; inline;
+{$ELSE}
+function fmod(const a, b: real): real; inline;
+{$ENDIF}
+{$ENDIF}
 
 var
   MainForm: TMainForm;
@@ -126,11 +132,21 @@ implementation
 
 {$R *.lfm}
 
+{$IFDEF FPC}
+{$IFDEF VER3}
 operator mod(const a, b: real) c: real; inline;
 { implements modulo function for real values. Source: http://wiki.freepascal.org/Mod }
 begin
-  c:= a - b * Int(a / b);
+  c := a - b * Int(a / b);
 end;
+{$ELSE}
+function fmod(const a, b: real): real; inline;
+{ modulo operator in form of a traditional function for old FPC versions }
+begin
+  result := a - b * trunc(a / b);
+end;
+{$ENDIF}
+{$ENDIF}
 
 function GetTimeSeries(const theType: tTSType; const amplitude, frequency: double;
                     const duration: integer): tTimeSeries;
@@ -159,7 +175,13 @@ begin
       for i := 0 to imax - 1 do
       begin
         result.time[i] := i * duration / imax;
+        {$IFDEF FPC}
+        {$IFDEF VER3}
         result.values[i] := amplitude * round(i * duration / imax mod period);
+        {$ELSE}
+        result.values[i] := amplitude * round(fmod(i * duration / imax, period));
+        {$ENDIF}
+        {$ENDIF}
       end;
     end;
   saw:
@@ -168,7 +190,13 @@ begin
       for i := 0 to imax - 1 do
       begin
         result.time[i] := i * duration / imax;
+        {$IFDEF FPC}
+        {$IFDEF VER3}
         result.values[i] := amplitude * (i * duration / imax mod period);
+        {$ELSE}
+        result.values[i] := amplitude * (fmod(i * duration / imax, period));
+        {$ENDIF}
+        {$ENDIF}
       end;
     end;
   ecg:

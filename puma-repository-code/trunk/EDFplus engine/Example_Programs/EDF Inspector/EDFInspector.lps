@@ -19,6 +19,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="GUI"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos X="7" Y="2"/>
         <UsageCount Value="47"/>
@@ -62,7 +63,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="DataRecordGrid"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <CursorPos Y="2"/>
         <UsageCount Value="30"/>

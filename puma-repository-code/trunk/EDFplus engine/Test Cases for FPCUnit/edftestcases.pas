@@ -397,11 +397,13 @@ var
   RecData: TLocalRecRecord;
 begin
   theDoc := TEDFPlusDoc.Create;
+  PatData.UseDateTime := true;
   PatData.Name := 'Max Mustermann';
   PatData.HospitalCode := '01234568 54322';
   PatData.Sex := 'M';
   PatData.dBirthDate := EncodeDate(1908, 05, 31);
   theDoc.LocalPatID := PatData;
+  RecData.UseDateTime := true;
   RecData.dStartDate := EncodeDate(1969, 07, 21);
   RecData.HospitalAdminCode := 'BN_01_01189';
   RecData.InvestigatorID := 'JWD';

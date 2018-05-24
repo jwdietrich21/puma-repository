@@ -13,7 +13,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="109"/>
+      <BuildNr Value="111"/>
       <Attributes pvaDebug="True" pvaPreRelease="True"/>
       <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="EDF Inspector" InternalName="PUMA EDF Inspector 1.0.0 (Alpha Centauri)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="EDF Inspector" ProductVersion="1.0.0 Pre-Alpha"/>
     </VersionInfo>
