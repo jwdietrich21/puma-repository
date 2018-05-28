@@ -6,7 +6,7 @@ program edfplustests;
 
 { EDF testing project for FPCUnit }
 
-{ Version 1.0 (Alpha Centauri) }
+{ Version 1.0 (Aquila) }
 
 { (c) Johannes W. Dietrich, 1994 - 2018 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }

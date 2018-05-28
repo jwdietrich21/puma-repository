@@ -101,7 +101,7 @@ object MainForm: TMainForm
     Left = 191
     Height = 21
     Hint = 'Select type of function here.'
-    Top = 57
+    Top = 44
     Width = 208
     ItemHeight = 13
     Items.Strings = (
@@ -119,7 +119,7 @@ object MainForm: TMainForm
   object HzLabel: TLabel
     Left = 494
     Height = 13
-    Top = 61
+    Top = 48
     Width = 13
     Caption = 'Hz'
     ParentColor = False
@@ -127,7 +127,7 @@ object MainForm: TMainForm
   object AULabel: TLabel
     Left = 606
     Height = 13
-    Top = 62
+    Top = 49
     Width = 15
     Caption = 'AU'
     ParentColor = False
@@ -135,7 +135,7 @@ object MainForm: TMainForm
   object FreqSpinEdit: TFloatSpinEdit
     Left = 422
     Height = 21
-    Top = 61
+    Top = 48
     Width = 65
     DecimalPlaces = 1
     Increment = 0.1
@@ -148,7 +148,7 @@ object MainForm: TMainForm
   object AmpSpinEdit: TFloatSpinEdit
     Left = 534
     Height = 21
-    Top = 61
+    Top = 48
     Width = 65
     DecimalPlaces = 1
     Increment = 0.1
@@ -161,7 +161,7 @@ object MainForm: TMainForm
   object DurSpinEdit: TSpinEdit
     Left = 654
     Height = 21
-    Top = 61
+    Top = 48
     Width = 65
     MaxValue = 3600
     MinValue = 1
@@ -172,7 +172,7 @@ object MainForm: TMainForm
   object SecLabel: TLabel
     Left = 726
     Height = 13
-    Top = 61
+    Top = 48
     Width = 17
     Caption = 'sec'
     ParentColor = False
@@ -180,7 +180,7 @@ object MainForm: TMainForm
   object FreqLabel: TLabel
     Left = 422
     Height = 12
-    Top = 40
+    Top = 27
     Width = 47
     Caption = 'Frequency:'
     Font.Height = 12
@@ -190,7 +190,7 @@ object MainForm: TMainForm
   object AmpLabel: TLabel
     Left = 534
     Height = 12
-    Top = 40
+    Top = 27
     Width = 45
     Caption = 'Amplitude:'
     Font.Height = 12
@@ -200,7 +200,7 @@ object MainForm: TMainForm
   object DurLabel: TLabel
     Left = 695
     Height = 12
-    Top = 40
+    Top = 27
     Width = 38
     Caption = 'Duration:'
     Font.Height = 12
@@ -211,7 +211,7 @@ object MainForm: TMainForm
     Left = 16
     Height = 22
     Hint = 'Select one of up to five time series here.'
-    Top = 56
+    Top = 43
     Width = 152
     DragReorder = False
     Sections = <    
@@ -248,6 +248,50 @@ object MainForm: TMainForm
     OnSectionClick = HeaderControl1SectionClick
     ShowHint = True
     ParentShowHint = False
+  end
+  object Indicator1: TShape
+    Left = 16
+    Height = 10
+    Top = 66
+    Width = 28
+    Brush.Color = clMaroon
+    Pen.Color = clMaroon
+  end
+  object Indicator2: TShape
+    Left = 46
+    Height = 10
+    Top = 66
+    Width = 28
+    Brush.Color = clMaroon
+    Pen.Color = clMaroon
+    Visible = False
+  end
+  object Indicator3: TShape
+    Left = 76
+    Height = 10
+    Top = 66
+    Width = 28
+    Brush.Color = clMaroon
+    Pen.Color = clMaroon
+    Visible = False
+  end
+  object Indicator4: TShape
+    Left = 106
+    Height = 10
+    Top = 66
+    Width = 28
+    Brush.Color = clMaroon
+    Pen.Color = clMaroon
+    Visible = False
+  end
+  object Indicator5: TShape
+    Left = 136
+    Height = 10
+    Top = 66
+    Width = 28
+    Brush.Color = clMaroon
+    Pen.Color = clMaroon
+    Visible = False
   end
   object MainMenu1: TMainMenu
     left = 616

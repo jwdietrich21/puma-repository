@@ -8,8 +8,9 @@
       <Unit0>
         <Filename Value="edfplustests.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="8" Y="2"/>
         <UsageCount Value="80"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -18,8 +19,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDFplus"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="184"/>
-        <CursorPos Y="254"/>
+        <CursorPos X="4" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -34,9 +34,8 @@
         <Filename Value="edftestcases.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDFTestCases"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="7" Y="2"/>
         <UsageCount Value="81"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -44,8 +43,7 @@
         <Filename Value="..\edf.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDF"/>
-        <TopLine Value="581"/>
-        <CursorPos Y="606"/>
+        <CursorPos X="3" Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>

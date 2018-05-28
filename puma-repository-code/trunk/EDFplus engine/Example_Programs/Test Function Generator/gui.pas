@@ -6,7 +6,7 @@ unit GUI;
 
 { Test Function Generator }
 
-{ Version 1.0 (Alpha Centauri) }
+{ Version 1.0 (Aquila) }
 
 { (c) Johannes W. Dietrich, 1994 - 2018 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -35,6 +35,9 @@ uses
   Dialogs, ComCtrls, Menus, LCLType, LazUTF8, StdCtrls, ExtCtrls, Spin,
   EditBtn, Math, EDF;
 
+const
+  ABOUT_MESSAGE = 'Test Function Generator 1.0 (Aquila), a demo program for PUMA EDF Engine';
+
 type
 
   tTSType = (sine, square, saw, ecg);
@@ -58,6 +61,10 @@ type
     AmpLabel: TLabel;
     DurLabel: TLabel;
     HeaderControl1: THeaderControl;
+    Indicator2: TShape;
+    Indicator3: TShape;
+    Indicator4: TShape;
+    Indicator5: TShape;
     SaveDialog1: TSaveDialog;
     SecLabel: TLabel;
     Chart1: TChart;
@@ -89,6 +96,7 @@ type
     SaveButton: TToolButton;
     SaveMenuItem: TMenuItem;
     DurSpinEdit: TSpinEdit;
+    Indicator1: TShape;
     ToolBar1: TToolBar;
     UndoMenuItem: TMenuItem;
     WinAboutItem: TMenuItem;
@@ -360,6 +368,12 @@ begin
   signal := Section.Index;
   SetParameters;
   DrawFunction;
+  case Section.Index of
+  1: Indicator2.Visible := true;
+  2: Indicator3.Visible := true;
+  3: Indicator4.Visible := true;
+  4: Indicator5.Visible := true;
+  end;
 end;
 
 procedure TMainForm.CloseMenuItemClick(Sender: TObject);
@@ -478,7 +492,7 @@ end;
 
 procedure TMainForm.MacAboutItemClick(Sender: TObject);
 begin
-  ShowMessage('Test Function Generator, a demo program for PUMA EDF Engine');
+  ShowMessage(ABOUT_MESSAGE);
 end;
 
 procedure TMainForm.QuitMenuItemClick(Sender: TObject);

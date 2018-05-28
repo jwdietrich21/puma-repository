@@ -6,7 +6,7 @@ unit GUI;
 
 { EDF Inspector }
 
-{ Version 1.0 (Alpha Centauri) }
+{ Version 1.0 (Aquila) }
 
 { (c) Johannes W. Dietrich, 1994 - 2018 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -40,6 +40,7 @@ const
   SIZE_TEXT = '  Total Size of Data: ';
   BYTES_TEXT = ' Bytes';
   MAIN_FORM_TITLE = 'EDF Inspector';
+  ABOUT_MESSAGE = 'EDF Inspector 1.0 (Aquila), a demo program for PUMA EDF Engine';
 
 type
 
@@ -134,7 +135,7 @@ end;
 
 procedure TMainForm.MacAboutItemClick(Sender: TObject);
 begin
-  ShowMessage('EDF Inspector, a demo program for PUMA EDF Engine');
+  ShowMessage(ABOUT_MESSAGE);
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
