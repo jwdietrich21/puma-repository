@@ -54,7 +54,7 @@ const
   EDFEngine_fullversion = ((EDFEngine_major * 100 + EDFEngine_minor) *
     100 + EDFEngine_release) * 100 + EDFEngine_patch;
   EDFEngine_version = '1.0.0.0';
-  EDFEngine_internalversion = 'Alpha Centauri';
+  EDFEngine_internalversion = 'Aquila';
 
   ksCR   = #13;
   ksLF   = #10;
@@ -88,18 +88,6 @@ const
   kDefaultDate: str8 = '01.01.85';
   kDefaultTime: str8 = '00.00.00';
   kEDFAnnotations = 'EDF Annotations';
-
-  kVersionPos    = 1;
-  kLocalPatIDPos = 9;
-  kLocalRecIDPos = 89;
-  kStartDatePos  = 169;
-  kStartTimePos  = 177;
-  kNumOfBytesPos = 185;
-  kReservedPos   = 193;
-  kNumOfDRecsPos = 237;
-  kDurOfDataPos  = 245;
-  kNumOfSigPos   = 253;
-  kVarStartPos   = kNumOfSigPos + 4;
 
   kMaxRecordBytes = 61440;
 
@@ -278,6 +266,20 @@ procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: ansistring);
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 
 implementation
+
+const
+
+  kVersionPos    = 1;
+  kLocalPatIDPos = 9;
+  kLocalRecIDPos = 89;
+  kStartDatePos  = 169;
+  kStartTimePos  = 177;
+  kNumOfBytesPos = 185;
+  kReservedPos   = 193;
+  kNumOfDRecsPos = 237;
+  kDurOfDataPos  = 245;
+  kNumOfSigPos   = 253;
+  kVarStartPos   = kNumOfSigPos + 4;
 
 procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
 { reads a header record from a given memory stream }
