@@ -261,8 +261,9 @@ procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream); overload;
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 procedure ReadNewEDFFile(out EDFDoc: TEDFDoc; const aFileName: ansistring);
-{procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
-  const aBaseURI: ansistring); overload; }{ TODO -oJWD : still to be implemented }
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
+  const aBaseURI: ansistring); overload;
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream); overload;
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 
 implementation
@@ -400,6 +401,7 @@ begin
     begin
       imax := EDFDoc.iNumOfDataRecs;
       jmax := EDFDoc.iNumOfSignals;
+      // begin at end of header record:
       mStream.Seek(EDFDoc.iGetNumOfBytes, soFromBeginning);
       for i := 0 to imax - 1 do    // Records
         for j := 0 to jmax - 1 do  // Signals
@@ -437,7 +439,7 @@ end;
 
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; aStream: TStream);
 begin
-  REadEDFFile(EDFDoc, aStream, 'stream:');
+  ReadEDFFile(EDFDoc, aStream, 'stream:');
 end;
 
 procedure ReadEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring);
@@ -467,12 +469,30 @@ begin
   ReadEDFFile(EDFDoc, aFileName);
 end;
 
-{procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
   const aBaseURI: ansistring);
+var
+  mStream: TMemoryStream;
+  begin
+    mStream := TMemoryStream.Create;
+    if assigned(EDFDoc) then
+      try
+        WriteHeaderRecord(EDFDoc, mStream);
+        if EDFDoc.status = noErr then
+        begin
+          WriteDataRecords(EDFDoc, mStream);
+          aStream.CopyFrom(mStream, mStream.Size);
+        end;
+      except
+        EDFDoc.status := saveErr;
+      end;
+    mStream.Free;
+  end;
+
+procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream);
 begin
-end;  }
-{ TODO -oJWD : still to be implemented }
-{ Mind NtoLE! }
+  WriteEDFFile(EDFDoc, aStream, 'stream:');
+end;
 
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring);
 var

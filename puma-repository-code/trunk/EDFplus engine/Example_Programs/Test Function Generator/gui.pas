@@ -364,15 +364,18 @@ end;
 procedure TMainForm.HeaderControl1SectionClick(
   HeaderControl: TCustomHeaderControl; Section: THeaderSection);
 begin
-  Chart1.Title.Text.Text := Section.Text;
-  signal := Section.Index;
-  SetParameters;
-  DrawFunction;
-  case Section.Index of
-  1: Indicator2.Visible := true;
-  2: Indicator3.Visible := true;
-  3: Indicator4.Visible := true;
-  4: Indicator5.Visible := true;
+  if HeaderControl = HeaderControl1 then
+    begin
+    Chart1.Title.Text.Text := Section.Text;
+    signal := Section.Index;
+    SetParameters;
+    DrawFunction;
+    case Section.Index of
+    1: Indicator2.Visible := true;
+    2: Indicator3.Visible := true;
+    3: Indicator4.Visible := true;
+    4: Indicator5.Visible := true;
+    end;
   end;
 end;
 

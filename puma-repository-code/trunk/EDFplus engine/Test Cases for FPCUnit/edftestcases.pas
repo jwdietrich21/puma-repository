@@ -101,7 +101,7 @@ begin
   theDoc := TEDFDoc.Create;
   AssertEquals('0       ', theDoc.version);
   theHeader := theDoc.header;
-  AssertEquals('0', theDoc.header[1]);
+  AssertEquals('0', theHeader[1]);
   theDoc.Destroy;
 end;
 
