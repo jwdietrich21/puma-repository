@@ -1,0 +1,135 @@
+object PlotForm: TPlotForm
+  Left = 209
+  Height = 395
+  Top = 401
+  Width = 652
+  Caption = 'Plot of Time Series'
+  ClientHeight = 395
+  ClientWidth = 652
+  Color = clWhite
+  Constraints.MinHeight = 395
+  LCLVersion = '1.8.0.6'
+  object Chart1: TChart
+    Left = 16
+    Height = 184
+    Top = 16
+    Width = 497
+    AxisList = <    
+      item
+        Minors = <>
+        Title.LabelFont.Orientation = 900
+      end    
+      item
+        Intervals.MaxLength = 100
+        Alignment = calBottom
+        Minors = <>
+        Range.Max = 10
+        Range.UseMax = True
+        Range.UseMin = True
+        Title.Visible = True
+        Title.Caption = 't'
+      end>
+    BackColor = clWhite
+    Foot.Brush.Color = clBtnFace
+    Foot.Font.Color = clBlue
+    Title.Brush.Color = clBtnFace
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'TAChart'
+    )
+    Anchors = [akTop, akLeft, akRight]
+    Color = clWhite
+    object ySeries1: TLineSeries
+      Title = 'y'
+      LinePen.Color = clGreen
+      LinePen.Width = 2
+    end
+  end
+  object ComboBox1: TComboBox
+    Left = 524
+    Height = 21
+    Top = 24
+    Width = 100
+    Anchors = [akTop, akRight]
+    ItemHeight = 13
+    OnChange = ComboBox1Change
+    TabOrder = 1
+    Text = 'ComboBox1'
+  end
+  object Chart2: TChart
+    Left = 16
+    Height = 184
+    Top = 208
+    Width = 497
+    AxisList = <    
+      item
+        Minors = <>
+        Title.LabelFont.Orientation = 900
+      end    
+      item
+        Intervals.MaxLength = 100
+        Alignment = calBottom
+        Minors = <>
+        Range.Max = 10
+        Range.UseMax = True
+        Range.UseMin = True
+        Title.Visible = True
+        Title.Caption = 't'
+      end>
+    BackColor = clWhite
+    Foot.Brush.Color = clBtnFace
+    Foot.Font.Color = clBlue
+    Title.Brush.Color = clBtnFace
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'TAChart'
+    )
+    Anchors = [akTop, akLeft, akRight]
+    Color = clWhite
+    object ySeries2: TLineSeries
+      Title = 'y'
+      LinePen.Color = clRed
+      LinePen.Width = 2
+    end
+  end
+  object ComboBox2: TComboBox
+    Left = 524
+    Height = 21
+    Top = 216
+    Width = 100
+    Anchors = [akTop, akRight]
+    ItemHeight = 13
+    OnChange = ComboBox1Change
+    TabOrder = 3
+    Text = 'ComboBox2'
+  end
+  object ColorListBox1: TColorListBox
+    Left = 524
+    Height = 104
+    Top = 56
+    Width = 100
+    Anchors = [akTop, akRight]
+    ItemHeight = 0
+    OnClick = ColorListBox1Click
+    TabOrder = 4
+  end
+  object ColorListBox2: TColorListBox
+    Left = 524
+    Height = 104
+    Top = 248
+    Width = 100
+    Anchors = [akTop, akRight]
+    ItemHeight = 0
+    OnClick = ColorListBox2Click
+    TabOrder = 5
+  end
+  object SpinEdit1: TSpinEdit
+    Left = 528
+    Height = 21
+    Top = 178
+    Width = 96
+    OnChange = SpinEdit1Change
+    TabOrder = 6
+    Value = 15
+  end
+end
