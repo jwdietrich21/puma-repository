@@ -10,7 +10,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="7"/>
         <CursorPos X="11" Y="2"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -20,10 +20,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="GUI"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -31,7 +30,8 @@
         <Filename Value="../../edf.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDF"/>
-        <CursorPos X="39" Y="15"/>
+        <TopLine Value="410"/>
+        <CursorPos X="34" Y="461"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -45,7 +45,7 @@
           <TopLine Value="1215"/>
           <CursorPos X="28" Y="1242"/>
         </ExtraEditor2>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -55,7 +55,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit3>
       <Unit4>
         <Filename Value="datarecordgrid.pas"/>
@@ -66,7 +66,7 @@
         <UnitName Value="DataRecordGrid"/>
         <EditorIndex Value="2"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit4>
@@ -77,9 +77,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Plot"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <CursorPos Y="2"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit5>
@@ -202,124 +203,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../../edf.pas"/>
-        <Caret Line="1421" Column="5" TopLine="1213"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="283" TopLine="259"/>
       </Position1>
       <Position2>
-        <Filename Value="EDFInspector.lpr"/>
-        <Caret Line="2"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="284" TopLine="259"/>
       </Position2>
       <Position3>
-        <Filename Value="gui.pas"/>
-        <Caret Line="81" Column="70" TopLine="57"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="286" TopLine="259"/>
       </Position3>
       <Position4>
-        <Filename Value="../../edf.pas"/>
-        <Caret Line="272" Column="9" TopLine="247"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="287" TopLine="259"/>
       </Position4>
       <Position5>
-        <Filename Value="gui.pas"/>
-        <Caret Line="81" Column="52" TopLine="58"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="284" TopLine="259"/>
       </Position5>
       <Position6>
-        <Filename Value="gui.pas"/>
-        <Caret Line="145" Column="3" TopLine="135"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="286" TopLine="259"/>
       </Position6>
       <Position7>
-        <Filename Value="gui.pas"/>
-        <Caret Line="82" Column="26" TopLine="58"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="287" TopLine="259"/>
       </Position7>
       <Position8>
-        <Filename Value="gui.pas"/>
-        <Caret Line="83" Column="26" TopLine="58"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="284" TopLine="259"/>
       </Position8>
       <Position9>
-        <Filename Value="gui.pas"/>
-        <Caret Line="84" Column="26" TopLine="58"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="286" TopLine="259"/>
       </Position9>
       <Position10>
-        <Filename Value="gui.pas"/>
-        <Caret Line="85" Column="26" TopLine="58"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="287" TopLine="259"/>
       </Position10>
       <Position11>
-        <Filename Value="gui.pas"/>
-        <Caret Line="262" Column="3" TopLine="217"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="284" TopLine="259"/>
       </Position11>
       <Position12>
-        <Filename Value="gui.pas"/>
-        <Caret Line="2" Column="5"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="286" TopLine="259"/>
       </Position12>
       <Position13>
-        <Filename Value="gui.pas"/>
-        <Caret Line="85" Column="70" TopLine="68"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="287" TopLine="259"/>
       </Position13>
       <Position14>
         <Filename Value="plot.pas"/>
-        <Caret Line="76" TopLine="54"/>
+        <Caret Line="284" TopLine="259"/>
       </Position14>
       <Position15>
         <Filename Value="plot.pas"/>
-        <Caret Line="118" Column="98" TopLine="99"/>
+        <Caret Line="286" TopLine="259"/>
       </Position15>
       <Position16>
         <Filename Value="plot.pas"/>
-        <Caret Line="36" Column="3" TopLine="235"/>
+        <Caret Line="287" TopLine="259"/>
       </Position16>
       <Position17>
         <Filename Value="plot.pas"/>
-        <Caret Line="183" Column="24" TopLine="175"/>
+        <Caret Line="284" TopLine="259"/>
       </Position17>
       <Position18>
         <Filename Value="plot.pas"/>
-        <Caret Line="107" Column="23" TopLine="88"/>
+        <Caret Line="289" TopLine="259"/>
       </Position18>
       <Position19>
         <Filename Value="plot.pas"/>
-        <Caret Line="33" TopLine="22"/>
+        <Caret Line="290" TopLine="259"/>
       </Position19>
       <Position20>
         <Filename Value="plot.pas"/>
-        <Caret Line="190" Column="27" TopLine="164"/>
+        <Caret Line="291" TopLine="259"/>
       </Position20>
       <Position21>
         <Filename Value="plot.pas"/>
-        <Caret Line="200" Column="92" TopLine="171"/>
+        <Caret Line="226" TopLine="207"/>
       </Position21>
       <Position22>
         <Filename Value="plot.pas"/>
-        <Caret Line="194" Column="27" TopLine="178"/>
+        <Caret Line="228" TopLine="207"/>
       </Position22>
       <Position23>
         <Filename Value="plot.pas"/>
-        <Caret Line="58" TopLine="58"/>
+        <Caret Line="229" TopLine="207"/>
       </Position23>
       <Position24>
-        <Filename Value="datarecordgrid.pas"/>
-        <Caret Line="35" Column="22"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="230" TopLine="207"/>
       </Position24>
       <Position25>
-        <Filename Value="datarecordgrid.pas"/>
-        <Caret Line="125" Column="3" TopLine="123"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="231" TopLine="207"/>
       </Position25>
       <Position26>
-        <Filename Value="datarecordgrid.pas"/>
-        <Caret Line="129" Column="46" TopLine="93"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="232" TopLine="207"/>
       </Position26>
       <Position27>
-        <Filename Value="gui.pas"/>
-        <Caret Line="9" Column="127" TopLine="4"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="234" TopLine="211"/>
       </Position27>
       <Position28>
-        <Filename Value="gui.pas"/>
-        <Caret Line="149" Column="3" TopLine="147"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="252" Column="28" TopLine="221"/>
       </Position28>
       <Position29>
-        <Filename Value="gui.pas"/>
-        <Caret Line="156" Column="63" TopLine="142"/>
+        <Filename Value="plot.pas"/>
+        <Caret Line="278" Column="45" TopLine="251"/>
       </Position29>
       <Position30>
         <Filename Value="gui.pas"/>
-        <Caret Line="149" Column="49" TopLine="91"/>
+        <Caret Line="190" TopLine="178"/>
       </Position30>
     </JumpHistory>
     <RunParams>

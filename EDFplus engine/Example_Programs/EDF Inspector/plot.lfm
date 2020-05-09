@@ -1,7 +1,7 @@
 object PlotForm: TPlotForm
-  Left = 209
+  Left = 263
   Height = 395
-  Top = 401
+  Top = 393
   Width = 652
   Caption = 'Plot of Time Series'
   ClientHeight = 395
@@ -144,6 +144,5 @@ object PlotForm: TPlotForm
     Width = 96
     OnChange = SpinEdit1Change
     TabOrder = 6
-    Value = 15
   end
 end

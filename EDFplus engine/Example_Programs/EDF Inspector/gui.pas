@@ -186,6 +186,7 @@ var
 begin
   if EDFFileOpenDialog.Execute then
   begin
+    application.ProcessMessages;
     HeaderRecordValueListEditor.Strings.Clear;
     if not assigned(gEDFFile) then
       gEDFFile := TEDFDoc.Create;
