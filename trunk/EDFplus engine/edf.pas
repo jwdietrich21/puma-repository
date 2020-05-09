@@ -265,6 +265,8 @@ procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
   const aBaseURI: ansistring); overload;
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream); overload;
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
+procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
+procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
 
 implementation
 
