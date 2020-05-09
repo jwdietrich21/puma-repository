@@ -6,12 +6,12 @@ unit EDF;
 
 { EDF base unit }
 
-{ Version 1.0 (Aquila) }
+{ Version 1.1 (Ursa) }
 
-{ (c) Johannes W. Dietrich, 1994 - 2018 }
+{ (c) Johannes W. Dietrich, 1994 - 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2018 }
+{ (c) Ruhr University of Bochum 2005 - 2020 }
 
 { Parser and compiler for EDF and EDF+ data files }
 
@@ -48,12 +48,12 @@ type
 const
 
   EDFEngine_major   = 1;
-  EDFEngine_minor   = 0;
+  EDFEngine_minor   = 1;
   EDFEngine_release = 0;
   EDFEngine_patch   = 0;
   EDFEngine_fullversion = ((EDFEngine_major * 100 + EDFEngine_minor) *
     100 + EDFEngine_release) * 100 + EDFEngine_patch;
-  EDFEngine_version = '1.0.0.0';
+  EDFEngine_version = '1.1.0.0';
   EDFEngine_internalversion = 'Aquila';
 
   ksCR   = #13;

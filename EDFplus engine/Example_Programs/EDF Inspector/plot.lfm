@@ -8,7 +8,9 @@ object PlotForm: TPlotForm
   ClientWidth = 652
   Color = clWhite
   Constraints.MinHeight = 395
-  LCLVersion = '1.8.0.6'
+  OnCreate = FormCreate
+  OnPaint = FormPaint
+  LCLVersion = '2.0.8.0'
   object Chart1: TChart
     Left = 16
     Height = 184
@@ -16,18 +18,22 @@ object PlotForm: TPlotForm
     Width = 497
     AxisList = <    
       item
+        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Title.LabelFont.Orientation = 900
+        Title.LabelBrush.Style = bsClear
       end    
       item
         Intervals.MaxLength = 100
         Alignment = calBottom
+        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Range.Max = 10
         Range.UseMax = True
         Range.UseMin = True
         Title.Visible = True
         Title.Caption = 't'
+        Title.LabelBrush.Style = bsClear
       end>
     BackColor = clWhite
     Foot.Brush.Color = clBtnFace
@@ -47,11 +53,11 @@ object PlotForm: TPlotForm
   end
   object ComboBox1: TComboBox
     Left = 524
-    Height = 21
+    Height = 20
     Top = 24
     Width = 100
     Anchors = [akTop, akRight]
-    ItemHeight = 13
+    ItemHeight = 19
     OnChange = ComboBox1Change
     TabOrder = 1
     Text = 'ComboBox1'
@@ -63,18 +69,22 @@ object PlotForm: TPlotForm
     Width = 497
     AxisList = <    
       item
+        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Title.LabelFont.Orientation = 900
+        Title.LabelBrush.Style = bsClear
       end    
       item
         Intervals.MaxLength = 100
         Alignment = calBottom
+        Marks.LabelBrush.Style = bsClear
         Minors = <>
         Range.Max = 10
         Range.UseMax = True
         Range.UseMin = True
         Title.Visible = True
         Title.Caption = 't'
+        Title.LabelBrush.Style = bsClear
       end>
     BackColor = clWhite
     Foot.Brush.Color = clBtnFace
@@ -94,11 +104,11 @@ object PlotForm: TPlotForm
   end
   object ComboBox2: TComboBox
     Left = 524
-    Height = 21
+    Height = 20
     Top = 216
     Width = 100
     Anchors = [akTop, akRight]
-    ItemHeight = 13
+    ItemHeight = 19
     OnChange = ComboBox1Change
     TabOrder = 3
     Text = 'ComboBox2'
@@ -108,6 +118,8 @@ object PlotForm: TPlotForm
     Height = 104
     Top = 56
     Width = 100
+    DefaultColorColor = clMaroon
+    Selected = clMaroon
     Anchors = [akTop, akRight]
     ItemHeight = 0
     OnClick = ColorListBox1Click
@@ -118,6 +130,8 @@ object PlotForm: TPlotForm
     Height = 104
     Top = 248
     Width = 100
+    DefaultColorColor = clGreen
+    Selected = clGreen
     Anchors = [akTop, akRight]
     ItemHeight = 0
     OnClick = ColorListBox2Click

@@ -6,12 +6,12 @@ unit Plot;
 
 { EDF Inspector }
 
-{ Version 1.0 (Aquila) }
+{ Version 1.1 (Ursa) }
 
-{ (c) Johannes W. Dietrich, 1994 - 2018 }
+{ (c) Johannes W. Dietrich, 1994 - 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2018 }
+{ (c) Ruhr University of Bochum 2005 - 2020 }
 
 { Parser and compiler for EDF and EDF+ data files }
 
@@ -27,12 +27,22 @@ unit Plot;
 { MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. }
 
 {$mode objfpc}{$H+}
+{$IFDEF LCLCocoa}
+  {$modeswitch objectivec1}
+{$ENDIF}
 
 interface
 
 uses
   Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, ColorBox, Spin, EDF;
+  Dialogs, StdCtrls, ColorBox, Spin, EDF
+  {$IFDEF DARWIN}
+  , MacOSAll
+  {$ENDIF}
+  {$IFDEF LCLCocoa}
+  , CocoaAll, CocoaUtils
+  {$ENDIF}
+  ;
 
 type
 
@@ -51,6 +61,8 @@ type
     procedure ColorListBox1Click(Sender: TObject);
     procedure ColorListBox2Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
     procedure SpinEdit1Change(Sender: TObject);
   private
 
@@ -60,8 +72,13 @@ type
     procedure ShowPlot;
   end;
 
+const
+  BACKCOLOUR = clDefault;
+
 var
   PlotForm: TPlotForm;
+
+function DarkTheme: boolean;
 
 implementation
 
@@ -69,9 +86,119 @@ implementation
 
 { TPlotForm }
 
+function IsMinMacOS(Maj, Min: integer): boolean;
+  { returns true, if this app runs on a macOS version as specified or newer }
+  {$IFDEF DARWIN}
+var
+  Major, Minor: SInt32;
+  theError: SInt16;
+  {$ENDIF}
+begin
+  result := false;
+  {$IFDEF DARWIN}
+  theError := Gestalt(gestaltSystemVersionMajor, Major);
+  if theError = 0 then
+    theError := Gestalt(gestaltSystemVersionMinor, Minor);
+  if theError = 0 then
+    if (Major = Maj) and (Minor >= Min) or (Major > Maj) then
+      Result := True;
+  {$ENDIF}
+end;
+
+function MojaveOrNewer: boolean;
+  { returns true, if this app runs on macOS X 10.14 Mojave or newer }
+begin
+  result := false;
+  {$IFDEF DARWIN}
+  result := IsMinMacOS(10, 14);
+  {$ENDIF}
+end;
+
+{$IFDEF LCLCocoa}
+{The following two functions were suggested by Hansaplast at https://forum.lazarus.freepascal.org/index.php/topic,43111.msg304366.html}
+
+// Retrieve key's string value from user preferences. Result is encoded using NSStrToStr's default encoding.
+function GetPrefString(const KeyName : string) : string;
+begin
+  Result := NSStringToString(NSUserDefaults.standardUserDefaults.stringForKey(NSStr(@KeyName[1])));
+end;
+{$ENDIF}
+
+// DarkTheme: Detects if the Dark Theme (true) has been enabled or not (false)
+function DarkTheme: boolean;
+{$IFDEF Windows}
+const
+  KEYPATH = '\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize';
+  KEYNAME = 'AppsUseLightTheme';
+  WindowsDarkModeSupported: boolean = false; // may be set to true in future versions
+var
+  LightKey: boolean;
+  Registry: TRegistry;
+{$ENDIF}
+begin
+  Result := false;
+  {$IFDEF Windows}
+  if WindowsDarkModeSupported then
+  begin
+    Registry := TRegistry.Create;
+    try
+      Registry.RootKey := HKEY_CURRENT_USER;
+      if Registry.OpenKeyReadOnly(KEYPATH) then
+        begin
+          if Registry.ValueExists(KEYNAME) then
+            LightKey := Registry.ReadBool(KEYNAME)
+          else
+            LightKey := true;
+        end
+      else
+        LightKey := true;
+        Result := not LightKey
+    finally
+      Registry.Free;
+    end;
+  end
+  else
+  Result := false;
+  {$ELSE}
+  {$IFDEF LCLCocoa}
+  if MojaveOrNewer then
+    Result := pos('DARK',UpperCase(GetPrefString('AppleInterfaceStyle'))) > 0
+  else
+    Result := false;
+  {$ELSE}
+  Result := false;
+  {$ENDIF}
+  {$ENDIF}
+end;
+
 procedure TPlotForm.ComboBox1Change(Sender: TObject);
 begin
   DrawTimeSeries;
+end;
+
+procedure TPlotForm.FormCreate(Sender: TObject);
+begin
+  FormPaint(Self);
+end;
+
+procedure TPlotForm.FormPaint(Sender: TObject);
+begin
+  if DarkTheme then
+    begin
+      Color := BACKCOLOUR;
+      Chart1.Color := BACKCOLOUR;
+      Chart1.BackColor := BACKCOLOUR;
+      Chart2.Color := BACKCOLOUR;
+      Chart2.BackColor := BACKCOLOUR;
+    end
+  else
+    begin
+      Color := clWhite;
+      Chart1.Color := clWhite;
+      Chart1.BackColor := clWhite;
+      Chart2.Color := clWhite;
+      Chart2.BackColor := clWhite;
+    end;
 end;
 
 procedure TPlotForm.SpinEdit1Change(Sender: TObject);
