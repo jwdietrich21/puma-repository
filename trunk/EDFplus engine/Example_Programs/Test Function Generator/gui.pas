@@ -1,5 +1,5 @@
 unit GUI;
-
+r
 { PUMA Repository }
 
 { Pascal Units for Medical Applications }
@@ -254,9 +254,33 @@ begin
 end;
 
 procedure CreateLargeFile(var EDFDoc: TEDFDoc; const aFileName: ansistring);
+var
+  i, k:     longint;   // record and sample index
+  imax:     longint;   // number of records
+  j:        integer;   // signal index
+  jmax:     integer;   // number of signals
+  rawValue: smallint;
+  fStream:  TFileStream;
 begin
-  WriteHeaderRecord(EDFDoc, aFileName);
-  { TODO -oJWD : Add code for large data chunk here }
+  if assigned(EDFDoc) then
+    begin
+      fStream := TFileStream.Create(aFileName, fmCreate);
+      { Write Header Record: }
+      WriteHeaderRecord(EDFDoc, fStream);
+      { The next part simulates creating a large data record. }
+      { In this example it isn't acually that large, but similar code can }
+      { be used for really large data chunks. }
+      imax := EDFDoc.iNumOfDataRecs;
+      jmax := EDFDoc.iNumOfSignals;
+      for i := 0 to imax - 1 do
+        for j := 0 to jmax - 1 do
+          for k := 0 to EDFDoc.iNumOfSamples[j] - 1 do
+          begin
+            rawValue := EDFDoc.RawDataRecord[i, j, k];
+            fStream.Write(NToLE(rawValue), 2);
+          end;
+      fStream.Free;
+    end;
 end;
 
 function GetTimeSeries(const theType: tTSType; const amplitude, frequency: double;
