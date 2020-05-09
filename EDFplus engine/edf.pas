@@ -267,6 +267,7 @@ procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream); overload;
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
 procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
+procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 
 implementation
 
@@ -388,6 +389,24 @@ begin
   sStream.Seek(0, soFromBeginning);
   mStream.CopyFrom(sStream, iHeaderLength);
   mStream.Seek(iHeaderLength, soFromBeginning);
+end;
+
+procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; const aFileName: ansistring);
+var
+  mStream: TMemoryStream;
+begin
+  mStream := TMemoryStream.Create;
+  if assigned(EDFDoc) then
+  try
+    WriteHeaderRecord(EDFDoc, mStream);
+    if EDFDoc.status = noErr then
+    begin
+      mStream.SaveToFile(aFileName);
+    end;
+  except
+    EDFDoc.status := saveErr;
+  end;
+  mStream.Free;
 end;
 
 procedure WriteDataRecords(var EDFDoc: TEDFDoc; mStream: TMemoryStream);

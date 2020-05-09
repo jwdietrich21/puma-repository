@@ -253,6 +253,12 @@ begin
   {$ENDIF}
 end;
 
+procedure CreateLargeFile(var EDFDoc: TEDFDoc; const aFileName: ansistring);
+begin
+  WriteHeaderRecord(EDFDoc, aFileName);
+  { TODO -oJWD : Add code for large data chunk here }
+end;
+
 function GetTimeSeries(const theType: tTSType; const amplitude, frequency: double;
                     const duration: integer): tTimeSeries;
 { Fourier synthesis of ECG after H-U Harten, H. Naegerl and H-D Schulte
@@ -265,7 +271,7 @@ begin
   SetLength(result.time, imax);
   SetLength(result.values, imax);
   case theType of
-  sine:
+  sine:        // sine wave
     begin
       omega := 2 * pi * frequency;
       for i := 0 to imax - 1 do
@@ -274,7 +280,7 @@ begin
         result.values[i] := amplitude * sin(omega * i * duration / imax);
       end;
     end;
-  square:
+  square:      // square wave
     begin
       period := 1 / frequency;
       for i := 0 to imax - 1 do
@@ -289,7 +295,7 @@ begin
         {$ENDIF}
       end;
     end;
-  saw:
+  saw:         // ramp
     begin
       period := 1 / frequency;
       for i := 0 to imax - 1 do
@@ -304,7 +310,7 @@ begin
         {$ENDIF}
       end;
     end;
-  ecg:
+  ecg:         // simulated ECG
     begin
       omega := 2 * pi * frequency;
       for i := 0 to imax - 1 do
@@ -379,7 +385,7 @@ begin
     { Standard variant using a self-contained EDFDoc object : }
     1: WriteEDFFile(theDoc, UTF8ToSys(SaveDialog1.FileName));
     { Alternative approach for very large files : }
-    2: ShowMessage('not implemented');
+    2: CreateLargeFile(theDoc, UTF8ToSys(SaveDialog1.FileName));
     end;
   end;
 end;
