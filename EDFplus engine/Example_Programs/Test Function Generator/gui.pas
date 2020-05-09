@@ -375,7 +375,12 @@ begin
   theDoc := EDFDoc;
   if SaveDialog1.Execute then
   begin
-    WriteEDFFile(theDoc, UTF8ToSys(SaveDialog1.FileName));
+    case SaveDialog1.FilterIndex of
+    { Standard variant using a self-contained EDFDoc object : }
+    1: WriteEDFFile(theDoc, UTF8ToSys(SaveDialog1.FileName));
+    { Alternative approach for very large files : }
+    2: ShowMessage('not implemented');
+    end;
   end;
 end;
 
