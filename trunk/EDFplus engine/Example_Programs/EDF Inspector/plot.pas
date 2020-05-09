@@ -280,6 +280,7 @@ begin
     jmax := high(openFile.ScaledDataRecord[0]);     // Signals
     ComboBox1.Items.Clear;
     ComboBox2.Items.Clear;
+    SpinEdit1.Value := imax;
     SpinEdit1.MaxValue := imax;
     for j := 0 to jmax do
     begin

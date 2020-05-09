@@ -113,7 +113,7 @@ object MainForm: TMainForm
     Items.Strings = (
       'Sine Wave'
       'Square Wave'
-      'Sawtooth Wave'
+      'Sawtooth Wave (ramp)'
       'Simulated ECG'
     )
     OnChange = FunctionComboBoxChange
