@@ -266,7 +266,7 @@ procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream); overload;
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
-procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
+procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; aStream: TStream);
 procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 
 implementation
@@ -377,7 +377,7 @@ begin
       EDFDoc.status := emptydata;
 end;
 
-procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
+procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; aStream: TStream);
 { writes a header record to a given memory stream }
 var
   sStream: TStringStream;
@@ -385,10 +385,10 @@ var
 begin
   sStream := TStringStream.Create(EDFDoc.header);
   iHeaderLength := length(sStream.DataString);
-  mStream.Seek(0, soFromBeginning);
+  aStream.Seek(0, soFromBeginning);
   sStream.Seek(0, soFromBeginning);
-  mStream.CopyFrom(sStream, iHeaderLength);
-  mStream.Seek(iHeaderLength, soFromBeginning);
+  aStream.CopyFrom(sStream, iHeaderLength);
+  aStream.Seek(iHeaderLength, soFromBeginning);
 end;
 
 procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; const aFileName: ansistring);
