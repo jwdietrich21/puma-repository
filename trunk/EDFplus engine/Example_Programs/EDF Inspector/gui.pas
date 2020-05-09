@@ -6,12 +6,12 @@ unit GUI;
 
 { EDF Inspector }
 
-{ Version 1.0 (Aquila) }
+{ Version 1.1 (Aquila) }
 
-{ (c) Johannes W. Dietrich, 1994 - 2018 }
+{ (c) Johannes W. Dietrich, 1994 - 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2018 }
+{ (c) Ruhr University of Bochum 2005 - 2020 }
 
 { Parser and compiler for EDF and EDF+ data files }
 
@@ -82,6 +82,7 @@ type
     WinAboutItem: TMenuItem;
     procedure CloseMenuItemClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
     procedure HeaderRecordValueListEditorSelectCell(Sender: TObject; aCol,
       aRow: Integer; var CanSelect: Boolean);
     procedure MacAboutItemClick(Sender: TObject);
@@ -112,7 +113,7 @@ procedure AdaptMenus;
 var
   modifierKey: TShiftState;
 begin
-  {$IFDEF LCLcarbon}
+  {$IFDEF Darwin}
   modifierKey := [ssMeta];
   MainForm.WinAboutItem.Visible := False;
   MainForm.AppleMenu.Visible := True;
@@ -141,6 +142,19 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   AdaptMenus;
+  FormPaint(Self);
+end;
+
+procedure TMainForm.FormPaint(Sender: TObject);
+begin
+  if DarkTheme then
+  begin
+    HeaderRecordValueListEditor.AlternateColor := clTeal;
+  end
+  else
+  begin
+    HeaderRecordValueListEditor.AlternateColor := clMoneyGreen;
+  end;
 end;
 
 procedure TMainForm.HeaderRecordValueListEditorSelectCell(Sender: TObject;

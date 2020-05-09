@@ -6,12 +6,12 @@ unit EDFTestCases;
 
 { EDF test cases }
 
-{ Version 1.0 (Aquila) }
+{ Version 1.1 (Ursa) }
 
-{ (c) Johannes W. Dietrich, 1994 - 2018 }
+{ (c) Johannes W. Dietrich, 1994 - 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2018 }
+{ (c) Ruhr University of Bochum 2005 - 2020 }
 
 { Parser and compiler for EDF and EDF+ data files }
 
@@ -85,10 +85,10 @@ begin
 end;
 
 procedure TControlTestCases.CodeVersionCheck;
-{ The subsequent tests are compatible with EDF Engine version 1.0 }
+{ The subsequent tests are compatible with EDF Engine version 1.1 }
 begin
   AssertEquals(1, EDFEngine_major);
-  AssertEquals(0, EDFEngine_minor);
+  AssertEquals(1, EDFEngine_minor);
 end;
 
 { TEDFplusDocTestCases }

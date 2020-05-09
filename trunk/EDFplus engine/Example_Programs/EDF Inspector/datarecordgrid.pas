@@ -6,12 +6,12 @@ unit DataRecordGrid;
 
 { EDF Inspector }
 
-{ Version 1.0 (Aquila) }
+{ Version 1.1 (Ursa) }
 
-{ (c) Johannes W. Dietrich, 1994 - 2018 }
+{ (c) Johannes W. Dietrich, 1994 - 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
-{ (c) Ruhr University of Bochum 2005 - 2018 }
+{ (c) Ruhr University of Bochum 2005 - 2020 }
 
 { Parser and compiler for EDF and EDF+ data files }
 
@@ -32,7 +32,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Grids,
-  ComCtrls, EDF;
+  ComCtrls, EDF, Plot;
 
 type
 
@@ -46,6 +46,8 @@ type
     StatusBar1: TStatusBar;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
+    procedure FormCreate(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
   private
 
@@ -116,6 +118,25 @@ begin
       ValuesGridForm.ScaledDataReady := true;
     end;
   end;
+end;
+
+procedure TValuesGridForm.FormPaint(Sender: TObject);
+begin
+  if DarkTheme then
+  begin
+    RawDataGrid.AlternateColor := clNavy;
+    ScaledDataGrid.AlternateColor := clNavy;
+  end
+  else
+  begin
+    RawDataGrid.AlternateColor := clSkyBlue;
+    ScaledDataGrid.AlternateColor := clSkyBlue;
+  end;
+end;
+
+procedure TValuesGridForm.FormCreate(Sender: TObject);
+begin
+  FormPaint(Self);
 end;
 
 procedure TValuesGridForm.ShowDataRecord;
