@@ -1,5 +1,5 @@
 unit GUI;
-r
+
 { PUMA Repository }
 
 { Pascal Units for Medical Applications }
@@ -37,6 +37,9 @@ uses
   Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
   Dialogs, ComCtrls, Menus, LCLType, LazUTF8, StdCtrls, ExtCtrls, Spin,
   EditBtn, Math, EDF
+  {$IFDEF WINDOWS}
+  , Windows, Win32Proc, registry
+  {$ENDIF}
   {$IFDEF DARWIN}
   , MacOSAll
   {$ENDIF}
