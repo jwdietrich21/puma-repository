@@ -36,6 +36,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, TAGraph, TASeries, Forms, Controls, Graphics,
   Dialogs, StdCtrls, ColorBox, Spin, EDF
+  {$IFDEF WINDOWS}
+  , Windows, Win32Proc, registry
+  {$ENDIF}
   {$IFDEF DARWIN}
   , MacOSAll
   {$ENDIF}
