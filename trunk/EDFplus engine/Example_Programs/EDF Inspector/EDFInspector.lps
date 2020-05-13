@@ -8,8 +8,7 @@
         <Filename Value="EDFInspector.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="7"/>
-        <CursorPos X="11" Y="2"/>
+        <CursorPos Y="2"/>
         <UsageCount Value="48"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -30,8 +29,8 @@
         <Filename Value="../../edf.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDF"/>
-        <TopLine Value="410"/>
-        <CursorPos X="34" Y="461"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos Y="2"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -77,10 +76,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Plot"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="21"/>
-        <CursorPos Y="42"/>
+        <CursorPos Y="2"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>

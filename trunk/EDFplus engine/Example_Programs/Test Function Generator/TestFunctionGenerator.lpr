@@ -39,7 +39,7 @@ uses
 {$R *.res}
 
 begin
-  Application.Title := 'Test Function Generator for EDF Engine';
+  Application.Title:='Test Function Generator for EDF Engine';
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);

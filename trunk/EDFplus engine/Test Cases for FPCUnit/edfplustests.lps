@@ -19,7 +19,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDFplus"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="20" Y="3"/>
+        <CursorPos Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -35,7 +35,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDFTestCases"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="4" Y="3"/>
+        <TopLine Value="3"/>
+        <CursorPos Y="4"/>
         <UsageCount Value="82"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -43,7 +44,7 @@
         <Filename Value="..\edf.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDF"/>
-        <CursorPos X="11" Y="2"/>
+        <CursorPos Y="2"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
@@ -166,124 +167,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\edfplus.pas"/>
-        <Caret Line="175" Column="31"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="269" Column="23" TopLine="260"/>
       </Position1>
       <Position2>
-        <Filename Value="..\edfplus.pas"/>
-        <Caret Line="3" Column="13"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="266" Column="11" TopLine="248"/>
       </Position2>
       <Position3>
-        <Filename Value="..\edfplus.pas"/>
-        <Caret Line="23" Column="20" TopLine="7"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="473" TopLine="451"/>
       </Position3>
       <Position4>
-        <Filename Value="..\edfplus.pas"/>
-        <Caret Line="27" Column="53" TopLine="11"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="489" TopLine="472"/>
       </Position4>
       <Position5>
         <Filename Value="..\edf.pas"/>
-        <Caret Line="7" Column="41"/>
+        <Caret Line="2" Column="5"/>
       </Position5>
       <Position6>
-        <Filename Value="edftestcases.pas"/>
-        <Caret Line="105" Column="20" TopLine="81"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="260" Column="9" TopLine="242"/>
       </Position6>
       <Position7>
         <Filename Value="..\edf.pas"/>
-        <Caret Line="269" Column="23" TopLine="260"/>
+        <Caret Line="265" Column="9" TopLine="247"/>
       </Position7>
       <Position8>
         <Filename Value="..\edf.pas"/>
-        <Caret Line="266" Column="11" TopLine="248"/>
+        <Caret Line="259" Column="22" TopLine="247"/>
       </Position8>
       <Position9>
         <Filename Value="..\edf.pas"/>
-        <Caret Line="473" TopLine="451"/>
+        <Caret Line="470" Column="23" TopLine="456"/>
       </Position9>
       <Position10>
         <Filename Value="..\edf.pas"/>
-        <Caret Line="489" TopLine="472"/>
+        <Caret Line="425" Column="8" TopLine="417"/>
       </Position10>
       <Position11>
         <Filename Value="..\edf.pas"/>
-        <Caret Line="2" Column="5"/>
+        <Caret Line="260" Column="29" TopLine="242"/>
       </Position11>
       <Position12>
         <Filename Value="..\edf.pas"/>
-        <Caret Line="260" Column="9" TopLine="242"/>
+        <Caret Line="259" Column="22" TopLine="247"/>
       </Position12>
       <Position13>
         <Filename Value="..\edf.pas"/>
-        <Caret Line="265" Column="9" TopLine="247"/>
+        <Caret Line="266" Column="23" TopLine="248"/>
       </Position13>
       <Position14>
-        <Filename Value="..\edf.pas"/>
-        <Caret Line="259" Column="22" TopLine="247"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\edf.pas"/>
-        <Caret Line="470" Column="23" TopLine="456"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\edf.pas"/>
-        <Caret Line="425" Column="8" TopLine="417"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\edf.pas"/>
-        <Caret Line="260" Column="29" TopLine="242"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\edf.pas"/>
-        <Caret Line="259" Column="22" TopLine="247"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\edf.pas"/>
-        <Caret Line="266" Column="23" TopLine="248"/>
-      </Position19>
-      <Position20>
         <Filename Value="edfplustests.lpr"/>
         <Caret Line="6" Column="31"/>
+      </Position14>
+      <Position15>
+        <Filename Value="edftestcases.pas"/>
+        <Caret Line="9" Column="10"/>
+      </Position15>
+      <Position16>
+        <Filename Value="edftestcases.pas"/>
+        <Caret Line="22" Column="18"/>
+      </Position16>
+      <Position17>
+        <Filename Value="edftestcases.pas"/>
+        <Caret Line="43" Column="26" TopLine="11"/>
+      </Position17>
+      <Position18>
+        <Filename Value="edftestcases.pas"/>
+        <Caret Line="50" Column="22" TopLine="18"/>
+      </Position18>
+      <Position19>
+        <Filename Value="edftestcases.pas"/>
+        <Caret Line="87" Column="40" TopLine="55"/>
+      </Position19>
+      <Position20>
+        <Filename Value="edftestcases.pas"/>
+        <Caret Line="88" Column="62" TopLine="56"/>
       </Position20>
       <Position21>
         <Filename Value="edftestcases.pas"/>
-        <Caret Line="14" Column="44" TopLine="199"/>
+        <Caret Line="91" Column="17" TopLine="64"/>
       </Position21>
       <Position22>
         <Filename Value="edftestcases.pas"/>
-        <Caret Line="9" Column="10"/>
+        <Caret Line="96" Column="35" TopLine="64"/>
       </Position22>
       <Position23>
         <Filename Value="edftestcases.pas"/>
-        <Caret Line="22" Column="18"/>
+        <Caret Line="102" Column="42" TopLine="70"/>
       </Position23>
       <Position24>
-        <Filename Value="edftestcases.pas"/>
-        <Caret Line="43" Column="26" TopLine="11"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="288" Column="27" TopLine="265"/>
       </Position24>
       <Position25>
-        <Filename Value="edftestcases.pas"/>
-        <Caret Line="50" Column="22" TopLine="18"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="450" Column="21" TopLine="424"/>
       </Position25>
       <Position26>
-        <Filename Value="edftestcases.pas"/>
-        <Caret Line="87" Column="40" TopLine="55"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="474" Column="21" TopLine="448"/>
       </Position26>
       <Position27>
-        <Filename Value="edftestcases.pas"/>
-        <Caret Line="88" Column="62" TopLine="56"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="288" Column="65" TopLine="270"/>
       </Position27>
       <Position28>
-        <Filename Value="edftestcases.pas"/>
-        <Caret Line="91" Column="17" TopLine="64"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="450" Column="21" TopLine="424"/>
       </Position28>
       <Position29>
-        <Filename Value="edftestcases.pas"/>
-        <Caret Line="96" Column="35" TopLine="64"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="303" Column="6" TopLine="297"/>
       </Position29>
       <Position30>
-        <Filename Value="edftestcases.pas"/>
-        <Caret Line="102" Column="42" TopLine="70"/>
+        <Filename Value="..\edf.pas"/>
+        <Caret Line="450" Column="21" TopLine="424"/>
       </Position30>
     </JumpHistory>
     <RunParams>
