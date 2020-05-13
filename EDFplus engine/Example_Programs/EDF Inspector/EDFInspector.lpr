@@ -49,7 +49,7 @@ begin
     DeleteFile('heaptrace.trc');
   SetHeapTraceOutput('heaptrace.trc');
   {$ENDIF}
-  Application.Title := 'EDF Inspector';
+  Application.Title:='EDF Inspector';
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);

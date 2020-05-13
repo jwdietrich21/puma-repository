@@ -265,7 +265,7 @@ procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream;
   const aBaseURI: ansistring); overload;
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; aStream: TStream); overload;
 procedure WriteEDFFile(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
-procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
+procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; aStream: TStream);
 procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; aStream: TStream);
 procedure WriteHeaderRecord(var EDFDoc: TEDFDoc; const aFileName: ansistring); overload;
 
@@ -285,7 +285,7 @@ const
   kNumOfSigPos   = 253;
   kVarStartPos   = kNumOfSigPos + 4;
 
-procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; mStream: TMemoryStream);
+procedure ReadHeaderRecord(var EDFDoc: TEDFDoc; aStream: TStream);
 { reads a header record from a given memory stream }
 var
   sStream: TStringStream;
@@ -295,18 +295,18 @@ begin
   version := kEmpty8;
   headerLength := kEmpty8;
   sStream      := TStringStream.Create('');
-  mStream.Seek(kVersionPos - 1, soFromBeginning);
-  mStream.ReadBuffer(version[1], 8);
+  aStream.Seek(kVersionPos - 1, soFromBeginning);
+  aStream.ReadBuffer(version[1], 8);
   version := str8(version);
   if version = kEDFVersion then
   begin
-    mStream.Seek(kNumOfBytesPos - 1, soFromBeginning);
-    mStream.ReadBuffer(headerLength[1], 8);
+    aStream.Seek(kNumOfBytesPos - 1, soFromBeginning);
+    aStream.ReadBuffer(headerLength[1], 8);
     headerLength := Trim(headerLength);
-    mStream.Seek(0, soFromBeginning);
+    aStream.Seek(0, soFromBeginning);
     if TryStrToInt(headerLength, iHeaderLength) then
     begin
-      sStream.CopyFrom(mStream, iHeaderLength);
+      sStream.CopyFrom(aStream, iHeaderLength);
       sStream.Seek(0, soFromBeginning);
       EDFDoc.FHeaderText := sStream.ReadString(iHeaderLength);
       EDFDoc.ParseHeaderText;

@@ -14,9 +14,9 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="118"/>
+      <BuildNr Value="119"/>
       <Attributes pvaDebug="True" pvaPreRelease="True"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="EDF Inspector" InternalName="PUMA EDF Inspector 1.1.0 (Aquila)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="EDF Inspector" ProductVersion="1.1.0"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="EDF Inspector" InternalName="PUMA EDF Inspector 1.1.0 (Ursa)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="EDF Inspector" ProductVersion="1.1.0"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
