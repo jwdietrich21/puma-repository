@@ -40,7 +40,7 @@ const
   SIZE_TEXT = '  Total Size of Data: ';
   BYTES_TEXT = ' Bytes';
   MAIN_FORM_TITLE = 'EDF Inspector';
-  ABOUT_MESSAGE = 'EDF Inspector 1.0 (Aquila), a demo program for PUMA EDF Engine';
+  ABOUT_MESSAGE = 'EDF Inspector 1.1 (Ursa), a demo program for PUMA EDF Engine';
 
 type
 
