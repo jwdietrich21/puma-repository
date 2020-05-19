@@ -226,7 +226,7 @@ var
   m, k, i: longint;
   j: integer;
 begin
-  if openFile.StatusCode = noErr then
+  if assigned(openFile) and (openFile.StatusCode = noErr) then
   begin
     m := 1;
     j := ComboBox1.ItemIndex;
@@ -283,8 +283,8 @@ begin
     jmax := high(openFile.ScaledDataRecord[0]);     // Signals
     ComboBox1.Items.Clear;
     ComboBox2.Items.Clear;
-    SpinEdit1.Value := imax;
     SpinEdit1.MaxValue := imax;
+    SpinEdit1.Value := 0;
     for j := 0 to jmax do
     begin
       ComboBox1.Items.Add(openFile.SignalLabel[j]);

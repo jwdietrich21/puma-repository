@@ -142,6 +142,7 @@ object PlotForm: TPlotForm
     Height = 23
     Top = 178
     Width = 96
+    MaxValue = 100000
     OnChange = SpinEdit1Change
     TabOrder = 6
   end
