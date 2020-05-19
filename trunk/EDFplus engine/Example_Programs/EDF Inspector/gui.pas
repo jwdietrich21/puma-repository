@@ -6,7 +6,7 @@ unit GUI;
 
 { EDF Inspector }
 
-{ Version 1.1 (Aquila) }
+{ Version 1.1 (Ursa) }
 
 { (c) Johannes W. Dietrich, 1994 - 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
