@@ -53,11 +53,11 @@ object PlotForm: TPlotForm
   end
   object ComboBox1: TComboBox
     Left = 524
-    Height = 23
+    Height = 20
     Top = 24
     Width = 100
     Anchors = [akTop, akRight]
-    ItemHeight = 15
+    ItemHeight = 19
     OnChange = ComboBox1Change
     TabOrder = 1
     Text = 'ComboBox1'
@@ -104,11 +104,11 @@ object PlotForm: TPlotForm
   end
   object ComboBox2: TComboBox
     Left = 524
-    Height = 23
+    Height = 20
     Top = 216
     Width = 100
     Anchors = [akTop, akRight]
-    ItemHeight = 15
+    ItemHeight = 19
     OnChange = ComboBox1Change
     TabOrder = 3
     Text = 'ComboBox2'
@@ -139,7 +139,7 @@ object PlotForm: TPlotForm
   end
   object SpinEdit1: TSpinEdit
     Left = 528
-    Height = 23
+    Height = 21
     Top = 178
     Width = 96
     MaxValue = 100000

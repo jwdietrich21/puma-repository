@@ -6,7 +6,7 @@ unit EDF;
 
 { EDF base unit }
 
-{ Version 1.1 (Ursa) }
+{ Version 1.1.1 (Ursa) }
 
 { (c) Johannes W. Dietrich, 1994 - 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -49,7 +49,7 @@ const
 
   EDFEngine_major   = 1;
   EDFEngine_minor   = 1;
-  EDFEngine_release = 0;
+  EDFEngine_release = 1;
   EDFEngine_patch   = 0;
   EDFEngine_fullversion = ((EDFEngine_major * 100 + EDFEngine_minor) *
     100 + EDFEngine_release) * 100 + EDFEngine_patch;

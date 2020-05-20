@@ -6,7 +6,7 @@ unit GUI;
 
 { Test Function Generator }
 
-{ Version 1.1 (Ursa) }
+{ Version 1.1.1 (Ursa) }
 
 { (c) Johannes W. Dietrich, 1994 - 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -49,7 +49,7 @@ uses
   ;
 
 const
-  ABOUT_MESSAGE = 'Test Function Generator 1.1 (Ursa), a demo program for PUMA EDF Engine';
+  ABOUT_MESSAGE = 'Test Function Generator 1.1.1 (Ursa), a demo program for PUMA EDF Engine';
   BACKCOLOUR = clDefault;
 
 type

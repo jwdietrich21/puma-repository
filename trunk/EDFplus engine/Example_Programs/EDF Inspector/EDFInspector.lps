@@ -3,10 +3,11 @@
   <ProjectSession>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="24">
+    <Units Count="23">
       <Unit0>
         <Filename Value="EDFInspector.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <CursorPos Y="2"/>
         <UsageCount Value="49"/>
@@ -29,7 +30,6 @@
         <Filename Value="../../edf.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EDF"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos Y="2"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
@@ -188,8 +188,8 @@
       <Unit20>
         <Filename Value="/lazarus/lcl/include/spinedit.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="209"/>
-        <CursorPos Y="227"/>
+        <TopLine Value="130"/>
+        <CursorPos Y="134"/>
         <UsageCount Value="10"/>
       </Unit20>
       <Unit21>
@@ -199,21 +199,14 @@
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit21>
       <Unit22>
-        <Filename Value="../../../../../../../../../../lazarus/lcl/spin.pp"/>
+        <Filename Value="/lazarus/lcl/spin.pp"/>
         <UnitName Value="Spin"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="158"/>
         <UsageCount Value="10"/>
       </Unit22>
-      <Unit23>
-        <Filename Value="../../../../../../../../../../lazarus/lcl/include/spinedit.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="130"/>
-        <CursorPos Y="134"/>
-        <UsageCount Value="10"/>
-      </Unit23>
     </Units>
-    <JumpHistory Count="24" HistoryIndex="23">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="gui.pas"/>
         <Caret Line="255" TopLine="241"/>
@@ -306,10 +299,6 @@
         <Filename Value="plot.pas"/>
         <Caret Line="287" Column="14" TopLine="270"/>
       </Position23>
-      <Position24>
-        <Filename Value="plot.pas"/>
-        <Caret Line="61" Column="25" TopLine="211"/>
-      </Position24>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
