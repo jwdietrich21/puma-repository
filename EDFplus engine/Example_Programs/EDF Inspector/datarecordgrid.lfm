@@ -12,8 +12,8 @@ object ValuesGridForm: TValuesGridForm
   Visible = True
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 18
-    Top = 324
+    Height = 23
+    Top = 319
     Width = 632
     Panels = <>
   end
@@ -38,14 +38,14 @@ object ValuesGridForm: TValuesGridForm
     object TabSheet1: TTabSheet
       Hint = 'Raw data from digitizer'
       Caption = 'Raw Data'
-      ClientHeight = 290
-      ClientWidth = 626
+      ClientHeight = 292
+      ClientWidth = 624
       object RawDataGrid: TStringGrid
         Cursor = crCross
         Left = 0
-        Height = 290
+        Height = 292
         Top = 0
-        Width = 624
+        Width = 622
         AlternateColor = clSkyBlue
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoEdit = False

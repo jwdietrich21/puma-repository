@@ -6,9 +6,10 @@ unit EDF;
 
 { EDF base unit }
 
-{ Version 1.1.1 (Ursa) }
+{ Version 1.2.0 (Hyperborea) }
 
 { (c) Johannes W. Dietrich, 1994 - 2020 }
+{ (c) Oivind Toien, 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
 { (c) Ruhr University of Bochum 2005 - 2020 }
@@ -48,13 +49,13 @@ type
 const
 
   EDFEngine_major   = 1;
-  EDFEngine_minor   = 1;
-  EDFEngine_release = 1;
+  EDFEngine_minor   = 2;
+  EDFEngine_release = 0;
   EDFEngine_patch   = 0;
   EDFEngine_fullversion = ((EDFEngine_major * 100 + EDFEngine_minor) *
     100 + EDFEngine_release) * 100 + EDFEngine_patch;
-  EDFEngine_version = '1.1.0.0';
-  EDFEngine_internalversion = 'Aquila';
+  EDFEngine_version = '1.2.0.0';
+  EDFEngine_internalversion = 'Hyperborea';
 
   ksCR   = #13;
   ksLF   = #10;
@@ -125,6 +126,12 @@ type
     prNumOfSamples: ansistring;  // Nr of samples in each data record
     prReserved2: ansistring;     // Reserved
     { Official EDF/EDF+ header record fields end here. }
+
+    {added by O.T.}
+    prHeaderOnly : Boolean;  //true: suppression of all data records allocation
+    prRawOnly : Boolean;     //true: supression of physical value data allocation
+    {end added by O.T.}
+
   protected
     status: integer;
     procedure CompileHeaderText;
@@ -201,6 +208,11 @@ type
     function GetTimePoint(const aSignal: integer; const aSample: longint): real;
     function GetTimeStamp(const aRecord: longint; const aSignal: integer; const aSample: longint): TDateTime;
     function GetRecordingTime: longint;
+
+    {Added by O.T}
+    procedure SetHeaderOnly(const HeaderOnlyFlag: Boolean);
+    procedure SetRawOnly(const RawOnlyFlag: Boolean);
+    {end Added by O.T.}
   public
     constructor Create;
     destructor Destroy; override;
@@ -252,6 +264,18 @@ type
     property StatusCode: integer Read status;
     procedure ReadFromFile(const aFileName: ansistring);
     procedure ReadFromStream(const aStream: TStream);
+  //added by O.T.
+    property HeaderOnly: Boolean Write SetHeaderOnly;
+    property RawOnly: Boolean Write SetRawOnly;
+
+    procedure WriteToFile(const aFileName: ansistring);
+    procedure WriteToStream(aStream: TStream);
+    procedure WriteDataToStream(mStream: TMemoryStream);
+    procedure ReadDataFromStream(mStream: TMemoryStream);
+    procedure ReadHeaderFromStream(aStream: TStream);
+    procedure WriteHeaderToStream(aStream: TStream);
+    procedure WriteHeaderToFile(const aFileName: ansistring);
+   //end added by O.T.
   public
     DataSize, TotalSize: longint;
   end;
@@ -1375,8 +1399,15 @@ begin
     jmax := 0;
   if kmax < 0 then
     kmax := 0;
-  SetLength(FRawDataRecord, imax, jmax, kmax);
-  SetLength(FScaledDataRecord, imax, jmax, kmax);
+
+  {modified by O.T.}
+  If not prHeaderOnly then
+  begin
+    SetLength(FRawDataRecord, imax, jmax, kmax);
+    If not prRawOnly then
+      SetLength(FScaledDataRecord, imax, jmax, kmax);   {!!!}
+  end;
+  {end modified by O.T.}
 end;
 
 function TEDFDoc.GetScaled(const aRecord: longint; aSignal: integer;
@@ -1443,6 +1474,11 @@ begin
   prNumOfSamples := kEmpty0;
   prReserved2 := kEmpty0;
   CompileHeaderText;
+
+  {added by O.T.}
+  prHeaderOnly := false;
+  prRawOnly    := false;
+  {end added by O.T.}
 end;
 
 destructor TEDFDoc.Destroy;
@@ -1485,5 +1521,64 @@ procedure TEDFDoc.ReadFromStream(const aStream: TStream);
 begin
   ReadEDFFile(self, aStream);
 end;
+
+
+//added by O.T.
+
+
+
+procedure TEDFDoc.WriteToFile(const aFileName: ansistring);
+begin
+  WriteEDFFile(self, aFileName);
+end;
+
+procedure TEDFDoc.WriteToStream(aStream: TStream);
+begin
+  WriteEDFFile(self, aStream);
+end;
+
+
+procedure TEDFDoc.ReadDataFromStream(mStream: TMemoryStream);   //not tested
+begin
+  ReadDataRecords(self, mStream);
+end;
+
+
+procedure TEDFDoc.WriteDataToStream(mStream: TMemoryStream);
+begin
+  WriteDataRecords(self, mStream);
+end;
+
+procedure TEDFDoc.ReadHeaderFromStream(aStream: TStream);   //not tested
+begin
+  ReadHeaderRecord(self, aStream);
+end;
+
+
+procedure TEDFDoc.WriteHeaderToStream(aStream: TStream);
+begin
+  WriteHeaderRecord(self, aStream);
+end;
+
+
+procedure TEDFDoc.WriteHeaderToFile(const aFileName: ansistring);
+begin
+  WriteHeaderRecord(self, aFileName);
+end;
+
+
+procedure TEDFDoc.SetHeaderOnly(const HeaderOnlyFlag: Boolean);
+begin
+  prHeaderOnly := HeaderOnlyFlag;
+end;
+
+procedure TEDFDoc.SetRawOnly(const RawOnlyFlag: Boolean);
+begin
+  prRawOnly := RawOnlyFlag;
+end;
+
+
+//end added by O.T.
+
 
 end.

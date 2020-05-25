@@ -6,9 +6,10 @@ unit EDFTestCases;
 
 { EDF test cases }
 
-{ Version 1.1.1 (Ursa) }
+{ Version 1.2.0 (Hyperborea) }
 
 { (c) Johannes W. Dietrich, 1994 - 2020 }
+{ (c) Oivind Toien, 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
 { (c) Ruhr University of Bochum 2005 - 2020 }
@@ -88,7 +89,7 @@ procedure TControlTestCases.CodeVersionCheck;
 { The subsequent tests are compatible with EDF Engine version 1.1 }
 begin
   AssertEquals(1, EDFEngine_major);
-  AssertEquals(1, EDFEngine_minor);
+  AssertEquals(2, EDFEngine_minor);
 end;
 
 { TEDFplusDocTestCases }
