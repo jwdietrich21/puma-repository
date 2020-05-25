@@ -16,9 +16,9 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
-      <RevisionNr Value="1"/>
-      <BuildNr Value="91"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="Test Function Generator" InternalName="PUMA EDF Test Function Generator 1.1 (Ursa)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="Test Function Generator for EDF Engine" ProductVersion="1.1.1"/>
+      <RevisionNr Value="2"/>
+      <BuildNr Value="92"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS" FileDescription="Test Function Generator" InternalName="PUMA EDF Test Function Generator 1.1 (Ursa)" LegalCopyright="J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" ProductName="Test Function Generator for EDF Engine" ProductVersion="1.1.2"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>

@@ -6,7 +6,7 @@ unit GUI;
 
 { EDF Inspector }
 
-{ Version 1.1.1 (Ursa) }
+{ Version 1.1.2 (Ursa) }
 
 { (c) Johannes W. Dietrich, 1994 - 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
@@ -40,7 +40,7 @@ const
   SIZE_TEXT = '  Total Size of Data: ';
   BYTES_TEXT = ' Bytes';
   MAIN_FORM_TITLE = 'EDF Inspector';
-  ABOUT_MESSAGE = 'EDF Inspector 1.1.1 (Ursa), a demo program for PUMA EDF Engine';
+  ABOUT_MESSAGE = 'EDF Inspector 1.1.2 (Ursa), a demo program for PUMA EDF Engine';
 
 type
 
