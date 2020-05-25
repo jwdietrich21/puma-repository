@@ -6,9 +6,10 @@ unit GUI;
 
 { Test Function Generator }
 
-{ Version 1.1.1 (Ursa) }
+{ Version 1.2.0 (Hyperborea) }
 
 { (c) Johannes W. Dietrich, 1994 - 2020 }
+{ (c) Oivind Toien, 2020 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002-2004 }
 { (c) Ruhr University of Bochum 2005 - 2020 }
@@ -49,7 +50,7 @@ uses
   ;
 
 const
-  ABOUT_MESSAGE = 'Test Function Generator 1.1.1 (Ursa), a demo program for PUMA EDF Engine';
+  ABOUT_MESSAGE = 'Test Function Generator 1.2.0 (Hyperborea), a demo program for PUMA EDF Engine';
   BACKCOLOUR = clDefault;
 
 type
