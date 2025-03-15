@@ -1,0 +1,211 @@
+object MetronTesterMainForm: TMetronTesterMainForm
+  Left = 547
+  Height = 146
+  Top = 374
+  Width = 488
+  Caption = 'Metron Tester'
+  ClientHeight = 146
+  ClientWidth = 488
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '2.0.10.0'
+  object PlusButton: TButton
+    Left = 144
+    Height = 25
+    Hint = 'Add'
+    Top = 32
+    Width = 75
+    Caption = '+'
+    OnClick = PlusButtonClick
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 0
+  end
+  object TimesButton: TButton
+    Left = 144
+    Height = 25
+    Hint = 'Multiply'
+    Top = 78
+    Width = 75
+    Caption = '*'
+    OnClick = TimesButtonClick
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+  end
+  object MinusButton: TButton
+    Left = 264
+    Height = 25
+    Hint = 'Subtract'
+    Top = 32
+    Width = 75
+    Caption = '-'
+    OnClick = MinusButtonClick
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+  end
+  object DivButton: TButton
+    Left = 264
+    Height = 25
+    Hint = 'Divide'
+    Top = 78
+    Width = 75
+    Caption = '/'
+    OnClick = DivButtonClick
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 3
+  end
+  object InputEdit1: TLabeledEdit
+    Left = 24
+    Height = 22
+    Hint = 'Please enter number or range A here'
+    Top = 27
+    Width = 80
+    EditLabel.Height = 16
+    EditLabel.Width = 80
+    EditLabel.Caption = 'Input A'
+    EditLabel.ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    Text = '0'
+  end
+  object InputEdit2: TLabeledEdit
+    Left = 24
+    Height = 22
+    Hint = 'Please enter number or range B here'
+    Top = 88
+    Width = 80
+    EditLabel.Height = 16
+    EditLabel.Width = 80
+    EditLabel.Caption = 'Input B'
+    EditLabel.ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 5
+    Text = '0'
+  end
+  object ResultEdit: TLabeledEdit
+    Left = 375
+    Height = 22
+    Hint = 'Result of calculation'
+    Top = 56
+    Width = 80
+    EditLabel.Height = 16
+    EditLabel.Width = 80
+    EditLabel.Caption = 'Result'
+    EditLabel.ParentColor = False
+    ParentShowHint = False
+    ReadOnly = True
+    ShowHint = True
+    TabOrder = 6
+    Text = '0'
+  end
+  object MainMenu1: TMainMenu
+    Left = 448
+    Top = 96
+    object FileMenu: TMenuItem
+      Caption = 'File'
+      object NewItem: TMenuItem
+        Caption = 'New'
+        Enabled = False
+        ShortCut = 16462
+      end
+      object MenuItem1: TMenuItem
+        Caption = '-'
+      end
+      object OpenItem: TMenuItem
+        Caption = 'Open'
+        Enabled = False
+        ShortCut = 16463
+      end
+      object CloseItem: TMenuItem
+        Caption = 'Close'
+        Enabled = False
+        ShortCut = 16471
+      end
+      object MenuItem3: TMenuItem
+        Caption = '-'
+      end
+      object QuitItem: TMenuItem
+        Caption = 'Quit'
+        ShortCut = 16465
+        OnClick = QuitItemClick
+      end
+    end
+    object EditMenu: TMenuItem
+      Caption = 'Edit'
+      object UndoItem: TMenuItem
+        Action = EditUndo1
+        Enabled = False
+      end
+      object MenuItem4: TMenuItem
+        Caption = '-'
+      end
+      object CutItem: TMenuItem
+        Action = EditCut1
+      end
+      object CopyItem: TMenuItem
+        Action = EditCopy1
+      end
+      object PasteItem: TMenuItem
+        Action = EditPaste1
+      end
+      object MenuItem2: TMenuItem
+        Caption = '-'
+      end
+      object SelectAllItem: TMenuItem
+        Action = EditSelectAll1
+        Caption = 'Select all'
+      end
+    end
+    object HelpMenu: TMenuItem
+      Caption = 'Help'
+      object HelpItem: TMenuItem
+        Action = HelpAction1
+        Caption = 'Help...'
+      end
+    end
+  end
+  object ActionList1: TActionList
+    Left = 403
+    Top = 96
+    object EditCut1: TEditCut
+      Category = 'Edit'
+      Caption = 'Cut'
+      Hint = 'Ausschneiden'
+      ShortCut = 16472
+    end
+    object EditCopy1: TEditCopy
+      Category = 'Edit'
+      Caption = 'Copy'
+      Hint = 'Kopieren'
+      ShortCut = 16451
+    end
+    object EditPaste1: TEditPaste
+      Category = 'Edit'
+      Caption = 'Paste'
+      Hint = 'Einfügen'
+      ShortCut = 16470
+    end
+    object EditUndo1: TEditUndo
+      Category = 'Edit'
+      Caption = 'Undo'
+      Hint = 'Zurücknehmen'
+      ShortCut = 16474
+    end
+    object EditSelectAll1: TEditSelectAll
+      Category = 'Edit'
+      Caption = '&Alles markieren'
+      Hint = 'Alles markieren'
+      ShortCut = 16449
+    end
+    object HelpAction1: THelpAction
+      Category = 'Help'
+      Caption = 'HelpAction1'
+    end
+  end
+end

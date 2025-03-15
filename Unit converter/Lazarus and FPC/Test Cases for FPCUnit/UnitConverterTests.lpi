@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="12"/>
     <General>
-      <MainUnit Value="0"/>
+      <Flags>
+        <CompatibilityMode Value="True"/>
+      </Flags>
       <Title Value="UnitConverterTests"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -16,23 +18,22 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="4"/>
-      <BuildNr Value="47"/>
+      <MinorVersionNr Value="5"/>
+      <BuildNr Value="49"/>
       <Attributes pvaDebug="True"/>
-      <StringTable CompanyName="FORMATIO RETICULARIS " InternalName="Unit Converter 1.4.0 (Eridanus) " LegalCopyright="© 1994 - 2016 J. W. Dietrich and collaborators" ProductName="PUMA Repository" ProductVersion="1.4.0"/>
+      <StringTable CompanyName="FORMATIO RETICULARIS " InternalName="Unit Converter 1.5.0 (Felis) " LegalCopyright="© 1994 - 2025 J. W. Dietrich and collaborators" ProductName="PUMA Repository" ProductVersion="1.5.0"/>
     </VersionInfo>
     <BuildModes Count="1" Active="Default">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
-      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default"/>
+      </Modes>
     </RunParams>
     <RequiredPackages Count="3">
       <Item1>
@@ -49,7 +50,6 @@
       <Unit0>
         <Filename Value="UnitConverterTests.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <CursorPos Y="2"/>
         <UsageCount Value="22"/>
@@ -68,19 +68,18 @@
         <Filename Value="../unitconverter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitConverter"/>
-        <CursorPos Y="2"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="80" Y="19"/>
         <ExtraEditorCount Value="2"/>
         <ExtraEditor1>
-          <IsVisibleTab Value="True"/>
           <EditorIndex Value="-1"/>
-          <WindowIndex Value="1"/>
+          <WindowIndex Value="-1"/>
           <TopLine Value="286"/>
           <CursorPos X="74" Y="347"/>
         </ExtraEditor1>
         <ExtraEditor2>
-          <IsVisibleTab Value="True"/>
           <EditorIndex Value="-1"/>
-          <WindowIndex Value="2"/>
+          <WindowIndex Value="-1"/>
           <TopLine Value="451"/>
           <CursorPos X="41" Y="466"/>
         </ExtraEditor2>
@@ -217,6 +216,11 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value=".."/>
     </SearchPaths>
+    <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf2Set"/>
+      </Debugging>
+    </Linking>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

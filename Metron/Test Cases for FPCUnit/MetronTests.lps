@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="11"/>
+    <BuildModes Active="Default"/>
+    <Units Count="5">
+      <Unit0>
+        <Filename Value="MetronTests.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="10" Y="2"/>
+        <UsageCount Value="29"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="metrontestcases.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MetronTestCases"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="7" Y="2"/>
+        <UsageCount Value="29"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\Metron.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="6" Y="2"/>
+        <UsageCount Value="29"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\fcl-fpcunit\src\fpcunit.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="93"/>
+        <CursorPos X="21" Y="112"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="C:\lazarus\fpc\3.2.0\source\rtl\inc\objpash.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="240"/>
+        <CursorPos X="20" Y="254"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="323" TopLine="304"/>
+      </Position1>
+      <Position2>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="324" TopLine="304"/>
+      </Position2>
+      <Position3>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="253" TopLine="236"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="261" TopLine="236"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="262" TopLine="236"/>
+      </Position5>
+      <Position6>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="535" Column="28" TopLine="510"/>
+      </Position6>
+      <Position7>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="563" Column="18" TopLine="544"/>
+      </Position7>
+      <Position8>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="566" Column="28" TopLine="543"/>
+      </Position8>
+      <Position9>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="562" TopLine="543"/>
+      </Position9>
+      <Position10>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="561" TopLine="543"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="411" TopLine="387"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="321" TopLine="304"/>
+      </Position12>
+      <Position13>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="322" TopLine="304"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="323" TopLine="304"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="324" TopLine="304"/>
+      </Position15>
+      <Position16>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="271" TopLine="255"/>
+      </Position16>
+      <Position17>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="134" TopLine="108"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="150" Column="29" TopLine="130"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="153" Column="28" TopLine="127"/>
+      </Position19>
+      <Position20>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="512" Column="2" TopLine="486"/>
+      </Position20>
+      <Position21>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="45" Column="41" TopLine="31"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="48" Column="6" TopLine="31"/>
+      </Position22>
+      <Position23>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="177" Column="29" TopLine="149"/>
+      </Position23>
+      <Position24>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="567" Column="33" TopLine="541"/>
+      </Position24>
+      <Position25>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="170" Column="2" TopLine="154"/>
+      </Position25>
+      <Position26>
+        <Filename Value="..\Metron.pas"/>
+        <Caret Line="189" Column="27" TopLine="166"/>
+      </Position26>
+      <Position27>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="530" TopLine="506"/>
+      </Position27>
+      <Position28>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="531" TopLine="506"/>
+      </Position28>
+      <Position29>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="535" Column="28" TopLine="515"/>
+      </Position29>
+      <Position30>
+        <Filename Value="metrontestcases.pas"/>
+        <Caret Line="54" Column="28" TopLine="34"/>
+      </Position30>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
