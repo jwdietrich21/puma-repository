@@ -36,6 +36,7 @@ uses
 const
   T4_MOLAR_MASS = 776.87; {molar mass of T4}
   T3_MOLAR_MASS = 650.97; {molar mass of T3}
+  kInsulinConversionFactor = 6;
 
 type
 
@@ -66,6 +67,8 @@ type
     procedure TestCase7;
   end;
 
+  { TconverterTestCases }
+
   TconverterTestCases = class(TTestCase)
   published
     procedure TestCase1;
@@ -84,6 +87,7 @@ type
     procedure TestCase14;
     procedure TestCase15;
     procedure TestCase16;
+    procedure TestCase17;
     procedure TestCase101;
     procedure TestCase102;
     procedure TestCase103;
@@ -417,6 +421,16 @@ begin
   theResultString := ConvertedUnitF('5 pmol/l', T3_MOLAR_MASS, 'ng/l', ffNumber, 2, 2);
   AssertEquals('3.2', LeftStr(theResultString, 3));
   AssertEquals('ng/l', RightStr(theResultString, 4));
+end;
+
+procedure TconverterTestCases.TestCase17;
+{Insulin: mIU/l to pmol/l}
+var
+  theResult, correctedConvFac: real;
+begin
+  correctedConvFac := 1e9/kInsulinConversionFactor; // correct for empirical value
+  theResult := ConvertedValue(ParsedMeasurement('5 mIU/l').Value, correctedConvFac, ParsedMeasurement('5 mIU/l').uom, 'pmol/l');
+  AssertEquals(30, theResult);
 end;
 
 procedure TconverterTestCases.TestCase101;

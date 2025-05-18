@@ -637,8 +637,7 @@ begin
          if toUnitElements.VolumePrefix = RightStr(PrefixLabel[i], 1) then toVpIndex := i;
        end;
       {$ENDIF}
-      { #todo 1 -oJWD : Check and adapt the following code: }
-      {if (fromUnitElements.MassUnit = 'mol') and (toUnitElements.MassUnit = 'g') then        {SI to conventional}
+      if (fromUnitElements.MassUnit = 'mol') and (toUnitElements.MassUnit = 'g') then        {SI to conventional}
         conversionFactor := PrefixFactor[fromMpIndex] * molarMass / PrefixFactor[fromVpIndex] * PrefixFactor[toVpIndex] / PrefixFactor[toMpIndex]
       else if (fromUnitElements.MassUnit = 'g') and (toUnitElements.MassUnit = 'mol') then   {conventional to SI}
         conversionFactor := PrefixFactor[fromMpIndex] * 1 / molarMass / PrefixFactor[fromVpIndex] * PrefixFactor[toVpIndex] / PrefixFactor[toMpIndex]
@@ -648,15 +647,6 @@ begin
         conversionFactor := PrefixFactor[fromMpIndex] * 1 / molarMass / PrefixFactor[fromVpIndex] * PrefixFactor[toVpIndex] / PrefixFactor[toMpIndex]
       else if fromUnitElements.MassUnit = toUnitElements.MassUnit then                       {identical units}
         conversionFactor := PrefixFactor[fromMpIndex] / PrefixFactor[fromVpIndex] * PrefixFactor[toVpIndex] / PrefixFactor[toMpIndex]
-      else conversionFactor := NaN; }
-      if (fromUnitElements.MassUnit = 'mol') and (toUnitElements.MassUnit = 'g') then        {SI to conventional}
-        conversionFactor := PrefixFactor[fromMpIndex] * molarMass / PrefixFactor[fromVpIndex] * PrefixFactor[toVpIndex] / PrefixFactor[toMpIndex]
-      else if (fromUnitElements.MassUnit = 'g') and (toUnitElements.MassUnit = 'mol') then        {conventional to SI}
-        conversionFactor := PrefixFactor[fromMpIndex] * 1 / molarMass / PrefixFactor[fromVpIndex] * PrefixFactor[toVpIndex] / PrefixFactor[toMpIndex]
-      else if fromUnitElements.MassUnit = toUnitElements.MassUnit then         {identical units}
-        conversionFactor := PrefixFactor[fromMpIndex] / PrefixFactor[fromVpIndex] * PrefixFactor[toVpIndex] / PrefixFactor[toMpIndex]
-      else if (fromUnitElements.MassUnit = 'U') or (fromUnitElements.MassUnit = 'IU') then conversionFactor := molarMass
-      else if (toUnitElements.MassUnit = 'U') or (toUnitElements.MassUnit = 'IU') then conversionFactor := 1 / molarMass
       else conversionFactor := NaN;
       ConvertedValue := value * conversionFactor;
     end;
