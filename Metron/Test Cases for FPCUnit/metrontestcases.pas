@@ -8,10 +8,10 @@ unit MetronTestCases;
 
 { Version 1.0.0 (Atlas) }
 
-{ (c) Johannes W. Dietrich, 1994 - 2021 }
+{ (c) Johannes W. Dietrich, 1994 - 2026 }
 { (c) Ludwig Maximilian University of Munich 1995 - 2002 }
 { (c) University of Ulm Hospitals 2002 - 2004 }
-{ (c) Ruhr University of Bochum 2005 - 2021 }
+{ (c) Ruhr University of Bochum 2005 - 2026 }
 
 { Handler for measurements and readings }
 
@@ -76,6 +76,7 @@ var
   a: TReading;
 begin
   a.Value := 13;
+  a.flag := equal;
   Assertequals('13', a.Text);
   a.Value := -3.14;
   Assertequals('-3', LeftStr(a.Text, 2));  // skips decimal separator, which

@@ -7,9 +7,9 @@ object MetronTesterMainForm: TMetronTesterMainForm
   ClientHeight = 146
   ClientWidth = 488
   Menu = MainMenu1
-  OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
   object PlusButton: TButton
     Left = 144
     Height = 25
@@ -17,10 +17,10 @@ object MetronTesterMainForm: TMetronTesterMainForm
     Top = 32
     Width = 75
     Caption = '+'
-    OnClick = PlusButtonClick
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
+    OnClick = PlusButtonClick
   end
   object TimesButton: TButton
     Left = 144
@@ -29,10 +29,10 @@ object MetronTesterMainForm: TMetronTesterMainForm
     Top = 78
     Width = 75
     Caption = '*'
-    OnClick = TimesButtonClick
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
+    OnClick = TimesButtonClick
   end
   object MinusButton: TButton
     Left = 264
@@ -41,10 +41,10 @@ object MetronTesterMainForm: TMetronTesterMainForm
     Top = 32
     Width = 75
     Caption = '-'
-    OnClick = MinusButtonClick
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
+    OnClick = MinusButtonClick
   end
   object DivButton: TButton
     Left = 264
@@ -53,14 +53,14 @@ object MetronTesterMainForm: TMetronTesterMainForm
     Top = 78
     Width = 75
     Caption = '/'
-    OnClick = DivButtonClick
     ParentShowHint = False
     ShowHint = True
     TabOrder = 3
+    OnClick = DivButtonClick
   end
   object InputEdit1: TLabeledEdit
     Left = 24
-    Height = 22
+    Height = 21
     Hint = 'Please enter number or range A here'
     Top = 27
     Width = 80
@@ -75,7 +75,7 @@ object MetronTesterMainForm: TMetronTesterMainForm
   end
   object InputEdit2: TLabeledEdit
     Left = 24
-    Height = 22
+    Height = 21
     Hint = 'Please enter number or range B here'
     Top = 88
     Width = 80
@@ -90,7 +90,7 @@ object MetronTesterMainForm: TMetronTesterMainForm
   end
   object ResultEdit: TLabeledEdit
     Left = 375
-    Height = 22
+    Height = 21
     Hint = 'Result of calculation'
     Top = 56
     Width = 80
