@@ -21,7 +21,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="26"/>
+      <BuildNr Value="27"/>
       <Attributes pvaDebug="True" pvaPreRelease="True"/>
       <StringTable Comments="MetronTester" CompanyName="FORMATIO RETICULARIS" FileDescription="Demo program for PUMA&apos;s Metro Library" InternalName="Atlas" LegalCopyright="© 1994-2026 J. W. Dietrich, FORMATIO RETICULARIS and Ruhr University of Bochum" LegalTrademarks="PUMA Repository" OriginalFilename="MetronTester" ProductName="Metron" ProductVersion="1.0"/>
     </VersionInfo>

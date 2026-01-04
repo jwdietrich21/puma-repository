@@ -560,6 +560,43 @@ begin
   c := a / b;
   AssertTrue(c.flag = above);
   Assertequals(5, c.Value);
+
+  a.Text := '4';
+  b.Text := '2';
+  c := a / b;
+  AssertTrue(c.flag = equal);
+  Assertequals(2, c.Value);
+
+  a.Text := '-4';
+  b.Text := '2';
+  c := a / b;
+  AssertTrue(c.flag = equal);
+  Assertequals(-2, c.Value);
+
+  a.Text := '<4';
+  b.Text := '2';
+  c := a / b;
+  AssertTrue(c.flag = below);
+  Assertequals(2, c.Value);
+
+  a.Text := '<-4';
+  b.Text := '2';
+  c := a / b;
+  AssertTrue(c.flag = below);
+  Assertequals(-2, c.Value);
+
+  a.Text := '>4';
+  b.Text := '2';
+  c := a / b;
+  AssertTrue(c.flag = above);
+  Assertequals(2, c.Value);
+
+  a.Text := '>-4';
+  b.Text := '2';
+  c := a / b;
+  AssertTrue(c.flag = above);
+  Assertequals(-2, c.Value);
+
 end;
 
 
