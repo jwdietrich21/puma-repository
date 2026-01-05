@@ -31,7 +31,7 @@ unit MetronTestCases;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, Metron;
+  Classes, SysUtils, fpcunit, testutils, testregistry, Math, Metron;
 
 type
 
@@ -52,6 +52,14 @@ type
     procedure SubtractionTest;
     procedure MultiplicationTest;
     procedure DivisionTest;
+  end;
+
+  { CompoundTestCases }
+
+  CompoundTestCases = class(TTestCase)
+  published
+    procedure MonodTest;
+    procedure NonCompetitiveTest;
   end;
 
 implementation
@@ -292,6 +300,19 @@ begin
   c := a + b;
   AssertTrue(c.flag = above);
   Assertequals(-12, c.Value);
+
+  a.flag := below;
+  a.value := 2;
+  c := 1 + a;
+  AssertTrue(c.flag = below);
+  Assertequals(3, c.Value);
+
+  a.flag := above;
+  a.value := 2;
+  c := a + 1;
+  AssertTrue(c.flag = above);
+  Assertequals(3, c.Value);
+
 end;
 
 procedure ReadingsTestCases.SubtractionTest;
@@ -599,10 +620,64 @@ begin
 
 end;
 
+{ CompoundTestCases }
+
+procedure CompoundTestCases.MonodTest;
+{ Monod equation, e. g. for Michaelis-Menten kinetics }
+var
+  G, D, x, y: TReading;
+begin
+  G.flag := equal;
+  G.Value := 5;
+  D.flag := equal;
+  D.Value := 2;
+  x.flag := equal;
+  x.Value := 2;
+  y := G * x / (D + x);
+  AssertTrue(y.flag = equal);
+  AssertEquals(y.Value, G.Value / 2);
+
+  x.Text := '<2';
+  y := G * x / (D + x);
+  AssertTrue(y.flag = equal);
+  AssertEquals(y.Value, Math.NaN);
+
+  x.Text := '2';
+  G.Text := '>5';
+  y := G * x / (D + x);
+  AssertTrue(y.flag = above);
+  AssertEquals(y.Value, G.Value / 2);
+
+  G.Text := '5';
+  D.Text := '<2';
+  y := G * x / (D + x);
+  AssertTrue(y.flag = above);
+  AssertEquals(y.Value, G.Value / 2);
+end;
+
+procedure CompoundTestCases.NonCompetitiveTest;
+{ Non-competitive inhibition }
+var
+  G, L, x, y: TReading;
+begin
+  G.flag := equal;
+  G.Value := 5;
+  L.flag := equal;
+  L.Value := 2;
+  x.flag := equal;
+  x.Value := 2;
+  y := G / (1 + L * x);
+  AssertTrue(y.flag = equal);
+  AssertEquals(y.Value, 1);
+
+end;
+
 
 initialization
 
   RegisterTest(TControlTestCases);
   RegisterTest(ReadingsTestCases);
+  RegisterTest(CompoundTestCases);
+
 end.
 

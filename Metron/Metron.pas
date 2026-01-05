@@ -68,6 +68,8 @@ type
   end;
 
 operator +(const a: TReading; const b: TReading): TReading;
+operator +(const a: double; const b: TReading): TReading;
+operator +(const a: TReading; const b: double): TReading;
 operator -(const a: TReading; const b: TReading): TReading;
 operator *(const a: TReading; const b: TReading): TReading;
 operator /(const a: TReading; const b: TReading): TReading;
@@ -131,6 +133,24 @@ begin
     Result.flag := below
   else if (a.flag = above) or (b.flag = above) then
     Result.flag := above;
+end;
+
+function sum(a: double; b: TReading): TReading;
+var
+  temp: TReading;
+begin
+  temp.flag := equal;
+  temp.Value := a;
+  result := sum(temp, b);
+end;
+
+function sum(a: TReading; b: double): TReading;
+var
+  temp: TReading;
+begin
+  temp.flag := equal;
+  temp.Value := b;
+  result := sum(a, temp);
 end;
 
 function diff(a, b: TReading): TReading;
@@ -313,6 +333,16 @@ begin
 end;
 
 operator +(const a: TReading; const b: TReading): TReading;
+begin
+  Result := sum(a, b);
+end;
+
+operator + (const a: double; const b: TReading): TReading;
+begin
+  Result := sum(a, b);
+end;
+
+operator + (const a: TReading; const b: double): TReading;
 begin
   Result := sum(a, b);
 end;
